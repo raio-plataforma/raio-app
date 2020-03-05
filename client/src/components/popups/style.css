@@ -1,0 +1,13 @@
+.button.is-link{
+  background-color: #6f0000;
+}
+
+.button.is-danger{
+  background-color: #200122;
+}
+
+.title.is-5{
+  color:#fc9b44;
+}
+
+/* TODO: Colocar isso direto no button */
