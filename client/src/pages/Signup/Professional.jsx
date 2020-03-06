@@ -94,13 +94,7 @@ const Professionals = () => {
           register={register} 
           list={functions} 
         />
-
-<TransferList 
-          label="Em qual segmento?"
-          name="identitySegments"
-          register={register} 
-          list={identitySegments} 
-        />
+        
           <Radios
             label="PcD (Pessoa com deficiência)"
             error={errors.pcd && errors.pcd.message}

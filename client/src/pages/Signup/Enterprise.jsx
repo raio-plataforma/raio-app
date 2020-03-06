@@ -13,12 +13,7 @@ import Select from '../../components/Select'
 import InputText from '../../components/InputText'
 import { Error } from '../../components/Status'
 
-import InputText from '../../components/InputText'
-import Button from '../../comps/Button'
 import TextField from '@material-ui/core/TextField';
-import Checkboxes from '../../components/Checkboxes'
-import Radios from '../../components/Radios'
-import Select from '../../components/Select'
 import ChipOptions from '../../comps/ChipOptions'
 import TransferList from '../../comps/TransferList'
 import Switch from '../../comps/Switch'
