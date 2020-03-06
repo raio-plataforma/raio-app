@@ -108,7 +108,6 @@ const Professionals = () => {
             name="pcd"
           />
           
-          <Switch label="bla" name='blahh' />
 
           <Select
             label="Estado de origem"
