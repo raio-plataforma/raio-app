@@ -14,7 +14,7 @@ const Select = (
     isLoading = false,
   }) => (
     <div className="field">
-      <Typography color="primary">{label}</Typography>
+      <Typography color="primary" variant="h6">{label}</Typography>
       <div className="control">
         <div className={`select ${error ? "is-focused is-danger" : ""} ${isLoading ? "is-loading" : ""}`}>
           <select name={name} ref={register}>
