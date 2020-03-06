@@ -4,8 +4,10 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
 import uuid from 'uuid'
 
+import InputText from '../../components/InputText'
 import Button from '../../comps/Button'
 import TextField from '@material-ui/core/TextField';
+import Checkboxes from '../../components/Checkboxes'
 import Radios from '../../components/Radios'
 import Select from '../../components/Select'
 import ChipOptions from '../../comps/ChipOptions'
@@ -41,8 +43,8 @@ const Professionals = () => {
       birthday: data.birthday,
       cnpj_type: data.cnpjType,
       identity_content: data.identityContent,
-      identity_segments: formatCheckboxFields(data.identitySegments),
-      expertise_areas: splitData(data.expertiseAreas),
+      identity_segments: data.identitySegments,
+      expertise_areas: data.expertiseAreas,
       apan_associate: data.apanAssociate,
       formation_institution: data.formationInstitution,
       home_state: data.homeState,
@@ -85,11 +87,19 @@ const Professionals = () => {
           })}
         />
         
+        
         <TransferList 
           label="Áreas de atuação" 
           name="expertiseAreas" 
           register={register} 
           list={functions} 
+        />
+
+<TransferList 
+          label="Em qual segmento?"
+          name="identitySegments"
+          register={register} 
+          list={identitySegments} 
         />
           <Radios
             label="PcD (Pessoa com deficiência)"
@@ -98,7 +108,7 @@ const Professionals = () => {
             name="pcd"
           />
           
-          {/* <Switch label="bla" name='blahh' /> */}
+          <Switch label="bla" name='blahh' />
 
           <Select
             label="Estado de origem"
@@ -123,17 +133,6 @@ const Professionals = () => {
               <option value={item.id} key={item.id}>{item.name}</option>
             )}
           </Select>
-
-          {/* <InputText
-            name="city"
-            type="text"
-            register={register({
-              required: 'Esse campo é obrigatório',
-            })}
-            label="Cidade de Residência"
-            placeholder="Cidade"
-            error={errors.city && errors.city.message}
-          /> */}
 
         <TextField
           label="Cidade de Residência"
@@ -212,13 +211,6 @@ const Professionals = () => {
             name="identityContent"
           />
 
-          {/* <Checkboxes
-            label="Se sim, em qual segmento?"
-            register={register}
-            fields={identitySegments}
-            name="identitySegments" */}
-          />
-
         <TransferList 
           label="Em qual segmento?"
           name="identitySegments"
@@ -226,34 +218,12 @@ const Professionals = () => {
           list={identitySegments} 
         />
 
-          {/* <Checkboxes
-            label="Áreas de atuação"
-            register={register}
-            fields={functions}
-            name="expertiseAreas"
-          /> */}
-
-          <Radios
-            label="É associado(a) da APAN"
-            error={errors.apanAssociate && errors.apanAssociate.message}
-            onChange={e => handleRadio('apanAssociate', e.target.value)}
-            name="apanAssociate"
-          />
-
-          {/* <Textarea
-            label="Mini Bio"
-            placeholder="Insira uma apresentação sua"
-            rows={5}
-            error={errors.bio && errors.bio.message}
-            name="bio"
-            register={register({
-              required: 'Esse campo é obrigatório',
-              minLength: {
-                value: 15,
-                message: 'Apresentação curta demais'
-              }
-            })}
-          /> */}
+        <Radios
+          label="É associado(a) da APAN"
+          error={errors.apanAssociate && errors.apanAssociate.message}
+          onChange={e => handleRadio('apanAssociate', e.target.value)}
+          name="apanAssociate"
+        />
 
         <TextField
           id="filled-multiline-static"
@@ -274,9 +244,7 @@ const Professionals = () => {
           })}
         />
 
-        
-
-          <FormHelperText error>{registerError && registerError.professional}</FormHelperText>
+        <FormHelperText error>{registerError && registerError.professional}</FormHelperText>
           <Button 
             type="submit"
             variant="contained"
