@@ -1,6 +1,5 @@
 import React from "react"
 import PropTypes from 'prop-types'
-import Label from './Label'
 import Typography from '@material-ui/core/Typography'
 
 const Select = (

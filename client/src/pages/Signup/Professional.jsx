@@ -5,14 +5,14 @@ import Typography from '@material-ui/core/Typography'
 import uuid from 'uuid'
 
 import InputText from '../../components/InputText'
-import Button from '../../components/Button'
+import Button from '../../comps/Button'
 import Textarea from '../../components/Textarea'
 import Checkboxes from '../../components/Checkboxes'
 import Radios from '../../components/Radios'
 import Select from '../../components/Select'
 import ChipOptions from '../../comps/ChipOptions'
 import TransferList from '../../comps/TransferList'
-import { Error } from '../../components/Status'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
 import states from '../../assets/states.json'
 import {
@@ -74,25 +74,15 @@ const Professionals = () => {
           component="h2">
           Formulário de Cadastro de Profissional
         </Typography>
-        <ChipOptions name="links" label="Links" />
+        
         <TransferList label="Áreas de atuação" name="expertiseAreas" list={functions} />
-          {/* <Radios
+          <Radios
             label="PcD (Pessoa com deficiência)"
             error={errors.pcd && errors.pcd.message}
             onChange={e => handleRadio('pcd', e.target.value)}
             name="pcd"
-          /> */}
-          {/* <FormControlLabel
-            control={
-              <Switch 
-                inputRef={register}
-                checked={state.checkedA}
-                onChange={e => handleRadio('pcd', e.target.value)}
-                name="pcd"
-              />
-            }
-            label="PcD (Pessoa com deficiência)"
-          /> */}
+          />
+          
           {/* <Datepicker /> */}
 
           <Select
@@ -228,24 +218,24 @@ const Professionals = () => {
             })}
           />
 
-          <Textarea
-            label="Links para IMDB, currículo, portfólio, reel e outros"
-            placeholder="Insira aqui links"
-            rows={5}
-            error={errors.links && errors.links.message}
-            name="links"
-            register={register({
-              required: 'Esse campo é obrigatório',
-              minLength: {
-                value: 10,
-                message: 'Insira pelo menos um link'
-              }
-            })}
-          />
+        <ChipOptions 
+          name="links" 
+          label="Links para IMDB, currículo, portfólio, reel e outros" 
+          error={errors.links && errors.links.message}
+          register={register({
+            required: 'Esse campo é obrigatório',
+            minLength: {
+              value: 10,
+              message: 'Insira pelo menos um link'
+            }
+          })}
+        />
 
-          <Error msg={registerError && registerError.professional} />
-
-          <Button type="submit">
+          <FormHelperText error>{registerError && registerError.professional}</FormHelperText>
+          <Button 
+            type="submit"
+            variant="contained"
+          >
             Enviar
           </Button>
         </form>

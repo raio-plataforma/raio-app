@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     width: 300,
     height: 500,
     overflow: 'auto',
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: '#6f0000'
   },
   button: {
     margin: theme.spacing(0.5, 0),
