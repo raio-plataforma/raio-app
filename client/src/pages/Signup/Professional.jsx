@@ -87,7 +87,6 @@ const Professionals = () => {
           })}
         />
         
-        
         <TransferList 
           label="Áreas de atuação" 
           name="expertiseAreas" 

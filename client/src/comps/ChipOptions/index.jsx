@@ -47,6 +47,7 @@ const ChipOptions = ({ register, name, label, error }) => {
             value={txtValue}
             error={error}
             onChange={(e) => addValue(e.target.value)}
+            onBlur={(e) => addValue(e.target.value)}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
