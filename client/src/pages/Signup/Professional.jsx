@@ -4,14 +4,13 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
 import uuid from 'uuid'
 
-import InputText from '../../components/InputText'
 import Button from '../../comps/Button'
-import Textarea from '../../components/Textarea'
-import Checkboxes from '../../components/Checkboxes'
+import TextField from '@material-ui/core/TextField';
 import Radios from '../../components/Radios'
 import Select from '../../components/Select'
 import ChipOptions from '../../comps/ChipOptions'
 import TransferList from '../../comps/TransferList'
+import Switch from '../../comps/Switch'
 import FormHelperText from '@material-ui/core/FormHelperText'
 
 import states from '../../assets/states.json'
@@ -35,7 +34,7 @@ const Professionals = () => {
 
   const registerUser = useStoreActions(actions => actions.register.registerProfessional)
   const registerError = useStoreState(state => state.register.error)
-
+  const splitData = data => data.split(',')
   const onSubmit = (data) => {
     const formatted = {
       ...data,
@@ -43,15 +42,13 @@ const Professionals = () => {
       cnpj_type: data.cnpjType,
       identity_content: data.identityContent,
       identity_segments: formatCheckboxFields(data.identitySegments),
-      expertise_areas: formatCheckboxFields(data.expertiseAreas),
+      expertise_areas: splitData(data.expertiseAreas),
       apan_associate: data.apanAssociate,
       formation_institution: data.formationInstitution,
       home_state: data.homeState,
       type: 'professional'
     }
-    console.log(formatted)
     registerUser(formatted)
-    debugger;
   }
 
   const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
@@ -64,7 +61,7 @@ const Professionals = () => {
   }, [register]);
 
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
-
+  console.log('id', identitySegments, functions)
   return (
     <Background className="container center">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -74,8 +71,26 @@ const Professionals = () => {
           component="h2">
           Formulário de Cadastro de Profissional
         </Typography>
+
+        <ChipOptions 
+          name="links" 
+          label="Links para IMDB, currículo, portfólio, reel e outros" 
+          error={errors.links && errors.links.message}
+          register={register({
+            required: 'Esse campo é obrigatório',
+            minLength: {
+              value: 10,
+              message: 'Insira pelo menos um link'
+            }
+          })}
+        />
         
-        <TransferList label="Áreas de atuação" name="expertiseAreas" list={functions} />
+        <TransferList 
+          label="Áreas de atuação" 
+          name="expertiseAreas" 
+          register={register} 
+          list={functions} 
+        />
           <Radios
             label="PcD (Pessoa com deficiência)"
             error={errors.pcd && errors.pcd.message}
@@ -83,7 +98,7 @@ const Professionals = () => {
             name="pcd"
           />
           
-          {/* <Datepicker /> */}
+          <Switch label="bla" name='blahh' />
 
           <Select
             label="Estado de origem"
@@ -109,7 +124,7 @@ const Professionals = () => {
             )}
           </Select>
 
-          <InputText
+          {/* <InputText
             name="city"
             type="text"
             register={register({
@@ -118,18 +133,31 @@ const Professionals = () => {
             label="Cidade de Residência"
             placeholder="Cidade"
             error={errors.city && errors.city.message}
-          />
+          /> */}
 
-          <InputText
-            name="address"
-            type="text"
-            register={register({
-              required: 'Esse campo é obrigatório',
-            })}
-            label="Endereço"
-            placeholder="Insira seu endereço atual"
-            error={errors.address && errors.address.message}
-          />
+        <TextField
+          label="Cidade de Residência"
+          error={errors.city}
+          helperText={errors.city && errors.city.message}
+          fullWidth
+          name="city"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
+
+        <TextField
+          label="Endereço"
+          error={errors.address}
+          helperText={errors.address && errors.address.message}
+          fullWidth
+          name="address"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
 
           <Select
             label="Formação"
@@ -143,16 +171,18 @@ const Professionals = () => {
             )}
           </Select>
 
-          <InputText
-            name="formationInstitution"
-            type="text"
-            register={register({
-              required: 'Esse campo é obrigatório',
-            })}
-            label="Qual foi a instituição ou processo de formação? "
-            placeholder="Insira sua instituição de formação"
-            error={errors.formationInstitution && errors.formationInstitution.message}
-          />
+         
+        <TextField
+          label="Qual foi a instituição ou processo de formação? "
+          error={errors.formationInstitution}
+          helperText={errors.formationInstitution && errors.formationInstitution.message}
+          fullWidth
+          name="formationInstitution"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
 
           <Radios
             label="Possui CNPJ"
@@ -182,19 +212,26 @@ const Professionals = () => {
             name="identityContent"
           />
 
-          <Checkboxes
+          {/* <Checkboxes
             label="Se sim, em qual segmento?"
             register={register}
             fields={identitySegments}
-            name="identitySegments"
+            name="identitySegments" */}
           />
 
-          <Checkboxes
+        <TransferList 
+          label="Em qual segmento?"
+          name="identitySegments"
+          register={register} 
+          list={identitySegments} 
+        />
+
+          {/* <Checkboxes
             label="Áreas de atuação"
             register={register}
             fields={functions}
             name="expertiseAreas"
-          />
+          /> */}
 
           <Radios
             label="É associado(a) da APAN"
@@ -203,7 +240,7 @@ const Professionals = () => {
             name="apanAssociate"
           />
 
-          <Textarea
+          {/* <Textarea
             label="Mini Bio"
             placeholder="Insira uma apresentação sua"
             rows={5}
@@ -216,20 +253,28 @@ const Professionals = () => {
                 message: 'Apresentação curta demais'
               }
             })}
-          />
+          /> */}
 
-        <ChipOptions 
-          name="links" 
-          label="Links para IMDB, currículo, portfólio, reel e outros" 
-          error={errors.links && errors.links.message}
-          register={register({
+        <TextField
+          id="filled-multiline-static"
+          label="Mini Bio"
+          multiline
+          rows="5"
+          error={errors.bio}
+          helperText={errors.bio && errors.bio.message}
+          fullWidth
+          name="bio"
+          variant="filled"
+          inputRef={register({
             required: 'Esse campo é obrigatório',
             minLength: {
-              value: 10,
-              message: 'Insira pelo menos um link'
+              value: 15,
+              message: 'Apresentação curta demais'
             }
           })}
         />
+
+        
 
           <FormHelperText error>{registerError && registerError.professional}</FormHelperText>
           <Button 

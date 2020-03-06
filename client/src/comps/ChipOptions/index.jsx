@@ -38,12 +38,14 @@ const ChipOptions = ({ register, name, label, error }) => {
         value={list}
         ref={register}
       />
-      <FormControl >
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+      <FormControl>
+          <InputLabel htmlFor="outlined-adornment-password">{label}</InputLabel>
           <FilledInput
             id="outlined-adornment-password"
             type='text'
+            color="primary"
             value={txtValue}
+            error={error}
             onChange={(e) => addValue(e.target.value)}
             endAdornment={
               <InputAdornment position="end">
@@ -57,6 +59,7 @@ const ChipOptions = ({ register, name, label, error }) => {
             }
             labelWidth={70}
           />
+          {error && <FormHelperText error>{error}</FormHelperText>}
         </FormControl>
       <div className="chip-group">
         {
