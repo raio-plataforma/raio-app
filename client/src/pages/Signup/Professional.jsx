@@ -1,15 +1,17 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
+import Typography from '@material-ui/core/Typography'
 import uuid from 'uuid'
 
 import InputText from '../../components/InputText'
-import Flexbox from '../../components/Flexbox'
 import Button from '../../components/Button'
 import Textarea from '../../components/Textarea'
 import Checkboxes from '../../components/Checkboxes'
 import Radios from '../../components/Radios'
 import Select from '../../components/Select'
+import ChipOptions from '../../comps/ChipOptions'
+import TransferList from '../../comps/TransferList'
 import { Error } from '../../components/Status'
 
 import states from '../../assets/states.json'
@@ -37,7 +39,7 @@ const Professionals = () => {
   const onSubmit = (data) => {
     const formatted = {
       ...data,
-      birthday: '22/01/1998',
+      birthday: data.birthday,
       cnpj_type: data.cnpjType,
       identity_content: data.identityContent,
       identity_segments: formatCheckboxFields(data.identitySegments),
@@ -49,6 +51,7 @@ const Professionals = () => {
     }
     console.log(formatted)
     registerUser(formatted)
+    debugger;
   }
 
   const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
@@ -63,17 +66,33 @@ const Professionals = () => {
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
 
   return (
-    <Background>
-      <Flexbox justify="center">
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Title>Formulário de Cadastro de Profissional</Title>
-          
-          <Radios
+    <Background className="container center">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Typography
+          color="primary"
+          variant="h3"
+          component="h2">
+          Formulário de Cadastro de Profissional
+        </Typography>
+        <ChipOptions name="links" label="Links" />
+        <TransferList label="Áreas de atuação" name="expertiseAreas" list={functions} />
+          {/* <Radios
             label="PcD (Pessoa com deficiência)"
             error={errors.pcd && errors.pcd.message}
             onChange={e => handleRadio('pcd', e.target.value)}
             name="pcd"
-          />
+          /> */}
+          {/* <FormControlLabel
+            control={
+              <Switch 
+                inputRef={register}
+                checked={state.checkedA}
+                onChange={e => handleRadio('pcd', e.target.value)}
+                name="pcd"
+              />
+            }
+            label="PcD (Pessoa com deficiência)"
+          /> */}
           {/* <Datepicker /> */}
 
           <Select
@@ -229,8 +248,7 @@ const Professionals = () => {
           <Button type="submit">
             Enviar
           </Button>
-        </Form>
-      </Flexbox>
+        </form>
     </Background>
   )
 }
