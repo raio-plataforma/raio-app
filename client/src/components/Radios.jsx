@@ -29,7 +29,7 @@ const InputLabel = styled(Text)`
 
 const Radios = ({ label, error, onChange, name }) => (
   <div className="field">
-    <Typography color="secondary" variant="h6">{label}</Typography>
+    <Typography color="primary">{label}</Typography>
     <Wrapper>
       {['sim', 'não'].map(item => (
         <StyledRadio className="radio" key={uuid()}>

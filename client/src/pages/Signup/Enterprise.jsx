@@ -133,16 +133,17 @@ const Enterprise = () => {
             )}
           </Select>
 
-          <InputText
-            name="city"
-            type="text"
-            register={register({
-              required: 'Esse campo é obrigatório',
-            })}
-            label="Cidade"
-            placeholder="Insira o nome da sua cidade"
-            error={errors.city && errors.city.message}
-          />
+        <TextField
+          label="Cidade"
+          error={errors.city}
+          helperText={errors.city && errors.city.message}
+          fullWidth
+          name="city"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
 
           <Checkboxes
             label="Outros estados que a empresa tem atuação"
@@ -150,6 +151,7 @@ const Enterprise = () => {
             fields={states}
             name="otherStates"
           />
+          
           <Checkboxes
             label="Segmento de atuação"
             register={register}

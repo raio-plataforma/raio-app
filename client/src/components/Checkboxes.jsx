@@ -31,7 +31,7 @@ const Checkbox = styled.input`
 
 const Checkboxes = ({ label, register, name, fields }) => (
   <div className="field">
-    <Typography color="secondary" variant="h6">{label}</Typography>
+    <Typography color="primary" variant="h6">{label}</Typography>
     <Wrapper>
       {fields.map(item => {
         const checkedItem = typeof item !== 'string' ? item.name : item
