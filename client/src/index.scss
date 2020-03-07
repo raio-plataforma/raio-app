@@ -9,13 +9,11 @@ body {
       min-height: 100vh;
     }
 
-    .container {
-      display: flex;
-      min-height: 3.25rem;
-      width: 100%;
-      flex-grow: 1;
-      margin: 0 auto;
-      position: relative;
+    td {
+      max-width: 300px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
+    
   }
 }
