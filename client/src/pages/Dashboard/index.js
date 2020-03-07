@@ -113,7 +113,7 @@ const Dashboard = () => {
       <Modal
         isOpen={modalBoasVindas}
         onClose={() => setModalBoasVindas(false)}
-        width="500px"
+        width="300px"
       >
         <BoasVindas />
       </Modal>

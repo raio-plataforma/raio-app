@@ -12,7 +12,7 @@ import Radios from '../../components/Radios'
 import Select from '../../components/Select'
 import ChipOptions from '../../comps/ChipOptions'
 import TransferList from '../../comps/TransferList'
-import Switch from '../../comps/Switch'
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormHelperText from '@material-ui/core/FormHelperText'
 
 import states from '../../assets/states.json'
@@ -21,6 +21,7 @@ import {
   registryTypes,
   formations,
   identitySegments,
+  separated_functions
 } from './dicioFields'
 import { formatCheckboxFields } from '../../utils/service'
 
@@ -40,7 +41,7 @@ const Professionals = () => {
   const onSubmit = (data) => {
     const formatted = {
       ...data,
-      birthday: data.birthday,
+      birthday: '12/12/1998',
       cnpj_type: data.cnpjType,
       identity_content: data.identityContent,
       identity_segments: data.identitySegments,
@@ -63,7 +64,6 @@ const Professionals = () => {
   }, [register]);
 
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
-  console.log('id', identitySegments, functions)
   return (
     <Background className="container center">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,32 +87,37 @@ const Professionals = () => {
           })}
         />
         
-        <TransferList 
-          label="Áreas de atuação" 
-          name="expertiseAreas" 
-          register={register} 
-          list={functions} 
-        />
+        <Typography variant="h6">Áreas de atuação</Typography>
+        {
+          separated_functions.map((groups, index) => (
+            <Checkboxes
+              key={index}
+              label={groups.title}
+              register={register}
+              fields={groups.list}
+              name="expertiseAreas"
+            />
+          ))
+        }     
         
-          <Radios
-            label="PcD (Pessoa com deficiência)"
-            error={errors.pcd && errors.pcd.message}
-            onChange={e => handleRadio('pcd', e.target.value)}
-            name="pcd"
-          />
+        <Radios
+          label="PcD (Pessoa com deficiência)"
+          error={errors.pcd && errors.pcd.message}
+          onChange={e => handleRadio('pcd', e.target.value)}
+          name="pcd"
+        />
           
-
-          <Select
-            label="Estado de origem"
-            error={errors.homeState && errors.homeState.message}
-            name="homeState"
-            firstValue="Estado de origem"
-            register={register}
-          >
-            {states.map(item =>
-              <option value={item.id} key={item.id}>{item.name}</option>
-            )}
-          </Select>
+        <Select
+          label="Estado de origem"
+          error={errors.homeState && errors.homeState.message}
+          name="homeState"
+          firstValue="Estado de origem"
+          register={register}
+        >
+          {states.map(item =>
+            <option value={item.id} key={item.id}>{item.name}</option>
+          )}
+        </Select>
 
           <Select
             label="Estado"

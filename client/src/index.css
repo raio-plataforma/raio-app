@@ -1,0 +1,7 @@
+body {
+    background: linear-gradient(101deg,#6f0000 0%,rgb(65,1,20) 60%); 
+  }
+
+  body > #root > div {
+    min-height: 100vh;
+  }

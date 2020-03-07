@@ -16,23 +16,24 @@ export const formations = ["Autodidata", "ONG ou Instituição Cultural", "Forma
 
 export const cnpj_type = ["EIRELI", "LTDA", "ME", "MEI", "S.A"]
 
-export const separated_functions = [{
-    title: 'DESENVOLVIMENTO',
-    functions: ["Consultoria de Roteiro", "Pesquisa","Produçāo Executiva","Produçāo de Conteúdo", "Roteiro"]
-},
-{
-    title: 'PRODUÇĀO',
-    functions: ["Assistência de direção","Assistência de câmera", "Assistência de Maquinária","Assistência de som",
-    "Caracterizaçāo", "Cenografia", "Chefia de Elétrica  | Gaffer", "Chefia de Maquinária", "Continuidade", "Controller",
-    "Direçāo", "Direçāo de Arte", "Direçāo de Fotografia", "Direçāo de Produção", "DIT | Técnico de Imagem Digital - TID",
-    "Eletricista de Pré- Light", "Figurino", "GMA | Logger", "Operaçāo de Video Assistente", "Operaçāo de Câmera", "Platô",
-    "Preparaçāo de Elenco", "Produçāo de Elenco", "Produçāo de Arte", "Produçāo de Objetos", "Still", "StoryBoard",
-    "Supervisāo de Efeitos Especiais", "Técnica de som "]
-},
-{
-    title: 'PÓS-PRODUÇÃO',
-    functions: ["Animaçāo", "Assistência  de edição ", "Composiçāo Musical", "Correção de Cor",
-   "Ediçāo On-line","Ediçāo de Som","Ediçāo","Legendagem","Supervisāo de Efeitos Visuais",
-   "Supervisāo de Pós-Produção", "Supervisāo  Musical "]
-},
+export const separated_functions = [
+  {
+      title: 'DESENVOLVIMENTO',
+      list: ["Consultoria de Roteiro", "Pesquisa","Produçāo Executiva","Produçāo de Conteúdo", "Roteiro"]
+  },
+  {
+      title: 'PRODUÇĀO',
+      list: ["Assistência de direção","Assistência de câmera", "Assistência de Maquinária","Assistência de som",
+      "Caracterizaçāo", "Cenografia", "Chefia de Elétrica  | Gaffer", "Chefia de Maquinária", "Continuidade", "Controller",
+      "Direçāo", "Direçāo de Arte", "Direçāo de Fotografia", "Direçāo de Produção", "DIT | Técnico de Imagem Digital - TID",
+      "Eletricista de Pré- Light", "Figurino", "GMA | Logger", "Operaçāo de Video Assistente", "Operaçāo de Câmera", "Platô",
+      "Preparaçāo de Elenco", "Produçāo de Elenco", "Produçāo de Arte", "Produçāo de Objetos", "Still", "StoryBoard",
+      "Supervisāo de Efeitos Especiais", "Técnica de som"]
+  },
+  {
+      title: 'PÓS-PRODUÇÃO',
+      list: ["Animaçāo", "Assistência  de edição ", "Composiçāo Musical", "Correção de Cor",
+      "Ediçāo On-line","Ediçāo de Som","Ediçāo","Legendagem","Supervisāo de Efeitos Visuais",
+      "Supervisāo de Pós-Produção", "Supervisāo  Musical"]
+  },
 ]
