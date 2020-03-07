@@ -105,7 +105,7 @@ const Professionals = () => {
           error={errors.pcd && errors.pcd.message}
           onChange={e => handleRadio('pcd', e.target.value)}
           name="pcd"
-          register={register}
+
 
         />
 
