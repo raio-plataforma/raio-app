@@ -62,6 +62,9 @@ export const WrapperResultSearch = styled.div`
 
   .chips-group {
     display: flex;
+    > * {
+      margin: 5px;
+    }
   }
 `;
 
