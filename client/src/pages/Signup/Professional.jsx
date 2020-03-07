@@ -102,7 +102,6 @@ const Professionals = () => {
 
         <Radios
           label="PcD (Pessoa com deficiência)"
-          error={errors.pcd && errors.pcd.message}
           onChange={e => handleRadio('pcd', e.target.value)}
           name="pcd"
 
@@ -162,7 +161,7 @@ const Professionals = () => {
           error={errors.education && errors.education.message}
           name="education"
           firstValue="Formação"
-          register={register}
+
         >
           {formations.map(item =>
             <option value={item} key={uuid()}>{item}</option>
@@ -177,15 +176,13 @@ const Professionals = () => {
           fullWidth
           name="formationInstitution"
           variant="filled"
-          inputRef={register({
-            required: 'Esse campo é obrigatório',
-          })}
+
         />
 
         <Radios
           label="Possui CNPJ"
           onChange={e => handleRadio('cnpj', e.target.value)}
-          error={errors.cnpj && errors.cnpj.message}
+          // error={errors.cnpj && errors.cnpj.message}
           name="cnpj"
         />
 
@@ -194,7 +191,7 @@ const Professionals = () => {
           error={errors.cnpjType && errors.cnpjType.message}
           name="cnpjType"
           firstValue="Tipo de CNPJ"
-          register={register}
+
         >
           {registryTypes.map(type => (
             <option value={type} key={uuid()}>
@@ -213,7 +210,7 @@ const Professionals = () => {
         <TransferList
           label="Em qual segmento?"
           name="identitySegments"
-          register={register}
+
           list={identitySegments}
         />
 

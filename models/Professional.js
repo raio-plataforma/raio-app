@@ -40,7 +40,6 @@ const ProfessionalSchema = new Schema({
   },
   education: {
     type: String,
-    required: true
   },
   formation_institution: {
     type: String,
