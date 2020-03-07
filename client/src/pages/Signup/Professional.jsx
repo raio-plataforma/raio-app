@@ -74,9 +74,9 @@ const Professionals = () => {
           Formulário de Cadastro de Profissional
         </Typography>
 
-        <ChipOptions 
-          name="links" 
-          label="Links para IMDB, currículo, portfólio, reel e outros" 
+        <ChipOptions
+          name="links"
+          label="Links para IMDB, currículo, portfólio, reel e outros"
           error={errors.links && errors.links.message}
           register={register({
             required: 'Esse campo é obrigatório',
@@ -86,7 +86,7 @@ const Professionals = () => {
             }
           })}
         />
-        
+
         <Typography variant="h6">Áreas de atuação</Typography>
         {
           separated_functions.map((groups, index) => (
@@ -98,15 +98,17 @@ const Professionals = () => {
               name="expertiseAreas"
             />
           ))
-        }     
-        
+        }
+
         <Radios
           label="PcD (Pessoa com deficiência)"
           error={errors.pcd && errors.pcd.message}
           onChange={e => handleRadio('pcd', e.target.value)}
           name="pcd"
+          register={register}
+
         />
-          
+
         <Select
           label="Estado de origem"
           error={errors.homeState && errors.homeState.message}
@@ -119,17 +121,17 @@ const Professionals = () => {
           )}
         </Select>
 
-          <Select
-            label="Estado"
-            error={errors.state && errors.state.message}
-            name="state"
-            firstValue="Estado"
-            register={register}
-          >
-            {states.map(item =>
-              <option value={item.id} key={item.id}>{item.name}</option>
-            )}
-          </Select>
+        <Select
+          label="Estado"
+          error={errors.state && errors.state.message}
+          name="state"
+          firstValue="Estado"
+          register={register}
+        >
+          {states.map(item =>
+            <option value={item.id} key={item.id}>{item.name}</option>
+          )}
+        </Select>
 
         <TextField
           label="Cidade de Residência"
@@ -155,19 +157,19 @@ const Professionals = () => {
           })}
         />
 
-          <Select
-            label="Formação"
-            error={errors.education && errors.education.message}
-            name="education"
-            firstValue="Formação"
-            register={register}
-          >
-            {formations.map(item =>
-              <option value={item} key={uuid()}>{item}</option>
-            )}
-          </Select>
+        <Select
+          label="Formação"
+          error={errors.education && errors.education.message}
+          name="education"
+          firstValue="Formação"
+          register={register}
+        >
+          {formations.map(item =>
+            <option value={item} key={uuid()}>{item}</option>
+          )}
+        </Select>
 
-         
+
         <TextField
           label="Qual foi a instituição ou processo de formação? "
           error={errors.formationInstitution}
@@ -180,39 +182,39 @@ const Professionals = () => {
           })}
         />
 
-          <Radios
-            label="Possui CNPJ"
-            onChange={e => handleRadio('cnpj', e.target.value)}
-            error={errors.cnpj && errors.cnpj.message}
-            name="cnpj"
-          />
+        <Radios
+          label="Possui CNPJ"
+          onChange={e => handleRadio('cnpj', e.target.value)}
+          error={errors.cnpj && errors.cnpj.message}
+          name="cnpj"
+        />
 
-          <Select
-            label="Se sim, qual o tipo do seu CNPJ ?"
-            error={errors.cnpjType && errors.cnpjType.message}
-            name="cnpjType"
-            firstValue="Tipo de CNPJ"
-            register={register}
-          >
-            {registryTypes.map(type => (
-              <option value={type} key={uuid()}>
-                {type}
-              </option>
-            ))}
-          </Select>
+        <Select
+          label="Se sim, qual o tipo do seu CNPJ ?"
+          error={errors.cnpjType && errors.cnpjType.message}
+          name="cnpjType"
+          firstValue="Tipo de CNPJ"
+          register={register}
+        >
+          {registryTypes.map(type => (
+            <option value={type} key={uuid()}>
+              {type}
+            </option>
+          ))}
+        </Select>
 
-          <Radios
-            label="Sua empresa é vocacionada para conteúdo identitário?"
-            onChange={e => handleRadio('identityContent', e.target.value)}
-            error={errors.identityContent && errors.identityContent.message}
-            name="identityContent"
-          />
+        <Radios
+          label="Sua empresa é vocacionada para conteúdo identitário?"
+          onChange={e => handleRadio('identityContent', e.target.value)}
+          error={errors.identityContent && errors.identityContent.message}
+          name="identityContent"
+        />
 
-        <TransferList 
+        <TransferList
           label="Em qual segmento?"
           name="identitySegments"
-          register={register} 
-          list={identitySegments} 
+          register={register}
+          list={identitySegments}
         />
 
         <Radios
@@ -242,13 +244,13 @@ const Professionals = () => {
         />
 
         <FormHelperText error>{registerError && registerError.professional}</FormHelperText>
-          <Button 
-            type="submit"
-            variant="contained"
-          >
-            Enviar
+        <Button
+          type="submit"
+          variant="contained"
+        >
+          Enviar
           </Button>
-        </form>
+      </form>
     </Background>
   )
 }

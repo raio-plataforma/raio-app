@@ -27,7 +27,7 @@ const InputLabel = styled(Text)`
   text-transform: capitalize;
 `
 
-const Radios = ({ label, error, onChange, name }) => (
+const Radios = ({ label, error, onChange, name, register }) => (
   <div className="field">
     <Typography color="primary">{label}</Typography>
     <Wrapper>
@@ -39,6 +39,7 @@ const Radios = ({ label, error, onChange, name }) => (
             onChange={onChange}
             value={item === 'sim'}
             name={name}
+            ref={register}
           />
           <Typography color="primary">{item}</Typography>
         </StyledRadio>
