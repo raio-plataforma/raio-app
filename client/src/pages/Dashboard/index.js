@@ -49,7 +49,7 @@ const Dashboard = () => {
       <Container className='header container clearfix et_menu_container'>
         <div className="container clearfix et_menu_container">
           <Profile
-            name={user.enterprise_name}
+            name={user.enterprise_name || user.name}
             icon={ userType.type === "enterprise" ?
               <Enterprise style={{ fontSize: 60 }} /> :
               <Person style={{ fontSize: 60 }} /> }
