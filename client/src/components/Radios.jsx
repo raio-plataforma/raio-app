@@ -39,6 +39,7 @@ const Radios = ({ label, error, onChange, name }) => (
             onChange={onChange}
             value={item === 'sim'}
             name={name}
+
           />
           <Typography color="primary">{item}</Typography>
         </StyledRadio>

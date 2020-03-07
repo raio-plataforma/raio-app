@@ -17,7 +17,6 @@ const ProfessionalSchema = new Schema({
   },
   pcd: {
     type: Boolean,
-    required: true
   },
   birthday: {
     type: String,
@@ -45,18 +44,15 @@ const ProfessionalSchema = new Schema({
   },
   formation_institution: {
     type: String,
-    required: true,
   },
   cnpj: {
     type: Boolean,
-    required: true
   },
   cnpj_type: {
     type: String,
   },
   identity_content: {
     type: Boolean,
-    required: true
   },
   identity_segments: {
     type: Array,
