@@ -18,6 +18,8 @@ import { isEmpty, getUserType } from '../utils/service'
 const Wrapper = styled.nav`
   background-color: #200122;
   padding: 5px;
+  z-index: 30;
+  position: relative;
 `
 
 const StyledLogo = styled.img`
