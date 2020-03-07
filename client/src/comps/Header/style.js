@@ -5,6 +5,7 @@ const Wrapper = styled.nav`
   background-color: #200122;
   padding: 5px;
   transition: .3s all ease-in-out;
+  display: flex;
   left: 0;
 
   &.opened {

@@ -13,6 +13,7 @@ const authModel = {
 
       // Set token to localStorage
       const { token } = res.data
+      console.log(token)
       localStorage.setItem('jwtToken', token)
   
       // Set token to auth header
@@ -47,6 +48,7 @@ const authModel = {
     }
     catch (err) {
       const error = err.response.data && err.response.data.login
+      console.log(error)
       return actions.setErrors(error)
     }
   }),
