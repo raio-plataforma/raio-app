@@ -106,10 +106,11 @@ const ResultSearchProfessionals = ({ data }) => {
 
       <Wrapper>
         <Typography component="h2" variant="h4">Resultado de busca de Profissionais</Typography>
-        
-        {
-          list.map(term => <Chip label={term} />)
-        }
+        <div className="chips-group">
+          {
+            list.map(term => <Chip label={term} />)
+          }
+        </div>
 
         <Group>
           

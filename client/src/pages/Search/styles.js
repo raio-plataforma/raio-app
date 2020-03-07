@@ -59,6 +59,10 @@ export const WrapperResultSearch = styled.div`
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
+
+  .chips-group {
+    display: flex;
+  }
 `;
 
 export const SearchResultEnterprise = styled.div`
