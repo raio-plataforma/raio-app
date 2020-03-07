@@ -17,6 +17,10 @@ const StyledBody = styled.div`
       color: #200122;
     }
   }
+
+  .MuiFormLabel-root {
+    color: #ef9448;
+  }
 `
 
 const AppBody = ({ children }) => {

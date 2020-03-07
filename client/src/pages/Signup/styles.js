@@ -20,6 +20,12 @@ export const Background = styled.div`
     font-weight: bold;
     margin-bottom: 20px;
   }
+
+  form {
+    > * {
+      margin: 5px 0;
+    }
+  }
 `
 
 export const WrapButton = styled.div`

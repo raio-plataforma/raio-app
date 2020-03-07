@@ -162,7 +162,7 @@ const Users = () => {
       <Modal
         isOpen={modalStatus}
         onClose={() => setModalStatus(true)}
-        width="500px"
+        width="100px"
       >
         <SignupPopup
           toggleModalStatus={() => setModalStatus(!modalStatus)}

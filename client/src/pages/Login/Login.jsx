@@ -3,7 +3,14 @@ import { useForm } from 'react-hook-form'
 import Typography from '@material-ui/core/Typography'
 import { Link } from 'react-router-dom'
 import { useStoreActions, useStoreState } from 'easy-peasy'
-import InputText from '../../components/InputText'
+import Email from '@material-ui/icons/Mail'
+import Senha from '@material-ui/icons/Lock'
+import FormControl from '@material-ui/core/FormControl'
+import FilledInput from '@material-ui/core/FilledInput'
+import InputLabel from '@material-ui/core/InputLabel'
+import InputAdornment from '@material-ui/core/InputAdornment'
+import FormHelperText from '@material-ui/core/FormHelperText'
+
 import Flexbox from '../../components/Flexbox'
 import Form from '../../components/Form'
 import { Error } from '../../components/Status'
@@ -36,8 +43,53 @@ const Login = () => {
           <Typography variant="h4" component="h2" gutterBottom>
             Entre na Raio
           </Typography>
+          
+          <FormControl fullWidth style={{margin: '10px 0'}} variant="filled">
+            <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
+            <FilledInput
+              id="filled-adornment-password"
+              type="text"
+              name="email"
+              error={errors.email}
+              inputRef={register({
+                required: 'Esse campo é obrigatório',
+                pattern: {
+                  value: emailValidation(),
+                  message: 'Insira um endereço de e-mail válido'
+                }
+              })}
+              endAdornment={
+                <InputAdornment position="end">
+                    <Email />
+                </InputAdornment>
+              }
+            />
+            {errors.email && (<FormHelperText error>{errors.email.message}</FormHelperText>)}
+          </FormControl>
 
-          <InputText
+          <FormControl fullWidth variant="filled">
+            <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
+            <FilledInput
+              id="filled-adornment-password"
+              type="password"
+              name="password"
+              error={errors.password}
+              inputRef={register({
+                required: 'Esse campo é obrigatório',
+                minLength: {
+                  value: 6,
+                  message: 'A senha deve ter no mínimo 6 caracteres'
+                }
+              })}
+              endAdornment={
+                <InputAdornment position="end">
+                    <Senha />
+                </InputAdornment>
+              }
+            />
+            {errors.password && (<FormHelperText error>{errors.password.message}</FormHelperText>)}
+          </FormControl>
+          {/* <InputText
             type="text"
             name="email"
             label="E-mail"
@@ -67,7 +119,7 @@ const Login = () => {
                 message: 'A senha deve ter no mínimo 6 caracteres'
               }
             })}
-          />
+          /> */}
           
           <Error msg={loginError} />
           

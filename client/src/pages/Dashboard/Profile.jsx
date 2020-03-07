@@ -10,6 +10,7 @@ const StyledProfile = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-right: 40px;
 
   .image {
     width: 80px;

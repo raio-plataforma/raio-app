@@ -13,6 +13,12 @@ import Select from '../../components/Select'
 import InputText from '../../components/InputText'
 import { Error } from '../../components/Status'
 
+import TextField from '@material-ui/core/TextField';
+import ChipOptions from '../../comps/ChipOptions'
+import TransferList from '../../comps/TransferList'
+import Switch from '../../comps/Switch'
+import FormHelperText from '@material-ui/core/FormHelperText'
+
 import states from '../../assets/states.json'
 import {
   segment,
@@ -68,46 +74,50 @@ const Enterprise = () => {
       <Flexbox justify="center">
         <Form onSubmit={handleSubmit(onSubmit)}>
           <Typography variant="h4" component="h2">Formulário de Cadastro da Empresa</Typography>
-          <InputText
-            name="enterprise_name"
-            type="text"
-            register={register({
-              required: 'Esse campo é obrigatório',
-            })}
-            label="Nome da Empresa"
-            placeholder="Insira o nome da empresa"
-            error={errors.name && errors.name.message}
-          />
 
-          <Textarea
-            label="Links para site e redes socias da empresa"
-            placeholder="Insira aqui links"
-            rows={5}
-            error={errors.links && errors.links.message}
-            name="links"
-            register={register({
-              required: 'Esse campo é obrigatório',
-              minLength: {
-                value: 10,
-                message: 'Insira pelo menos um link'
-              }
-            })}
-          />
+        <TextField
+          label="Nome da Empresa"
+          error={errors.name}
+          helperText={errors.name && errors.name.message}
+          fullWidth
+          name="enterprise_name"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
 
-          <Textarea
-            label="Apresentação da Empresa"
-            placeholder="Faça uma apresentação da empresa"
-            rows={5}
-            error={errors.presentation && errors.presentation.message}
-            name="presentation"
-            register={register({
-              required: 'Esse campo é obrigatório',
-              minLength: {
-                value: 10,
-                message: 'Fale um pouco mais sobre sua empresa'
-              }
-            })}
-          />
+        <ChipOptions 
+          name="links" 
+          label="Links para site e redes socias da empresa"
+          error={errors.links && errors.links.message}
+          register={register({
+            required: 'Esse campo é obrigatório',
+            minLength: {
+              value: 10,
+              message: 'Insira pelo menos um link'
+            }
+          })}
+        />
+
+        <TextField
+          id="filled-multiline-static"
+          label="Apresentação da Empresa"
+          multiline
+          rows="5"
+          error={errors.presentation}
+          error={errors.presentation && errors.presentation.message}
+          fullWidth
+          name="presentation"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+            minLength: {
+              value: 10,
+              message: 'Fale um pouco mais sobre sua empresa'
+            }
+          })}
+        />
 
           <Select
             label="Estado"
@@ -123,16 +133,17 @@ const Enterprise = () => {
             )}
           </Select>
 
-          <InputText
-            name="city"
-            type="text"
-            register={register({
-              required: 'Esse campo é obrigatório',
-            })}
-            label="Cidade"
-            placeholder="Insira o nome da sua cidade"
-            error={errors.city && errors.city.message}
-          />
+        <TextField
+          label="Cidade"
+          error={errors.city}
+          helperText={errors.city && errors.city.message}
+          fullWidth
+          name="city"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
 
           <Checkboxes
             label="Outros estados que a empresa tem atuação"
@@ -140,6 +151,7 @@ const Enterprise = () => {
             fields={states}
             name="otherStates"
           />
+          
           <Checkboxes
             label="Segmento de atuação"
             register={register}

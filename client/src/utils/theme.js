@@ -4,7 +4,7 @@ import { ptBR } from '@material-ui/core/locale';
 const theme = createMuiTheme({
   palette: {
     text: {
-      primary: '#200122'
+      primary: '#F9A639'
     },
     primary: {
       main: '#F9A639',
@@ -19,7 +19,7 @@ const theme = createMuiTheme({
     },
     common: {
       white: '#f7cc94',
-      black: '#200122'
+      black: '#0f0'
     },
     contrastThreshold: 3,
     tonalOffset: 0.2,
