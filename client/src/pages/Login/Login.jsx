@@ -47,7 +47,6 @@ const Login = () => {
           <FormControl fullWidth style={{margin: '10px 0'}} variant="filled">
             <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
             <FilledInput
-              id="filled-adornment-password"
               type="text"
               name="email"
               error={errors.email}
@@ -70,7 +69,6 @@ const Login = () => {
           <FormControl fullWidth variant="filled">
             <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
             <FilledInput
-              id="filled-adornment-password"
               type="password"
               name="password"
               error={errors.password}

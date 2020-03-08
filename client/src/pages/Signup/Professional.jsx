@@ -1,31 +1,26 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
-import Typography from '@material-ui/core/Typography'
 import uuid from 'uuid'
 
-import InputText from '../../components/InputText'
+import Typography from '@material-ui/core/Typography'
 import Button from '../../comps/Button'
 import TextField from '@material-ui/core/TextField';
-import Checkboxes from '../../components/Checkboxes'
-import Radios from '../../components/Radios'
-import Select from '../../components/Select'
 import ChipOptions from '../../comps/ChipOptions'
-import TransferList from '../../comps/TransferList'
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormHelperText from '@material-ui/core/FormHelperText'
 
 import states from '../../assets/states.json'
 import {
-  functions,
   registryTypes,
   formations,
   identitySegments,
   separated_functions
 } from './dicioFields'
-import { formatCheckboxFields } from '../../utils/service'
+import Checkboxes from '../../components/Checkboxes'
+import Radios from '../../components/Radios'
+import Select from '../../components/Select'
 
-import { Form, Background, Title } from './styles'
+import { Background } from './styles'
 
 const Professionals = () => {
   const {
@@ -37,11 +32,20 @@ const Professionals = () => {
 
   const registerUser = useStoreActions(actions => actions.register.registerProfessional)
   const registerError = useStoreState(state => state.register.error)
-  const splitData = data => data.split(',')
+  
+  const parseDate = date => {
+    const day = date.substring(8, 10)
+    const month = date.substring(5, 7) 
+    const year = date.substring(0, 4)
+
+    return `${day}/${month}/${year}`
+  }
+
   const onSubmit = (data) => {
+   
     const formatted = {
       ...data,
-      birthday: '12/12/1998',
+      birthday: parseDate(data.birthday),
       cnpj_type: data.cnpjType,
       identity_content: data.identityContent,
       identity_segments: data.identitySegments,
@@ -51,6 +55,7 @@ const Professionals = () => {
       home_state: data.homeState,
       type: 'professional'
     }
+    
     registerUser(formatted)
   }
 
@@ -84,6 +89,31 @@ const Professionals = () => {
               value: 10,
               message: 'Insira pelo menos um link'
             }
+          })}
+        />
+        
+        <TextField
+          label="Data de Nascimento"
+          type="date"
+          error={errors.birthday}
+          helperText={errors.birthday && errors.birthday.message}
+          fullWidth
+          name="birthday"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
+
+        <TextField
+          label="Cidade de Residência"
+          error={errors.city}
+          helperText={errors.city && errors.city.message}
+          fullWidth
+          name="city"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
           })}
         />
 
@@ -131,18 +161,6 @@ const Professionals = () => {
             <option value={item.id} key={item.id}>{item.name}</option>
           )}
         </Select>
-
-        <TextField
-          label="Cidade de Residência"
-          error={errors.city}
-          helperText={errors.city && errors.city.message}
-          fullWidth
-          name="city"
-          variant="filled"
-          inputRef={register({
-            required: 'Esse campo é obrigatório',
-          })}
-        />
 
         <TextField
           label="Endereço"
@@ -207,11 +225,11 @@ const Professionals = () => {
           name="identityContent"
         />
 
-        <TransferList
+         <Checkboxes
           label="Em qual segmento?"
           name="identitySegments"
-
-          list={identitySegments}
+          register={register}
+          fields={identitySegments}
         />
 
         <Radios
