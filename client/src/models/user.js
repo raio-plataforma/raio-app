@@ -8,7 +8,6 @@ const userModel = {
     try {
       const user = await axios.get('/api/user/current')
       const userTypeData = await axios.get(`/api/${payload}`)
-      console.log(user);
       // Set current user profile
       actions.setUser({
         ...user.data,

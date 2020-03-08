@@ -6,7 +6,7 @@ import Person from '@material-ui/icons/Person'
 import Enterprise from '@material-ui/icons/AccountBalanceOutlined'
 import Delete from '@material-ui/icons/Delete';
 import { getInfo } from './user_info' 
-import uuid from 'uuid'
+import { getCheckboxes } from '../../utils/formatters'
 
 import Profile from './Profile'
 import Info from './Info'
@@ -57,7 +57,9 @@ const Dashboard = () => {
             type={userType.type === "enterprise" ? "Empresa" : "Profissional"}
             bio={userType.type === "enterprise" ? user.presentation : user.bio}
             pcd={user.pcd}
-            segments={userType.type === "enterprise" ? user.business_segments : user.identity_segments}
+            segments={userType.type === "enterprise" ?
+              getCheckboxes(user.business_segments[0]) :
+              getCheckboxes(user.identity_segments[0])}
           />
           <Info
             infoList={getInfo(user, userType.type)}

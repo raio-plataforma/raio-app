@@ -13,7 +13,6 @@ const authModel = {
 
       // Set token to localStorage
       const { token } = res.data
-      console.log(token)
       localStorage.setItem('jwtToken', token)
   
       // Set token to auth header
@@ -33,7 +32,6 @@ const authModel = {
       try {
         const check = await axios.get('/api/user/has-additional-register')
         const type = getUserType(decoded.type)
-        console.log({type})
         
         if (check.data.hasAdditionalRegister || type === 'admin') {
           return history.push(`/dashboard/${type}`)

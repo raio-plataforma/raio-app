@@ -19,11 +19,15 @@ const StyledInfo = styled.div`
   .values {
     display: flex;
     justify-content: space-between;
+
+    .field {
+      flex: 33.3%;
+    }
   }
 `
 
 function Info({infoList}) {
-  console.log(infoList)
+  
   return (
     <StyledInfo className='info'>
       {

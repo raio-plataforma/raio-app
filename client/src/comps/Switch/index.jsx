@@ -12,7 +12,6 @@ export default function Switch({ name, label, error, register}) {
 
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
-    console.log(state)
   };
 
   return (

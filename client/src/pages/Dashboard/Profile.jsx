@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-
 import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
 import Typography from '@material-ui/core/Typography'
@@ -36,10 +35,12 @@ const StyledProfile = styled.div`
     color: #200122;
     text-align: left;
     margin-top: 20px;
+    width: 100%;
   }
 `
 
 function Profile({ icon, name, associate, bio, type, segments, pcd }) {
+  
   return (
     <StyledProfile className='profile'>
       <span className="image">{icon}</span>
@@ -57,12 +58,15 @@ function Profile({ icon, name, associate, bio, type, segments, pcd }) {
           <Typography color="secondary">PcD</Typography>
         </div>) 
       }
-      <Typography className="bio">{bio}</Typography>
+      <section className="segments">
+        <Typography className="bio">{bio}</Typography>
+      </section>
 
-      {segments.length > 0 &&
+      {
+      segments.length > 0 &&
       <section className="segments">
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
-        <Typography>{segments.join(', ')}</Typography>
+        <Typography>{segments}</Typography>
       </section>}
     </StyledProfile>
   )

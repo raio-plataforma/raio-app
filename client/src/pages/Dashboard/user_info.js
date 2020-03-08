@@ -1,3 +1,4 @@
+import { getCheckboxes } from '../../utils/formatters'
 import states from '../../assets/states.json'
 
 export const getState = (
@@ -13,7 +14,7 @@ function formatPhone(num){
 }
 
 export const getInfo = (user, type) => {
-  console.log('ginfo ====>', user, user.other_states, getState(user.state))
+  
   return type === 'professional' ? 
   [
     {
@@ -80,7 +81,7 @@ export const getInfo = (user, type) => {
         },
         {
           campo: 'Áreas de atuação',
-          valor: user.expertise_areas && user.expertise_areas.join(', ')
+          valor: user.expertise_areas && getCheckboxes(user.expertise_areas[0])
         }
       ]
     },

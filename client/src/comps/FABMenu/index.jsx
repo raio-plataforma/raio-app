@@ -6,7 +6,6 @@ import SpeedDialIcon from '@material-ui/icons/MoreVert';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
 
 const useStyles = makeStyles(theme => {
-  console.log('theme =>', theme);
   return ({
   root: {
     transform: 'translateZ(0px)',
