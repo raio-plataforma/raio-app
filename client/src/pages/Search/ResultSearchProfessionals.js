@@ -5,12 +5,9 @@ import Alert from '@material-ui/lab/Alert'
 import Chip from '@material-ui/core/Chip'
 import { Link } from "react-router-dom"
 
-import { Wrapper, Group, WrapperResultSearch, SubTitle, Text, LinkTo } from './styles'
+import { Wrapper, Group, WrapperResultSearch } from './styles'
 import Button from '../../comps/Button'
 import Tables from '../../comps/Tables'
-import CardProfessional from './components/CardProfessional'
-import { validatingFields } from '../../utils/service'
-import Professionals from "../Signup/Professional"
 
 const ResultSearchProfessionals = ({ data }) => {
   const [notRegister, setNotRegister] = useState()
