@@ -58,7 +58,7 @@ const Dashboard = () => {
             bio={userType.type === "enterprise" ? user.presentation : user.bio}
             pcd={user.pcd}
             segments={userType.type === "enterprise" ?
-              getCheckboxes(user.business_segments[0]) :
+              user.business_segments.join(', ') :
               getCheckboxes(user.identity_segments[0])}
           />
           <Info
