@@ -54,9 +54,8 @@ const Professionals = () => {
       home_state: data.homeState,
       type: 'professional'
     }
-    console.log('formData', formatted)
-    console.log(data)
-    // registerUser(formatted)
+
+    registerUser(formatted)
   }
 
   const handleRadio = (field, selectedOption) => {
@@ -179,7 +178,9 @@ const Professionals = () => {
           error={errors.education && errors.education.message}
           name="education"
           firstValue="Formação"
-
+          register={register({
+            required: 'Esse campo é obrigatório',
+          })}
         >
           {formations.map(item =>
             <option value={item} key={uuid()}>{item}</option>
