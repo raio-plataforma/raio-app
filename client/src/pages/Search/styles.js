@@ -93,7 +93,7 @@ export const Text = styled.div`
   width: 100%;
 `
 
-export const Link = styled.a`
+export const LinkTo = styled(Link)`
   margin-left: 1vh;
   color: #FFFFFF;
   text-decoration: underline;

@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import Chip from '@material-ui/core/Chip'
 
-import { Wrapper, Group, WrapperResultSearch, SubTitle, Text, Link } from './styles'
+import { Wrapper, Group, WrapperResultSearch, SubTitle, Text, LinkTo } from './styles'
 import Button from '../../comps/Button'
 import Tables from '../../comps/Tables'
 import CardProfessional from './components/CardProfessional'
@@ -99,9 +99,9 @@ const ResultSearchProfessionals = ({ data }) => {
   return (
     <WrapperResultSearch className="container">
       <Button variant="contained">
-        <Link href="/busca/profissionais">
+        <LinkTo to="/busca/profissionais">
           Voltar
-        </Link>
+        </LinkTo>
       </Button>
 
       <Wrapper>
