@@ -48,6 +48,7 @@ const Professionals = () => {
       birthday: parseDate(data.birthday),
       cnpj_type: data.cnpjType,
       identity_content: data.identityContent,
+      formation_institution: data.formationInstitution,
       identity_segments: data.identitySegments,
       expertise_areas: data.expertiseAreas,
       apan_associate: data.apanAssociate,
