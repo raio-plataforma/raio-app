@@ -3,6 +3,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
 import Alert from '@material-ui/lab/Alert'
 import Chip from '@material-ui/core/Chip'
+import { Link } from "react-router-dom"
 
 import { Wrapper, Group, WrapperResultSearch, SubTitle, Text, LinkTo } from './styles'
 import Button from '../../comps/Button'
@@ -99,9 +100,9 @@ const ResultSearchProfessionals = ({ data }) => {
   return (
     <WrapperResultSearch className="container">
       <Button variant="contained">
-        <LinkTo to="/busca/profissionais">
+        <Link to="/busca/profissionais">
           Voltar
-        </LinkTo>
+        </Link>
       </Button>
 
       <Wrapper>
