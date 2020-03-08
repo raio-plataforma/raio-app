@@ -51,15 +51,17 @@ const Professionals = () => {
       identity_segments: data.identitySegments,
       expertise_areas: data.expertiseAreas,
       apan_associate: data.apanAssociate,
-      formation_institution: data.formationInstitution,
       home_state: data.homeState,
       type: 'professional'
     }
-    
-    registerUser(formatted)
+    console.log('formData', formatted)
+    console.log(data)
+    // registerUser(formatted)
   }
 
-  const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
+  const handleRadio = (field, selectedOption) => {
+    setValue(field, (selectedOption.toLowerCase() === 'true'))
+  }
 
   useEffect(() => {
     register({ name: 'pcd' });
@@ -134,8 +136,6 @@ const Professionals = () => {
           label="PcD (Pessoa com deficiência)"
           onChange={e => handleRadio('pcd', e.target.value)}
           name="pcd"
-
-
         />
 
         <Select
@@ -185,8 +185,21 @@ const Professionals = () => {
             <option value={item} key={uuid()}>{item}</option>
           )}
         </Select>
-
-
+        
+        <TextField
+          label="Instituição ou processo de formação"
+          error={errors.formationInstitution}
+          helperText={errors.formationInstitution && errors.formationInstitution.message}
+          fullWidth
+          name="formationInstitution"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
+        
+        
+        {/* 
         <TextField
           label="Qual foi a instituição ou processo de formação? "
           error={errors.formationInstitution}
@@ -195,17 +208,17 @@ const Professionals = () => {
           name="formationInstitution"
           variant="filled"
 
-        />
+        /> */}
 
         <Radios
           label="Possui CNPJ"
           onChange={e => handleRadio('cnpj', e.target.value)}
-          // error={errors.cnpj && errors.cnpj.message}
+          error={errors.cnpj && errors.cnpj.message}
           name="cnpj"
         />
 
         <Select
-          label="Se sim, qual o tipo do seu CNPJ ?"
+          label="Tipo do seu CNPJ"
           error={errors.cnpjType && errors.cnpjType.message}
           name="cnpjType"
           firstValue="Tipo de CNPJ"
@@ -217,6 +230,9 @@ const Professionals = () => {
             </option>
           ))}
         </Select>
+          
+
+        
 
         <Radios
           label="Sua empresa é vocacionada para conteúdo identitário?"
