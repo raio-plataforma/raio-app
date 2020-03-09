@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import { useStoreActions } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
+import Chip from '@material-ui/core/Chip'
+
 import {
   Wrapper,
   Group,
@@ -112,31 +114,32 @@ const ResultSearchProfessionals = ({ data }) => {
   }))
 console.log(clearList)
   return (
-    <WrapperResultSearch>
+    <WrapperResultSearch className="container">
       <Group>
         <Link href="/busca/empresas">Voltar</Link>
       </Group>
-      <Wrapper>
-       <Typography component="h2" variant="h4">Resultado de busca de Empresas</Typography>
-        <SubTitle>Resultado de Busca para:</SubTitle>
-        <Text>{list.join(", ")}</Text>
-       
+      <Typography component="h2" variant="h4">Resultado de busca de Empresas</Typography>
+      <SubTitle>Resultado de Busca para:</SubTitle>
+      <div className="chips-group">
           {
-            notRegister ?
-              <p>{setNotRegister}</p>
-              :
-              enterprises.length > 0 ?
-              <Tables
-                title={`${enterprises.length} empresa${enterprises.length > 1 ? 's' : ''} 
-                encontrada${enterprises.length > 1 ? 's' : ''}`}
-                headCells={headCells}
-                list={enterprises}
-              /> : 
-              <Text>Não achamos nenhuma empresa</Text>
-
+            list.map(term => <Chip label={term} />)
           }
+        </div>
+      
+        {
+          notRegister ?
+            <p>{setNotRegister}</p>
+            :
+            enterprises.length > 0 ?
+            <Tables
+              title={`${enterprises.length} empresa${enterprises.length > 1 ? 's' : ''} 
+              encontrada${enterprises.length > 1 ? 's' : ''}`}
+              headCells={headCells}
+              list={enterprises}
+            /> : 
+            <Text>Não achamos nenhuma empresa</Text>
 
-      </Wrapper>
+        }
     </WrapperResultSearch>
   )
 }
