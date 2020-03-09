@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import ChipOptions from '../../comps/ChipOptions'
 import FormHelperText from '@material-ui/core/FormHelperText'
 
+import { parseDate } from '../../utils/formatters'
 import states from '../../assets/states.json'
 import {
   registryTypes,
@@ -33,13 +34,6 @@ const Professionals = () => {
   const registerUser = useStoreActions(actions => actions.register.registerProfessional)
   const registerError = useStoreState(state => state.register.error)
   
-  const parseDate = date => {
-    const day = date.substring(8, 10)
-    const month = date.substring(5, 7) 
-    const year = date.substring(0, 4)
-
-    return `${day}/${month}/${year}`
-  }
 
   const onSubmit = (data) => {
    

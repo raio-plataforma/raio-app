@@ -28,6 +28,13 @@ export const Label = styled.p`
 export const Group = styled.div`
   display: flex;
   flex-wrap: wrap;
+
+  > * {
+    flex: 1;
+    &:first-child {
+      margin-right: 10px;
+    }
+  }
 `;
 
 export const Textarea = styled.p`

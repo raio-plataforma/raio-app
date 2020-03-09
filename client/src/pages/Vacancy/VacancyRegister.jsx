@@ -1,14 +1,18 @@
 import React, { useState } from "react"
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
+import Typography from '@material-ui/core/Typography'
+import TextField from '@material-ui/core/TextField'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import history from '../../history'
 
-import InputText from '../../components/InputText'
+import { functions } from '../../pages/Signup/dicioFields'
 import Button from '../../comps/Button'
+import Checkbox from '../../comps/Checkbox'
 import Form from '../../components/Form'
 import { Error, Success } from '../../components/Status'
-
-import history from '../../history'
-import { Background, Group, Title, WrapButton } from './style'
+import { parseDate } from '../../utils/formatters'
+import { Background, Group, WrapButton } from './style'
 
 
 const Vacancy = () => {
@@ -27,7 +31,7 @@ const Vacancy = () => {
     const res = await registerJob({
       ...data,
       company_name: data.companyName,
-      total_period: data.start + '-' + data.end
+      total_period: parseDate(data.start) + '-' + parseDate(data.end)
     })
 
     reset()
@@ -41,92 +45,131 @@ const Vacancy = () => {
   return (
     <Background>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Title>Cadastro de Vaga</Title>
-        <InputText
+        <Typography
+          color="primary"
+          variant="h3"
+          component="h2"
+          style={{textAlign: 'center'}}
+        >Cadastro de Vaga</Typography>
+
+        <TextField
+          label="Título da Vaga"
+          error={errors.title}
+          helperText={errors.title && errors.title.message}
+          fullWidth
           name="title"
-          type="text"
-          register={register({
-            required: 'Esse campo é obrigatório'
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
           })}
-          label="Nome da Vaga"
-          placeholder="Insira o nome da vaga"
-          error={errors.title && errors.title.message}
         />
 
-        <InputText
+        <Autocomplete
+          fullWidth
+          options={functions.sort()}
+          filterSelectedOptions
           name="function"
-          type="text"
-          register={register({
-            required: 'Esse campo é obrigatório'
-          })}
-          label="Função"
-          placeholder="Insira a função"
-          error={errors.function && errors.function.message}
+          color="primary"
+          renderInput={params => (
+            <TextField
+              {...params}
+              name="function"
+              color="primary"
+              variant="filled"
+              error={errors.function}
+              helperText={errors.function && errors.function.message}
+              label="Função"
+              placeholder="Digite sua pesquisa"
+              inputRef={register({
+                required: 'Esse campo é obrigatório'
+              })}
+            />
+          )}
         />
 
-        <InputText
-          name="requirements"
-          type="text"
-          register={register({
-            required: 'Esse campo é obrigatório'
-          })}
+        <TextField
           label="Requisitos"
-          placeholder="Insira os requisitos da vaga"
-          error={errors.requirements && errors.requirements.message}
+          error={errors.requirements}
+          helperText={errors.requirements && errors.requirements.message}
+          fullWidth
+          multiline
+          rows="5"
+          name="requirements"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
         />
 
-        <InputText
-          name="location"
-          type="text"
-          register={register({
-            required: 'Esse campo é obrigatório'
-          })}
+        <TextField
           label="Endereço"
-          placeholder="Insira o endereço"
-          error={errors.location && errors.location.message}
+          error={errors.location}
+          helperText={errors.location && errors.location.message}
+          fullWidth
+          name="location"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
         />
 
         <Group>
-          <InputText
-            name="start"
-            type="text"
-            register={register({
-              required: 'Esse campo é obrigatório'
-            })}
+          <TextField
             label="Data Inicial"
-            placeholder="Insira a data inicial"
-            error={errors.address && errors.address.message}
-          />
-          <InputText
-            name="end"
-            type="text"
-            register={register({
+            type="date"
+            error={errors.start}
+            helperText={errors.start && errors.start.message}
+            fullWidth
+            name="start"
+            variant="filled"
+            inputRef={register({
               required: 'Esse campo é obrigatório'
             })}
+          />
+          
+          <TextField
             label="Data Final"
-            placeholder="Insira a data final"
-            error={errors.address && errors.address.message}
+            type="date"
+            error={errors.end}
+            helperText={errors.end && errors.end.message}
+            fullWidth
+            name="end"
+            variant="filled"
+            inputRef={register({
+              required: 'Esse campo é obrigatório'
+            })}
           />
         </Group>
 
-        <InputText
-          name="cache"
+        <TextField
+          label="Cachê"
           type="number"
-          register={register({
+          error={errors.cache}
+          helperText={errors.cache && errors.cache.message}
+          fullWidth
+          name="cache"
+          variant="filled"
+          inputRef={register({
             required: 'Esse campo é obrigatório'
           })}
-          label="Cachê"
-          placeholder="Insira o valor do cachê"
-          error={errors.formationInstitution && errors.formationInstitution.message}
         />
 
+        <Checkbox
+          label="Tipo de contratação"
+          name="hiring_type"
+          options={['CLT', 'RPA', 'PJ']}
+          register={register}
+          error={errors.hiring_type && errors.hiring_type.message}
+        />
+      
         <Success msg={status} />
         <Error msg={registerError} />
 
         <WrapButton>
           <Button
             type="submit"
-            variant="primary"
+            color="primary"
+            variant="contained"
           >
             Enviar
           </Button>
@@ -136,4 +179,4 @@ const Vacancy = () => {
   )
 }
 
-export default Vacancy;
+export default Vacancy
