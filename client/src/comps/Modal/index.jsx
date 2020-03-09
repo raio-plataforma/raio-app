@@ -50,7 +50,7 @@ function Modal({ children, isOpen, onClose, title }) {
         aria-labelledby="customized-dialog-title"
         PaperProps={{
           style: {
-            backgroundColor: '#f7cc94',
+            backgroundColor: '#6f0000',
             boxShadow: 'none',
           },
         }}

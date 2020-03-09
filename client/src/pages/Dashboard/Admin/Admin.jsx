@@ -7,8 +7,8 @@ import Person from '@material-ui/icons/Person'
 import { WrapperChoices, Title, Background } from './style'
 
 const DashboardWrapper = () => 
-    <Background>
-      <Typography variant="h3" component="h2" gutterBottom>Escolha uma visão: </Typography>
+    <div className="container">
+      <Typography variant="h3" component="h2" style={{textAlign: 'center', margin: '10px 0'}}>Escolha uma visão: </Typography>
       <WrapperChoices>
         <RoleCard 
           icon={<Enterprise style={{ fontSize: 80, color: '#200122' }} />}
@@ -16,12 +16,12 @@ const DashboardWrapper = () =>
           title="Empresarial"
         />
         
-        {/* <RoleCard 
+        <RoleCard 
           icon={<Person style={{ fontSize: 80, color: '#200122' }} />}
           to="/dashboard/admin/profissionais"
           title="Profissional"
-        /> */}
+        />
       </WrapperChoices>
-    </Background>
+    </div>
 
 export default DashboardWrapper

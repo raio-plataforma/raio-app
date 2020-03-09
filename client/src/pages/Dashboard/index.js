@@ -71,7 +71,7 @@ const Dashboard = () => {
       
       <GroupButtons className="container">
         <If condition={userType.type === "enterprise"}>
-          {hasVacancies ? <Link to="/cadastro/vaga">
+          {!hasVacancies ? <Link to="/cadastro/vaga">
             <Button variant="contained">
               Cadastrar Vagas
             </Button>
@@ -82,8 +82,8 @@ const Dashboard = () => {
             </Button>
           </a>
           }
-          { user.usedVacancies > 0 && 
-          (<Link to={`/listagem/vagas/${user.enterprise_id}`}>
+          {/* { user.usedVacancies > 0 &&  */}
+          <Link to={`/listagem/vagas/${user.enterprise_id}`}>
             <Button
               variant="contained"
               color="primary"
@@ -91,7 +91,8 @@ const Dashboard = () => {
             >
               Ver minhas vagas
             </Button>
-          </Link>) }
+          </Link> 
+          {/* } */}
           <Link to={'/busca/profissionais'}>
             <Button
               variant="contained"

@@ -13,12 +13,13 @@ import Header from './comps/Header'
 import AppBody from './comps/AppBody'
 import Users from './pages/Signup/User'
 import Login from './pages/Login/Login'
-import Dashboard from './pages/Dashboard/index'
+import Dashboard from './pages/Dashboard'
 import Admin from './pages/Dashboard/Admin/Admin'
 import Enterprise from './pages/Signup/Enterprise'
 import PrivateRoute from './components/PrivateRoute'
 import VacancyList from './pages/Vacancy/VacancyList'
-import AllEnterprises from './pages/Enterprises/index'
+import AllEnterprises from './pages/Enterprises'
+import AllProfessionals from './pages/Professionals'
 import Professional from './pages/Signup/Professional'
 import VacancyRegister from './pages/Vacancy/VacancyRegister'
 import SearchEnterprise from './pages/Search/SearchEnterprise'
@@ -45,6 +46,7 @@ const App = ({ store }) => {
                 path='/listagem/vagas/:id'
                 component={VacancyList}
               />
+              <PrivateRoute path='/cadastro/vaga/:job_id' component={VacancyRegister} />
               <PrivateRoute path='/cadastro/vaga' component={VacancyRegister} />
               <PrivateRoute path='/cadastro/empresa' component={Enterprise} />
               <PrivateRoute
@@ -55,6 +57,10 @@ const App = ({ store }) => {
               <PrivateRoute
                 path='/dashboard/admin/empresas'
                 component={AllEnterprises}
+              />
+              <PrivateRoute
+                path='/dashboard/admin/profissionais'
+                component={AllProfessionals}
               />
               <PrivateRoute
                 path='/dashboard/profissional'

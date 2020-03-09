@@ -16,6 +16,20 @@ const enterpriseModel = {
       actions.setError(error)
     }
   }),
+  editEnterprise: thunk(async (actions, payload) => {
+    try {
+      await axios.put('/:enterprise_id', payload)
+      return {
+        status: 200,
+        msg: 'Informações da empresa alteradas com sucesso!'
+      }
+    }
+    catch (err) {
+      console.log(err)
+      const error = err.response.data && err.response.data.job
+      actions.setError(error)
+    }
+  }),
   getAllEnterpriseUsers: thunk(async (actions, payload) => {
     try {
       const enterprises = await axios.get('/api/enterprise/all')

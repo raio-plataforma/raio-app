@@ -7,6 +7,7 @@ const passport = require('passport')
 
 // Load Enterprise model
 const Enterprise = require('../../models/Enterprise')
+const Job = require('../../models/Job')
 
 // @route   POST api/enterprise/register
 // @desc    Register Enterprise
@@ -59,11 +60,13 @@ router.post('/register', passport.authenticate('jwt', { session: false }),
 router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
   const errors = {}
   Enterprise.findOne({ user_id: req.user.id })
-    .then(enterprise => {
-      if (!enterprise) {
-        errors.noenterprise = 'Essa empresa não existe'
-        res.status(404).json(errors)
-      }
+  .then(enterprise => {
+    if (!enterprise) {
+      errors.noenterprise = 'Essa empresa não existe'
+      res.status(404).json(errors)
+    }
+    const usedVacancies = Job.count({ enterprise_id: enterprise.user_id})
+      
       res.json(enterprise)
     })
     .catch(() => res.status(404).json({ project: 'Não existe um usuário com esse identificador' }))
@@ -84,5 +87,24 @@ router.get('/all', (req, res) => {
       enterprises: 'Não existem empresas cadastradas ainda'
     }))
 })
+
+router.put('/:enterprise_id', passport.authenticate('jwt', { session: false }), async (req, res) => {
+
+
+  try {
+    const enterprise = await Enterprise.findOneAndUpdate(req.params.enterprise_id, {...req.body}, { new: true });
+
+    await enterprise.save();
+
+    return res.send({
+      enterprise
+    });
+  }
+  catch (err) {
+    res.status(400).send({
+      error: ' Erro ao atualizar a empresa',
+    });
+  }
+});
 
 module.exports = router

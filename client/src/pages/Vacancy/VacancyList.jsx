@@ -19,7 +19,7 @@ const headCells = [
 const VacancyList = ({ match }) => {
   const vacancies = useStoreState(state => state.vacancy.vacancies)
   const getAllVacancies = useStoreActions(actions => actions.vacancy.getAllVacancies)
-
+console.log(vacancies)
   useEffect(() => {
     const id = match.params && match.params.id
     getAllVacancies(id)

@@ -45,9 +45,12 @@ const authModel = {
       }
     }
     catch (err) {
-      const error = err.response.data && err.response.data.login
-      console.log(error)
-      return actions.setErrors(error)
+      
+      console.log(err.response)
+      return actions.setErrors({
+        status: err.response.status,
+        message: err.response.statusText
+      })
     }
   }),
   logoutUser: thunk(async (actions, payload) => {

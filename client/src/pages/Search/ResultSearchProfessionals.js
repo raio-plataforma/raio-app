@@ -96,11 +96,15 @@ const ResultSearchProfessionals = ({ data }) => {
   
   return (
     <WrapperResultSearch className="container">
-      <Button variant="contained">
-        <Link to="/busca/profissionais">
-          Voltar
+        <Link to="/dashboard/admin/profissionais">
+          <Button
+            variant="contained"
+            color="primary"
+            size="lg"
+          >
+            Voltar
+          </Button>
         </Link>
-      </Button>
 
       <Wrapper>
         <Typography component="h2" variant="h4">Resultado de busca de Profissionais</Typography>

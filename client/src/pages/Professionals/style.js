@@ -9,9 +9,7 @@ export const Container = styled.div`
 `;
 export const Title = styled.h1`
   font-size: 22px;  
-    font-size: 22px;  
-  font-size: 22px;  
-  color:#200122;
+  color:#fc9b44;
   margin: 2vw 0;
   text-align: center;
 `;
@@ -32,7 +30,8 @@ export const Background = styled.div`
 `
 export const WrapperChoices = styled.div`
   display: flex;
-  justify-content: space-around;
+  width: 50%;
+  justify-content: space-between;
 `
 
 /* STYLES ALLENTERPRISE */
@@ -47,3 +46,9 @@ export const StyledButtonSearch = styled.button`
   background-color: #6f0000;
   color: #fc9b44;
   `
+  export const GroupButton = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+`;

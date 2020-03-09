@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Typography from '@material-ui/core/Typography'
 import { Link } from 'react-router-dom'
@@ -10,6 +10,8 @@ import FilledInput from '@material-ui/core/FilledInput'
 import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import Snackbar from '@material-ui/core/Snackbar'
+import Alert from '@material-ui/lab/Alert'
 
 import Flexbox from '../../components/Flexbox'
 import Form from '../../components/Form'
@@ -27,14 +29,19 @@ const Login = () => {
   const authUser = useStoreActions(actions => actions.auth.authUser)
   const auth = useStoreState(state => state.auth.auth)
   const loginError = useStoreState(state => state.auth.error)
+  const [showAlert, handleAlert] = React.useState(false);
   const onSubmit = (data) => authUser(data)
+  console.log(loginError)
 
   useEffect(() => {
     if (auth) {
       const { user: { type = '' }, isAuthenticated } = auth
       if (isAuthenticated) return history.push(`/dashboard/${type}`)
     }
-  }, [auth])
+
+    if(loginError.message)
+      handleAlert(true)
+  }, [auth, loginError])
 
   return (
     <Background>
@@ -87,43 +94,20 @@ const Login = () => {
             />
             {errors.password && (<FormHelperText error>{errors.password.message}</FormHelperText>)}
           </FormControl>
-          {/* <InputText
-            type="text"
-            name="email"
-            label="E-mail"
-            placeholder="e-mail"
-            icon="fa-envelope"
-            error={errors.email && errors.email.message}
-            register={register({
-              required: 'Esse campo é obrigatório',
-              pattern: {
-                value: emailValidation(),
-                message: 'Insira um endereço de e-mail válido'
-              }
-            })}
-          />
-
-          <InputText
-            label="Senha"
-            type="password"
-            name="password"
-            placeholder="senha"
-            icon="fa-lock"
-            error={errors.password && errors.password.message}
-            register={register({
-              required: 'Esse campo é obrigatório',
-              minLength: {
-                value: 6,
-                message: 'A senha deve ter no mínimo 6 caracteres'
-              }
-            })}
-          /> */}
           
-          <Error msg={loginError} />
+
+          <Snackbar open={showAlert} autoHideDuration={36000} onClose={() => handleAlert(false)}>
+            <Alert 
+              variant="filled"
+              onClose={() => handleAlert(false)}
+              severity="error">
+              {loginError && loginError.message}
+            </Alert>
+          </Snackbar>
           
           <Link to="/esqueci-senha">
             <Button>
-              esqueceu sua senha?
+                esqueceu sua senha?
             </Button>
           </Link>
 

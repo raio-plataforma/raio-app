@@ -31,9 +31,10 @@ const Vacancy = () => {
     const res = await registerJob({
       ...data,
       company_name: data.companyName,
-      total_period: parseDate(data.start) + '-' + parseDate(data.end)
+      total_period: parseDate(data.start) + '-' + parseDate(data.end),
+      hiring_type: data.hiring_type.join(', ')
     })
-
+    
     reset()
 
     if (res && res.status && res.status === 200) {

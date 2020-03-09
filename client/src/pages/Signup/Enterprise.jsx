@@ -6,19 +6,14 @@ import uuid from 'uuid'
 
 import Flexbox from '../../components/Flexbox'
 import Button from '../../comps/Button'
-import Textarea from '../../components/Textarea'
 import Checkboxes from '../../components/Checkboxes'
 import Radios from '../../components/Radios'
 import Select from '../../components/Select'
-import InputText from '../../components/InputText'
 import { Error } from '../../components/Status'
 
 import TextField from '@material-ui/core/TextField';
 import ChipOptions from '../../comps/ChipOptions'
-import TransferList from '../../comps/TransferList'
-import Switch from '../../comps/Switch'
-import FormHelperText from '@material-ui/core/FormHelperText'
-
+import { parseDate } from '../../utils/formatters'
 import states from '../../assets/states.json'
 import {
   segment,
@@ -29,7 +24,7 @@ import {
 } from './dicioFields'
 import { formatCheckboxFields } from '../../utils/service'
 
-import { Form, Background, WrapButton, Title } from './styles'
+import { Form, Background, WrapButton } from './styles'
 
 const Enterprise = () => {
   const { register, handleSubmit, errors, setValue } = useForm()
@@ -41,7 +36,7 @@ const Enterprise = () => {
   const onSubmit = (data) => {
     const formatted = {
       ...data,
-      foundation_date: '12/12/2010', // TODO: Arrumar isso, deixar dinamico
+      foundation_date: parseDate(data.foundationDate),
       cnpj_type: data.cnpjType,
       apan_associate: data.apanAssociate,
       identity_segments: formatCheckboxFields(data.identitySegments),
@@ -81,6 +76,19 @@ const Enterprise = () => {
           helperText={errors.name && errors.name.message}
           fullWidth
           name="enterprise_name"
+          variant="filled"
+          inputRef={register({
+            required: 'Esse campo é obrigatório',
+          })}
+        />
+
+        <TextField
+          label="Data de Fundação"
+          type="date"
+          error={errors.foundationDate}
+          helperText={errors.foundationDate && errors.foundationDate.message}
+          fullWidth
+          name="foundationDate"
           variant="filled"
           inputRef={register({
             required: 'Esse campo é obrigatório',

@@ -6,12 +6,12 @@ const JobSchema = new Schema({
   enterprise_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Enterprise',
-    required: true,
+    required: false,
   },
   enterprise_name: {
     type: Schema.Types.String,
     ref: 'Enterprise',
-    required: true
+    required: false
   },
   title: {
     type: String,
@@ -30,7 +30,7 @@ const JobSchema = new Schema({
     required: true
   },
   hiring_type: {
-    type: Array,
+    type: String,
     required: true,
     enum: ['CLT', 'PJ', 'RPA']
   }, 

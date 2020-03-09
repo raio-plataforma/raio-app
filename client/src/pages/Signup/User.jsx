@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import uuid from 'uuid'
-
+import history from '../../history'
 import InputText from '../../components/InputText'
 import Flexbox from '../../components/Flexbox'
 import Button from '../../comps/Button'
@@ -26,17 +26,19 @@ const Users = () => {
   const [modalStatus, setModalStatus] = useState(false)
   const registerError = useStoreState(state => state.register.error)
 
-  const onSubmit = (data) => {
-    const formatted = {
+  const onSubmit = async (data) => {
+    const res = await registerUser({
       ...data,
       confirm_password: data.confirmPassword,
-      self_declaration: data.selfDeclaration,
       type: localStorage.user_type
-    }
+    })
 
     reset()
 
-    return registerUser(formatted)
+    if (res && res.status && res.status === 200) {
+      // setStatus(res.msg)
+      return history.push('/')
+    }
   }
 
   useEffect(() => {
@@ -135,7 +137,7 @@ const Users = () => {
           </Select>
 
           <Select
-            name="selfDeclaration"
+            name="self_declaration"
             label="Auto Declaração"
             register={register}
             firstValue="Auto Declaração"

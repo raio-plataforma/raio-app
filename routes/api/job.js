@@ -36,6 +36,7 @@ router.get('/all/:enterprise_id', (req, res) => {
           jobs: 'Essa empresa ainda não publicou vagas'
         })
       }
+
       res.json(jobs)
     })
     .catch(() => res.status(404).json({
