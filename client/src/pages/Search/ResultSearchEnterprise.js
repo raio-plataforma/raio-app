@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useStoreActions } from 'easy-peasy'
+import Typography from '@material-ui/core/Typography'
 import {
   Wrapper,
   Group,
@@ -10,7 +11,7 @@ import {
   Link,
   Text,
 } from './styles'
-import CardEnterprise from './components/CardEnterprise'
+import Tables from '../../comps/Tables'
 
 const ResultSearchProfessionals = ({ data }) => {
   const [enterprises, setEnterprise] = useState([])
@@ -91,59 +92,49 @@ const ResultSearchProfessionals = ({ data }) => {
     }
   }, [])
 
+  const headCells = [
+    { id: 'name_enterprise', numeric: false, disablePadding: true, label: 'Empresa' },
+    { id: 'name', numeric: false, disablePadding: false, label: 'Responsável' },
+    { id: 'email', numeric: false, disablePadding: false, label: 'E-mail' },
+    { id: 'phone', numeric: false, disablePadding: false, label: 'Telefone' },
+    { id: 'segments', numeric: false, disablePadding: false, label: 'Segmento' }
+  ];
+
+  const clearList = enterprises
+  .filter(ent => ent.enterprise_id)
+  .map(ent => ({
+    id: ent.enterprise_id,
+    name_enterprise: ent.name_enterprise,
+    name: ent.name,
+    email: ent.email,
+    phone: ent.phone,
+    segments: ent.business_segments
+  }))
+console.log(clearList)
   return (
     <WrapperResultSearch>
       <Group>
         <Link href="/busca/empresas">Voltar</Link>
       </Group>
       <Wrapper>
-        <TitleSearch>Resultado de busca de Empresas</TitleSearch>
+       <Typography component="h2" variant="h4">Resultado de busca de Empresas</Typography>
         <SubTitle>Resultado de Busca para:</SubTitle>
         <Text>{list.join(", ")}</Text>
-        <SearchResultEnterprise>
+       
           {
             notRegister ?
               <p>{setNotRegister}</p>
               :
               enterprises.length > 0 ?
-                enterprises.map((enterprise) => (
-                  <CardEnterprise
-                    name={enterprise.name_enterprise}
-                    email={enterprise.user_email}
-                    state={enterprise.state}
-                    cnpj={enterprise.cnpj_type && `Tipo de CNPJ: ${enterprise.cnpj_type}`}
-                    apan_associate={enterprise.apan_associate ? "Associado a APAN" : "Não associado a APAN"}
-                    business_segments={
-                      enterprise.business_segments &&
-                      enterprise.business_segments.map((state, index) => (
-                        enterprise.business_segments.length === index + 1 ?
-                          `${state}` :
-                          `${state}, `
-                      ))
-                    }
-                    business_fields={
-                      enterprise.business_fields &&
-                      enterprise.business_fields.map((state, index) => (
-                        enterprise.business_fields.length === index + 1 ?
-                          `${state}` :
-                          `${state}, `
-                      ))
-                    }
-                    diversity_functions={
-                      enterprise.diversity_functions &&
-                      enterprise.diversity_functions.map((state, index) => (
-                        enterprise.diversity_functions.length === index + 1 ?
-                          `${state}` :
-                          `${state}, `
-                      ))
-                    }
-                    presentation={enterprise.presentation}
-                    links={enterprise.links}
-                  />
-                )) : <Text>Não achamos nenhuma empresa</Text>
+              <Tables
+                title={`${enterprises.length} empresa${enterprises.length > 1 ? 's' : ''} 
+                encontrada${enterprises.length > 1 ? 's' : ''}`}
+                headCells={headCells}
+                list={enterprises}
+              /> : 
+              <Text>Não achamos nenhuma empresa</Text>
 
           }
-        </SearchResultEnterprise>
 
       </Wrapper>
     </WrapperResultSearch>

@@ -70,13 +70,10 @@ export const WrapperResultSearch = styled.div`
 
 export const SearchResultEnterprise = styled.div`
   color: wheat;
-  @media(min-width: 576px) {
-    width: 500px;
-  }
+  
 `;
 
 export const Form = styled.form`
-  width: 50%;
   padding: 20px;
 `
 

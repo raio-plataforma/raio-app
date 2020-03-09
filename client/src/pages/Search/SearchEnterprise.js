@@ -5,7 +5,7 @@ import uuid from 'uuid'
 
 import { If } from '../../components/If'
 import Flexbox from '../../components/Flexbox'
-import Button from '../../components/Button'
+import Button from '../../comps/Button'
 import Textarea from '../../components/Textarea'
 import Checkboxes from '../../components/Checkboxes'
 import Radios from '../../components/Radios'
@@ -106,9 +106,9 @@ const Enterprise = () => {
                   )}
                 </Select>
 
-                <Button type="submit">
+                <Button variant="contained" type="submit">
                   Enviar
-          </Button>
+                </Button>
               </Form>
             </Flexbox>
           </Background>
