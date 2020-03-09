@@ -4,12 +4,9 @@ import Typography from '@material-ui/core/Typography'
 import Chip from '@material-ui/core/Chip'
 
 import {
-  Wrapper,
   Group,
-  TitleSearch,
   WrapperResultSearch,
   SubTitle,
-  SearchResultEnterprise,
   Link,
   Text,
 } from './styles'
