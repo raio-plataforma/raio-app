@@ -1,4 +1,5 @@
 import React, { useEffect } from "react"
+import { Link } from 'react-router-dom'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useStoreState, useStoreActions } from 'easy-peasy'
 import { makeStyles } from '@material-ui/core/styles'
@@ -51,7 +52,7 @@ const EnterprisesList = () => {
     <Background className="container clearfix et_menu_container">
       <Container>
         <div className={classes.root}>
-          <Autocomplete
+          {/* <Autocomplete
             multiple
             fullWidth
             id="tags-outlined"
@@ -66,7 +67,8 @@ const EnterprisesList = () => {
                 placeholder="Digite sua pesquisa"
               />
             )}
-          />
+          /> */}
+          <Link to="/busca/empresas">Pesquisar Empresas</Link>
         </div>
         <Group>
           <IfElse
