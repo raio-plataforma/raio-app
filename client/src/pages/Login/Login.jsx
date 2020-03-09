@@ -39,7 +39,7 @@ const Login = () => {
       if (isAuthenticated) return history.push(`/dashboard/${type}`)
     }
 
-    if(loginError.message)
+    if(loginError && loginError.message)
       handleAlert(true)
   }, [auth, loginError])
 
