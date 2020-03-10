@@ -15,6 +15,7 @@ import Users from './pages/Signup/User'
 import Login from './pages/Login/Login'
 import Dashboard from './pages/Dashboard'
 import Admin from './pages/Dashboard/Admin/Admin'
+import EditEnterprise from './pages/Dashboard/EditEnterprise'
 import Enterprise from './pages/Signup/Enterprise'
 import PrivateRoute from './components/PrivateRoute'
 import VacancyList from './pages/Vacancy/VacancyList'
@@ -49,6 +50,7 @@ const App = ({ store }) => {
               <PrivateRoute path='/cadastro/vaga/:job_id' component={VacancyRegister} />
               <PrivateRoute path='/cadastro/vaga' component={VacancyRegister} />
               <PrivateRoute path='/cadastro/empresa' component={Enterprise} />
+              <PrivateRoute path='/editar/empresa/:enterprise_id' component={EditEnterprise} />
               <PrivateRoute
                 path='/cadastro/profissional'
                 component={Professional}

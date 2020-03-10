@@ -12,7 +12,7 @@ import { IfElse } from '../../components/If'
 import { Container, Group, Background } from './style'
 
 const headCells = [
-  { id: 'name_enterprise', numeric: false, disablePadding: true, label: 'Empresa' },
+  { id: 'enterprise_name', numeric: false, disablePadding: true, label: 'Empresa' },
   { id: 'name', numeric: false, disablePadding: false, label: 'Responsável' },
   { id: 'email', numeric: false, disablePadding: false, label: 'E-mail' },
   { id: 'phone', numeric: false, disablePadding: false, label: 'Telefone' },
@@ -37,14 +37,13 @@ const EnterprisesList = () => {
   }, [getAllEnterprises])
 
   const clearList = enterprises
-    .filter(ent => ent.enterprise_id)
     .map(ent => ({
-      id: ent.enterprise_id,
-      name_enterprise: ent.name_enterprise,
+      id: ent._id,
+      enterprise_name: ent.enterprise_name,
       name: ent.name,
       email: ent.email,
       phone: ent.phone,
-      segments: ent.business_segments
+      segments: ent.business_segments.join(', ')
     }))
     const classes = useStyles();
 

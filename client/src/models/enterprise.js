@@ -29,7 +29,7 @@ const enterpriseModel = {
       const error = err.response.data && err.response.data.job
       actions.setError(error)
     }
-  }),
+  }), 
   getAllEnterpriseUsers: thunk(async (actions, payload) => {
     try {
       const enterprises = await axios.get('/api/enterprise/all')

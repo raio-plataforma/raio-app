@@ -88,6 +88,20 @@ router.get('/all', (req, res) => {
     }))
 })
 
+router.get('/:enterprise_id', (req, res) => {
+  Enterprise.findOne({enterprise_id: req.enterprise_id}) 
+  .then(enterprise => {
+    if (!enterprise) {
+      errors.enterprise = 'Não existem empresas cadastradas ainda'
+      return res.status(404).json(errors)
+    }
+    res.json(enterprise)
+  })
+  .catch(() => res.status(404).json({
+    enterprise: 'Não foi possível buscar as empresas cadastradas. Tente novamente'
+  }))
+})
+
 router.put('/:enterprise_id', passport.authenticate('jwt', { session: false }), async (req, res) => {
 
 

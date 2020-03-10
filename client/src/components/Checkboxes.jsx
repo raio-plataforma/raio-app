@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import uuid from 'uuid'
 import styled from 'styled-components'
@@ -29,7 +29,11 @@ const Checkbox = styled.input`
   margin-right: 10px;
 `
 
-const Checkboxes = ({ label, register, name, fields }) => (
+const Checkboxes = ({ label, register, name, fields, defaultValues }) => {
+  const values = defaultValues || []
+  const [list, checkupList] = useState(values)
+  console.log(list)
+  return (
   <div className="field">
     <Typography color="primary" variant="h6">{label}</Typography>
     <Wrapper>
@@ -38,6 +42,7 @@ const Checkboxes = ({ label, register, name, fields }) => (
         return (
           <Label key={uuid()} className="control checkbox">
             <Checkbox
+              checked={list.includes(checkedItem)}
               type="checkbox"
               name={`${name}[${checkedItem}]`}
               ref={register}
@@ -48,7 +53,7 @@ const Checkboxes = ({ label, register, name, fields }) => (
       })}
     </Wrapper>
   </div>
-)
+)}
 
 Checkboxes.propTypes = {
   label: PropTypes.string,

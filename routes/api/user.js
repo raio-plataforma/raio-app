@@ -151,6 +151,26 @@ router.get('/current',
   }
 )
 
+// @route   GET api/user/:user_id
+// @desc    Return user by id
+// @access  Private
+
+router.get('/:user_id', (req, res) => {
+  
+    
+  User.findOne({user_id: req.user_id}) 
+  .then(users => {
+    if (!users) {
+      errors.users = 'Não existem usuários cadastradas ainda'
+      return res.status(404).json(errors)
+    }
+    res.json(users)
+  })
+  .catch(() => res.status(404).json({
+    users: 'Não foi possível buscar os usuários cadastrados. Tente novamente'
+  }))
+})
+
 // @route   GET api/users/has-additional-register
 // @desc    Return if user has related enterprise or professional
 // @access  Private

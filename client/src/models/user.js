@@ -19,6 +19,26 @@ const userModel = {
       throw e
     }
   }),
+  getUserById: thunk(async (actions, payload) => {
+    try {
+      const user = await axios.get(`/api/user/${payload}`)
+      const enterprise = await axios.get(`/api/enterprise/${payload}`)
+      // Set current user profile
+      
+      actions.setUser({
+        name: user.data.name,
+        email: user.data.email,
+        gender: user.data.gender,
+        phone: user.data.phone,
+        self_declaration: user.data.self_declaration,
+        ...enterprise.data
+      })
+    }
+    catch (e) {
+      console.log('deu ruim')
+      throw e
+    }
+  }),
   getAllUsers: thunk(async (actions) => {
     try {
       return await axios.get('/api/user/all')

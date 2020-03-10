@@ -10,10 +10,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Chip from '@material-ui/core/Chip'
 
-const ChipOptions = ({ register, name, label, error }) => {
-  const [list, onAddTerm] = useState([])
+const ChipOptions = ({ register, name, label, error, defaultValues }) => {
+  const values = defaultValues || []
+  const [list, onAddTerm] = useState(values)
   const [txtValue, addValue] = useState('')
-
   
   const handleAddTerm = (term) => {
     if(!term) return false;

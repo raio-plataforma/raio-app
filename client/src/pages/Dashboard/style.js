@@ -128,3 +128,15 @@ export const GroupButtons = styled.div`
   }
 `
 
+export const WrapEdit = styled.div`
+  h2 {
+    margin: 20px auto;
+    text-align: center;
+  }
+  form {
+    > * {
+      margin: 5px 0;
+    }
+  }
+`
+

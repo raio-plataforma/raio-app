@@ -183,7 +183,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
           <Table
             className={classes.table}
             aria-labelledby="tableTitle"
-            size="big"
+            size="medium"
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -210,9 +210,9 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                       key={row[hc[0].cell]}
                     >
                       {
-                        hc.map(name => {
+                        hc.map((name, index) => {
                           return (
-                            <TableCell padding="default">
+                            <TableCell key={index} padding="default">
                               {row[name.cell] || '-'}
                             </TableCell>
                           )
@@ -223,7 +223,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                           <TableCell align="right">
                             {actions.map(action => {
                               return (
-                                <Tooltip title={action.tooltip}>
+                                <Tooltip key={row.id} title={action.tooltip}>
                                   {action.type === 'link' ?
                                   <Link to={`${action.action}${row.id}`}>
                                     <IconButton aria-label="delete">{action.btn}</IconButton>
