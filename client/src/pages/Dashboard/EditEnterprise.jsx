@@ -27,18 +27,18 @@ import { formatCheckboxFields } from '../../utils/service'
 
 import { WrapEdit } from './style'
 
-const Enterprise = ({ match }) => {
+const EditEnterprise = ({ match }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
   const user = useStoreState(state => state.user.user)
   const getUserById = useStoreActions(actions => actions.user.getUserById)
   const registerCompany = useStoreActions(actions => actions.register.registerCompany)
   const registerError = useStoreState(state => state.register.error)
-  const [selectedDate, setSelectedDate] = React.useState(new Date(user.foundation_date));
+  const [selectedDate, setSelectedDate] = React.useState(new Date());
+  const [showBlock, handleBlock] = React.useState(false);
   const onSubmit = (data) => {
     const formatted = {
       ...data,
       foundation_date: parseDate(data.foundationDate),
-      cnpj_type: data.cnpjType,
       apan_associate: data.apanAssociate,
       identity_segments: formatCheckboxFields(data.identitySegments),
       other_states: formatCheckboxFields(data.otherStates),
@@ -51,8 +51,13 @@ const Enterprise = ({ match }) => {
     
     registerCompany(formatted)
   }
-
+  // console.log(user.other_states)
   const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
+  const handleShowBlock = value => {
+    console.log("==>", value);
+    handleRadio('identityContent', value)
+    handleBlock(value)
+  }
   getUserById(match.params.enterprise_id)
   
   // useEffect(() => {
@@ -111,8 +116,8 @@ const Enterprise = ({ match }) => {
           error={errors.foundationDate}
           helperText={errors.foundationDate && errors.foundationDate.message}
           fullWidth
-          defaultValue={selectedDate}
-          name="foundationDate"
+          value={selectedDate}
+          name="foundation_date"
           variant="filled"
           inputRef={register({
             required: 'Esse campo é obrigatório',
@@ -152,7 +157,9 @@ const Enterprise = ({ match }) => {
             }
           })}
         />
-
+        
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">Estado</InputLabel>
           <Select
             label="Estado"
             error={errors.state && errors.state.message}
@@ -167,6 +174,7 @@ const Enterprise = ({ match }) => {
               <option value={item.id} key={item.id}>{item.name}</option>
             )}
           </Select>
+        </FormControl>
 
         <TextField
           label="Cidade"
@@ -211,14 +219,14 @@ const Enterprise = ({ match }) => {
             name="diversityFunctions"
           />
           <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Qual o tipo do seu CNPJ?</InputLabel>
+            <InputLabel id="demo-simple-select-label">Qual o tipo do seu CNPJ?</InputLabel>
             <Select
               register={register}
               fullWidth
               variant="filled"
               value={user.cnpj_type}
               firstValue="Tipo de CNPJ"
-              name="cnpjType"
+              name="cnpj_type"
               
               error={errors.cnpjType && errors.cnpjType.message}
             >
@@ -233,15 +241,18 @@ const Enterprise = ({ match }) => {
             name="identityContent"
             defaultValue={user.identity_content}
             error={errors.identityContent && errors.identityContent.message}
-            onChange={e => handleRadio('identityContent', e.target.value)}
+            onChange={e => handleShowBlock(e.target.value)}
           />
-
-          <Checkboxes
-            label="Se sim, em qual segmento?"
-            fields={identitySegments}
-            name="identitySegments"
-            register={register}
-          />
+        {
+          showBlock && (
+            <Checkboxes
+              label="Se sim, em qual segmento?"
+              fields={identitySegments}
+              name="identitySegments"
+              register={register}
+            />
+          )
+        }
 
           <Radios
             label="A empresa é associado(a) da APAN?"
@@ -262,4 +273,4 @@ const Enterprise = ({ match }) => {
   )
 }
 
-export default Enterprise
+export default EditEnterprise

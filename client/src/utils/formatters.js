@@ -8,12 +8,12 @@ const getCheckboxes = (group) => {
   return filtered.join(', ')
 }
 
-const parseDate = date => {
+const parseDate = (date, decrypt) => {
   const day = date.substring(8, 10)
   const month = date.substring(5, 7) 
   const year = date.substring(0, 4)
 
-  return `${day}/${month}/${year}`
+  return decrypt ? `${year}-${month}-${day}` : `${day}/${month}/${year}`
 }
 
 export {

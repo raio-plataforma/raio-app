@@ -26,12 +26,13 @@ const userModel = {
       // Set current user profile
       
       actions.setUser({
-        name: user.data.name,
-        email: user.data.email,
-        gender: user.data.gender,
-        phone: user.data.phone,
-        self_declaration: user.data.self_declaration,
-        ...enterprise.data
+          name: user.data.name,
+          email: user.data.email,
+          gender: user.data.gender,
+          phone: user.data.phone,
+          self_declaration: user.data.self_declaration,
+          ...enterprise.data
+        
       })
     }
     catch (e) {
