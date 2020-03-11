@@ -30,6 +30,21 @@ const registerModel = {
       return actions.setErrors(error)
     }
   }),
+  registerEditCompany: thunk(async (actions, payload) => {
+   console.log(payload)
+   console.log(actions)
+    // try {
+    //   await axios.put('/api/enterprise/register', payload)
+    //   return history.push(`/dashboard/${getUserType(payload.type)}`)
+    // }
+    // catch (err) {
+    //   console.log(err)
+    //   const error = {
+    //     enterprise: err.response.data && err.response.data.register
+    //   }
+    //   return actions.setErrors(error)
+    // }
+  }),
   registerUser: thunk(async (actions, payload) => {
     try {
       await axios.post('/api/user/register', payload)

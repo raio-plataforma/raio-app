@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import history from '../../history'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
+import InputLabel from '@material-ui/core/InputLabel'
+import FormControl from '@material-ui/core/FormControl'
+import TextField from '@material-ui/core/TextField'
 import Select from '@material-ui/core/Select'
 import uuid from 'uuid'
 
 import Button from '../../comps/Button'
 import Checkboxes from '../../components/Checkboxes'
 import Radios from '../../components/Radios'
-// import Select from '../../components/Select'
 import { Error } from '../../components/Status'
-import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
-import TextField from '@material-ui/core/TextField'
 import ChipOptions from '../../comps/ChipOptions'
 import { parseDate } from '../../utils/formatters'
 import states from '../../assets/states.json'
@@ -27,18 +28,17 @@ import { formatCheckboxFields } from '../../utils/service'
 
 import { WrapEdit } from './style'
 
-const EditEnterprise = ({ match }) => {
+const Enterprise = ({ match }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
   const user = useStoreState(state => state.user.user)
   const getUserById = useStoreActions(actions => actions.user.getUserById)
-  const registerCompany = useStoreActions(actions => actions.register.registerCompany)
+  const registerCompany = useStoreActions(actions => actions.register.registerEditCompany)
   const registerError = useStoreState(state => state.register.error)
-  const [selectedDate, setSelectedDate] = React.useState(new Date());
   const [showBlock, handleBlock] = React.useState(false);
-  const onSubmit = (data) => {
+  const onSubmit = async(data) => {
     const formatted = {
       ...data,
-      foundation_date: parseDate(data.foundationDate),
+      foundation_date: parseDate(data.foundation_date),
       apan_associate: data.apanAssociate,
       identity_segments: formatCheckboxFields(data.identitySegments),
       other_states: formatCheckboxFields(data.otherStates),
@@ -48,22 +48,35 @@ const EditEnterprise = ({ match }) => {
       identity_content: data.identityContent,
       type: 'enterprise'
     }
+
+    try {
+      await axios.put(`/api/enterprise/${match.params.enterprise_id}`, formatted)
+      return history.push('/dashboard/empresa')
+    }
+    catch (err) {
+      console.log(err)
+      const error = {
+        user: err.response.data && err.response.data.register
+      }
+      console.log(error)
+      // return actions.setErrors(error)
+    }
     
-    registerCompany(formatted)
+    // registerCompany(formatted)
   }
   // console.log(user.other_states)
   const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
   const handleShowBlock = value => {
-    console.log("==>", value);
     handleRadio('identityContent', value)
     handleBlock(value)
   }
-  getUserById(match.params.enterprise_id)
   
-  // useEffect(() => {
-  //   register({ name: 'identityContent' });
-  //   register({ name: 'apanAssociate' });
-  // }, [register]);
+  
+  useEffect(() => {
+    register({ name: 'identityContent' });
+    register({ name: 'apanAssociate' });
+    Object.keys(user).length === 0 && getUserById(match.params.enterprise_id)
+  }, [register, getUserById]);
 
   return (
     <WrapEdit className="container">
@@ -113,10 +126,9 @@ const EditEnterprise = ({ match }) => {
         <TextField
           label="Data de Fundação"
           type="date"
-          error={errors.foundationDate}
-          helperText={errors.foundationDate && errors.foundationDate.message}
+          error={errors.foundatio_date}
+          helperText={errors.foundatio_date && errors.foundatio_date.message}
           fullWidth
-          value={selectedDate}
           name="foundation_date"
           variant="filled"
           inputRef={register({
@@ -273,4 +285,4 @@ const EditEnterprise = ({ match }) => {
   )
 }
 
-export default EditEnterprise
+export default Enterprise
