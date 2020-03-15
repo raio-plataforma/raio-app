@@ -13,7 +13,6 @@ const authModel = {
 
       // Set token to localStorage
       const { token } = res.data
-      console.log(token)
       localStorage.setItem('jwtToken', token)
   
       // Set token to auth header

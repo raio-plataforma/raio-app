@@ -13,7 +13,6 @@ function formatPhone(num){
 }
 
 export const getInfo = (user, type) => {
-  console.log('ginfo ====>', user, user.other_states, getState(user.state))
   return type === 'professional' ? 
   [
     {

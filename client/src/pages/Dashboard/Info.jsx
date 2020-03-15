@@ -23,7 +23,6 @@ const StyledInfo = styled.div`
 `
 
 function Info({infoList}) {
-  console.log(infoList)
   return (
     <StyledInfo className='info'>
       {

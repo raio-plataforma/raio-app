@@ -80,7 +80,7 @@ const Dashboard = () => {
             </Button>
           </a>
           }
-          { user.usedVacancies > 0 && 
+          { (user && user.usedVacancies > 0) && 
           (<Link to={`/listagem/vagas/${user.enterprise_id}`}>
             <Button
               variant="contained"
@@ -100,6 +100,15 @@ const Dashboard = () => {
             </Button>
           </Link>
         </If>
+        <Link to={`/editar/usuario/${user.user_id}`}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="lg"
+          >
+            Editar Responsável
+          </Button>
+        </Link>
         <Button
           variant="contained"
           color="primary"

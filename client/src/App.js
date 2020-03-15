@@ -19,6 +19,7 @@ import Enterprise from './pages/Signup/Enterprise'
 import PrivateRoute from './components/PrivateRoute'
 import VacancyList from './pages/Vacancy/VacancyList'
 import AllEnterprises from './pages/Enterprises/index'
+import EditUser from './pages/Edit/User'
 import Professional from './pages/Signup/Professional'
 import VacancyRegister from './pages/Vacancy/VacancyRegister'
 import SearchEnterprise from './pages/Search/SearchEnterprise'
@@ -55,6 +56,10 @@ const App = ({ store }) => {
               <PrivateRoute
                 path='/dashboard/admin/empresas'
                 component={AllEnterprises}
+              />
+              <PrivateRoute
+                path='/editar/usuario/:user_id'
+                component={EditUser}
               />
               <PrivateRoute
                 path='/dashboard/profissional'

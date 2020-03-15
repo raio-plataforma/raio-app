@@ -200,7 +200,6 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
               {stableSort(list, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map(row => {
-                  console.log('r =>', row)
                   const hc = headCells.map(nameCell => ({
                     cell: nameCell.id
                   }))

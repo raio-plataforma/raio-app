@@ -191,13 +191,61 @@ router.get('/all', (req, res) => {
         errors.users = 'Não existem usuários cadastradas ainda'
         return res.status(404).json(errors)
       }
-      res.json(users)
+      res.status(200)
+        .json(users)
     })
     .catch(() => res.status(404).json({
       users: 'Não foi possível buscar os usuários cadastrados. Tente novamente'
     }))
 })
 
+router.get('/:user_id', (req, res) => {
+  User.findOne({ _id: req.params.user_id })
+    .then(users => {
+      if (!users) {
+        errors.users = 'Não existe usuário com esse id'
+        return res.status(404).json(errors)
+      }
+      res.status(200)
+        .json(users)
+    })
+    .catch(() => res.status(404).json({
+      users: 'O usuário não foi encontrado. Tente novamente'
+    }))
+})
+
+router.put('/edit/:type/:user_id/', (req, res) => {
+  if(req.params.type === 'enterprise') {
+    Enterprise.findOneAndUpdate(
+      { user_id: req.params.user_id },
+      {
+        name: req.body.name,
+        user_email: req.body.email,
+      }
+    )
+    .then(user => res.json({ message: `Usuário ${user.name} alterado com sucesso`}))
+    .catch(() => {
+      errors.resetPassword = 'Um erro ocorreu ao editar a empresa'
+      return res.status(404).json(errors)
+    })
+  }
+
+  User.findOneAndUpdate({ _id: req.params.user_id },
+    { $set: {
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      self_declaration: req.body.self_declaration,
+      gender: req.body.gender
+    }
+  },
+  { new: true })
+  .then(user => res.json({ message: `Usuário ${user.name} alterado com sucesso`}))
+  .catch(() => {
+    errors.resetPassword = 'Um erro ocorreu ao editar o usuário'
+    return res.status(404).json(errors)
+  })
+})
 // @route   POST api/user/forgot-password
 // @desc    Send email to reset password
 // @access  Public
