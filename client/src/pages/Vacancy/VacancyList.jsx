@@ -24,7 +24,6 @@ const VacancyList = ({ match }) => {
     const id = match.params && match.params.id
     getAllVacancies(id)
   }, [getAllVacancies, match.params])
-  console.log('vac =>', vacancies)
   return (
     <Background>
       <Container>

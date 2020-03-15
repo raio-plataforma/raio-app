@@ -52,7 +52,7 @@ const Enterprise = () => {
       identity_content: data.identityContent,
       type: 'enterprise'
     }
-    console.log(formatted)
+    
     registerCompany(formatted)
   }
 

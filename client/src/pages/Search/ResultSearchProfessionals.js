@@ -95,7 +95,7 @@ const ResultSearchProfessionals = ({ data }) => {
     { id: 'bio', numeric: false, disablePadding: false, label: 'Bio' },
     { id: 'links', numeric: false, disablePadding: false, label: 'Links' },
   ];
-  console.log('var ==>', professionals)
+  
   return (
     <WrapperResultSearch className="container">
       <Button variant="contained">
