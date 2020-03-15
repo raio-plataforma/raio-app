@@ -5,7 +5,7 @@ import SelectMaterial from '@material-ui/core/Select'
 
 const Select = ({ label, register, name, options, value, onChange }) => {
   const [ opt, setOpt ] = useState(value)
-
+console.log(value)
   const handleChange = value => {
     setOpt(value)
     if(onChange)
@@ -18,6 +18,7 @@ const Select = ({ label, register, name, options, value, onChange }) => {
       <SelectMaterial
         native
         inputRef={register}
+        defaultValue={opt}
         variant="filled"
         onChange={(e) => handleChange(e.target.value)}
         inputProps={{
