@@ -52,9 +52,11 @@ const EditUser = ({ match }) => {
         <TextField
           name="name"
           fullWidth
-          error={errors.name}
+          error={errors.name && errors.name.message}
           helperText={errors.name && errors.name.message}
-          inputRef={register}
+          inputRef={register({
+            required: 'Esse campo é obrigatório'
+          })}
           defaultValue={user.name}
           label="Nome do Usuário"
           variant="filled"
@@ -62,8 +64,12 @@ const EditUser = ({ match }) => {
         <TextField
           name="phone"
           fullWidth
-          inputRef={register}
           defaultValue={user.phone}
+          error={errors.phone && errors.phone.message}
+          helperText={errors.phone && errors.phone.message}
+          inputRef={register({
+            required: 'Esse campo é obrigatório'
+          })}
           label="Telefone"
           variant="filled"
         />
@@ -71,7 +77,11 @@ const EditUser = ({ match }) => {
           name="email"
           fullWidth
           defaultValue={user.email}
-          inputRef={register}
+          error={errors.email && errors.email.message}
+          helperText={errors.email && errors.email.message}
+          inputRef={register({
+            required: 'Esse campo é obrigatório'
+          })}
           label="E-mail"
           variant="filled"
         />
@@ -81,6 +91,11 @@ const EditUser = ({ match }) => {
             <Select 
               name="self_declaration"
               value={user.self_declaration}
+              error={errors.self_declaration && errors.self_declaration.message}
+              helperText={errors.self_declaration && errors.self_declaration.message}
+              inputRef={register({
+                required: 'Esse campo é obrigatório'
+              })}
               options={selfDeclaration}
               register={register}
               label="Auto-declaração"
@@ -92,6 +107,11 @@ const EditUser = ({ match }) => {
               name="gender"
               options={gender}
               value={user.gender}
+              error={errors.gender && errors.gender.message}
+              helperText={errors.gender && errors.gender.message}
+              inputRef={register({
+                required: 'Esse campo é obrigatório'
+              })}
               register={register}
               label="Gênero"
             />
