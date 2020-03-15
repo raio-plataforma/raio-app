@@ -191,7 +191,8 @@ router.get('/all', (req, res) => {
         errors.users = 'Não existem usuários cadastradas ainda'
         return res.status(404).json(errors)
       }
-      res.json(users)
+      res.status(200)
+        .json(users)
     })
     .catch(() => res.status(404).json({
       users: 'Não foi possível buscar os usuários cadastrados. Tente novamente'
