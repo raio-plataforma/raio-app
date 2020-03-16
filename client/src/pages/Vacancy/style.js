@@ -41,6 +41,11 @@ export const Form = styled.form`
   margin: 25px;
   padding: 30px;
 `
+export const StyledForm = styled.form`
+  > div {
+    margin: 5px 0;
+  }
+`
 
 export const WrapButton = styled.div`
   width: 100%;
