@@ -136,6 +136,7 @@ const Dashboard = () => {
         <Modal
         isOpen={modalInfoPlans}
         onClose={() => setModalInfoPlans(false)}
+        width="300px"
       >
        <img src={seloPlans} />
        </Modal>
