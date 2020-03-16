@@ -30,9 +30,8 @@ const JobSchema = new Schema({
     required: true
   },
   hiring_type: {
-    type: String,
+    type: Array,
     required: true,
-    enum: ['CLT', 'PJ', 'RPA']
   }, 
   cache: {
     type: String,

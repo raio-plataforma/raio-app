@@ -12,6 +12,8 @@ export const identitySegments = ["Audiovisual Negro", "Audiovisual Indígena", "
 
 export const registryTypes = ["MEI", "EIRELI", "ME", "Outro"]
 
+export const hiringType = ["CLT", "PJ", "RPA"]
+
 export const formations = ["Autodidata", "ONG ou Instituição Cultural", "Formação Técnica", "Universidade ou Faculdade"]
 
 export const cnpj_type = ["EIRELI", "LTDA", "ME", "MEI", "S.A"]
