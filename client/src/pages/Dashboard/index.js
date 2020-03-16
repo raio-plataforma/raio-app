@@ -106,7 +106,7 @@ const Dashboard = () => {
             color="primary"
             size="lg"
           >
-            Editar Responsável
+            Editar Dados de Acesso
           </Button>
         </Link>
         <Button
