@@ -92,10 +92,10 @@ router.get('/all', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const errors = {}
-  Professional.findOne({ user_id: req.params.id })
+  Professional.findOne({ _id: req.params.id })
     .then(professionals => {
       if (!professionals) {
-        errors.noprofessionals = 'Não existem candidatos cadastradas ainda'
+        errors.noprofessionals = `Não foram encontrados profissionais com o id ${req.params.id}`
         return res.status(404).json(errors)
       }
       res.json(professionals)
