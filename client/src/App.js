@@ -63,7 +63,7 @@ const App = ({ store }) => {
                 component={EditUser}
               />
               <PrivateRoute
-                path='/editar/usuario/:id'
+                path='/editar/profissional/:id'
                 component={EditProfessional}
               />
               <PrivateRoute

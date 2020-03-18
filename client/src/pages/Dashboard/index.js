@@ -109,6 +109,17 @@ const Dashboard = () => {
             Editar Dados de Acesso
           </Button>
         </Link>
+        <Link to={`/editar/${userType.type === "enterprise" ?
+        "empresa" : "profissional"}/${user.user_id}`}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="lg"
+          >
+            Editar dados de {userType.type === "enterprise" ?
+            "empresa" : "profissional"}
+          </Button>
+        </Link>
         <Button
           variant="contained"
           color="primary"
