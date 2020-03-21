@@ -18,8 +18,17 @@ const StyledBody = styled.div`
     }
   }
 
-  .MuiFormLabel-root {
+  .MuiFormLabel-root,
+  .MuiIconButton-colorPrimary {
     color: #ef9448;
+  }
+
+  .form-group {
+    display: flex;
+
+    .option {
+      flex: 50%;
+    }
   }
 `
 

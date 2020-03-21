@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
 import InputLabel from '@material-ui/core/InputLabel'
-import FormControl from '@material-ui/core/FormControl'
 import SelectMaterial from '@material-ui/core/Select'
+import FormControl from '@material-ui/core/FormControl'
+import FormHelperText from '@material-ui/core/FormHelperText'
 
-const Select = ({ label, register, name, options, value, onChange }) => {
+const Select = ({ label, register, name, options, value, onChange, error }) => {
   const [ opt, setOpt ] = useState(value)
-console.log(value)
+  
   const handleChange = value => {
     setOpt(value)
     if(onChange)
@@ -34,6 +35,7 @@ console.log(value)
           })
         }
       </SelectMaterial>
+      {error && <FormHelperText error>{error}</FormHelperText>}
     </FormControl>
   )
 }

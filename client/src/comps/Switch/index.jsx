@@ -1,35 +1,34 @@
 import React from 'react';
-import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
+import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import SwitchMaterial from '@material-ui/core/Switch';
+import Checkbox from '@material-ui/core/Checkbox';
 
-export default function Switch({ name, label, error, register}) {
-  const [state, setState] = React.useState({
-    gilad: true,
-  });
+export default function SwitchLabels({ value, name, label, register, onChange, error }) {
+  const hasValue = value || false
+  const [state, setState] = React.useState(hasValue);
 
-  const handleChange = name => event => {
-    setState({ ...state, [name]: event.target.checked });
-    
+  const handleChange = event => {
+    setState(event.target.checked);
+    onChange && onChange(event)
   };
-
+  
+  console.log('beforeRender', state)
   return (
-    <FormControl component="fieldset">
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <SwitchMaterial 
+    <FormGroup row>
+      <FormControlLabel
+        control={
+          <Checkbox
+            inputRef={register}
             name={name}
+            checked={state}
+            onChange={handleChange}
             color="primary"
-            onChange={handleChange('gilad')} 
-            useRef={register}
-            value="gilad" />}
-          label={label}
-        />
-      </FormGroup>
-        {error && <FormHelperText error>{error}</FormHelperText>}
-    </FormControl>
+          />
+        }
+        label={label}
+      />
+      {error && <FormHelperText error>{error}</FormHelperText>}
+    </FormGroup>
   );
 }
