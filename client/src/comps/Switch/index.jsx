@@ -13,7 +13,6 @@ export default function SwitchLabels({ value, name, label, register, onChange, e
     onChange && onChange(event)
   };
   
-  console.log('beforeRender', state)
   return (
     <FormGroup row>
       <FormControlLabel

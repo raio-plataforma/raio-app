@@ -11,8 +11,9 @@ import states from '../../assets/states.json'
 import cities from '../../assets/cities.json'
 import {
   formations,
-  functions,
-  cnpj_type
+  separated_functions,
+  cnpj_type,
+  identitySegments
 } from '../Signup/dicioFields'
 import { dateToString, parseDate } from '../../utils/formatter'
 import Checkbox from '../../comps/Checkbox'
@@ -28,6 +29,7 @@ const EditProfessional = ({ match }) => {
   const [isLoading, setLoading] = useState(true)
   const [hasError, setError] = useState(false)
   const [numCols, setCols] = useState(3)
+  const [hasIdentity, toggleIdentity] = useState(false)
   const getProfessionalById = useStoreActions(actions => actions.professional.getProfessionalById)
   // const editUser = useStoreActions(actions => actions.user.editUser)
  
@@ -44,6 +46,7 @@ const EditProfessional = ({ match }) => {
     }
 
     professional && professional.cnpj ? setCols(3) : setCols(4)
+    professional && professional.identity_content ? toggleIdentity(true) : toggleIdentity(false)
   
   }, [professional, getProfessionalById])
 
@@ -257,14 +260,39 @@ const EditProfessional = ({ match }) => {
             />
           </Grid>
           <Grid item xs={12}>
-          <Checkbox
-            name="expertise_areas"
-            label="Áreas de atuação"
-            options={Object.keys(professional.expertise_areas[0])}
-            value={professional.expertise_areas[0]}
+            <Typography variant="h5">Áreas de atuação</Typography>
+          {
+            separated_functions.map(check => (
+              <>
+              <Checkbox
+                name="expertise_areas"
+                label={check.title}
+                options={check.list.sort()}
+                value={professional.expertise_areas[0]}
+                register={register}
+              />
+              </>
+            ))
+          }
+          </Grid>
+          <Grid item xs={12}>
+          <Switch
+            name="identity_content"
+            label="Empresa voltada para conteúdo identitário?"
+            onChange={(e) => toggleIdentity(e.target.checked)}
+            value={professional.identity_content}
             register={register}
           />
           </Grid>
+          {hasIdentity && <Grid item xs={12}>
+            <Checkbox
+              name="identity_segments"
+              label="Segmentos identitários"
+              options={identitySegments}
+              value={professional.identity_segments[0]}
+              register={register}
+            />
+          </Grid>}
           <Grid item xs={12}>
           <TextField
             name="bio"

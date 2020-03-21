@@ -36,9 +36,6 @@ export default function CheckboxesGroup({ value, register, name, label, options,
 
   const handleChange = key => event => setState({ ...state, [key]: !!event.target.checked });
 
-  
-   
-  console.log(options.length, Object.keys(state).length)
   return (
       <FormControl component="fieldset" className={classes.root}>
         <FormLabel component="legend" className={classes.label}>{label}</FormLabel>
