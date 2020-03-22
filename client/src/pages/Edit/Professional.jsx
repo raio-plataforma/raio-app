@@ -31,13 +31,11 @@ const EditProfessional = ({ match }) => {
   const [numCols, setCols] = useState(3)
   const [hasIdentity, toggleIdentity] = useState(false)
   const getProfessionalById = useStoreActions(actions => actions.professional.getProfessionalById)
-  // const editUser = useStoreActions(actions => actions.user.editUser)
+  const editProfessional = useStoreActions(actions => actions.professional.editProfessional)
  
   const professional = useStoreState(state => state.professional.professional)
   const error = useStoreState(state => state.professional.error)
-  // getProfessionalById(match.params.id)
-  // console.log(match.params.id)
-  // console.log(professional)
+
   
   useEffect(() => {
     (!professional || Object.values(professional).length === 0) && getProfessionalById(match.params.id)
@@ -57,18 +55,15 @@ const EditProfessional = ({ match }) => {
       id: professional.id,
       birthday: parseDate(data.birthday)
     }
-    console.log(parseDate(data.birthday))
-    console.log('data =>', formatted)
-    // editUser(formatted)
+    editProfessional(formatted)
   }
 
   const hideOptionCNPJ = check => {
     check ? setCols(3) : setCols(4) 
-    console.log(check)
   }      
 
   const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
-  console.log(numCols)
+  
   return (
     <section className="container">
       <Typography variant="h2" style={{textAlign: 'center', fontWeight: 'bold'}}>Editar Profissional</Typography>

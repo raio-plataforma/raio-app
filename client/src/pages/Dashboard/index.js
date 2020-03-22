@@ -23,8 +23,6 @@ import {
   Container,
 } from './style'
 
-
-
 const Dashboard = () => {
   const userType = useStoreState(state => state.auth.auth.user)
   const getUser = useStoreActions(actions => actions.user.getUser)
@@ -32,7 +30,6 @@ const Dashboard = () => {
   const hasVacancies = user.vacancies - user.usedVacancies > 0;
 
   const [modalStatus, setModalStatus] = useState(false)
-  // const [disabledButton, setDisabledButton] = useState(false) // TODO: Add count to set or unset register vacancy button
   const [modalInfoPlans, setModalInfoPlans] = useState(false)
   const [modalBoasVindas, setModalBoasVindas] = useState(false)
 
@@ -64,7 +61,6 @@ const Dashboard = () => {
           />
            
         </div>
-          
       </Container>
       
       <GroupButtons className="container">
