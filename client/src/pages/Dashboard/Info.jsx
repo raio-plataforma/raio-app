@@ -18,7 +18,12 @@ const StyledInfo = styled.div`
 
   .values {
     display: flex;
+    
     justify-content: space-between;
+
+    .field {
+      max-width: 30%;
+    }
   }
 `
 

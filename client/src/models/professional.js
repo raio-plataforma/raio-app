@@ -1,4 +1,5 @@
 import { thunk, action } from 'easy-peasy'
+import history from '../history'
 import axios from 'axios'
 
 const professionalModel = {
@@ -41,6 +42,18 @@ const professionalModel = {
         links: professional.data.links,
         bio: professional.data.bio,
       })
+
+      console.log("foi")
+    }
+    catch (e) {
+      actions.setError(e)
+      console.log('deu ruim')
+    }
+  }),
+  editProfessional: thunk(async (actions, payload) => {
+    try {
+      await axios.put(`/api/professional/edit/${payload.id}`, payload)
+      return history.push(`/dashboard/profissional`)
     }
     catch (e) {
       actions.setError(e)
@@ -48,9 +61,8 @@ const professionalModel = {
   }),
   professionals: [],
   setProfessionals: action((state, payload) => {
-    console.log('setPro =>', payload)
     return ({
-      professionals: [...payload]
+      professionals: payload
     })
   }),
   setProfessionalForEdit: action((state, payload) => {

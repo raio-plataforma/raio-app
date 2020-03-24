@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
 import Typography from '@material-ui/core/Typography'
+import {checkSegments} from '../../utils/formatter'
 
 const StyledProfile = styled.div`
   text-align: center;
@@ -62,7 +63,7 @@ function Profile({ icon, name, associate, bio, type, segments, pcd }) {
       {segments.length > 0 &&
       <section className="segments">
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
-        <Typography>{segments.join(', ')}</Typography>
+        <Typography color="secondary">{checkSegments(segments).join(', ')}</Typography>
       </section>}
     </StyledProfile>
   )

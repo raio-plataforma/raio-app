@@ -14,7 +14,17 @@ const dateToString = date => {
   return `${year}-${month}-${day}`
 }
 
+const checkSegments = segment => {
+  const segments = Object.keys(segment[0])
+  const values = Object.values(segment[0])
+  if (values.every(el => el === false))
+    return ["Nenhum"]
+
+  return segments.filter((v, i) => segment[0][v] && segments[i])
+}
+
 export {
   parseDate,
-  dateToString
+  dateToString,
+  checkSegments
 }
