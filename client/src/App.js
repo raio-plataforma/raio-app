@@ -20,7 +20,7 @@ import PrivateRoute from './components/PrivateRoute'
 import VacancyList from './pages/Vacancy/VacancyList'
 import AllEnterprises from './pages/Enterprises/index'
 import EditUser from './pages/Edit/User'
-import ProfessionalUser from './pages/Edit/Professional'
+import EditProfessional from './pages/Edit/Professional'
 import Professional from './pages/Signup/Professional'
 import VacancyRegister from './pages/Vacancy/VacancyRegister'
 import SearchEnterprise from './pages/Search/SearchEnterprise'
@@ -63,8 +63,8 @@ const App = ({ store }) => {
                 component={EditUser}
               />
               <PrivateRoute
-                path='/editar/usuario/:id'
-                component={ProfessionalUser}
+                path='/editar/profissional/:id'
+                component={EditProfessional}
               />
               <PrivateRoute
                 path='/dashboard/profissional'

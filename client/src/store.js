@@ -8,7 +8,8 @@ const {
   registerModel,
   userModel,
   vacancyModel,
-  enterpriseModel
+  enterpriseModel,
+  professionalModel,
 } = GlobalModels
 
 const storeModel = {
@@ -18,6 +19,7 @@ const storeModel = {
   user: userModel,
   vacancy: vacancyModel,
   enterprise: enterpriseModel,
+  professional: professionalModel,
   ui: uiModel
 };
 

@@ -90,4 +90,19 @@ router.get('/all', (req, res) => {
     }))
 })
 
+router.get('/:id', (req, res) => {
+  const errors = {}
+  Professional.findOne({ _id: req.params.id })
+    .then(professionals => {
+      if (!professionals) {
+        errors.noprofessionals = `Não foram encontrados profissionais com o id ${req.params.id}`
+        return res.status(404).json(errors)
+      }
+      res.json(professionals)
+    })
+    .catch(() => res.status(404).json({
+      professionals: 'Não existem candidatos cadastradas ainda'
+    }))
+})
+
 module.exports = router

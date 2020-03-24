@@ -89,7 +89,7 @@ const Enterprise = () => {
 
         <ChipOptions 
           name="links" 
-          label="Links para site e redes socias da empresa"
+          label="Links para site e redes sociais da empresa"
           error={errors.links && errors.links.message}
           register={register({
             required: 'Esse campo é obrigatório',
