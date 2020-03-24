@@ -1,5 +1,6 @@
 import states from '../../assets/states.json'
-import { checkSegments } from '../../utils/formatter'
+
+import {checkSegments} from '../../utils/formatter'
 
 export const getState = (
   stateID,
@@ -80,7 +81,8 @@ export const getInfo = (user, type) => {
         },
         {
           campo: 'Áreas de atuação',
-          valor: user.expertise_areas && checkSegments(user.expertise_areas).join(', ')
+          valor: user.expertise_areas &&
+            checkSegments(user.expertise_areas).join(', ')
         }
       ]
     },
@@ -117,7 +119,7 @@ export const getInfo = (user, type) => {
         {
           campo: 'Telefone',
           valor: formatPhone(user.phone)
-        },
+        },z
         {
           campo: 'E-mail',
           valor: user.user_email
