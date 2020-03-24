@@ -119,7 +119,7 @@ export const getInfo = (user, type) => {
         {
           campo: 'Telefone',
           valor: formatPhone(user.phone)
-        },z
+        },
         {
           campo: 'E-mail',
           valor: user.user_email
