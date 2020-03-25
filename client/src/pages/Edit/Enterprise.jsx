@@ -55,8 +55,8 @@ const EditEnterprise = ({ match }) => {
       id: enterprise.id,
       foundation_date: parseDate(data.foundation_date)
     }
-    console.log('data =>', formatted)
-    // editEnterprise(formatted)
+    // console.log('data =>', formatted)
+    editEnterprise(formatted)
   }
 
   const hideOptionCNPJ = check => {
