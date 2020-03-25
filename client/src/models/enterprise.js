@@ -1,4 +1,5 @@
 import { thunk, action } from 'easy-peasy'
+import history from '../history'
 import axios from 'axios'
 
 const enterpriseModel = {
