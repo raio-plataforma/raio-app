@@ -16,6 +16,15 @@ const enterpriseModel = {
       actions.setError(error)
     }
   }),
+  editProfessional: thunk(async (actions, payload) => {
+    try {
+      await axios.put(`/api/enterprise/edit/${payload.id}`, payload)
+      return history.push(`/dashboard/empresa`)
+    }
+    catch (e) {
+      actions.setError(e)
+    }
+  }),
   getAllEnterpriseUsers: thunk(async (actions, payload) => {
     try {
       const enterprises = await axios.get('/api/enterprise/all')

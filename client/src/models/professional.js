@@ -42,7 +42,6 @@ const professionalModel = {
         bio: professional.data.bio,
       })
 
-      console.log("foi")
     }
     catch (e) {
       actions.setError(e)
