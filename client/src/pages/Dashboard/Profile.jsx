@@ -63,7 +63,7 @@ function Profile({ icon, name, associate, bio, type, segments, pcd }) {
       {segments.length > 0 &&
       <section className="segments">
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
-        <Typography color="secondary">{checkSegments(segments).join(', ')}</Typography>
+        <Typography color="secondary">{segments.join(', ')}</Typography>
       </section>}
     </StyledProfile>
   )

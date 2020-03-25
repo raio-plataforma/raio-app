@@ -20,7 +20,6 @@ const professionalModel = {
   getProfessionalById: thunk(async (actions, payload) => {
     try {
       const professional = await axios.get(`/api/professional/${payload}`)
-      console.log(professional.data)
       // Set current user profile
       
       actions.setProfessionalForEdit({

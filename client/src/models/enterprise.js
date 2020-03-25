@@ -42,6 +42,35 @@ const enterpriseModel = {
       actions.setError(error)
     }
   }),
+  getEnterpriseById: thunk(async (actions, payload) => {
+    try {
+      const enterprise = await axios.get(`/api/enterprise/${payload}`)
+      
+      actions.setEnterprises({
+        id: enterprise.data._id,
+        enterprise_name: enterprise.data.enterprise_name,
+        foundation_date: enterprise.data.foundation_date,
+        presentation: enterprise.data.presentation,
+        links: enterprise.data.links,
+        diversity_functions: enterprise.data.diversity_functions,
+        identity_content: enterprise.data.identity_content,
+        cnpj_type: enterprise.data.cnpjType,
+        identity_segments: enterprise.data.identity_segments,
+        business_segments: enterprise.data.business_segments,
+        business_fields: enterprise.data.business_fields,
+        other_states: enterprise.data.other_states,
+        city: enterprise.data.city,
+        state: enterprise.data.state,
+        apan_associate: enterprise.data.apan_associate
+      })
+
+      console.log("foi")
+    }
+    catch (e) {
+      actions.setError(e)
+      console.log('deu ruim')
+    }
+  }),
   getAll: thunk(async (actions, payload) => {
     try {
       return await axios.get('/api/enterprise/all')

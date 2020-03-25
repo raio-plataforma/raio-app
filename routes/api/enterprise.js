@@ -85,4 +85,46 @@ router.get('/all', (req, res) => {
     }))
 })
 
+router.get('/:id', (req, res) => {
+  const errors = {}
+  Enterprise.findOne({ _id: req.params.id })
+    .then(enterprise => {
+      if (!enterprise) {
+        errors.noEnterprise = `Não foram encontradas empresas com o id ${req.params.id}`
+        return res.status(404).json(errors)
+      }
+      res.json(enterprise)
+    })
+    .catch(() => res.status(404).json({
+      enterprises: 'Não existem candidatos cadastradas ainda'
+    }))
+})
+
+router.put('/edit/:id/', (req, res) => {
+  
+  Enterprise.findOneAndUpdate({ _id: req.params.id },
+    { $set: {
+      enterprise_name: req.body.enterprise_name,
+      foundation_date: req.body.foundation_date,
+      presentation: req.body.presentation,
+      links: req.body.links,
+      diversity_functions: req.body.diversity_functions,
+      identity_content: req.body.identity_content,
+      cnpj_type: req.body.cnpjType,
+      identity_segments: req.body.identity_segments,
+      business_segments: req.body.business_segments,
+      business_fields: req.body.business_fields,
+      other_states: req.body.other_states,
+      city: req.body.city,
+      state: req.body.state,
+      apan_associate: req.body.apan_associate
+    }
+  },
+  { new: true })
+  .then(professional => res.json({ message: `Empresa alterada com sucesso`}))
+  .catch((errors) => {
+    errors.editError = 'Um erro ocorreu ao editar a Empresa'
+    return res.status(404).json(errors)
+  })
+})
 module.exports = router
