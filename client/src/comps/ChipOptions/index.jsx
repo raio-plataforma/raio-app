@@ -10,7 +10,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Chip from '@material-ui/core/Chip'
 
 const ChipOptions = ({ register, name, label, error, value }) => {
-  const [list, onAddTerm] = useState(value)
+  const listValues = value || []
+  const [list, onAddTerm] = useState(listValues)
   const [txtValue, addValue] = useState('')
 
   

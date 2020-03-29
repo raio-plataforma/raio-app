@@ -6,9 +6,8 @@ import uuid from 'uuid'
 
 import Flexbox from '../../components/Flexbox'
 import Button from '../../comps/Button'
+import Checkbox from '../../comps/Checkbox'
 import Textarea from '../../components/Textarea'
-import Checkboxes from '../../components/Checkboxes'
-import Radios from '../../components/Radios'
 import Select from '../../components/Select'
 import InputText from '../../components/InputText'
 import { Error } from '../../components/Status'
@@ -145,29 +144,29 @@ const Enterprise = () => {
           })}
         />
 
-          <Checkboxes
+          <Checkbox
             label="Outros estados que a empresa tem atuação"
             register={register}
-            fields={states}
+            options={states.map(uf => uf.name)}
             name="otherStates"
           />
           
-          <Checkboxes
+          <Checkbox
             label="Segmento de atuação"
             register={register}
-            fields={segment}
+            options={segment}
             name="businessSegments"
           />
-          <Checkboxes
+          <Checkbox
             label="Campos de atuação"
             register={register}
-            fields={actions}
+            options={actions}
             name="businessFields"
           />
-          <Checkboxes
+          <Checkbox
             label="Funções que busca diversificar na empresa"
             register={register}
-            fields={functions}
+            options={functions}
             name="diversityFunctions"
           />
 
@@ -183,21 +182,21 @@ const Enterprise = () => {
             )}
           </Select>
 
-          <Radios
+          <Switch
             label="Sua empresa é vocacionada para conteúdo identitário?"
             name="identityContent"
             error={errors.identityContent && errors.identityContent.message}
             onChange={e => handleRadio('identityContent', e.target.value)}
           />
 
-          <Checkboxes
+          <Checkbox
             label="Se sim, em qual segmento?"
-            fields={identitySegments}
+            options={identitySegments}
             name="identitySegments"
             register={register}
           />
 
-          <Radios
+          <Switch
             label="A empresa é associado(a) da APAN?"
             name="apanAssociate"
             error={errors.apanAssociate && errors.apanAssociate.message}
