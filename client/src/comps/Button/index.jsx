@@ -1,8 +1,8 @@
 import React from 'react'
 import ButtonMaterial from '@material-ui/core/Button'
 import PropTypes from 'prop-types'
-const Button = ({ type, onClick, children, disabled, styles, isLoading, color, variant }) => {
-
+const Button = ({ type, onClick, children, disabled, styles, isLoading, color, variant, size }) => {
+  
   return (
     <ButtonMaterial
       variant={variant}
@@ -10,8 +10,9 @@ const Button = ({ type, onClick, children, disabled, styles, isLoading, color, v
       disabled={disabled}
       type={type}
       onClick={onClick}
-      style={{margin: '5px'}}
-      className={`button ${isLoading ? 'is-loading' : ''} ${styles}`}
+      size={size}
+      style={styles}
+      className={`button ${isLoading ? 'is-loading' : ''}`}
     >
       {children}
     </ButtonMaterial>
@@ -31,7 +32,9 @@ Button.propTypes = {
   /** Button type. */
   type: string,
   /** Button min-width. */
-  minWidth: string
+  minWidth: string,
+  /** Button size. */
+  size: string
 }
 
 Button.defaultProps = {
@@ -40,5 +43,5 @@ Button.defaultProps = {
   disabled: false,
   variant: undefined,
   color: 'primary',
-  style: 'is-rounded normal is-danger'
+  size: 'large'
 }
