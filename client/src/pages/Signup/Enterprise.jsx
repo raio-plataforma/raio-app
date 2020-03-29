@@ -14,9 +14,7 @@ import { Error } from '../../components/Status'
 
 import TextField from '@material-ui/core/TextField';
 import ChipOptions from '../../comps/ChipOptions'
-import TransferList from '../../comps/TransferList'
 import Switch from '../../comps/Switch'
-import FormHelperText from '@material-ui/core/FormHelperText'
 
 import states from '../../assets/states.json'
 import {
