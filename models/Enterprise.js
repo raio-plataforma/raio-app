@@ -48,7 +48,7 @@ const EnterpriseSchema = new Schema({
   },
   cnpj_type: {
     type: String,
-    required: String
+    required: true
   },
   business_segments: {
     type: Array,

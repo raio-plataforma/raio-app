@@ -60,7 +60,7 @@ function Profile({ icon, name, associate, bio, type, segments, pcd }) {
       }
       <Typography className="bio">{bio}</Typography>
 
-      {segments.length > 0 &&
+      {segments && segments.length > 0 &&
       <section className="segments">
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
         <Typography color="secondary">{segments.join(', ')}</Typography>
