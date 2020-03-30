@@ -1,10 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
 import Typography from '@material-ui/core/Typography'
-import {checkSegments} from '../../utils/formatter'
+import Button from '../../comps/Button'
 
 const StyledProfile = styled.div`
   text-align: center;
@@ -38,9 +39,14 @@ const StyledProfile = styled.div`
     text-align: left;
     margin-top: 20px;
   }
+
+  .fixed-bottom {
+    position: absolute;
+    bottom: 20px;
+  }
 `
 
-function Profile({ icon, name, associate, bio, type, segments, pcd }) {
+function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
   return (
     <StyledProfile className='profile'>
       <span className="image">{icon}</span>
@@ -65,6 +71,18 @@ function Profile({ icon, name, associate, bio, type, segments, pcd }) {
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
         <Typography color="secondary">{segments.join(', ')}</Typography>
       </section>}
+
+      <Link 
+        className="fixed-bottom"
+        to={`/editar/${type.toLowerCase()}/${id}`}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="lg"
+          >
+            Editar dados de {type}
+          </Button>
+        </Link>
     </StyledProfile>
   )
 }

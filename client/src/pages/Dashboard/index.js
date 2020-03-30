@@ -46,6 +46,7 @@ const Dashboard = () => {
       <Container className='header container clearfix et_menu_container'>
         <div className="container clearfix et_menu_container">
           <Profile
+            id={user._id}
             name={user.enterprise_name || user.name}
             icon={ userType.type === "enterprise" ?
               <Enterprise style={{ fontSize: 60 }} /> :
@@ -81,7 +82,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               color="primary"
-              size="lg"
+              
             >
               Ver minhas vagas
             </Button>
@@ -90,7 +91,7 @@ const Dashboard = () => {
             <Button
               variant="contained"
               color="primary"
-              size="lg"
+              
             >
               Buscar profissional
             </Button>
@@ -100,26 +101,16 @@ const Dashboard = () => {
           <Button
             variant="contained"
             color="primary"
-            size="lg"
+            
           >
             Editar Dados de Acesso
           </Button>
         </Link>
-        <Link to={`/editar/${userType.type === "enterprise" ?
-        "empresa" : "profissional"}/${user._id}`}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="lg"
-          >
-            Editar dados de {userType.type === "enterprise" ?
-            "empresa" : "profissional"}
-          </Button>
-        </Link>
+        
         <Button
           variant="contained"
           color="primary"
-          size="lg"
+          
           onClick={() => setModalStatus(true)}
         >
           Deletar Perfil

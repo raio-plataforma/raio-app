@@ -14,6 +14,15 @@ function formatPhone(num){
     return num;
 }
 
+function getKeys (obj) {
+  var keys = Object.keys(obj);
+
+  var filtered = keys.filter(function(key) {
+      return obj[key]
+  }) || ["Nenhum"];
+  return filtered.join(', ')
+}
+
 export const getInfo = (user, type) => {
   return type === 'professional' ? 
   [
@@ -105,7 +114,8 @@ export const getInfo = (user, type) => {
         },
         {
           campo: 'Outros Estados',
-          valor: user.other_states.map(uf => getState(uf, 'name')).join(', ')
+          valor: getKeys(user.other_states[0])
+          // .map(uf => getState(uf, 'name')).join(', ')
         }
       ]
     },
@@ -135,15 +145,18 @@ export const getInfo = (user, type) => {
       values: [
         {
           campo: 'Campos de atuação',
-          valor: user.business_fields.join(', ')
+          valor: getKeys(user.business_fields[0])
+          // .join(', ')
         },
         {
           campo: 'Segmentos de conteúdo identitário',
-          valor: user.identity_segments.join(', ')
+          valor: getKeys(user.identity_segments[0])
+          // .join(', ')
         },
         {
           campo: 'Funções que busca diversificar na empresa',
-          valor: user.diversity_functions.join(', ')
+          valor: getKeys(user.diversity_functions[0])
+          // .join(', ')
         }
       ]
     },

@@ -28,6 +28,7 @@ const StyledInfo = styled.div`
 `
 
 function Info({infoList}) {
+  console.log('i =>', infoList)
   return (
     <StyledInfo className='info'>
       {
