@@ -6,6 +6,7 @@ import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
 import Typography from '@material-ui/core/Typography'
 import Button from '../../comps/Button'
+import { getKeys } from '../../utils/formatter'
 
 const StyledProfile = styled.div`
   text-align: center;
@@ -69,7 +70,7 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
       {segments && segments.length > 0 &&
       <section className="segments">
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
-        <Typography color="secondary">{segments.join(', ')}</Typography>
+        <Typography color="secondary">{getKeys(segments[0])}</Typography>
       </section>}
 
       <Link 
