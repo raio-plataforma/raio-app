@@ -1,6 +1,6 @@
 import states from '../../assets/states.json'
 
-import {checkSegments} from '../../utils/formatter'
+import {checkSegments, getKeys} from '../../utils/formatter'
 
 export const getState = (
   stateID,
@@ -14,14 +14,7 @@ function formatPhone(num){
     return num;
 }
 
-function getKeys (obj) {
-  var keys = Object.keys(obj);
 
-  var filtered = keys.filter(function(key) {
-      return obj[key]
-  }) || ["Nenhum"];
-  return filtered.join(', ')
-}
 
 export const getInfo = (user, type) => {
   return type === 'professional' ? 

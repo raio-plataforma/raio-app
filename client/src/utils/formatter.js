@@ -23,8 +23,18 @@ const checkSegments = segment => {
   return segments.filter((v, i) => segment[0][v] && segments[i])
 }
 
+function getKeys (obj) {
+  var keys = Object.keys(obj);
+
+  var filtered = keys.filter(function(key) {
+      return obj[key]
+  }) || ["Nenhum"];
+  return filtered.join(', ')
+}
+
 export {
   parseDate,
   dateToString,
-  checkSegments
+  checkSegments,
+  getKeys
 }
