@@ -107,7 +107,7 @@ export const getInfo = (user, type) => {
         },
         {
           campo: 'Outros Estados',
-          valor: getKeys(user.other_states[0])
+          valor: (user.other_states && user.other_states.join(', ')) || 'Nenhum'
           // .map(uf => getState(uf, 'name')).join(', ')
         }
       ]
@@ -138,17 +138,17 @@ export const getInfo = (user, type) => {
       values: [
         {
           campo: 'Campos de atuação',
-          valor: getKeys(user.business_fields[0])
+          valor: (user.business_fields && user.business_fields.join(', ')) || 'Nenhum'
           // .join(', ')
         },
         {
           campo: 'Segmentos de conteúdo identitário',
-          valor: getKeys(user.identity_segments[0])
+          valor: (user.identity_segments && user.identity_segments.join(', ')) || 'Nenhum'
           // .join(', ')
         },
         {
           campo: 'Funções que busca diversificar na empresa',
-          valor: getKeys(user.diversity_functions[0])
+          valor: (user.identity_segments && user.diversity_functions.join(', ')) || 'Nenhum'
           // .join(', ')
         }
       ]

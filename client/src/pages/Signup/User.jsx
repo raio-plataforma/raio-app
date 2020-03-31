@@ -6,11 +6,10 @@ import uuid from 'uuid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
-import InputText from '../../components/InputText'
 import Button from '../../comps/Button'
 import Select from '../../comps/Select'
-import Modal from '../../components/Modal'
-import SignupPopup from '../../components/popups/Signup'
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 import { Error } from '../../components/Status'
 
 import { emailValidation } from '../../utils/service'
@@ -37,8 +36,10 @@ const Users = () => {
     }
 
     reset()
-
-    return registerUser(formatted)
+    setModalStatus(true)
+    setTimeout(() => {
+      registerUser(formatted)
+    }, 5000)
   }
 
   useEffect(() => {
@@ -198,15 +199,11 @@ const Users = () => {
            
         </form>
       
-      <Modal
-        isOpen={modalStatus}
-        onClose={() => setModalStatus(true)}
-        width="100px"
-      >
-        <SignupPopup
-          toggleModalStatus={() => setModalStatus(!modalStatus)}
-        />
-      </Modal>
+        <Snackbar open={modalStatus} autoHideDuration={5000} onClose={() => setModalStatus(false)}>
+          <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="success">
+            Usuário cadastrado com sucesso!
+          </Alert>
+        </Snackbar>
     </section>
   )
 }

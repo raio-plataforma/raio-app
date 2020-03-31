@@ -64,7 +64,7 @@ const enterpriseModel = {
         links: enterprise.data.links,
         diversity_functions: enterprise.data.diversity_functions,
         identity_content: enterprise.data.identity_content,
-        cnpj_type: enterprise.data.cnpjType,
+        cnpj_type: enterprise.data.cnpj_type,
         identity_segments: enterprise.data.identity_segments,
         business_segments: enterprise.data.business_segments,
         business_fields: enterprise.data.business_fields,

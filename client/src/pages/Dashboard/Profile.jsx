@@ -40,11 +40,6 @@ const StyledProfile = styled.div`
     text-align: left;
     margin-top: 20px;
   }
-
-  .fixed-bottom {
-    position: absolute;
-    bottom: 20px;
-  }
 `
 
 function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
@@ -65,12 +60,12 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
           <Typography color="secondary">PcD</Typography>
         </div>) 
       }
-      <Typography className="bio">{bio}</Typography>
+      <Typography className="bio" color="secondary">{bio}</Typography>
 
       {segments && segments.length > 0 &&
       <section className="segments">
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
-        <Typography color="secondary">{getKeys(segments[0])}</Typography>
+        <Typography color="secondary">{segments.join(', ')}</Typography>
       </section>}
 
       <Link 

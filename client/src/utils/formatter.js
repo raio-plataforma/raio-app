@@ -28,13 +28,15 @@ function getKeys (obj) {
 
   var filtered = keys.filter(function(key) {
       return obj[key]
-  }) || ["Nenhum"];
+  });
   return filtered.join(', ')
 }
 
+const normalizeArrayData = data => getKeys(data).split(', ').filter(item => item !== "")
 export {
+  getKeys,
   parseDate,
   dateToString,
   checkSegments,
-  getKeys
+  normalizeArrayData,
 }

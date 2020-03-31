@@ -25,7 +25,7 @@ import {
   cnpj_type
 } from './dicioFields'
 import { formatCheckboxFields } from '../../utils/service'
-
+import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
 import { Form, Background, WrapButton, Title } from './styles'
 
 const Enterprise = () => {
@@ -38,18 +38,18 @@ const Enterprise = () => {
   const onSubmit = (data) => {
     const formatted = {
       ...data,
-      foundation_date: '12/12/2010', // TODO: Arrumar isso, deixar dinamico
+      foundation_date: parseDate(data.foundation_date),
       cnpj_type: data.cnpjType,
       apan_associate: data.apanAssociate,
-      identity_segments: formatCheckboxFields(data.identitySegments),
-      other_states: formatCheckboxFields(data.otherStates),
-      diversity_functions: formatCheckboxFields(data.diversityFunctions),
-      business_segments: formatCheckboxFields(data.businessSegments),
-      business_fields: formatCheckboxFields(data.businessFields),
+      identity_segments: formatCheckboxFields(data.identity_segments),
+      other_states: formatCheckboxFields(data.other_states),
+      diversity_functions: formatCheckboxFields(data.diversity_functions),
+      business_segments: formatCheckboxFields(data.business_segments),
+      business_fields: formatCheckboxFields(data.business_fields),
       identity_content: data.identityContent,
       type: 'enterprise'
     }
-    
+    // console.log(formatted)
     registerCompany(formatted)
   }
 
@@ -82,6 +82,22 @@ const Enterprise = () => {
           inputRef={register({
             required: 'Esse campo é obrigatório',
           })}
+        />
+
+        <TextField
+          name="foundation_date"
+          label="Data de Fundação"
+          type="date"
+          fullWidth
+          variant="filled"
+          error={errors.foundation_date && errors.foundation_date.message}
+          helperText={errors.foundation_date && errors.foundation_date.message}
+          inputRef={register({
+            required: 'Esse campo é obrigatório'
+          })}
+          InputLabelProps={{
+            shrink: true,
+          }}
         />
 
         <ChipOptions 
@@ -146,26 +162,26 @@ const Enterprise = () => {
             label="Outros estados que a empresa tem atuação"
             register={register}
             options={states.map(uf => uf.name)}
-            name="otherStates"
+            name="other_states"
           />
           
           <Checkbox
             label="Segmento de atuação"
             register={register}
             options={segment}
-            name="businessSegments"
+            name="business_segments"
           />
           <Checkbox
             label="Campos de atuação"
             register={register}
             options={actions}
-            name="businessFields"
+            name="business_fields"
           />
           <Checkbox
             label="Funções que busca diversificar na empresa"
             register={register}
             options={functions}
-            name="diversityFunctions"
+            name="diversity_functions"
           />
 
           <Select
@@ -190,7 +206,7 @@ const Enterprise = () => {
           <Checkbox
             label="Se sim, em qual segmento?"
             options={identitySegments}
-            name="identitySegments"
+            name="identity_segments"
             register={register}
           />
 

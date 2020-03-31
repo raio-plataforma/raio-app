@@ -110,7 +110,7 @@ router.put('/edit/:id/', (req, res) => {
       links: req.body.links,
       diversity_functions: req.body.diversity_functions,
       identity_content: req.body.identity_content,
-      cnpj_type: req.body.cnpjType,
+      cnpj_type: req.body.cnpj_type,
       identity_segments: req.body.identity_segments,
       business_segments: req.body.business_segments,
       business_fields: req.body.business_fields,

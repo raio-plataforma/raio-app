@@ -16,7 +16,7 @@ import {
   cnpj_type,
   functions
 } from '../Signup/dicioFields'
-import { dateToString, parseDate } from '../../utils/formatter'
+import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
 import Checkbox from '../../comps/Checkbox'
 import Switch from '../../comps/Switch'
 import Select from '../../comps/Select'
@@ -49,13 +49,19 @@ const EditEnterprise = ({ match }) => {
   
   }, [enterprise, getEnterpriseById])
 
+  
   const onSubmit = (data) => {
     const formatted = {
       ...data,
       type: 'enterprise',
       id: enterprise.id,
       links: data.links.split(','),
-      foundation_date: parseDate(data.foundation_date)
+      foundation_date: parseDate(data.foundation_date),
+      other_states: normalizeArrayData(data.other_states),
+      business_segments: normalizeArrayData(data.business_segments),
+      business_fields: normalizeArrayData(data.business_fields),
+      diversity_functions: normalizeArrayData(data.diversity_functions),
+      identity_segments: normalizeArrayData(data.identity_segments)
     }
     // console.log('data =>', formatted)
     editEnterprise(formatted)
@@ -119,12 +125,11 @@ const EditEnterprise = ({ match }) => {
             value={enterprise.state}
             error={errors.state && errors.state.message}
             helperText={errors.state && errors.state.message}
-            inputRef={register({
-              required: 'Esse campo é obrigatório'
-            })}
             onChange={(e) => handleCities(e)}
             options={stateList(states)}
-            register={register}
+            register={register({
+              required: 'Esse campo é obrigatório'
+            })}
             label="Estado"
           />
         </Grid>
@@ -161,7 +166,7 @@ const EditEnterprise = ({ match }) => {
           label="Outros estados onde a empresa tem atuação"
           options={filteredStates}
           error={errors.other_states && errors.other_states.message}
-          value={enterprise.identity_segments && enterprise.identity_segments[0]}
+          value={enterprise.other_states && enterprise.other_states[0]}
           register={register}
         />
       </Grid>
@@ -172,9 +177,7 @@ const EditEnterprise = ({ match }) => {
             name="apan_associate"
             label="Associado APAN"
             value={enterprise.apan_associate}
-            register={register({
-              required: 'Esse campo é obrigatório'
-            })}
+            register={register}
           />
         </Grid>
           <Grid item xs={6}>
@@ -183,11 +186,10 @@ const EditEnterprise = ({ match }) => {
               value={enterprise.cnpj_type}
               error={errors.cnpj_type && errors.cnpj_type.message}
               helperText={errors.cnpj_type && errors.cnpj_type.message}
-              inputRef={register({
+              options={cnpj_type}
+              register={register({
                 required: 'Esse campo é obrigatório'
               })}
-              options={cnpj_type}
-              register={register}
               label="Tipo de CNPJ"
             />
           </Grid>          
@@ -195,7 +197,7 @@ const EditEnterprise = ({ match }) => {
       
       <Grid item xs={12}>
         <Checkbox
-          value={enterprise.busines_segments}
+          value={enterprise.busines_segments && enterprise.busines_segments[0]}
           label="Segmento de atuação"
           register={register}
           options={segment}
@@ -213,6 +215,7 @@ const EditEnterprise = ({ match }) => {
       <Grid item xs={12}>
         <Checkbox
           label="Funções que busca diversificar na empresa"
+          value={enterprise.diversity_functions && enterprise.diversity_functions[0]}
           register={register}
           options={functions}
           name="diversity_functions"

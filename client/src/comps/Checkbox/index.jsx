@@ -7,6 +7,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
+import { getKeys } from '../../utils/formatter'
+
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
@@ -30,12 +32,19 @@ const useStyles = makeStyles(theme => ({
 export default function CheckboxesGroup({ value, register, name, label, options, error }) {
   const classes = useStyles();
   
-  const [state, setState] = React.useState({
-    ...value
-  });
+  const listValues = value && typeof value !== 'undefined' ? value : [] 
 
-  const handleChange = key => event => setState({ ...state, [key]: !!event.target.checked });
+  const valueList = Array.isArray(value) ? listValues.filter(val => val !== "") : getKeys(listValues).split(', ')
+  
+  const [state, setState] = React.useState(valueList);
 
+  const handleChange = key => {
+    const newState = state.includes(key) ?
+      state.filter(item => item !== key) :
+      [...state, key]
+    setState(newState)
+  }
+  
   return (
       <FormControl component="fieldset" className={classes.root}>
         <FormLabel component="legend" className={classes.label}>{label}</FormLabel>
@@ -49,8 +58,8 @@ export default function CheckboxesGroup({ value, register, name, label, options,
                   inputRef={register}
                   color="primary"
                   name={`${name}[${opt}]`}
-                  checked={state[opt]} 
-                  onChange={handleChange(opt)} 
+                  checked={state.includes(opt)} 
+                  onChange={() => handleChange(opt)} 
                 />}
                 label={opt}
               />
