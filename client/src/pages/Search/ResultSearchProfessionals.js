@@ -7,9 +7,6 @@ import Chip from '@material-ui/core/Chip'
 import { Wrapper, Group, WrapperResultSearch, SubTitle, Text, Link } from './styles'
 import Button from '../../comps/Button'
 import Tables from '../../comps/Tables'
-import CardProfessional from './components/CardProfessional'
-import { validatingFields } from '../../utils/service'
-import Professionals from "../Signup/Professional"
 
 const ResultSearchProfessionals = ({ data }) => {
   const [notRegister, setNotRegister] = useState()
@@ -19,70 +16,70 @@ const ResultSearchProfessionals = ({ data }) => {
   const getUserAll = useStoreActions(actions => actions.user.getAllUsers)
 
   const list = []
-  Object.keys(data).forEach((item) => (
-    Array.isArray(data[item]) ?
-      data[item].map((arr) => {
-        list.push(arr)
-      }) :
-      data[item] !== undefined && data[item] !== "" &&
-      list.push(data[item])
-  ))
+  // Object.keys(data).forEach((item) => (
+  //   Array.isArray(data[item]) ?
+  //     data[item].map((arr) => {
+  //       list.push(arr)
+  //     }) :
+  //     data[item] !== undefined && data[item] !== "" &&
+  //     list.push(data[item])
+  // ))
 
-  useEffect(async () => {
-    const professionalAll = await getProfessionalAll()
-    const user = await getUserAll()
+  // useEffect(async () => {
+  //   const professionalAll = await getProfessionalAll()
+  //   const user = await getUserAll()
 
-    if (professionalAll.data.candidates === "Não existem candidatos cadastradas ainda") {
-      setNotRegister("Não existem candidatos(a) cadastrados(a) ainda")
-    } else {
+  //   if (professionalAll.data.candidates === "Não existem candidatos cadastradas ainda") {
+  //     setNotRegister("Não existem candidatos(a) cadastrados(a) ainda")
+  //   } else if(data.len) {}else {
 
-      const filter = professionalAll.data.filter((item) => {
-        let itemArea = ""
-        let areas = ""
-        item.expertise_areas.map((value) => {
-          itemArea = value
-        })
-        if (data.expertise_areas.length > 0) {
-          data.expertise_areas.map((area) => {
-            if (itemArea === area) {
-              areas = area
-            }
-          })
-        }
+  //     const filter = professionalAll.data.filter((item) => {
+  //       let itemArea = ""
+  //       let areas = ""
+  //       item.expertise_areas.map((value) => {
+  //         itemArea = value
+  //       })
+  //       if (data.expertise_areas.length > 0) {
+  //         data.expertise_areas.map((area) => {
+  //           if (itemArea === area) {
+  //             areas = area
+  //           }
+  //         })
+  //       }
 
-        return (
-          itemArea === areas ||
-          item.cnpj === data.cnpj ||
-          item.state === data.state
-        )
-      })
+  //       return (
+  //         itemArea === areas ||
+  //         item.cnpj === data.cnpj ||
+  //         item.state === data.state
+  //       )
+  //     })
 
-      const filterUser = user.data.filter((item) => {
-        if (item.type === "professional") {
-          let id = ""
-          filter.map((us) => {
-            if (item._id === us.user_id) {
-              id = us.user_id
-            }
-          })
-          return item._id === id ||
-            item.self_declaration === data.self_declaration ||
-            item.gender === data.gender
-        }
-      })
-      setUserFilter(filterUser)
+  //     const filterUser = user.data.filter((item) => {
+  //       if (item.type === "professional") {
+  //         let id = ""
+  //         filter.map((us) => {
+  //           if (item._id === us.user_id) {
+  //             id = us.user_id
+  //           }
+  //         })
+  //         return item._id === id ||
+  //           item.self_declaration === data.self_declaration ||
+  //           item.gender === data.gender
+  //       }
+  //     })
+  //     setUserFilter(filterUser)
 
-      let obj = []
-      filterUser.map((user) => {
-        professionalAll.data.map((professional) => {
-          if (user._id === professional.user_id) {
-            obj.push(Object.assign({}, user, professional))
-          }
-        })
-      })
-      setProfessionals(obj)
-    }
-  }, [])
+  //     let obj = []
+  //     filterUser.map((user) => {
+  //       professionalAll.data.map((professional) => {
+  //         if (user._id === professional.user_id) {
+  //           obj.push(Object.assign({}, user, professional))
+  //         }
+  //       })
+  //     })
+  //     setProfessionals(obj)
+  //   }
+  // }, [])
 
   const headCells = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Nome' },
@@ -104,7 +101,7 @@ const ResultSearchProfessionals = ({ data }) => {
         </Link>
       </Button>
 
-      <Wrapper>
+      {/* <Wrapper>
         <Typography component="h2" variant="h4">Resultado de busca de Profissionais</Typography>
         <div className="chips-group">
           {
@@ -126,7 +123,7 @@ const ResultSearchProfessionals = ({ data }) => {
             }
 
         </Group>
-      </Wrapper>
+      </Wrapper> */}
     </WrapperResultSearch >
   )
 }

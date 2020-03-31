@@ -9,7 +9,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 
 import Modal from '../components/Modal'
 import SignupPopup from '../components/popups/Signup'
-import Button from '../components/Button'
+import Button from '../comps/Button'
 import { IfElse } from '../components/If'
 
 import setAuthToken from '../utils/setAuthToken'
@@ -118,7 +118,6 @@ const Header = () => {
             <div className="buttons">
               <StyledLink
                 background="#200122"
-                color="#FC9B55"
                 href="https://raio.agency/"
               >
                 Home
@@ -134,7 +133,6 @@ const Header = () => {
                     </Button>
                     <Button
                       background="#200122"
-                      color="#FC9B55"
                       onClick={logoutUser}
                     >
                       Sair

@@ -30,6 +30,8 @@ const StyledBody = styled.div`
       flex: 50%;
     }
   }
+
+  
 `
 
 const AppBody = ({ children }) => {

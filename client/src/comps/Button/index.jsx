@@ -1,18 +1,18 @@
 import React from 'react'
 import ButtonMaterial from '@material-ui/core/Button'
 import PropTypes from 'prop-types'
+
 const Button = ({ type, onClick, children, disabled, styles, isLoading, color, variant, size }) => {
   
   return (
     <ButtonMaterial
-      variant={variant}
-      color={color}
-      disabled={disabled}
-      type={type}
-      onClick={onClick}
-      size={size}
-      style={styles}
-      className={`button ${isLoading ? 'is-loading' : ''}`}
+    variant={variant}
+    color={color}
+    disabled={disabled}
+    type={type}
+    onClick={onClick}
+    size={size}
+    style={styles}
     >
       {children}
     </ButtonMaterial>

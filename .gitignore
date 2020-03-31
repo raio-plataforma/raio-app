@@ -6,4 +6,6 @@ yarn--*/
 public/uploads
 v8*
 .DS_Store
+yarn.lock
+client/yarn.lock
 /*.env
