@@ -19,6 +19,7 @@ import Checkboxes from '../../components/Checkboxes'
 import Radios from '../../components/Radios'
 import Select from '@material-ui/core/Select'
 import ChipOptions from '../../comps/ChipOptions'
+import Switch from '../../comps/Switch'
 import ResultSearchProfessionals from './ResultSearchProfessionals'
 
 
@@ -40,7 +41,8 @@ const SearchProfessionals = () => {
 
   const [form, setForm] = useState(true)
   const [dados, setDados] = useState([])
-  const [personName, setPersonName] = React.useState([]);
+  const [showAdvanced, handleAdvanced] = useState(false)
+  const [selectedAreas, setAreas] = React.useState([]);
   const registerUser = useStoreActions(actions => actions.user.registerProfessional)
   const [isLoading, setLoader] = useState({
     city: false,
@@ -52,11 +54,10 @@ const SearchProfessionals = () => {
     return identifiers.filter((i) => field[i])
   }
 
-  const handleChange = (event) => {
-    setPersonName(event.target.value);
-  };
+  const handleChange = (e, value) => setAreas(value)
 
   const onSubmit = (data) => {
+    // data.expertiseAreas = personName
     // const formatted = {
     //   pcd: data.pcd,
     //   gender: data.gender,
@@ -77,125 +78,133 @@ const SearchProfessionals = () => {
 
   const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
 
-
-
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
 
   return (
     <Container fixed>        
       <Typography component="h2" variant="h4">Busca de Profissionais</Typography>
-        <form onChange={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
-      <Grid container xs={1}  alignItems="center">
-        <Typography>Filtrar por: </Typography>
-      </Grid>
-      <Grid item xs={10}>
-      <Autocomplete
-        multiple
-        id="tags-standard"
-        options={functions}
-        getOptionLabel={(option) => option}
-        renderInput={(params) => (
-          <TextField
-          {...params}
-          name="acmm"
-          onChange={e => console.log(e.target.value)}
-            inputRef={register}
-            variant="filled"
-            label="Multiple values"
-            placeholder="Favorites"
-          />
-        )}
-      />
-      </Grid>
-      <Grid container xs={1}  alignItems="center">
-        <Button >
-          + Avançada
-        </Button>
-      </Grid>
-        <Grid item xs={4} md={2}>
-          <Select
-            label="Auto Declaração"
-            register={register}
-            name="selfDeclaration"
-            error={errors.selfDeclaration && errors.selfDeclaration.message}
-            firstValue="Auto Declaração"
-          >
-            {selfDeclaration.map(item =>
-              <option value={item} key={uuid()}>{item}</option>
-            )}
-          </Select>
-        </Grid>
-        <Grid item xs={4} md={2}>
-          <Select
-            label="Gênero"
-            register={register}
-            name="gender"
-            error={errors.gender && errors.gender.message}
-            firstValue="Gênero"
-          >
-            {gender.map(item =>
-              <option value={item} key={uuid()}>{item}</option>
-            )}
-          </Select>
-        </Grid>
-        <Grid item xs={4} md={2}>
-          <Radios
-            label="PcD (Pessoa com deficiência)"
-            error={errors.pcd && errors.pcd.message}
-            onChange={e => handleRadio('pcd', e.target.value)}
-            name="pcd"
-          />
-        </Grid>
-        <Grid item xs={4} md={2}>
-          <Radios
-        label="Possui CNPJ"
-        onChange={e => handleRadio('companyRegistry', e.target.value)}
-        error={errors.companyRegistry && errors.companyRegistry.message}
-        name="companyRegistry"
-      />
-        </Grid>
-        <Grid item xs={4} md={2}>
-          <Select
-            label="Estado de residência"
-            error={errors.currentState && errors.currentState.message}
-            name="currentState"
-            firstValue="Estado"
-            register={register}
-            onChange={programIsLoading}
-          >
-            {states.map(item =>
-              <option value={item.name} key={item.id}>{item.name}</option>
-            )}
-          </Select>
-        </Grid>
-          {/* <Checkboxes
-            label="Áreas de atuação"
-            register={register}
-            fields={functions}
-            name="expertiseAreas"
-          /> */}
-          
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Grid container spacing={3}>
+            <Grid container xs={1}  alignItems="center">
+              <Typography>Filtrar por: </Typography>
+            </Grid>
 
-          
-          
-          
+            <Grid item xs={9}>
+              <Autocomplete
+                multiple
+                options={functions}
+                onChange={handleChange}
+                defaultValue={selectedAreas}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    name="expertiseAreas"
+                    inputRef={register}
+                    variant="filled"
+                    label="Áreas de atuação"
+                    placeholder="Adicione as áreas de atuação"
+                  />
+                )}
+              />
+            </Grid>
 
+            <Grid container xs={2}  alignItems="center" onClick={() => handleAdvanced(!showAdvanced)}>
+              <Button>Busca Avançada</Button>
+            </Grid>
+            {
+              showAdvanced && (
+                <>
+                  <Grid item xs={4} md={2}>
+                    <FormControl fullWidth>
+                      <InputLabel shrink htmlFor="select-multiple-native">
+                        Auto-Declaração
+                      </InputLabel>
+                      <Select
+                        multiple
+                        native
+                        variant="filled"
+                        inputRef={register}
+                        name="selfDeclaration"
+                      >
+                        {selfDeclaration.map((name) => (
+                          <option key={name} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  
+                  <Grid item xs={4} md={2}>
+                    <FormControl fullWidth>
+                      <InputLabel shrink htmlFor="select-multiple-native">
+                        Gênero
+                      </InputLabel>
+                      <Select
+                        multiple
+                        native
+                        variant="filled"
+                        inputRef={register}
+                        name="gender"
+                      >
+                        {gender.map((name) => (
+                          <option key={name} value={name}>
+                            {name}
+                          </option>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={4} md={3}>
+                    <Switch
+                      name="pcd"
+                      label="PcD (Pessoa com deficiência)"
+                      register={register}
+                    />
+                    <Switch
+                      name="companyRegistry"
+                      label="Possui CNPJ"
+                      register={register}
+                    />
+                    
+                  </Grid>
+                  <Grid item xs={4} md={3}>
+                    <FormControl fullWidth>
+                      <InputLabel shrink htmlFor="select-multiple-native">
+                        Estado de residência
+                      </InputLabel>
+                      <Select
+                        multiple
+                        native
+                        variant="filled"
+                        inputRef={register}
+                        name="currentState"
+                      >
+                        {states.map((name) => (
+                          <option key={name.uf} value={name.uf}>
+                            {name.name}
+                          </option>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Grid>
+                  
+                  <Grid container alignItems="center" xs={4} md={2}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      isLoading={isLoading.submit}
+                    >
+                      Buscar
+                    </Button>
+                  </Grid>
+                </>
+              )
+            }
+          </Grid>
           
-
       
-
-      
-      </Grid>
-      <Button
-        type="submit"
-        variant="contained"
-        isLoading={isLoading.submit}
-      >
-        Buscar
-      </Button>
-      
-      </form>
+        </form>
     
       
           <ResultSearchProfessionals data={dados} />
