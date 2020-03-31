@@ -13,7 +13,15 @@ const StyledProfile = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  justify-content: space-between;
   margin-right: 40px;
+
+  .main-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .image {
     width: 80px;
@@ -37,7 +45,7 @@ const StyledProfile = styled.div`
 
   .segments {
     color: #200122;
-    text-align: left;
+    text-align: center;
     margin-top: 20px;
   }
 `
@@ -45,22 +53,28 @@ const StyledProfile = styled.div`
 function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
   return (
     <StyledProfile className='profile'>
-      <span className="image">{icon}</span>
-      <Typography component="h2" variant="h4"><strong>{name}</strong></Typography>
-      <Typography component="h3" variant="h6"><strong>Perfil {type}</strong></Typography>
-      { associate && (
-        <div className="associate">
-          <Star color="secondary" />
-          <Typography color="secondary">Associado APAN</Typography>
-        </div>) 
-      }
-      { pcd && (
-        <div className="associate">
-          <PcD color="secondary" />
-          <Typography color="secondary">PcD</Typography>
-        </div>) 
-      }
-      <Typography className="bio" color="secondary">{bio}</Typography>
+      <div class="main-info">
+        <span className="image">{icon}</span>
+        <Typography component="h2" variant="h4"><strong>{name}</strong></Typography>
+        <Typography component="h3" variant="h6"><strong>Perfil {type}</strong></Typography>
+        { associate && (
+          <div className="associate">
+            <Star color="secondary" />
+            <Typography color="secondary">Associado APAN</Typography>
+          </div>) 
+        }
+        { pcd && (
+          <div className="associate">
+            <PcD color="secondary" />
+            <Typography color="secondary">PcD</Typography>
+          </div>) 
+        }
+      </div>
+
+      <section className="segments">
+        <Typography component="h3" variant="h6">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Typography>
+        <Typography className="bio" color="secondary">{bio}</Typography>
+      </section>
 
       {segments && segments.length > 0 &&
       <section className="segments">

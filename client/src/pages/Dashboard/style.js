@@ -45,6 +45,10 @@ export const Container = styled.div`
   &.header {
     width: 100%;
     
+    > .container {
+      align-items: stretch;
+    }
+    
   }
 
   .container {
