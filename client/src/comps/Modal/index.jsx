@@ -11,10 +11,13 @@ import Typography from '@material-ui/core/Typography';
 const DialogTitle = props => {
   const { children, classes, onClose, ...other } = props;
   return (
-    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+    <MuiDialogTitle 
+      style={{display: 'flex', justifyContent: 'space-between'}}
+      disableTypography 
+      {...other}>
       <Typography component="h2" variant="h6">{children}</Typography>
       {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+        <IconButton aria-label="close" onClick={onClose}>
           <CloseIcon />
         </IconButton>
       ) : null}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions } from 'easy-peasy'
+import { Link } from "react-router-dom"
 import Typography from '@material-ui/core/Typography'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
@@ -158,7 +159,7 @@ const SearchProfessionals = () => {
                         native
                         variant="filled"
                         inputRef={register}
-                        name="current_state"
+                        name="home_state"
                       >
                         {states.map((name) => (
                           <option key={name.uf} value={name.uf}>
@@ -179,10 +180,7 @@ const SearchProfessionals = () => {
                       label="Possui CNPJ"
                       register={register}
                     />
-                    
                   </Grid>
-                  
-                  
                 </>
               )
             }
@@ -198,13 +196,15 @@ const SearchProfessionals = () => {
               Buscar
             </Button>
           </Grid>
-          
-      
         </form>
-    
-      
-          <ResultSearchProfessionals data={dados} />
-      
+        
+        <ResultSearchProfessionals data={dados} />
+        
+        <Link to="/dashboard/enterprise">
+          <Button variant="contained">
+              Voltar
+          </Button>
+        </Link>
     </Container>
   )
 }
