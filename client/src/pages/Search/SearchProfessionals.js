@@ -57,16 +57,11 @@ const SearchProfessionals = () => {
   const handleChange = (e, value) => setAreas(value)
 
   const onSubmit = (data) => {
-    // data.expertiseAreas = personName
-    // const formatted = {
-    //   pcd: data.pcd,
-    //   gender: data.gender,
-    //   cnpj: data.companyRegistry,
-    //   self_declaration: data.selfDeclaration,
-    //   state: data.currentState,
-    //   expertise_areas: formatCheckboxFields(data.expertiseAreas)
-    // }
-    console.log('data =>', data)
+    const formatted = {
+      ...data,
+      expertise_areas: selectedAreas
+    }
+    console.log('data =>', formatted)
     // setDados(formatted)
     setForm(false)
   }
@@ -98,7 +93,7 @@ const SearchProfessionals = () => {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    name="expertiseAreas"
+                    name="expertise_areas"
                     inputRef={register}
                     variant="filled"
                     label="Áreas de atuação"
@@ -124,7 +119,7 @@ const SearchProfessionals = () => {
                         native
                         variant="filled"
                         inputRef={register}
-                        name="selfDeclaration"
+                        name="self_declaration"
                       >
                         {selfDeclaration.map((name) => (
                           <option key={name} value={name}>
@@ -162,7 +157,7 @@ const SearchProfessionals = () => {
                       register={register}
                     />
                     <Switch
-                      name="companyRegistry"
+                      name="company_registry"
                       label="Possui CNPJ"
                       register={register}
                     />
@@ -178,7 +173,7 @@ const SearchProfessionals = () => {
                         native
                         variant="filled"
                         inputRef={register}
-                        name="currentState"
+                        name="current_state"
                       >
                         {states.map((name) => (
                           <option key={name.uf} value={name.uf}>
@@ -189,18 +184,21 @@ const SearchProfessionals = () => {
                     </FormControl>
                   </Grid>
                   
-                  <Grid container alignItems="center" xs={4} md={2}>
-                    <Button
-                      type="submit"
-                      variant="contained"
-                      isLoading={isLoading.submit}
-                    >
-                      Buscar
-                    </Button>
-                  </Grid>
+                  
                 </>
               )
             }
+          </Grid>
+          <Grid container alignItems="center" style={{margin: '10px 0'}} xs={12}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="secondary"
+              styles={{display: 'block', width: '100%'}}
+              isLoading={isLoading.submit}
+            >
+              Buscar
+            </Button>
           </Grid>
           
       
