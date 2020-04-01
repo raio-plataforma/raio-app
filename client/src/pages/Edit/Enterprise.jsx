@@ -197,7 +197,7 @@ const EditEnterprise = ({ match }) => {
       
       <Grid item xs={12}>
         <Checkbox
-          value={enterprise.busines_segments && enterprise.busines_segments[0]}
+          value={enterprise.busines_segments && enterprise.busines_segments}
           label="Segmento de atuação"
           register={register}
           options={segment}
@@ -215,7 +215,7 @@ const EditEnterprise = ({ match }) => {
       <Grid item xs={12}>
         <Checkbox
           label="Funções que busca diversificar na empresa"
-          value={enterprise.diversity_functions && enterprise.diversity_functions[0]}
+          value={enterprise.diversity_functions && enterprise.diversity_functions}
           register={register}
           options={functions}
           name="diversity_functions"
@@ -235,7 +235,7 @@ const EditEnterprise = ({ match }) => {
           name="identity_segments"
           label="Segmentos identitários"
           options={identitySegments}
-          value={enterprise.identity_segments && enterprise.identity_segments[0]}
+          value={enterprise.identity_segments && enterprise.identity_segments}
           register={register}
         />
       </Grid>} 
