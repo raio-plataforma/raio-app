@@ -24,6 +24,7 @@ import {
   separated_functions
 } from './dicioFields'
 import { formatCheckboxFields } from '../../utils/service'
+import { parseDate } from '../../utils/formatter'
 
 import { Form, Background, Title } from './styles'
 
@@ -41,7 +42,7 @@ const Professionals = () => {
   const onSubmit = (data) => {
     const formatted = {
       ...data,
-      birthday: '12/12/1998',
+      birthday: parseDate(data.birthday),
       cnpj_type: data.cnpjType,
       identity_content: data.identityContent,
       identity_segments: data.identitySegments,

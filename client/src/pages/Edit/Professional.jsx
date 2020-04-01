@@ -63,7 +63,7 @@ const EditProfessional = ({ match }) => {
   }      
 
   const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
-  
+  console.log('- >', professional)
   return (
     <section className="container">
       <Typography variant="h2" style={{textAlign: 'center', fontWeight: 'bold'}}>Editar Profissional</Typography>

@@ -34,7 +34,7 @@ export default function CheckboxesGroup({ value, register, name, label, options,
   
   const listValues = value && typeof value !== 'undefined' ? value : [] 
 
-  const valueList = Array.isArray(value) ? listValues.filter(val => val !== "") : getKeys(listValues).split(', ')
+  const valueList = value[0] ? listValues.filter(val => val !== "") : getKeys(listValues).split(', ')
   
   const [state, setState] = React.useState(valueList);
 
