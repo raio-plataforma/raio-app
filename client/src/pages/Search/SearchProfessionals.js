@@ -39,7 +39,6 @@ const SearchProfessionals = () => {
     setValue
   } = useForm()
 
-  const [form, setForm] = useState(true)
   const [dados, setDados] = useState([])
   const [showAdvanced, handleAdvanced] = useState(false)
   const [selectedAreas, setAreas] = React.useState([]);
@@ -61,9 +60,7 @@ const SearchProfessionals = () => {
       ...data,
       expertise_areas: selectedAreas
     }
-    console.log('data =>', formatted)
-    // setDados(formatted)
-    setForm(false)
+    setDados(formatted)
   }
 
   const programIsLoading = () => {
@@ -150,20 +147,8 @@ const SearchProfessionals = () => {
                       </Select>
                     </FormControl>
                   </Grid>
-                  <Grid item xs={4} md={3}>
-                    <Switch
-                      name="pcd"
-                      label="PcD (Pessoa com deficiência)"
-                      register={register}
-                    />
-                    <Switch
-                      name="company_registry"
-                      label="Possui CNPJ"
-                      register={register}
-                    />
-                    
-                  </Grid>
-                  <Grid item xs={4} md={3}>
+                  
+                  <Grid item xs={4}>
                     <FormControl fullWidth>
                       <InputLabel shrink htmlFor="select-multiple-native">
                         Estado de residência
@@ -182,6 +167,19 @@ const SearchProfessionals = () => {
                         ))}
                       </Select>
                     </FormControl>
+                  </Grid>
+                  <Grid item xs={4} md={3}>
+                    <Switch
+                      name="pcd"
+                      label="PcD (Pessoa com deficiência)"
+                      register={register}
+                    />
+                    <Switch
+                      name="company_registry"
+                      label="Possui CNPJ"
+                      register={register}
+                    />
+                    
                   </Grid>
                   
                   
