@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect } from 'react'
 import InputLabel from '@material-ui/core/InputLabel'
 import SelectMaterial from '@material-ui/core/Select'
 import FormControl from '@material-ui/core/FormControl'
@@ -6,6 +6,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 
 const Select = ({ label, register, name, options, value, onChange, error }) => {
   const [ opt, setOpt ] = useState(value)
+  
   
   const handleChange = value => {
     setOpt(value)

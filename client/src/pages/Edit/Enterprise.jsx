@@ -70,7 +70,6 @@ const EditEnterprise = ({ match }) => {
   
   
   const handleCities = state => {
-    console.log(state)
     const filteredCities = cities.filter(city => city.state_id == state)
     const filteredStates = states.filter(uf => uf.id != state).map(uf => uf.name)
     setCities(filteredCities)

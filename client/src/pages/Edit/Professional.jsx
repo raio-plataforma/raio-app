@@ -15,7 +15,7 @@ import {
   cnpj_type,
   identitySegments
 } from '../Signup/dicioFields'
-import { dateToString, parseDate } from '../../utils/formatter'
+import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
 import Checkbox from '../../comps/Checkbox'
 import Switch from '../../comps/Switch'
 import Select from '../../comps/Select'
@@ -51,9 +51,11 @@ const EditProfessional = ({ match }) => {
   const onSubmit = (data) => {
     const formatted = {
       ...data,
-      type: 'professional',
       id: professional.id,
-      birthday: parseDate(data.birthday)
+      birthday: parseDate(data.birthday),
+      expertise_areas: normalizeArrayData(data.expertise_areas),
+      identity_segments: normalizeArrayData(data.identity_segments),
+      type: 'professional'
     }
     editProfessional(formatted)
   }
@@ -178,9 +180,7 @@ const EditProfessional = ({ match }) => {
               defaultValue={professional.formation_institution}
               error={errors.formation_institution && errors.formation_institution.message}
               helperText={errors.formation_institution && errors.formation_institution.message}
-              inputRef={register({
-                required: 'Esse campo é obrigatório'
-              })}
+              inputRef={register}
               label="Instituição ou processo de formação"
               variant="filled"
             />
@@ -201,9 +201,7 @@ const EditProfessional = ({ match }) => {
                 name="apan_associate"
                 label="Associado APAN"
                 value={professional.apan_associate}
-                register={register({
-                  required: 'Esse campo é obrigatório'
-                })}
+                register={register}
               />
             </Grid>
             <Grid item xs={numCols}>
@@ -213,9 +211,7 @@ const EditProfessional = ({ match }) => {
                 error={errors.cnpj_type && errors.cnpj_type.message}
                 onChange={(e) => hideOptionCNPJ(e.target.checked)}
                 value={professional.cnpj}
-                register={register({
-                  required: 'Esse campo é obrigatório'
-                })}
+                register={register}
               />
             </Grid>
             {numCols === 3 && 
@@ -225,9 +221,6 @@ const EditProfessional = ({ match }) => {
                   value={professional.cnpj_type}
                   error={errors.cnpj_type && errors.cnpj_type.message}
                   helperText={errors.cnpj_type && errors.cnpj_type.message}
-                  inputRef={register({
-                    required: 'Esse campo é obrigatório'
-                  })}
                   options={cnpj_type}
                   register={register}
                   label="Tipo de CNPJ"
@@ -263,7 +256,7 @@ const EditProfessional = ({ match }) => {
                 name="expertise_areas"
                 label={check.title}
                 options={check.list.sort()}
-                value={professional.expertise_areas[0]}
+                value={professional.expertise_areas}
                 register={register}
               />
               </>
@@ -284,7 +277,7 @@ const EditProfessional = ({ match }) => {
               name="identity_segments"
               label="Segmentos identitários"
               options={identitySegments}
-              value={professional.identity_segments[0]}
+              value={professional.identity_segments}
               register={register}
             />
           </Grid>}

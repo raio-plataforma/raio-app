@@ -1,30 +1,28 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
-import uuid from 'uuid'
 
-import InputText from '../../components/InputText'
 import Button from '../../comps/Button'
-import TextField from '@material-ui/core/TextField';
-import Checkboxes from '../../components/Checkboxes'
-import Radios from '../../components/Radios'
-import Select from '../../components/Select'
+import Checkbox from '../../comps/Checkbox'
+import Grid from '@material-ui/core/Grid'
+import TextField from '@material-ui/core/TextField'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import Switch from '../../comps/Switch'
+import Select from '../../comps/Select'
 import ChipOptions from '../../comps/ChipOptions'
-import TransferList from '../../comps/TransferList'
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import FormHelperText from '@material-ui/core/FormHelperText'
 
 import states from '../../assets/states.json'
+import cities from '../../assets/cities.json'
+
 import {
-  functions,
-  registryTypes,
+  cnpj_type,
   formations,
   identitySegments,
   separated_functions
 } from './dicioFields'
 import { formatCheckboxFields } from '../../utils/service'
-import { parseDate } from '../../utils/formatter'
+import { parseDate, normalizeArrayData } from '../../utils/formatter'
 
 import { Form, Background, Title } from './styles'
 
@@ -36,219 +34,254 @@ const Professionals = () => {
     setValue
   } = useForm()
 
+  const [numCols, setCols] = useState(4)
+  const [hasIdentity, toggleIdentity] = useState(false)
+  const [citiesFromStates, setCities] = useState([])
   const registerUser = useStoreActions(actions => actions.register.registerProfessional)
   const registerError = useStoreState(state => state.register.error)
-  const splitData = data => data.split(',')
+  const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
+  const [filteredStates, setStates] = useState(states.map(uf => uf.name))
+
+  const hideOptionCNPJ = check => {
+    check ? setCols(3) : setCols(4) 
+  }  
+  const handleCities = state => {
+
+    const filteredCities = cities.filter(city => city.state_id == state)
+    const filteredStates = states.filter(uf => uf.id != state).map(uf => uf.name)
+    setCities(filteredCities)
+    setStates(filteredStates)
+  }
   const onSubmit = (data) => {
     const formatted = {
       ...data,
       birthday: parseDate(data.birthday),
-      cnpj_type: data.cnpjType,
-      identity_content: data.identityContent,
-      identity_segments: data.identitySegments,
-      expertise_areas: data.expertiseAreas,
-      apan_associate: data.apanAssociate,
-      formation_institution: data.formationInstitution,
-      home_state: data.homeState,
-      type: 'professional'
+      expertise_areas: normalizeArrayData(data.expertise_areas),
+      identity_segments: normalizeArrayData(data.identity_segments),
+      type: 'professional'  
     }
+    // console.log('=>', formatted)
     registerUser(formatted)
   }
 
-  const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
 
-  useEffect(() => {
-    register({ name: 'pcd' });
-    register({ name: 'cnpj' });
-    register({ name: 'identityContent' });
-    register({ name: 'apanAssociate' });
-  }, [register]);
 
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
   return (
     <Background className="container center">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography
-          color="primary"
-          variant="h3"
-          component="h2">
-          Formulário de Cadastro de Profissional
-        </Typography>
-
-        <ChipOptions
-          name="links"
-          label="Links para IMDB, currículo, portfólio, reel e outros"
-          error={errors.links && errors.links.message}
-          register={register({
-            required: 'Esse campo é obrigatório',
-            minLength: {
-              value: 10,
-              message: 'Insira pelo menos um link'
-            }
-          })}
-        />
-
-        <Typography variant="h6">Áreas de atuação</Typography>
-        {
-          separated_functions.map((groups, index) => (
-            <Checkboxes
-              key={index}
-              label={groups.title}
-              register={register}
-              fields={groups.list}
-              name="expertiseAreas"
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              name="birthday"
+              label="Data de Nascimento"
+              type="date"
+              fullWidth
+              variant="filled"
+              error={errors.birthday && errors.birthday.message}
+              helperText={errors.birthday && errors.birthday.message}
+              inputRef={register({
+                required: 'Esse campo é obrigatório'
+              })}
+              InputLabelProps={{
+                shrink: true,
+              }}
             />
-          ))
-        }
+          </Grid>
+        </Grid>
 
-        <Radios
-          label="PcD (Pessoa com deficiência)"
-          onChange={e => handleRadio('pcd', e.target.value)}
-          name="pcd"
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Select 
+            name="home_state"
+            error={errors.home_state && errors.home_state.message}
+            onChange={(e) => handleCities(e)}
+            options={stateList(states)}
+            register={register({
+              required: 'Esse campo é obrigatório'
+            })}
+            label="Estado de residência"
+          />
+        </Grid>
+        
+        <Grid item xs={6}>
+          <Autocomplete
+            fullWidth
+            freeSolo
+            options={citiesFromStates.map(city => city.name).sort()}
+            renderInput={params => (
+              <TextField
+                {...params}
+                name="city"
+                inputRef={register({
+                  required: 'Esse campo é obrigatório'
+                })}
+                color="primary"
+                label="Cidade de residência"
+                variant="filled"
+                placeholder="Busque a cidade"
+                error={errors.city && errors.city.message}
+                helperText={errors.city && errors.city.message}
+              />
+            )}
+          />
+        </Grid>
 
+        <Grid item xs={12}>
+          <TextField
+            name="address"
+            fullWidth
+            error={errors.address && errors.address.message}
+            helperText={errors.address && errors.address.message}
+            inputRef={register({
+              required: 'Esse campo é obrigatório'
+            })}
+            label="Endereço de residência"
+            variant="filled"
+          />
+        </Grid>
+      </Grid>
+      
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Select 
+            name="state"
+            error={errors.home_state && errors.home_state.message}
+            register={register({
+              required: 'Esse campo é obrigatório'
+            })}
+            options={stateList(states)}
+            label="Naturalidade"
+          />
+        </Grid>
+      </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <Select 
+              name="education"
+              error={errors.education && errors.education.message}
+              register={register({
+                required: 'Esse campo é obrigatório'
+              })}
+              options={formations}
+              label="Formação"
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              name="formation_institution"
+              fullWidth
+              error={errors.formation_institution && errors.formation_institution.message}
+              helperText={errors.formation_institution && errors.formation_institution.message}
+              inputRef={register}
+              label="Instituição ou processo de formação"
+              variant="filled"
+            />
+          </Grid>
+        </Grid>
 
-        />
-
-        <Select
-          label="Estado de origem"
-          error={errors.homeState && errors.homeState.message}
-          name="homeState"
-          firstValue="Estado de origem"
-          register={register}
-        >
-          {states.map(item =>
-            <option value={item.id} key={item.id}>{item.name}</option>
-          )}
-        </Select>
-
-        <Select
-          label="Estado"
-          error={errors.state && errors.state.message}
-          name="state"
-          firstValue="Estado"
-          register={register}
-        >
-          {states.map(item =>
-            <option value={item.id} key={item.id}>{item.name}</option>
-          )}
-        </Select>
-
-        <TextField
-          label="Cidade de Residência"
-          error={errors.city}
-          helperText={errors.city && errors.city.message}
-          fullWidth
-          name="city"
-          variant="filled"
-          inputRef={register({
-            required: 'Esse campo é obrigatório',
-          })}
-        />
-
-        <TextField
-          label="Endereço"
-          error={errors.address}
-          helperText={errors.address && errors.address.message}
-          fullWidth
-          name="address"
-          variant="filled"
-          inputRef={register({
-            required: 'Esse campo é obrigatório',
-          })}
-        />
-
-        <Select
-          label="Formação"
-          error={errors.education && errors.education.message}
-          name="education"
-          firstValue="Formação"
-
-        >
-          {formations.map(item =>
-            <option value={item} key={uuid()}>{item}</option>
-          )}
-        </Select>
-
-
-        <TextField
-          label="Qual foi a instituição ou processo de formação? "
-          error={errors.formationInstitution}
-          helperText={errors.formationInstitution && errors.formationInstitution.message}
-          fullWidth
-          name="formationInstitution"
-          variant="filled"
-
-        />
-
-        <Radios
-          label="Possui CNPJ"
-          onChange={e => handleRadio('cnpj', e.target.value)}
-          // error={errors.cnpj && errors.cnpj.message}
-          name="cnpj"
-        />
-
-        <Select
-          label="Se sim, qual o tipo do seu CNPJ ?"
-          error={errors.cnpjType && errors.cnpjType.message}
-          name="cnpjType"
-          firstValue="Tipo de CNPJ"
-
-        >
-          {registryTypes.map(type => (
-            <option value={type} key={uuid()}>
-              {type}
-            </option>
-          ))}
-        </Select>
-
-        <Radios
-          label="Sua empresa é vocacionada para conteúdo identitário?"
-          onChange={e => handleRadio('identityContent', e.target.value)}
-          error={errors.identityContent && errors.identityContent.message}
-          name="identityContent"
-        />
-
-        <TransferList
-          label="Em qual segmento?"
-          name="identitySegments"
-
-          list={identitySegments}
-        />
-
-        <Radios
-          label="É associado(a) da APAN"
-          error={errors.apanAssociate && errors.apanAssociate.message}
-          onChange={e => handleRadio('apanAssociate', e.target.value)}
-          name="apanAssociate"
-        />
-
-        <TextField
-          id="filled-multiline-static"
-          label="Mini Bio"
-          multiline
-          rows="5"
-          error={errors.bio}
-          helperText={errors.bio && errors.bio.message}
-          fullWidth
-          name="bio"
-          variant="filled"
-          inputRef={register({
-            required: 'Esse campo é obrigatório',
-            minLength: {
-              value: 15,
-              message: 'Apresentação curta demais'
+          <Grid container spacing={2}>
+            <Grid item xs={numCols}>
+              <Switch
+                name="pcd"
+                label="PcD"
+                register={register}
+              />
+            </Grid>
+            <Grid item xs={numCols}>
+              <Switch
+                name="apan_associate"
+                label="Associado APAN"
+                register={register}
+              />
+            </Grid>
+            <Grid item xs={numCols}>
+              <Switch
+                name="cnpj"
+                label="Possui CNPJ"
+                error={errors.cnpj_type && errors.cnpj_type.message}
+                onChange={(e) => hideOptionCNPJ(e.target.checked)}
+                register={register}
+              />
+            </Grid>
+            {numCols === 3 && 
+              <Grid item xs={numCols}>
+                <Select 
+                  name="cnpj_type"
+                  error={errors.cnpj_type && errors.cnpj_type.message}
+                  helperText={errors.cnpj_type && errors.cnpj_type.message}
+                  options={cnpj_type}
+                  register={register}
+                  label="Tipo de CNPJ"
+                />
+              </Grid>
             }
-          })}
-        />
-
-        <FormHelperText error>{registerError && registerError.professional}</FormHelperText>
-        <Button
-          type="submit"
-          variant="contained"
-        >
-          Enviar
-          </Button>
-      </form>
+            
+          </Grid>
+          <Grid item xs={12}>
+            <ChipOptions 
+              name="links"
+              label="Links para site e redes sociais da empresa"
+              error={errors.links && errors.links.message}
+              register={register({
+                required: 'Esse campo é obrigatório',
+                minLength: {
+                  value: 10,
+                  message: 'Insira pelo menos um link'
+                }
+              })}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant="h5">Áreas de atuação</Typography>
+          {
+            separated_functions.map(check => (
+              <>
+              <Checkbox
+                key={check}
+                name="expertise_areas"
+                label={check.title}
+                error={errors.expertiseAreas && errors.expertiseAreas.message}
+                options={check.list.sort()}
+                register={register}
+              />
+              </>
+            ))
+          }
+          </Grid>
+          <Grid item xs={12}>
+          <Switch
+            name="identity_content"
+            label="Empresa voltada para conteúdo identitário?"
+            onChange={(e) => toggleIdentity(e.target.checked)}
+            register={register}
+          />
+          </Grid>
+          {hasIdentity && <Grid item xs={12}>
+            <Checkbox
+              name="identity_segments"
+              label="Segmentos identitários"
+              options={identitySegments}
+              register={register}
+            />
+          </Grid>}
+          <Grid item xs={12}>
+          <TextField
+            name="bio"
+            fullWidth
+            multiline
+            rows="5"
+            error={errors.bio && errors.bio.message}
+            helperText={errors.bio && errors.bio.message}
+            inputRef={register({
+              required: 'Esse campo é obrigatório'
+            })}
+            label="Bio"
+            variant="filled"
+          />
+        </Grid>
+          <Button type="submit" variant="contained" color="primary">Confirmar</Button>
+        </form>
     </Background>
   )
 }

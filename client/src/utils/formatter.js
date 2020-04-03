@@ -24,15 +24,18 @@ const checkSegments = segment => {
 }
 
 function getKeys (obj) {
+  console.log(obj)
   var keys = Object.keys(obj);
 
-  var filtered = keys.filter(function(key) {
-      return obj[key]
-  });
+  var filtered = keys.filter(key => obj[key]);
   return filtered.join(', ')
 }
 
-const normalizeArrayData = data => getKeys(data).split(', ').filter(item => item !== "")
+const normalizeArrayData = data => {
+  return data ?
+    getKeys(data).split(', ').filter(item => item !== "") :
+    []
+}
 export {
   getKeys,
   parseDate,

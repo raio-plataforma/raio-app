@@ -34,7 +34,7 @@ export default function CheckboxesGroup({ value, register, name, label, options,
   
   const listValues = value && typeof value !== 'undefined' ? value : [] 
 
-  const valueList = value[0] ? listValues.filter(val => val !== "") : getKeys(listValues).split(', ')
+  const valueList = value ? listValues.filter(val => val !== "") : getKeys(listValues).split(', ')
   
   const [state, setState] = React.useState(valueList);
 
@@ -44,7 +44,7 @@ export default function CheckboxesGroup({ value, register, name, label, options,
       [...state, key]
     setState(newState)
   }
-  
+  if(error) console.log('erro de '+name, error)
   return (
       <FormControl component="fieldset" className={classes.root}>
         <FormLabel component="legend" className={classes.label}>{label}</FormLabel>
