@@ -34,8 +34,6 @@ export default function CheckboxesGroup({ value, register, name, label, options,
   
   const listValues = value && typeof value !== 'undefined' ? value : [] 
   const isArrayObj = parseInt(Object.keys(listValues)[0], 10) !== 0
-  console.log('==>', listValues)
-  console.log('===>', value)
   const valueList = !isArrayObj ?
     listValues :
     getKeys(listValues).split(', ')
@@ -48,7 +46,7 @@ export default function CheckboxesGroup({ value, register, name, label, options,
       [...state, key]
     setState(newState)
   }
-  console.log('v=>', valueList)
+
   return (
       <FormControl component="fieldset" className={classes.root}>
         <FormLabel component="legend" className={classes.label}>{label}</FormLabel>
