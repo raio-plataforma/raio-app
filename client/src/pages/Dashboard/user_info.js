@@ -127,7 +127,7 @@ export const getInfo = (user, type) => {
         },
         {
           campo: 'Links',
-          valor: user.links.join(', ')
+          valor: user.links && user.links.join(', ')
         }
       ]
     },
