@@ -79,7 +79,7 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
       {segments && segments.length > 0 &&
       <section className="segments">
         <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
-        <Typography color="secondary">{getKeys(segments[0]) || 'Nenhum'}</Typography>
+        <Typography color="secondary">{segments.join(', ') || 'Nenhum'}</Typography>
       </section>}
 
       <Link 
