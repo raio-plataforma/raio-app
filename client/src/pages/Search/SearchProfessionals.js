@@ -6,9 +6,6 @@ import Typography from '@material-ui/core/Typography'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import Container from '@material-ui/core/Container'
-import MenuItem from '@material-ui/core/MenuItem'
-import Input from '@material-ui/core/Input'
-import Chip from '@material-ui/core/Chip';
 import FormControl from '@material-ui/core/FormControl'
 import InputLabel from '@material-ui/core/InputLabel'
 import Grid from '@material-ui/core/Grid'
@@ -16,8 +13,6 @@ import uuid from 'uuid'
 
 import Button from '../../comps/Button'
 
-import Checkboxes from '../../components/Checkboxes'
-import Radios from '../../components/Radios'
 import Select from '@material-ui/core/Select'
 import ChipOptions from '../../comps/ChipOptions'
 import Switch from '../../comps/Switch'
@@ -75,7 +70,10 @@ const SearchProfessionals = () => {
 
   return (
     <Container fixed>        
-      <Typography component="h2" variant="h4">Busca de Profissionais</Typography>
+      <Typography
+        style={{margin: '30px 0', textAlign: 'center'}}
+        component="h2"
+        variant="h4">Busca de Profissionais</Typography>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Grid container spacing={3}>
             <Grid container xs={1}  alignItems="center">
@@ -198,7 +196,7 @@ const SearchProfessionals = () => {
           </Grid>
         </form>
         
-        <ResultSearchProfessionals data={dados} />
+        {Object.keys(dados).length > 0 && <ResultSearchProfessionals data={dados} />}
         
         <Link to="/dashboard/enterprise">
           <Button variant="contained">
