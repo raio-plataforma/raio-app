@@ -30,6 +30,7 @@ const enterpriseModel = {
     try {
       const enterprises = await axios.get('/api/enterprise/all')
       const users = await axios.get('/api/user/all')
+      
       const fuse = (users.data)
         .filter(userFilter => userFilter.type === 'enterprise')
         .map(user => {

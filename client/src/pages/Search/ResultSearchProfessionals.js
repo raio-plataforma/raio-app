@@ -20,9 +20,9 @@ const LinkBtn = ({linkRef}) => (
   </IconButton>)
 
 const checkArray = (src, search) => {
-  for (let term of src) {
-    console.log('trm', term)
-  }
+  const searchKeys = Object.keys(search)
+  
+  console.log(src)
 }
 
 const ResultSearchProfessionals = ({ data }) => {
@@ -75,7 +75,7 @@ const ResultSearchProfessionals = ({ data }) => {
     pcd: 'PcD',
     company_registry: 'Possui CNPJ',
   }
-
+  console.log('data', data)
   return (
     <>
       {

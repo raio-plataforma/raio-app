@@ -52,8 +52,10 @@ const SearchProfessionals = () => {
   const handleChange = (e, value) => setAreas(value)
 
   const onSubmit = (data) => {
-    const formatted = {
+    const formatted = showAdvanced ? {
       ...data,
+      expertise_areas: selectedAreas
+    } : {
       expertise_areas: selectedAreas
     }
     setDados(formatted)

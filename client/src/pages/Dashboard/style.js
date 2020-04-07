@@ -65,6 +65,8 @@ export const Container = styled.div`
 
     .profile {
       flex: 40%;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .profile-wrapper {

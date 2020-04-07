@@ -64,7 +64,7 @@ export const getInfo = (user, type) => {
         },
         {
           campo: 'Links',
-          valor: user.links.split(';').join(', ')
+          valor: user.links
         }
       ]
     },

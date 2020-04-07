@@ -16,11 +16,11 @@ const DashboardWrapper = () =>
           title="Empresarial"
         />
         
-        {/* <RoleCard 
+        <RoleCard 
           icon={<Person style={{ fontSize: 80, color: '#200122' }} />}
           to="/dashboard/admin/profissionais"
           title="Profissional"
-        /> */}
+        />
       </WrapperChoices>
     </Background>
 
