@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
 const Wrapper = styled.nav`
+  position: relative;
   background-color: #200122;
   padding: 5px;
   transition: .3s all ease-in-out;

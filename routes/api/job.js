@@ -51,9 +51,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (req, re
   try {
     const job = await Job.find().populate('company');
 
-    return res.send({
-      job
-    });
+    return res.status(200).json(job);
   }
   catch (err) {
     res.status(400).send({

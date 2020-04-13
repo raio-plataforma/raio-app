@@ -31,7 +31,9 @@ const StyledBody = styled.div`
     }
   }
 
-  
+  a {
+    text-decoration: none;
+  }
 `
 
 const AppBody = ({ children }) => {

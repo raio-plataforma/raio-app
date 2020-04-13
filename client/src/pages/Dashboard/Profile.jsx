@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 
 import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
-import Typography from '@material-ui/core/Typography'
+import Title from './../../comps/Title'
+import Text from './../../comps/Text'
 import Button from '../../comps/Button'
 import { getKeys } from '../../utils/formatter'
 
@@ -13,7 +14,7 @@ const StyledProfile = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  height: 100%;
   justify-content: space-between;
   margin-right: 40px;
 
@@ -41,12 +42,21 @@ const StyledProfile = styled.div`
 
   .bio {
     text-align: justify;
+    word-break: break-all;
   }
 
   .segments {
     color: #200122;
     text-align: center;
     margin-top: 20px;
+  }
+
+  h2, h3, h4, h6 {
+    color: #200122;
+  }
+
+  a {
+    text-decoration: none;
   }
 `
 
@@ -55,31 +65,31 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
     <StyledProfile className='profile'>
       <div class="main-info">
         <span className="image">{icon}</span>
-        <Typography component="h2" variant="h4"><strong>{name}</strong></Typography>
-        <Typography component="h3" variant="h6"><strong>Perfil {type}</strong></Typography>
+        <Title size="md"><strong>{name}</strong></Title>
+        <Title size="xs"><strong>Perfil {type}</strong></Title>
         { associate && (
           <div className="associate">
             <Star color="secondary" />
-            <Typography color="secondary">Associado APAN</Typography>
+            <Text color="secondary">Associado APAN</Text>
           </div>) 
         }
         { pcd && (
           <div className="associate">
             <PcD color="secondary" />
-            <Typography color="secondary">PcD</Typography>
+            <Text color="secondary">PcD</Text>
           </div>) 
         }
       </div>
 
       <section className="segments">
-        <Typography component="h3" variant="h6">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Typography>
-        <Typography className="bio" color="secondary">{bio}</Typography>
+        <Title size="xs">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Title>
+        <Text className="bio" color="secondary">{bio}</Text>
       </section>
 
       {segments && segments.length > 0 &&
       <section className="segments">
-        <Typography component="h3" variant="h6">Segmentos de atuação</Typography>
-        <Typography color="secondary">{segments.join(', ') || 'Nenhum'}</Typography>
+        <Title size="xs">Segmentos de atuação</Title>
+        <Text color="secondary">{segments.join(', ') || 'Nenhum'}</Text>
       </section>}
 
       <Link 

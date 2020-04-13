@@ -12,6 +12,16 @@ const vacancyModel = {
       console.log(err)
     }
   }),
+  getAllJobs: thunk(async (actions) => {
+    try {
+      return await axios.get('/api/job/')
+    }
+    catch (err) {
+      console.log(err)
+      const error = err.response.data && err.response.data.jobs
+      actions.setError(error)
+    }
+  }),
   vancancies: [],
   setVacancies: action((state, payload) => ({
     vacancies: payload

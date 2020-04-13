@@ -1,25 +1,26 @@
-import React, {useState,useEffect} from 'react';
-  import { NavLink } from 'react-router-dom';
-  import jwtDecode from 'jwt-decode'
-  import { useStoreActions, useStoreState } from 'easy-peasy'
+import React, { useState,useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
+import jwtDecode from 'jwt-decode'
+import { useStoreActions, useStoreState } from 'easy-peasy'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import CloseButton from './CloseButton'
   
-  import Modal from '../../comps/Modal'
-  import SignupPopup from '../../components/popups/Signup'
-  import Button from '../Button'
-  import { IfElse } from '../../components/If'
-  import {
-    Wrapper,
-    StyledLogo,
-    StyledAside,
-    StyledNavLink,
-    StyledBurger} from './style';
+import Modal from '../../comps/Modal'
+import SignupPopup from '../../components/popups/Signup'
+import Button from '../Button'
+import {
+  Wrapper,
+  StyledLogo,
+  StyledAside,
+  StyledNavLink} from './style';
   
   import setAuthToken from '../../utils/setAuthToken'
   import { isEmpty, getUserType } from '../../utils/service'
   
 
   
-  const Header = ({ isOpened }) => {
+  const Header = () => {
     const [modalStatus, setModalStatus] = useState(false)
     const setAuth = useStoreActions(actions => actions.auth.setAuth)
     const logoutUser = useStoreActions(actions => actions.auth.logoutUser)
@@ -61,24 +62,22 @@ import React, {useState,useEffect} from 'react';
         role="navigation"
         aria-label="main navigation"
       >
-        <div className="container clearfix et_menu_container">
-          <div className="navbar-brand">
+        <Container>
+          <Grid container justify="space-between">
             <a href="https://raio.agency/">
               <StyledLogo
                 src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
                 width="274.141"
                 height="93.594"
-                alt="RIO Logo"
+                alt="RAIO Logo"
               />
             </a>
-          </div>
-            <StyledBurger
-              onClick={() => toggleMenu(!menuOpened)}
+            <CloseButton
               aria-label="menu"
-              aria-expanded="false"
-              data-target="navbarBasicExample"
-            ><span></span></StyledBurger>
-
+              onClick={() => toggleMenu(!menuOpened)}
+              isOpened={menuOpened}
+            />
+          </Grid>
           <StyledAside 
             className={menuOpened && 'opened'}
           >
@@ -89,38 +88,34 @@ import React, {useState,useEffect} from 'react';
               >
                 <Button>Home</Button>
               </a>
-              <IfElse
-                condition={auth && auth.isAuthenticated}
-                True={
-                  <>
-                    <NavLink to={`/dashboard/${type}`}>
-                      <Button onClick={() => toggleMenu(!menuOpened)}>
-                        Dashboard
-                      </Button>
-                    </NavLink>
-                    <Button
-                      onClick={() => toggleMenu(!menuOpened)}
-                    ><span onClick={logoutUser}>Sair</span></Button>
-                  </>
-                }
-                False={
-                  <>
+              {
+                auth && auth.isAuthenticated ?
+                (<>
+                  <NavLink to={`/dashboard/${type}`}>
                     <Button onClick={() => toggleMenu(!menuOpened)}>
-                      <span onClick={() => setModalStatus(!modalStatus)}>
-                        Cadastre-se
-                      </span>
+                      Dashboard
                     </Button>
-                    <Button onClick={() => toggleMenu(false)}>
-                      <StyledNavLink to="/">
-                        Entrar
-                      </StyledNavLink>
-                    </Button>
-                  </>
-                }
-              />
+                  </NavLink>
+                  <Button
+                    onClick={() => toggleMenu(!menuOpened)}
+                  ><span onClick={logoutUser}>Sair</span></Button>
+                </>) :
+                (<>
+                  <Button onClick={() => toggleMenu(!menuOpened)}>
+                    <span onClick={() => setModalStatus(!modalStatus)}>
+                      Cadastre-se
+                    </span>
+                  </Button>
+                  <Button onClick={() => toggleMenu(false)}>
+                    <StyledNavLink to="/">
+                      Entrar
+                    </StyledNavLink>
+                  </Button>
+                </>)
+              }
             </div>
           </StyledAside>
-        </div>
+        </Container>
         <Modal
           title="Cadastre-se"
           isOpen={modalStatus}
@@ -130,19 +125,9 @@ import React, {useState,useEffect} from 'react';
             toggleModalStatus={() => setModalStatus(!modalStatus)}
           />
         </Modal>
-
-        {/* <Modal
-          isOpen={modalStatus}
-          onClose={() => setModalStatus(false)}
-          width="500px"
-        >
-          <SignupPopup
-            toggleModalStatus={() => setModalStatus(!modalStatus)}
-          />
-        </Modal> */}
       </Wrapper>
-    );
+    )
   }
   
-  export default Header;
+  export default Header
   

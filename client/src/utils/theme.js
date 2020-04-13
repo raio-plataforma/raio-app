@@ -4,7 +4,10 @@ import { ptBR } from '@material-ui/core/locale';
 const theme = createMuiTheme({
   palette: {
     text: {
-      primary: '#F9A639'
+      primary: "rgba(32, 1, 34, 0.87)",
+      secondary: "rgba(32, 1, 34, 0.54)",
+      disabled: "rgba(32, 1, 34, 0.38)",
+      hint: "rgba(32, 1, 34, 0.38)"
     },
     primary: {
       main: '#F9A639',
@@ -24,5 +27,5 @@ const theme = createMuiTheme({
     tonalOffset: 0.2,
   },
 }, ptBR);
-
+console.log('=> ', theme)
 export default theme;

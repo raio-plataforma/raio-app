@@ -26,7 +26,11 @@ const RoleCard = ({ title, to, icon, children }) => {
     <StyledCard className='role-card'>
       <CardContent>
         <div>{icon}</div>
-        <Link to={to}>{title}</Link>
+        <Link to={to}>
+          <ButtonMaterial>
+          {title}
+          </ButtonMaterial>
+        </Link>
         {children}
       </CardContent>
     </StyledCard>

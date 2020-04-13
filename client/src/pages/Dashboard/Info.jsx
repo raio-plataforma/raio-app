@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Star from '@material-ui/icons/Star'
-import Typography from '@material-ui/core/Typography'
+import Title from './../../comps/Title'
+import Text from './../../comps/Text'
 
 const StyledInfo = styled.div`
   width: 100%;
@@ -14,6 +14,10 @@ const StyledInfo = styled.div`
     &:last-child {
       border-bottom-color: transparent;
     } 
+
+    h6 {
+      color: #200122;
+    }
   }
 
   .values {
@@ -22,7 +26,13 @@ const StyledInfo = styled.div`
     justify-content: space-between;
 
     .field {
-      max-width: 30%;
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+
+      strong {
+        color: #200122;
+      }
     }
   }
 `
@@ -33,13 +43,13 @@ function Info({infoList}) {
       {
         infoList.map(info => (
           <div className="sec">
-            <Typography component="h3" variant="h6"><strong>{info.title}</strong></Typography>
+            <Title align="left" size="xs"><strong>{info.title}</strong></Title>
             <div className="values">
               {
                 info.values.map(val => (
                   <div className="field">
-                    <Typography color="secondary"><strong>{val.campo}</strong></Typography>
-                    <Typography color="secondary">{val.valor}</Typography>
+                    <Text color="black"><strong>{val.campo}</strong></Text>
+                    <Text color="secondary">{val.valor}</Text>
                   </div>
                 ))
               }

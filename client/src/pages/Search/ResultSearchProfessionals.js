@@ -36,8 +36,8 @@ const ResultSearchProfessionals = ({ data }) => {
     const user = await getAllUsers()
     const userProf = user.data.filter(isProf => isProf.type === 'professional')
     
-    if (professionalAll.data.candidates === "Não existem candidatos cadastradas ainda") {
-      setNotRegister("Não existem candidatos(a) cadastrados(a) ainda")
+    if (!professionalAll.data === "Não existem profissionais cadastrados ainda") {
+      setNotRegister("Não existem profissionais cadastrados ainda")
     } else {
       
       const dataTable = professionalAll.data.map((professional) => {

@@ -5,6 +5,9 @@ import Person from '@material-ui/icons/Person'
 
 import Enterprise from '@material-ui/icons/AccountBalanceOutlined'
 import Delete from '@material-ui/icons/Delete';
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 import { getInfo } from './user_info' 
 import uuid from 'uuid'
 
@@ -12,15 +15,12 @@ import Profile from './Profile'
 import Info from './Info'
 import Modal from '../../components/Modal'
 import NewModal from '../../comps/Modal'
-import Button from '../../comps/Button'
-import { If } from '../../components/If'
+import Button from '../../comps/FormButton'
 import BoasVindas from '../../components/popups/BoasVindas'
 import seloPlans from '../../assets/selo.png'
 import loading from '../../assets/loading.svg'
 import {
   Background,
-  GroupButtons,
-  Container,
 } from './style'
 
 const Dashboard = () => {
@@ -40,72 +40,97 @@ const Dashboard = () => {
   }, [userType, getUser])
 
   return (
-    <Background>
+    <>
       {Object.values(user).length ? (
       <>
-      <Container className='header container clearfix et_menu_container'>
-        <div className="container clearfix et_menu_container">
-          <Profile
-            id={user._id}
-            name={user.enterprise_name || user.name}
-            icon={ userType.type === "enterprise" ?
-              <Enterprise style={{ fontSize: 60 }} /> :
-              <Person style={{ fontSize: 60 }} /> }
-            associate={user.apan_associate}
-            type={userType.type === "enterprise" ? "Empresa" : "Profissional"}
-            bio={userType.type === "enterprise" ? user.presentation : user.bio}
-            pcd={user.pcd}
-            segments={userType.type === "enterprise" ? user.business_segments : user.identity_segments}
-          />
-          <Info
-            infoList={getInfo(user, userType.type)}
-          />
-           
-        </div>
+      <Container>
+        <Paper style={{backgroundColor: '#f7cc94', padding: '15px'}}>
+          <Grid container>
+            <Grid item xs={4}>
+              <Profile
+                id={user._id}
+                name={user.enterprise_name || user.name}
+                icon={ userType.type === "enterprise" ?
+                  <Enterprise style={{ fontSize: 60 }} /> :
+                  <Person style={{ fontSize: 60 }} /> }
+                associate={user.apan_associate}
+                type={userType.type === "enterprise" ? "Empresa" : "Profissional"}
+                bio={userType.type === "enterprise" ? user.presentation : user.bio}
+                pcd={user.pcd}
+                segments={userType.type === "enterprise" ? user.business_segments : user.identity_segments}
+              />
+
+            </Grid>
+            <Grid item xs={8}>
+              <Info
+                infoList={getInfo(user, userType.type)}
+              />
+            </Grid>
+          </Grid>
+
+        </Paper>
       </Container>
       
-      <GroupButtons className="container">
-        <If condition={userType.type === "enterprise"}>
+      <Container>
+      {userType.type === "enterprise" ? 
+        (<>
           {!hasVacancies ? <Link to="/cadastro/vaga">
-            <Button variant="contained">
-              Cadastrar Vagas
-            </Button>
-          </Link> :
-          <a href="http://raio.agency/planos">
-            <Button variant="contained">
-              Cadastrar Vagas
-            </Button>
-          </a>
-          }
-          { !(user && user.usedVacancies > 0) && 
-          (<Link to={`/listagem/vagas/${user.enterprise_id}`}>
-            <Button
-              variant="contained"
-              color="primary"
-              
-            >
-              Ver minhas vagas
-            </Button>
-          </Link>) }
-          <Link to={'/busca/profissionais'}>
-            <Button
-              variant="contained"
-              color="primary"
-              
-            >
-              Buscar profissional
-            </Button>
-          </Link>
-        </If>
-        <Link to={`/editar/usuario/${user.user_id}`}>
+              <Button variant="contained">
+                Cadastrar Vagas
+              </Button>
+            </Link> :
+            <a href="http://raio.agency/planos">
+              <Button variant="contained">
+                Cadastrar Vagas
+              </Button>
+            </a>
+            }
+            { !(user && user.usedVacancies > 0) && 
+            (<Link to={`/listagem/vagas/${user.enterprise_id}`}>
+              <Button
+                variant="contained"
+                color="primary"
+                
+              >
+                Ver minhas vagas
+              </Button>
+            </Link>) }
+            <Link to={'/busca/profissionais'}>
+              <Button
+                variant="contained"
+                color="primary"
+              >
+                Buscar profissional
+              </Button>
+            </Link>
+        </>) :
+        (<>
+        <Link to={`/listagem/vagas`}>
           <Button
             variant="contained"
             color="primary"
-            
           >
-            Editar Dados de Acesso
+            Ver vagas
           </Button>
         </Link>
+          <Button
+            variant="contained"
+            color="primary"
+          >
+            Ver minhas candidaturas
+          </Button>
+        </>)
+      }
+        
+          
+      <Link to={`/editar/usuario/${user.user_id}`}>
+        <Button
+          variant="contained"
+          color="primary"
+        >
+          Editar Dados de Acesso
+        </Button>
+      </Link>
         
         <Button
           variant="contained"
@@ -115,7 +140,7 @@ const Dashboard = () => {
         >
           Deletar Perfil
         </Button>
-      </GroupButtons>
+      </Container>
 
       <Modal
         isOpen={modalBoasVindas}
@@ -140,7 +165,7 @@ const Dashboard = () => {
        </Modal>
       </>) : 
        <img src={loading} />}
-    </Background>
+    </>
   )
 }
 

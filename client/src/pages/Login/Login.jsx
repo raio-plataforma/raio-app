@@ -5,16 +5,17 @@ import { Link } from 'react-router-dom'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import Email from '@material-ui/icons/Mail'
 import Senha from '@material-ui/icons/Lock'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
 import FormControl from '@material-ui/core/FormControl'
 import FilledInput from '@material-ui/core/FilledInput'
 import InputLabel from '@material-ui/core/InputLabel'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import FormHelperText from '@material-ui/core/FormHelperText'
 
-import Flexbox from '../../components/Flexbox'
-import Form from '../../components/Form'
 import { Error } from '../../components/Status'
 import Button from '../../comps/Button'
+import Title from '../../comps/Title'
 
 import {
   Background
@@ -37,89 +38,59 @@ const Login = () => {
   }, [auth])
 
   return (
-    <Background>
-      <Flexbox center>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h4" component="h2" gutterBottom>
-            Entre na Raio
-          </Typography>
-          
-          <FormControl fullWidth style={{margin: '10px 0'}} variant="filled">
-            <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
-            <FilledInput
-              id="filled-adornment-password"
-              type="text"
-              name="email"
-              error={errors.email}
-              inputRef={register({
-                required: 'Esse campo é obrigatório',
-                pattern: {
-                  value: emailValidation(),
-                  message: 'Insira um endereço de e-mail válido'
+    <Container center>
+        <Grid container alignItems="stretch" justify="space-between">
+          <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
+            <Typography variant="h4" component="h2" gutterBottom>
+              Entre na Raio
+            </Typography>
+            
+            <FormControl fullWidth style={{margin: '10px 0'}} variant="filled">
+              <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                type="text"
+                name="email"
+                error={errors.email}
+                inputRef={register({
+                  required: 'Esse campo é obrigatório',
+                  pattern: {
+                    value: emailValidation(),
+                    message: 'Insira um endereço de e-mail válido'
+                  }
+                })}
+                endAdornment={
+                  <InputAdornment position="end">
+                      <Email />
+                  </InputAdornment>
                 }
-              })}
-              endAdornment={
-                <InputAdornment position="end">
-                    <Email />
-                </InputAdornment>
-              }
-            />
-            {errors.email && (<FormHelperText error>{errors.email.message}</FormHelperText>)}
-          </FormControl>
+              />
+              {errors.email && (<FormHelperText error>{errors.email.message}</FormHelperText>)}
+            </FormControl>
 
-          <FormControl fullWidth variant="filled">
-            <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
-            <FilledInput
-              id="filled-adornment-password"
-              type="password"
-              name="password"
-              error={errors.password}
-              inputRef={register({
-                required: 'Esse campo é obrigatório',
-                minLength: {
-                  value: 6,
-                  message: 'A senha deve ter no mínimo 6 caracteres'
+            <FormControl fullWidth variant="filled">
+              <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
+              <FilledInput
+                id="filled-adornment-password"
+                type="password"
+                name="password"
+                error={errors.password}
+                inputRef={register({
+                  required: 'Esse campo é obrigatório',
+                  minLength: {
+                    value: 6,
+                    message: 'A senha deve ter no mínimo 6 caracteres'
+                  }
+                })}
+                endAdornment={
+                  <InputAdornment position="end">
+                      <Senha />
+                  </InputAdornment>
                 }
-              })}
-              endAdornment={
-                <InputAdornment position="end">
-                    <Senha />
-                </InputAdornment>
-              }
-            />
-            {errors.password && (<FormHelperText error>{errors.password.message}</FormHelperText>)}
-          </FormControl>
-          {/* <InputText
-            type="text"
-            name="email"
-            label="E-mail"
-            placeholder="e-mail"
-            icon="fa-envelope"
-            error={errors.email && errors.email.message}
-            register={register({
-              required: 'Esse campo é obrigatório',
-              pattern: {
-                value: emailValidation(),
-                message: 'Insira um endereço de e-mail válido'
-              }
-            })}
-          />
-
-          <InputText
-            label="Senha"
-            type="password"
-            name="password"
-            placeholder="senha"
-            icon="fa-lock"
-            error={errors.password && errors.password.message}
-            register={register({
-              required: 'Esse campo é obrigatório',
-              minLength: {
-                value: 6,
-                message: 'A senha deve ter no mínimo 6 caracteres'
-              }
-            })}
-          /> */}
+              />
+              {errors.password && (<FormHelperText error>{errors.password.message}</FormHelperText>)}
+            </FormControl>
+            
           
           <Error msg={loginError} />
           
@@ -132,9 +103,9 @@ const Login = () => {
           <Button variant="contained" type="submit">
             Entrar
           </Button>
-        </Form>
-      </Flexbox>
-    </Background>
+          </form>
+        </Grid>
+    </Container>
   )
 }
 

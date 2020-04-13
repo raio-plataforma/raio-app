@@ -30,8 +30,8 @@ const ResultSearchProfessionals = ({ data }) => {
   useEffect(async () => {
     const enterpriseAll = await getEnterpriseAll()
 
-    if (enterpriseAll.data.candidates === "Não existem candidatos cadastradas ainda") {
-      setNotRegister("Não existem candidatos(a) cadastrados(a) ainda")
+    if (!enterpriseAll.data) {
+      setNotRegister("Não existem empresas cadastradas ainda")
     } else {
       let filter = enterpriseAll.data.filter((item) => {
         let itemFunctions = ""
