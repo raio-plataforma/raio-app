@@ -40,8 +40,8 @@ const authModel = {
         return history.push(`/cadastro/${type}`)
       }
       catch (err) {
-        console.log(2, {err})
-        // throw err
+        const error = err.response.data
+        return actions.setErrors({...error})
       }
     }
     catch (err) {

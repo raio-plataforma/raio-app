@@ -59,7 +59,6 @@ router.post('/register', (req, res) => {
             .save()
             .then(user => res.json(user))
             .catch(err => {
-              console.log(err)
               errors.register = 'Erro ao salvar usuário na base de dados'
               return res.status(400).json(errors)
             })
@@ -67,7 +66,6 @@ router.post('/register', (req, res) => {
       })
     })
     .catch(err => {
-      console.log(err)
       errors.register = 'Houve um problema ao criar o usuário'
       return res.status(400).json(errors)
     })

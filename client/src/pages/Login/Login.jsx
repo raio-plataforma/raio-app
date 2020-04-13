@@ -37,7 +37,6 @@ const Login = () => {
   useEffect(() => {
     if (auth) {
       const { user: { type = '' }, isAuthenticated } = auth
-      console.log('auth', auth)
       // if (isAuthenticated) return history.push(`/dashboard/${type}`)
     }
     if(loginError.message){
