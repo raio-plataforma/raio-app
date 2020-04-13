@@ -76,7 +76,7 @@ const Login = () => {
                 })}
                 endAdornment={
                   <InputAdornment position="end">
-                      <Email />
+                      <Email color="primary"/>
                   </InputAdornment>
                 }
               />
@@ -99,7 +99,7 @@ const Login = () => {
                 })}
                 endAdornment={
                   <InputAdornment position="end">
-                      <Senha />
+                      <Senha color="primary" />
                   </InputAdornment>
                 }
               />
