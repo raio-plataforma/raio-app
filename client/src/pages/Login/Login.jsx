@@ -37,9 +37,10 @@ const Login = () => {
   useEffect(() => {
     if (auth) {
       const { user: { type = '' }, isAuthenticated } = auth
-      // if (isAuthenticated) return history.push(`/dashboard/${type}`)
+      if (isAuthenticated) return history.push(`/dashboard/${type}`)
     }
-    if(loginError.message){
+
+    if(loginError && loginError.message){
       setModalMsg(loginError.message)
       setModalStatus(true)
     }

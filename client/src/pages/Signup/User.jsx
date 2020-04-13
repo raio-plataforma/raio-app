@@ -39,7 +39,7 @@ const Users = () => {
     setModalStatus(true)
     setTimeout(() => {
       registerUser(formatted)
-    }, 5000)
+    }, 3000)
   }
 
   useEffect(() => {
@@ -199,7 +199,7 @@ const Users = () => {
            
         </form>
       
-        <Snackbar open={modalStatus} autoHideDuration={5000} onClose={() => setModalStatus(false)}>
+        <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>
           <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="success">
             Usuário cadastrado com sucesso!
           </Alert>
