@@ -25,7 +25,11 @@ const JobSchema = new Schema({
     type: String,
     required: true
   },
-  location: {
+  state: {
+    type: String,
+    required: true,
+  },
+  city: {
     type: String,
     required: true
   },

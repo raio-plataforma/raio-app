@@ -17,6 +17,7 @@ const registerModel = {
       return actions.setErrors(error)
     }
   }),
+  
   registerCompany: thunk(async (actions, payload) => {
     try {
       await axios.post('/api/enterprise/register', payload)

@@ -12,11 +12,11 @@ const AllVacancies = () => {
   const getAllJobs = useStoreActions(actions => actions.vacancy.getAllJobs)
   const [jobList, setJobs] = useState([])
   const [jobFullList, setFullJobs] = useState([])
-  
+
   useEffect(async () => {
     const jobs = await getAllJobs()
     jobList.length === 0 && setJobs(jobs.data)
-
+    console.log(jobs)
     setFullJobs(jobs.data)
   }, [vacancies])
 
@@ -26,7 +26,7 @@ const AllVacancies = () => {
 
     !lowerText || lowerText === "" ? setJobs(jobFullList) : setJobs(filteredJobs)
   }
-
+  
   return (
     <Container>
       <Title style={{margin: '30px 0'}}>Todas as vagas</Title>

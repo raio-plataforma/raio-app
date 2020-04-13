@@ -32,7 +32,6 @@ const authModel = {
       try {
         const check = await axios.get('/api/user/has-additional-register')
         const type = getUserType(decoded.type)
-        console.log({type})
         
         if (check.data.hasAdditionalRegister || type === 'admin') {
           return history.push(`/dashboard/${type}`)
@@ -46,9 +45,8 @@ const authModel = {
       }
     }
     catch (err) {
-      const error = err.response.data && err.response.data.login
-      console.log(error)
-      return actions.setErrors(error)
+      const error = err.response.data
+      return actions.setErrors({...error})
     }
   }),
   logoutUser: thunk(async (actions, payload) => {

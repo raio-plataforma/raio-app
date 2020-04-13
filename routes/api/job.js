@@ -94,7 +94,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
           title: req.body.title,
           function: req.body.function,
           requirements: req.body.requirements,
-          location: req.body.location,
+          city: req.body.city,
+          state: req.body.state,
           cache: req.body.cache,
           total_period: req.body.total_period,
           hiring_type: req.body.hiring_type
@@ -102,7 +103,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
     
         newJob
           .save()
-          .then(job => res.json(job))
+          .then(job => res.status(200).json(job))
           .catch(err => {
             console.log(err)
             res.status(500).json({ job: 'Erro ao salvar vaga' })

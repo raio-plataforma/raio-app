@@ -6,6 +6,9 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
+import Select from '../../comps/FormSelect'
+import states from '../../assets/states.json'
+import cities from '../../assets/cities.json'
 
 import {
   functions,
@@ -14,8 +17,9 @@ import {
 import Button from '../../comps/Button'
 import Checkbox from '../../comps/Checkbox'
 import { Error, Success } from '../../components/Status'
-import { parseDate } from '../../utils/formatter'
+import { parseDate, normalizeArrayData } from '../../utils/formatter'
 import history from '../../history'
+
 
 
 const Vacancy = () => {
@@ -30,24 +34,27 @@ const Vacancy = () => {
   const registerError = useStoreState(state => state.enterprise.error)
   const [selectedDate, setSelectedDate] = React.useState({})
   const [status, setStatus] = useState('')
+  const [citiesFromStates, setCities] = useState([])
   const handleDateChange = (date) => {
     setSelectedDate({...selectedDate, ...date});
   };
 
-  const onSubmit = async (data) => {
+  const handleCities = state => {
+    const filteredCities = cities.filter(city => city.state_id == state)
+    setCities(filteredCities)
+  }
+  
+  const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
+
+  const onSubmit = data => {
     const period = `${parseDate(selectedDate.start)}-${parseDate(selectedDate.end)}`
-    const res = await registerJob({
+   
+    const formatted = {
       ...data,
-      company_name: data.companyName,
+      hiring_type: normalizeArrayData(data.hiring_type),
       total_period: period
-    })
-
-    reset()
-
-    if (res && res.status && res.status === 200) {
-      setStatus(res.msg)
-      return history.push('/dashboard/empresa')
     }
+    registerJob(formatted)
   }
 
   return (
@@ -106,19 +113,45 @@ const Vacancy = () => {
             variant="filled"
           />
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            name="location"
-            fullWidth
-            error={errors.location && errors.location.message}
-            helperText={errors.location && errors.location.message}
-            inputRef={register({
+        <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Select 
+            name="state"
+            error={errors.state && errors.state.message}
+            helperText={errors.state && errors.state.message}
+            onChange={(e) => handleCities(e)}
+            options={stateList(states)}
+            register={register({
               required: 'Esse campo é obrigatório'
             })}
-            label="Endereço"
-            variant="filled"
+            label="Estado"
           />
         </Grid>
+
+        <Grid item xs={6}>
+          <Autocomplete
+            fullWidth
+            freeSolo
+            disabled={citiesFromStates.length === 0}
+            options={citiesFromStates.map(city => city.name).sort()}
+            renderInput={params => (
+              <TextField
+                {...params}
+                name="city"
+                inputRef={register({
+                  required: 'Esse campo é obrigatório'
+                })}
+                color="primary"
+                label="Cidade"
+                variant="filled"
+                placeholder="Busque a cidade"
+                error={errors.city && errors.city.message}
+                helperText={errors.city && errors.city.message}
+              />
+            )}
+          />
+        </Grid>
+      </Grid>
         <Grid item xs={6}>
           <TextField
             name="start"
