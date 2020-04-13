@@ -4,7 +4,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 import Alert from '@material-ui/lab/Alert'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
-import Typography from '@material-ui/core/Typography'
+import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 
 import states from '../../assets/states.json'
@@ -20,12 +20,14 @@ import Checkbox from '../../comps/Checkbox'
 import Switch from '../../comps/Switch'
 import Select from '../../comps/Select'
 import Button from '../../comps/Button'
+import Title from '../../comps/Title'
+import Text from '../../comps/Text'
 import ChipOptions from '../../comps/ChipOptions'
 import loading from '../../assets/loading.svg'
 import { StyledForm } from './style'
 
 const EditProfessional = ({ match }) => {
-  const { register, handleSubmit, errors, getValues, setValue } = useForm()
+  const { register, handleSubmit, errors } = useForm()
   const [isLoading, setLoading] = useState(true)
   const [hasError, setError] = useState(false)
   const [numCols, setCols] = useState(3)
@@ -67,8 +69,8 @@ const EditProfessional = ({ match }) => {
   const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
   console.log('- >', professional)
   return (
-    <section className="container">
-      <Typography variant="h2" style={{textAlign: 'center', fontWeight: 'bold'}}>Editar Profissional</Typography>
+    <Container className="container">
+      <Title align="center" style={{margin: '30px 0'}}>Editar Profissional</Title>
 
       {isLoading ? <img src={loading} /> :
         hasError ? 
@@ -248,7 +250,7 @@ const EditProfessional = ({ match }) => {
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h5">Áreas de atuação</Typography>
+            <Text>Áreas de atuação</Text>
           {
             separated_functions.map(check => (
               <>
@@ -300,7 +302,7 @@ const EditProfessional = ({ match }) => {
           <Button type="submit" variant="contained" color="primary">Confirmar</Button>
         </StyledForm>)
       }
-    </section>
+    </Container>
   )
   
 }

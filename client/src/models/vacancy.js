@@ -18,8 +18,8 @@ const vacancyModel = {
     }
     catch (err) {
       console.log(err)
-      const error = err.response.data && err.response.data.jobs
-      actions.setError(error)
+      const error = err.response.data
+      actions.setError({...error})
     }
   }),
   vancancies: [],
