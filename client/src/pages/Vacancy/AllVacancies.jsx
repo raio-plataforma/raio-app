@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useStoreState, useStoreActions } from 'easy-peasy'
+import { Link } from 'react-router-dom'
 import Alert from '@material-ui/lab/Alert'
 import Container from '@material-ui/core/Container'
+import Button from '../../comps/Button'
 import Grid from '@material-ui/core/Grid'
 import FormText from '../../comps/FormText'
 import Title from '../../comps/Title'
@@ -16,7 +18,6 @@ const AllVacancies = () => {
   useEffect(async () => {
     const jobs = await getAllJobs()
     jobList.length === 0 && setJobs(jobs.data)
-    console.log(jobs)
     setFullJobs(jobs.data)
   }, [vacancies])
 
@@ -31,6 +32,13 @@ const AllVacancies = () => {
     <Container>
       <Title style={{margin: '30px 0'}}>Todas as vagas</Title>
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+        <a href="/dashboard/profissional">
+          <Button
+            variant="contained"
+          >Voltar</Button>
+        </a>
+        </Grid>
         <Grid item xs={12}>
           <FormText
             label="Pesquisar por vaga"

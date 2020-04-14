@@ -1,7 +1,7 @@
 import React from 'react'
 
 import PropTypes from 'prop-types'
-import { Route } from 'react-router'
+import { Route, Redirect } from 'react-router'
 
 import { ThemeProvider } from '@material-ui/styles'
 import { Router, Switch } from 'react-router-dom'
@@ -97,6 +97,7 @@ const App = ({ store }) => {
                 path='/resultados/empresas'
                 component={ResultSearchEnterprise}
               />
+              <Redirect from='*' to='/' />
             </Switch>
           </AppBody>
         </>

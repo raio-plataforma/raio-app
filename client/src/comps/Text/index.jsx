@@ -8,7 +8,7 @@ const Text = ({ children, color, size, align, style }) => {
     <Typography
       align={align}
       variant={compSize}
-      component={compSize}
+      component='p'
       color={compColor}
       style={{...style, display: 'block'}}
     >

@@ -59,7 +59,7 @@ function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location })
             {location}
           </Text>
           <StyledText>
-            <Text color="contrastText">
+            <Text color="textPrimary">
               {jobDescription}
             </Text>
           </StyledText>

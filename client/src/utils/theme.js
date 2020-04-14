@@ -17,8 +17,7 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#ba3b1f',
-      light: '#C67B6B',
-      dark: '#872C17'
+      dark: '#6f0000'
     },
     common: {
       white: '#f7cc94',
@@ -27,5 +26,5 @@ const theme = createMuiTheme({
     tonalOffset: 0.2,
   },
 }, ptBR);
-console.log('=> ', theme)
+
 export default theme;
