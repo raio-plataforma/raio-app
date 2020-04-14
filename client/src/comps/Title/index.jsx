@@ -26,7 +26,7 @@ const getSize = size => {
 }
 
 const Title = ({ children, color, size, align, style }) => {
-  const compColor = color || 'primary'
+  const compColor = color || 'primaryText'
   const compSize = getSize(size)  
   return(
     <Text

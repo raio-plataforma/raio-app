@@ -2,7 +2,7 @@ import React from 'react'
 import Typography from '@material-ui/core/Typography'
 
 const Text = ({ children, color, size, align, style }) => {
-  const compColor = color || 'primary'
+  const compColor = color || 'contrastText'
   const compSize = size || 'body2'  
   return(
     <Typography
