@@ -3,10 +3,11 @@ import { useStoreState, useStoreActions } from 'easy-peasy'
 import { Link } from 'react-router-dom'
 import Alert from '@material-ui/lab/Alert'
 import Container from '@material-ui/core/Container'
-import Button from '../../comps/Button'
 import Grid from '@material-ui/core/Grid'
-import FormText from '../../comps/FormText'
+
 import Title from '../../comps/Title'
+import Button from '../../comps/Button'
+import FormText from '../../comps/FormText'
 import CardVacancy from '../../comps/CardVacancy'
 
 const AllVacancies = () => {

@@ -16,7 +16,7 @@ import Info from './Info'
 import Modal from '../../components/Modal'
 import NewModal from '../../comps/Modal'
 import Button from '../../comps/FormButton'
-import BoasVindas from '../../components/popups/BoasVindas'
+import welcome from '../../assets/raio_bemvindo.png'
 import seloPlans from '../../assets/selo.png'
 import loading from '../../assets/loading.svg'
 import {
@@ -37,6 +37,12 @@ const Dashboard = () => {
     typeof userType.type !== 'undefined' && getUser(userType.type)
     if (userType.type === "professional") setModalBoasVindas(true)
     if (userType.type === "enterprise") setModalInfoPlans(true)
+
+    setTimeout(() => {
+      setModalBoasVindas(false)
+      setModalInfoPlans(false)
+    }, 3000)
+
   }, [userType, getUser])
 
   return (
@@ -147,8 +153,9 @@ const Dashboard = () => {
         onClose={() => setModalBoasVindas(false)}
         width="300px"
       >
-        <BoasVindas />
+        <img  style={{width: '300px'}} src={welcome} />
       </Modal>
+      
       <NewModal
         isOpen={modalStatus}
         onClose={() => setModalStatus(false)}
