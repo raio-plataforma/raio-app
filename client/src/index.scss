@@ -6,7 +6,7 @@ body {
 
   > #root {
     > div {
-      min-height: 100vh;
+      min-height: calc(100vh - 108px);
     }
 
     td {
