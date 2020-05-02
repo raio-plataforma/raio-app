@@ -2,17 +2,15 @@ import React, { useEffect } from "react"
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import { useStoreState, useStoreActions } from 'easy-peasy'
 import { makeStyles } from '@material-ui/core/styles'
-import ViewListIcon from '@material-ui/icons/ViewList'
 import Alert from '@material-ui/lab/Alert'
 import TextField from '@material-ui/core/TextField'
-
+import states from '../../assets/states.json'
 import Tables from '../../comps/Tables'
-import { IfElse } from '../../components/If'
 import { Container, Group, Background } from './style'
-import { checkSegments } from '../../utils/formatter'
+import { getState } from '../../utils/formatter'
 
 const headCells = [
-  { id: 'name', numeric: false, disablePadding: false, label: 'Responsável' },
+  { id: 'name', numeric: false, disablePadding: false, label: 'Nome' },
   { id: 'email', numeric: false, disablePadding: false, label: 'E-mail' },
   { id: 'gender', numeric: false, disablePadding: true, label: 'Gênero' },
   { id: 'city', numeric: false, disablePadding: false, label: 'Cidade' }
@@ -28,22 +26,21 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProfessionalsList = () => {
-  const enterprises = useStoreState(state => state.enterprise.enterprises)
-  const getAllEnterprises = useStoreActions(actions => actions.enterprise.getAllEnterpriseUsers)
-
+  const professionals = useStoreState(state => state.professional.professionals)
+  const getAllProfessionals = useStoreActions(actions => actions.professional.getAllProfessionals)
+  console.log('==> prof ==>',  professionals)
   useEffect(() => {
-    getAllEnterprises()
-  }, [getAllEnterprises])
+    getAllProfessionals() 
+  }, [getAllProfessionals])
 
-  const clearList = enterprises
-    .filter(ent => ent.enterprise_id)
+  const clearList = professionals
+    .filter(ent => ent._id)
     .map(ent => ({
-      id: ent.enterprise_id,
-      name_enterprise: ent.name_enterprise,
+      id: ent._id,
       name: ent.name,
       email: ent.email,
-      phone: ent.phone,
-      segments: ent.business_segments
+      gender: ent.gender,
+      city: `${ent.city} - ${getState(ent.home_state, states)}`
     }))
     const classes = useStyles();
 console.log(clearList)
@@ -54,7 +51,6 @@ console.log(clearList)
           <Autocomplete
             multiple
             fullWidth
-            id="tags-outlined"
             options={clearList}
             getOptionLabel={option => option.name_enterprise}
             filterSelectedOptions
@@ -69,29 +65,19 @@ console.log(clearList)
           />
         </div>
         <Group>
-          <IfElse
-            condition={
-              typeof enterprises !== 'undefined' && enterprises.length > 0
-            }
-            True={
+          {
+            typeof professionals !== 'undefined' && professionals.length > 0 ?
+            (
               <Tables 
                 title="Profissionais"
                 headCells={headCells}
                 list={clearList} 
-                actions={[
-                  {
-                    action: '/listagem/vagas/',
-                    btn: <ViewListIcon />,
-                    type: 'link', // link or btn
-                    tooltip: 'Ver lista de vagas postadas'
-                  }
-                ]}
               />
-            }
-            False={
+            ) :
+            (
               <Alert severity="warning">Não há profissionais cadastrados</Alert>
-            }
-          />
+            )
+          }
         </Group>
       </Container>
     </Background>

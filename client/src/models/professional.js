@@ -5,11 +5,23 @@ import axios from 'axios'
 const professionalModel = {
   getAllProfessionals: thunk(async (actions, payload) => {
     try {
-      const res = await axios.get('/api/professional/all')
-
-      actions.setprofessionals(
-        res.data.filter(user => user.type === 'professional')
-      )
+      const professionals = await axios.get('/api/professional/all')
+      const users = await axios.get('/api/user/all')
+      
+      const fuse = (users.data)
+        .filter(userFilter => userFilter.type === 'professional')
+        .map(user => {
+          const professional = (professionals.data).filter(i => i.user_id === user._id)
+          console.log('prof =>', professional, user)
+          if (professional.length > 0) {
+            return { 
+              ...professional[0],
+              ...user,
+            }
+          }
+          return false
+        })
+      actions.setProfessionals(fuse.filter(op => op.name)) 
     }
     catch (err) {
       console.log(err)

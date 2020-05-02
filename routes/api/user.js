@@ -183,7 +183,7 @@ router.get('/has-additional-register',
 // @access  Public
 router.get('/all', (req, res) => {
   User.find()
-    .sort({ createdAt: -1 })
+    .sort({ name: 1 })
     .then(users => {
       if (!users) {
         errors.users = 'Não existem usuários cadastradas ainda'

@@ -14,6 +14,8 @@ const dateToString = date => {
   return `${year}-${month}-${day}`
 }
 
+const getState = (codeUF, stateList) => stateList.filter(uf => uf.id == codeUF)[0].abbr
+
 const checkSegments = segment => {
   const segments = Object.keys(segment[0])
   const values = Object.values(segment[0])
@@ -37,6 +39,7 @@ const normalizeArrayData = data => {
     []
 }
 export {
+  getState,
   getKeys,
   parseDate,
   dateToString,
