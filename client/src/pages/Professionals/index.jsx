@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
 const ProfessionalsList = () => {
   const professionals = useStoreState(state => state.professional.professionals)
   const getAllProfessionals = useStoreActions(actions => actions.professional.getAllProfessionals)
-  console.log('==> prof ==>',  professionals)
+  
   useEffect(() => {
     getAllProfessionals() 
   }, [getAllProfessionals])
@@ -43,7 +43,7 @@ const ProfessionalsList = () => {
       city: `${ent.city} - ${getState(ent.home_state, states)}`
     }))
     const classes = useStyles();
-console.log(clearList)
+    
   return (
     <Background className="container clearfix et_menu_container">
       <Container>
