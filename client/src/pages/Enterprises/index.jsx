@@ -47,7 +47,7 @@ const EnterprisesList = () => {
       segments: ent.business_segments
     }))
     const classes = useStyles();
-console.log(clearList)
+    
   return (
     <Background className="container clearfix et_menu_container">
       <Container>

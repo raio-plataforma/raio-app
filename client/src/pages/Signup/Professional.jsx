@@ -243,7 +243,9 @@ const Professionals = () => {
                 label={check.title}
                 error={errors.expertiseAreas && errors.expertiseAreas.message}
                 options={check.list.sort()}
-                register={register}
+                register={register({
+                  required: 'Esse campo é obrigatório' 
+                })}
               />
               </>
             ))
@@ -262,7 +264,9 @@ const Professionals = () => {
               name="identity_segments"
               label="Segmentos identitários"
               options={identitySegments}
-              register={register}
+              register={register({
+                required: 'Esse campo é obrigatório' 
+              })}
             />
           </Grid>}
           <Grid item xs={12}>

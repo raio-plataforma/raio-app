@@ -132,21 +132,10 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
-    backgroundColor: '#6f0000'
+    backgroundColor: '#f7cc94',
   },
   table: {
     minWidth: 750,
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
   },
 }));
 
@@ -178,11 +167,10 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar title={title}  />
+        <EnhancedTableToolbar title={title} color="secondary"  />
         <TableContainer>
           <Table
             className={classes.table}
-            aria-labelledby="tableTitle"
             size="big"
             aria-label="enhanced table"
           >

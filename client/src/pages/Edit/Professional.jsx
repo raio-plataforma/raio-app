@@ -67,7 +67,7 @@ const EditProfessional = ({ match }) => {
   }      
 
   const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
-  console.log('- >', professional)
+  
   return (
     <Container className="container">
       <Title align="center" style={{margin: '30px 0'}}>Editar Profissional</Title>
