@@ -87,10 +87,12 @@ router.get('/:jobId', passport.authenticate('jwt', { session: false }),
 router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   Enterprise.findOne({ user_id: req.user.id })
     .then(enterprise => {
+      console.log('!!!!!!!!!!!!!!');
       if (enterprise) {
+        console.log(enterprise);
         const newJob = new Job({
           enterprise_id: enterprise.id,
-          enterprise_name: enterprise.name,
+          enterprise_name: enterprise.enterprise_name,
           title: req.body.title,
           function: req.body.function,
           requirements: req.body.requirements,
