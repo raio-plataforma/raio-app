@@ -49,7 +49,7 @@ router.get('/all/:enterprise_id', (req, res) => {
 
 router.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
-    const job = await Job.find().populate('company');
+    const job = await Job.find().sort({'createAt':'desc'}).populate('company')
 
     return res.status(200).json(job);
   }
@@ -98,6 +98,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
           requirements: req.body.requirements,
           city: req.body.city,
           state: req.body.state,
+          stateName: req.body.stateName,
           cache: req.body.cache,
           total_period: req.body.total_period,
           hiring_type: req.body.hiring_type

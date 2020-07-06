@@ -6,10 +6,7 @@ const enterpriseModel = {
   registerJob: thunk(async (actions, payload) => {
     try {
       await axios.post('/api/job', payload)
-      return {
-        status: 200,
-        msg: 'Sua vaga foi postada!'
-      }
+      return history.push(`/dashboard/empresa`)
     }
     catch (err) {
       console.log(err)
