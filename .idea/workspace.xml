@@ -4,7 +4,6 @@
     <list default="true" id="b7150b67-1671-4cfa-9452-0bd4aac2a84c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/comps/Tables/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/comps/Tables/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/models/user.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/models/user.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Search/ResultSearchProfessionals.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Search/ResultSearchProfessionals.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Search/SearchProfessionals.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Search/SearchProfessionals.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api/professional.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/professional.js" afterDir="false" />
@@ -53,7 +52,7 @@
       <option name="presentableId" value="Default" />
       <updated>1594041621855</updated>
       <workItem from="1594041624149" duration="13700000" />
-      <workItem from="1594060540879" duration="7954000" />
+      <workItem from="1594060540879" duration="10605000" />
     </task>
     <servers />
   </component>

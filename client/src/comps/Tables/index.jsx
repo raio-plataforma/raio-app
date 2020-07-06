@@ -199,9 +199,15 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                     >
                       {
                         hc.map(name => {
+                          let c = '-';
+                          const s = name.cell.split('.');
+
+                          if(s.length === 1) c = row[s[0]];
+                          else c = row[s[0]][s[1]];
+
                           return (
                             <TableCell padding="default" key={name.cell}>
-                              {row[name.cell] || '-'}
+                              {c}
                             </TableCell>
                           )
                         })

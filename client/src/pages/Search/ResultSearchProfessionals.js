@@ -40,31 +40,28 @@ const ResultSearchProfessionals = ({ data }) => {
       (
           async () => {
             const professionalAll = await getProfessionalAll(data)
-            const user = await getAllUsers()
-            const userProf = user.data.filter(isProf => isProf.type === 'professional')
+            // const user = await getAllUsers()
+            // const userProf = user.data.filter(isProf => isProf.type === 'professional')
 
             if (professionalAll.data.length === 0) {
-              setProfessionals(professionalAll.data);
               setNotRegister("Não existem profissionais cadastrados ainda")
             } else {
-
-              console.log(professionalAll.data);
-
-              const dataTable = professionalAll.data.map((professional) => {
-                const uprof = userProf.find(user => user._id == professional.user_id)
-
-                return({
-                  ...professional,
-                  name: uprof.name,
-                  gender: uprof.gender,
-                  self_declaration: uprof.self_declaration,
-                  phone: uprof.phone,
-                  home_state: states.filter(uf => uf.id == professional.home_state)[0].name
-                })
-              }).filter(p => p.pcd == data.pcd || p.cnpj == data.cpnj)
-
-              setProfessionals(dataTable)
+              // const dataTable = professionalAll.data.map((professional) => {
+              //   const uprof = userProf.find(user => user._id == professional.user_id)
+              //
+              //   return({
+              //     ...professional,
+              //     name: uprof.name,
+              //     gender: uprof.gender,
+              //     self_declaration: uprof.self_declaration,
+              //     phone: uprof.phone,
+              //     home_state: states.filter(uf => uf.id == professional.home_state)[0].name
+              //   })
+              // }).filter(p => p.pcd == data.pcd || p.cnpj == data.cpnj)
+              //
+              // setProfessionals(dataTable)
             }
+              setProfessionals(professionalAll.data)
             setIsLoading(false)
           }
       )();
@@ -73,13 +70,13 @@ const ResultSearchProfessionals = ({ data }) => {
   )
 
   const headCells = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Nome' },
+    { id: 'user_id.name', numeric: false, disablePadding: true, label: 'Nome' },
     { id: 'user_email', numeric: false, disablePadding: false, label: 'E-mail' },
-    { id: 'phone', numeric: false, disablePadding: false, label: 'Telefone' },
+    { id: 'user_id.phone', numeric: false, disablePadding: false, label: 'Telefone' },
     { id: 'cnpj', numeric: false, disablePadding: false, label: 'Possui CNPJ' },
-    { id: 'gender', numeric: false, disablePadding: false, label: 'Gênero' },
+    { id: 'user_id.gender', numeric: false, disablePadding: false, label: 'Gênero' },
     { id: 'pcd', numeric: false, disablePadding: false, label: 'PcD' },
-    { id: 'self_declaration', numeric: false, disablePadding: false, label: 'Auto declaração' },
+    { id: 'user_id.self_declaration', numeric: false, disablePadding: false, label: 'Auto declaração' },
     { id: 'links', numeric: false, disablePadding: false, label: 'Links' },
   ];
   const dataNames = {

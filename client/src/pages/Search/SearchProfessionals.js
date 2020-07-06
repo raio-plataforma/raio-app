@@ -36,7 +36,7 @@ const SearchProfessionals = () => {
   } = useForm()
 
   const [dados, setDados] = useState([])
-  const [showAdvanced, handleAdvanced] = useState(false)
+  const [showAdvanced, setShowAdvanced] = useState(false)
   const [selectedAreas, setAreas] = React.useState([]);
   const registerUser = useStoreActions(actions => actions.user.registerProfessional)
   const [isLoading, setLoader] = useState({
@@ -58,6 +58,8 @@ const SearchProfessionals = () => {
     } : {
       expertise_areas: selectedAreas
     }
+
+    console.log(formatted)
 
     setDados(formatted)
   }
@@ -102,7 +104,7 @@ const SearchProfessionals = () => {
               />
             </Grid>
 
-            <Grid container xs={2}  alignItems="center" onClick={() => handleAdvanced(!showAdvanced)}>
+            <Grid container xs={2}  alignItems="center" onClick={() => setShowAdvanced(!showAdvanced)}>
               <Button>Busca Avançada</Button>
             </Grid>
             {
