@@ -23,8 +23,8 @@ const userModel = {
   getUserById: thunk(async (actions, payload) => {
     try {
       const user = await axios.get(`/api/user/${payload}`)
+      const userTypeData = await axios.get(`/api/professional`)
       // Set current user profile
-      
       actions.setUser({
         id: user.data._id,
         name: user.data.name,
@@ -32,7 +32,9 @@ const userModel = {
         phone: user.data.phone,
         gender: user.data.gender,
         type: user.data.type,
-        self_declaration: user.data.self_declaration
+        self_declaration: user.data.self_declaration,
+        ...userTypeData.data,
+        enterprise_id: userTypeData.data._id
       })
     }
     catch (e) {
@@ -68,9 +70,11 @@ const userModel = {
       return err.response
     }
   }),
-  setUser: action((state, payload) => ({
-    user: { ...payload }
-  })),
+  setUser: action((state, payload) =>
+      ({
+        user: { ...payload }
+      })
+  ),
   setError: action((state, payload) => ({
     error: payload
   }))

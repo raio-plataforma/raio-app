@@ -8,6 +8,7 @@ import Delete from '@material-ui/icons/Delete';
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+import Loading from "../../components/loading";
 import { getInfo } from './user_info'
 // import uuid from 'uuid'
 
@@ -35,21 +36,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     typeof userType.type !== 'undefined' && getUser(userType.type)
-    if (userType.type === "professional") setModalBoasVindas(true)
-    if (userType.type === "enterprise") setModalInfoPlans(true)
+    // if (userType.type === "professional") setModalBoasVindas(true)
+    // if (userType.type === "enterprise") setModalInfoPlans(true)
 
-    setTimeout(() => {
-      setModalBoasVindas(false)
-      setModalInfoPlans(false)
-    }, 3000)
+    // setTimeout(() => {
+    //   setModalBoasVindas(false)
+    //   setModalInfoPlans(false)
+    // }, 3000)
 
   }, [userType, getUser])
 
   return (
-    <>
+    <Container>
       {Object.values(user).length ? (
       <>
-      <Container>
         <Paper style={{backgroundColor: '#f7cc94', padding: '15px'}}>
           <Grid container>
             <Grid item xs={4}>
@@ -75,7 +75,6 @@ const Dashboard = () => {
           </Grid>
 
         </Paper>
-      </Container>
 
       <Container>
       {userType.type === "enterprise" ?
@@ -171,8 +170,8 @@ const Dashboard = () => {
        <img src={seloPlans} alt={''} />
        </Modal>
       </>) :
-       <img src={loading} alt={''} />}
-    </>
+       <Loading/>}
+    </Container>
   )
 }
 

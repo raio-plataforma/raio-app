@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core";
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
@@ -23,13 +24,13 @@ const EditUser = ({ match }) => {
   const editUser = useStoreActions(actions => actions.user.editUser)
   const user = useStoreState(state => state.user.user)
   const error = useStoreState(state => state.user.error)
-  
+
   useEffect(() => {
     Object.values(user).length === 0 && getUserById(match.params.user_id)
     if (user && user.name) {
       setLoading(false)
     }
-  
+
   }, [user, getUserById])
 
   const onSubmit = (data) => {
@@ -42,11 +43,11 @@ const EditUser = ({ match }) => {
   }
 
   return (
-    <section className="container">
+    <Container>
     <Typography variant="h2" style={{textAlign: 'center', fontWeight: 'bold'}}>Editar Usuário</Typography>
 
     {isLoading ? <img src={loading} /> :
-        hasError ? 
+        hasError ?
         <Alert severity="warning">Erro ao localizar o usuário</Alert> :
         (<StyledForm onSubmit={handleSubmit(onSubmit)}>
         <TextField
@@ -88,7 +89,7 @@ const EditUser = ({ match }) => {
 
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Select 
+            <Select
               name="self_declaration"
               value={user.self_declaration}
               error={errors.self_declaration && errors.self_declaration.message}
@@ -103,7 +104,7 @@ const EditUser = ({ match }) => {
           </Grid>
 
           <Grid item xs={6}>
-            <Select 
+            <Select
               name="gender"
               options={gender}
               value={user.gender}
@@ -120,9 +121,9 @@ const EditUser = ({ match }) => {
         <Button type="submit" variant="contained">Confirmar</Button>
       </StyledForm>)
       }
-    </section>
+    </Container>
   )
-  
+
 }
 
 export default EditUser
