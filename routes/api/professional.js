@@ -74,19 +74,29 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 // @route   GET api/professional/all
 // @desc    Get professionals
 // @access  Public
-router.get('/all', (req, res) => {
+router.post('/all', (req, res) => {
   const errors = {}
-  Professional.find()
+  const {
+      expertise_areas
+  } = req.body;
+
+  Professional.find(
+      {
+          expertise_areas
+      }
+  )
     .sort({ createdAt: -1 })
     .then(professionals => {
-      if (!professionals) {
-        errors.noprofessionals = 'Não existem candidatos cadastradas ainda'
-        return res.status(404).json(errors)
-      }
+        console.log('professionals')
+        console.log(professionals)
+      // if (!professionals) {
+      //   errors.noprofessionals = 'Não existem profissionais cadastrados ainda'
+      //   return res.status(404).json(errors)
+      // }
       res.json(professionals)
     })
     .catch(() => res.status(404).json({
-      professionals: 'Não existem candidatos cadastradas ainda'
+      professionals: 'Não existem profissionais cadastrados ainda'
     }))
 })
 
@@ -101,12 +111,12 @@ router.get('/:id', (req, res) => {
       res.json(professionals)
     })
     .catch(() => res.status(404).json({
-      professionals: 'Não existem candidatos cadastradas ainda'
+      professionals: 'Não existem profissionais cadastrados ainda'
     }))
 })
 
 router.put('/edit/:id/', (req, res) => {
-  
+
   Professional.findOneAndUpdate({ _id: req.params.id },
     { $set: {
       birthday: req.body.birthday,

@@ -58,6 +58,7 @@ const SearchProfessionals = () => {
     } : {
       expertise_areas: selectedAreas
     }
+
     setDados(formatted)
   }
 
@@ -71,7 +72,7 @@ const SearchProfessionals = () => {
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
 
   return (
-    <Container fixed>        
+    <Container fixed>
       <Typography
         style={{margin: '30px 0', textAlign: 'center'}}
         component="h2"
@@ -87,7 +88,7 @@ const SearchProfessionals = () => {
                 multiple
                 options={functions}
                 onChange={handleChange}
-                defaultValue={selectedAreas}
+                value={selectedAreas}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -120,14 +121,14 @@ const SearchProfessionals = () => {
                         name="self_declaration"
                       >
                         {selfDeclaration.map((name) => (
-                          <option key={name} value={name}>
+                          <option key={name} value={name} key={`self-${name}`}>
                             {name}
                           </option>
                         ))}
                       </Select>
                     </FormControl>
                   </Grid>
-                  
+
                   <Grid item xs={4} md={2}>
                     <FormControl fullWidth>
                       <InputLabel shrink htmlFor="select-multiple-native">
@@ -141,14 +142,14 @@ const SearchProfessionals = () => {
                         name="gender"
                       >
                         {gender.map((name) => (
-                          <option key={name} value={name}>
+                          <option key={name} value={name} key={name}>
                             {name}
                           </option>
                         ))}
                       </Select>
                     </FormControl>
                   </Grid>
-                  
+
                   <Grid item xs={4}>
                     <FormControl fullWidth>
                       <InputLabel shrink htmlFor="select-multiple-native">
@@ -162,10 +163,11 @@ const SearchProfessionals = () => {
                         name="home_state"
                       >
                         {states.map((name) => (
-                          <option key={name.uf} value={name.uf}>
-                            {name.name}
-                          </option>
-                        ))}
+                              <option key={name.abbr} value={name.abbr}>
+                                {name.name}
+                              </option>
+                          )
+                        )}
                       </Select>
                     </FormControl>
                   </Grid>
@@ -197,10 +199,10 @@ const SearchProfessionals = () => {
             </Button>
           </Grid>
         </form>
-        
+
         {Object.keys(dados).length > 0 && <ResultSearchProfessionals data={dados} />}
-        
-        <Link to="/dashboard/enterprise">
+
+        <Link to="/dashboard/empresa">
           <Button variant="contained">
               Voltar
           </Button>
