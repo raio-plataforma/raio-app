@@ -1,3 +1,4 @@
+import { Container } from "@material-ui/core";
 import React, { useState } from "react"
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
@@ -43,12 +44,12 @@ const Vacancy = () => {
     const filteredCities = cities.filter(city => city.state_id == state)
     setCities(filteredCities)
   }
-  
+
   const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
 
   const onSubmit = data => {
     const period = `${parseDate(selectedDate.start)}-${parseDate(selectedDate.end)}`
-   
+
     const formatted = {
       ...data,
       hiring_type: normalizeArrayData(data.hiring_type),
@@ -58,7 +59,7 @@ const Vacancy = () => {
   }
 
   return (
-    <section className="container">
+    <Container>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Typography variant="h2" style={{textAlign: 'center', fontWeight: 'bold', margin: '20px 0'}}>
           Cadastro de Vaga
@@ -68,7 +69,7 @@ const Vacancy = () => {
           <TextField
             name="title"
             fullWidth
-            error={errors.title && errors.title.message}
+            error={errors.title !== undefined}
             helperText={errors.title && errors.title.message}
             inputRef={register({
               required: 'Esse campo é obrigatório'
@@ -92,7 +93,7 @@ const Vacancy = () => {
                 label="Função"
                 variant="filled"
                 placeholder="Digite sua pesquisa"
-                error={errors.function && errors.function.message}
+                error={errors.function !== undefined}
                 helperText={errors.function && errors.function.message}
               />
             )}
@@ -104,7 +105,7 @@ const Vacancy = () => {
             fullWidth
             multiline
             rows="5"
-            error={errors.requirements && errors.requirements.message}
+            error={errors.requirements !== undefined}
             helperText={errors.requirements && errors.requirements.message}
             inputRef={register({
               required: 'Esse campo é obrigatório'
@@ -115,9 +116,9 @@ const Vacancy = () => {
         </Grid>
         <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Select 
+          <Select
             name="state"
-            error={errors.state && errors.state.message}
+            error={errors.state !== undefined}
             helperText={errors.state && errors.state.message}
             onChange={(e) => handleCities(e)}
             options={stateList(states)}
@@ -145,7 +146,7 @@ const Vacancy = () => {
                 label="Cidade"
                 variant="filled"
                 placeholder="Busque a cidade"
-                error={errors.city && errors.city.message}
+                error={errors.city !== undefined}
                 helperText={errors.city && errors.city.message}
               />
             )}
@@ -183,7 +184,7 @@ const Vacancy = () => {
             name="cache"
             type="number"
             fullWidth
-            error={errors.cache && errors.cache.message}
+            error={errors.cache !== undefined}
             helperText={errors.cache && errors.cache.message}
             inputRef={register({
               required: 'Esse campo é obrigatório'
@@ -202,12 +203,12 @@ const Vacancy = () => {
       </Grid>
         <Success msg={status} />
         <Error msg={registerError} />
-       
+
         <Button type="submit" variant="contained">
           Enviar
         </Button>
       </form>
-    </section>
+    </Container>
   )
 }
 

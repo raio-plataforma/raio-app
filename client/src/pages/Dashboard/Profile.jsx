@@ -63,7 +63,7 @@ const StyledProfile = styled.div`
 function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
   return (
     <StyledProfile className='profile'>
-      <div class="main-info">
+      <div className="main-info">
         <span className="image">{icon}</span>
         <Title size="md"><strong>{name}</strong></Title>
         <Title size="xs"><strong>Perfil {type}</strong></Title>
@@ -98,7 +98,7 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
           <Button
             variant="contained"
             color="primary"
-            size="lg"
+            size="large"
           >
             Editar dados de {type}
           </Button>
