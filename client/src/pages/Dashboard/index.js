@@ -118,12 +118,14 @@ const Dashboard = () => {
             Ver vagas
           </Button>
         </Link>
+        <Link to={`/listagem/candidaturas`}>
           <Button
             variant="contained"
             color="primary"
           >
             Ver minhas candidaturas
           </Button>
+        </Link>
         </>)
       }
 

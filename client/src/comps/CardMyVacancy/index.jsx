@@ -43,17 +43,14 @@ display: block;
   text-overflow: ellipsis;
 `
 
-function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money}) {
+function CardMyVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money}) {
   const classes = useStyles();
-  const applyJob = useStoreActions(actions => actions.professional.applyJob)
+  const deleteJob = useStoreActions(actions => actions.professional.deleteMyJob)
 
   const user = useStoreState(state => state.auth.auth.user)
 
-  const onApply = (id)=>{
-    console.log(id)
-    console.log(user)
-
-    applyJob({id, user_id:user.id})
+  const onDelete = (id)=>{
+    deleteJob(id)
   };
 
   return (
@@ -82,11 +79,11 @@ function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, p
           </Title>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={()=>{onApply(id)}}>Candidate-se</Button>
+          <Button size="small" onClick={()=>{onDelete(id)}}>Excluir</Button>
         </CardActions>
       </Card>
     </Grid>
   );
 }
 
-export default CardVacancy
+export default CardMyVacancy

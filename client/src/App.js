@@ -30,8 +30,7 @@ import SearchEnterprise from './pages/Search/SearchEnterprise'
 import SearchProfessionals from './pages/Search/SearchProfessionals'
 import ResultSearchEnterprise from './pages/Search/ResultSearchEnterprise'
 import ResultSearchProfessionals from './pages/Search/ResultSearchProfessionals'
-
-
+import MyJobs from './pages/JobProfessional/MyJobs'
 
 const App = ({ store }) => {
   return (
@@ -101,6 +100,10 @@ const App = ({ store }) => {
               <Route
                 path='/resultados/empresas'
                 component={ResultSearchEnterprise}
+              />
+              <Route
+                  path='/listagem/candidaturas'
+                  component={MyJobs}
               />
               <Redirect from='*' to='/' />
             </Switch>
