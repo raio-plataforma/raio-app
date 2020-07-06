@@ -7,9 +7,9 @@ import uuid from 'uuid'
 import Flexbox from '../../components/Flexbox'
 import Button from '../../comps/Button'
 import Checkbox from '../../comps/Checkbox'
-import Textarea from '../../components/Textarea'
+// import Textarea from '../../components/Textarea'
 import Select from '../../components/Select'
-import InputText from '../../components/InputText'
+// import InputText from '../../components/InputText'
 import { Error } from '../../components/Status'
 
 import TextField from '@material-ui/core/TextField';
@@ -25,7 +25,8 @@ import {
   cnpj_type
 } from './dicioFields'
 import { formatCheckboxFields } from '../../utils/service'
-import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
+import { parseDate } from '../../utils/formatter'
+// import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
 import { Form, Background, WrapButton, Title } from './styles'
 
 const Enterprise = () => {
@@ -100,8 +101,8 @@ const Enterprise = () => {
           }}
         />
 
-        <ChipOptions 
-          name="links" 
+        <ChipOptions
+          name="links"
           label="Links para site e redes sociais da empresa"
           error={errors.links && errors.links.message}
           register={register({
@@ -164,7 +165,7 @@ const Enterprise = () => {
             options={states.map(uf => uf.name)}
             name="other_states"
           />
-          
+
           <Checkbox
             label="Segmento de atuação"
             register={register}
