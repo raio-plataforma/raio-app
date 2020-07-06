@@ -74,33 +74,31 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 // @route   GET api/professional/all
 // @desc    Get professionals
 // @access  Public
-router.post('/all', (req, res) => {
-  const errors = {}
-  const {
-      expertise_areas,
-      company_registry,
-      gender,
-      home_state,
-      pcd,
-      self_declaration,
-  } = req.body;
+router.post('/all', async (req, res) => {
+    const errors = {}
+    const {
+        expertise_areas,
+        company_registry,
+        gender,
+        home_state,
+        pcd,
+        self_declaration,
+    } = req.body;
 
-  Professional.find(
-      {
-          expertise_areas: { $in: expertise_areas },
-          self_declaration: { $in: self_declaration },
-      }
-  )
-    .sort({ createdAt: -1 })
-      .populate('user_id')
-    .then(professionals => {
-      // if (!professionals) {
-      //   errors.noprofessionals = 'Não existem profissionais cadastrados ainda'
-      //   return res.status(404).json(errors)
-      // }
-      res.json(professionals)
-    })
-    .catch(() => res.status(404).json([]))
+    try
+    {
+        const professionals = await Professional.find(
+            {
+                expertise_areas: { $in: expertise_areas },
+            }
+        ).sort({ createdAt: -1 }).populate('user_id');
+
+        res.json(professionals);
+    }
+    catch (e)
+    {
+        res.status(404).json([]);
+    }
 })
 
 router.get('/:id', (req, res) => {
