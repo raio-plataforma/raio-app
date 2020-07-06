@@ -8,8 +8,8 @@ import Delete from '@material-ui/icons/Delete';
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import { getInfo } from './user_info' 
-import uuid from 'uuid'
+import { getInfo } from './user_info'
+// import uuid from 'uuid'
 
 import Profile from './Profile'
 import Info from './Info'
@@ -19,9 +19,9 @@ import Button from '../../comps/FormButton'
 import welcome from '../../assets/raio_bemvindo.png'
 import seloPlans from '../../assets/selo.png'
 import loading from '../../assets/loading.svg'
-import {
-  Background,
-} from './style'
+// import {
+//   Background,
+// } from './style'
 
 const Dashboard = () => {
   const userType = useStoreState(state => state.auth.auth.user)
@@ -76,9 +76,9 @@ const Dashboard = () => {
 
         </Paper>
       </Container>
-      
+
       <Container>
-      {userType.type === "enterprise" ? 
+      {userType.type === "enterprise" ?
         (<>
           {!hasVacancies ? <Link to="/cadastro/vaga">
               <Button variant="contained">
@@ -91,12 +91,12 @@ const Dashboard = () => {
               </Button>
             </a>
             }
-            { !(user && user.usedVacancies > 0) && 
+            { !(user && user.usedVacancies > 0) &&
             (<Link to={`/listagem/vagas/${user.enterprise_id}`}>
               <Button
                 variant="contained"
                 color="primary"
-                
+
               >
                 Ver minhas vagas
               </Button>
@@ -127,8 +127,8 @@ const Dashboard = () => {
           </Button>
         </>)
       }
-        
-          
+
+
       <Link to={`/editar/usuario/${user.user_id}`}>
         <Button
           variant="contained"
@@ -137,11 +137,11 @@ const Dashboard = () => {
           Editar Dados de Acesso
         </Button>
       </Link>
-        
+
         <Button
           variant="contained"
           color="primary"
-          
+
           onClick={() => setModalStatus(true)}
         >
           Deletar Perfil
@@ -153,9 +153,9 @@ const Dashboard = () => {
         onClose={() => setModalBoasVindas(false)}
         width="300px"
       >
-        <img  style={{width: '300px'}} src={welcome} />
+        <img  style={{width: '300px'}} src={welcome} alt={''} />
       </Modal>
-      
+
       <NewModal
         isOpen={modalStatus}
         onClose={() => setModalStatus(false)}
@@ -168,10 +168,10 @@ const Dashboard = () => {
         onClose={() => setModalInfoPlans(false)}
         width="300px"
       >
-       <img src={seloPlans} />
+       <img src={seloPlans} alt={''} />
        </Modal>
-      </>) : 
-       <img src={loading} />}
+      </>) :
+       <img src={loading} alt={''} />}
     </>
   )
 }

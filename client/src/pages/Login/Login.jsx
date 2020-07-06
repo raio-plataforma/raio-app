@@ -45,10 +45,10 @@ const Login = () => {
       setModalStatus(true)
     }
   }, [auth, loginError])
-  
+
   return (
     <Container
-      center
+      center="true"
       style={{
         height: 'calc(100vh - 107px)',
         display: 'flex',
@@ -59,14 +59,13 @@ const Login = () => {
             <Title>
               Entre na Raio
             </Title>
-            
+
             <FormControl fullWidth style={{margin: '10px 0'}} variant="filled">
               <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
               <FilledInput
-                id="filled-adornment-password"
                 type="text"
                 name="email"
-                error={errors.email}
+                error={errors.email !== undefined}
                 inputRef={register({
                   required: 'Esse campo é obrigatório',
                   pattern: {
@@ -86,10 +85,9 @@ const Login = () => {
             <FormControl fullWidth variant="filled">
               <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
               <FilledInput
-                id="filled-adornment-password"
                 type="password"
                 name="password"
-                error={errors.password}
+                error={errors.password !== undefined}
                 inputRef={register({
                   required: 'Esse campo é obrigatório',
                   minLength: {
@@ -105,7 +103,7 @@ const Login = () => {
               />
               {errors.password && (<FormHelperText error>{errors.password.message}</FormHelperText>)}
             </FormControl>
-                      
+
           <Link to="/esqueci-senha">
             <Button>
               esqueceu sua senha?

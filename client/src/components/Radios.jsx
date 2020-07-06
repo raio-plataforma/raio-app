@@ -11,10 +11,10 @@ const StyledRadio = styled.label`
   font-weight: 500;
 `
 
-const StyledDescription = styled.label`
-  color: #fc9b44;
-  font-weight: 500;
-`
+// const StyledDescription = styled.label`
+//   color: #fc9b44;
+//   font-weight: 500;
+// `
 const Input = styled.input`
   margin-right: 10px;
 `

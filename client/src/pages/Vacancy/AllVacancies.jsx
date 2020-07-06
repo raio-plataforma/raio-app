@@ -16,11 +16,26 @@ const AllVacancies = () => {
   const [jobList, setJobs] = useState([])
   const [jobFullList, setFullJobs] = useState([])
 
-  useEffect(async () => {
-    const jobs = await getAllJobs()
-    jobList.length === 0 && setJobs(jobs.data)
-    setFullJobs(jobs.data)
-  }, [vacancies])
+  useEffect(() =>
+      {
+        (
+            async () =>
+            {
+              try
+              {
+                const jobs = await getAllJobs()
+                jobList.length === 0 && setJobs(jobs.data)
+                setFullJobs(jobs.data)
+              }
+              catch (e)
+              {
+                console.log(e)
+              }
+            }
+        )();
+      },
+      [vacancies]
+  )
 
   const handleText = event => {
     const lowerText = event.target.value.toLowerCase()
@@ -28,7 +43,7 @@ const AllVacancies = () => {
 
     !lowerText || lowerText === "" ? setJobs(jobFullList) : setJobs(filteredJobs)
   }
-  
+
   return (
     <Container>
       <Title style={{margin: '30px 0'}}>Todas as vagas</Title>
@@ -51,7 +66,7 @@ const AllVacancies = () => {
         {
           jobList.length > 0 ?
           (jobList.map(job => (
-            <CardVacancy 
+            <CardVacancy
               key={job._id}
               id={job._id}
               enterpriseName={job.enterprise_name || "Confidencial"}

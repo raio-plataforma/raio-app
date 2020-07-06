@@ -42,13 +42,13 @@ function Info({infoList}) {
     <StyledInfo className='info'>
       {
         infoList.map(info => (
-          <div className="sec">
+          <div className="sec" key={info.title}>
             <Title align="left" size="xs"><strong>{info.title}</strong></Title>
             <div className="values">
               {
                 info.values.map(val => (
-                  <div className="field">
-                    <Text color="black"><strong>{val.campo}</strong></Text>
+                  <div className="field" key={val.campo}>
+                    <Text color="primary"><strong>{val.campo}</strong></Text>
                     <Text color="secondary">{val.valor}</Text>
                   </div>
                 ))

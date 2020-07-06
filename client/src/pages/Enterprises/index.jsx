@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField'
 import Tables from '../../comps/Tables'
 import { IfElse } from '../../components/If'
 import { Container, Group, Background } from './style'
-import { checkSegments } from '../../utils/formatter'
+// import { checkSegments } from '../../utils/formatter'
 
 const headCells = [
   { id: 'name_enterprise', numeric: false, disablePadding: true, label: 'Empresa' },
@@ -47,7 +47,7 @@ const EnterprisesList = () => {
       segments: ent.business_segments
     }))
     const classes = useStyles();
-    
+
   return (
     <Background className="container clearfix et_menu_container">
       <Container>
@@ -75,10 +75,10 @@ const EnterprisesList = () => {
               typeof enterprises !== 'undefined' && enterprises.length > 0
             }
             True={
-              <Tables 
+              <Tables
                 title="Empresas"
                 headCells={headCells}
-                list={clearList} 
+                list={clearList}
                 actions={[
                   {
                     action: '/listagem/vagas/',

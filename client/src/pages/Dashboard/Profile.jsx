@@ -7,7 +7,7 @@ import PcD from '@material-ui/icons/Accessible'
 import Title from './../../comps/Title'
 import Text from './../../comps/Text'
 import Button from '../../comps/Button'
-import { getKeys } from '../../utils/formatter'
+// import { getKeys } from '../../utils/formatter'
 
 const StyledProfile = styled.div`
   text-align: center;
@@ -63,7 +63,7 @@ const StyledProfile = styled.div`
 function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
   return (
     <StyledProfile className='profile'>
-      <div class="main-info">
+      <div className="main-info">
         <span className="image">{icon}</span>
         <Title size="md"><strong>{name}</strong></Title>
         <Title size="xs"><strong>Perfil {type}</strong></Title>
@@ -71,13 +71,13 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
           <div className="associate">
             <Star color="secondary" />
             <Text color="secondary">Associado APAN</Text>
-          </div>) 
+          </div>)
         }
         { pcd && (
           <div className="associate">
             <PcD color="secondary" />
             <Text color="secondary">PcD</Text>
-          </div>) 
+          </div>)
         }
       </div>
 
@@ -92,13 +92,13 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
         <Text color="secondary">{segments.join(', ') || 'Nenhum'}</Text>
       </section>}
 
-      <Link 
+      <Link
         className="fixed-bottom"
         to={`/editar/${type.toLowerCase()}/${id}`}>
           <Button
             variant="contained"
             color="primary"
-            size="lg"
+            size="large"
           >
             Editar dados de {type}
           </Button>
