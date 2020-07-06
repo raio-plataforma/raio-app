@@ -3,11 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4c2d36c3-e0d5-492c-91b5-613c88936bf8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/comps/CardVacancy/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/comps/CardVacancy/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/models/enterprise.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/models/enterprise.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/models/professional.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/models/professional.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/Dashboard/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Dashboard/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/Vacancy/AllVacancies.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Vacancy/AllVacancies.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/pages/Vacancy/VacancyRegister.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/Vacancy/VacancyRegister.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Job.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Job.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api/job.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api/job.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -24,25 +24,24 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/.idea/raio-app.iml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectId" id="1e8czCMg4okSaCNQtc2lFSz9os6" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/client/src/pages/JobProfessional" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/client/src/pages/JobProfessional" />
+      <recent name="$PROJECT_DIR$/models" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -84,7 +83,7 @@
       <option name="presentableId" value="Default" />
       <updated>1593706920540</updated>
       <workItem from="1593706921957" duration="5417000" />
-      <workItem from="1594043509902" duration="8731000" />
+      <workItem from="1594043509902" duration="18054000" />
     </task>
     <servers />
   </component>

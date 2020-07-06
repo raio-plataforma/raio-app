@@ -3,6 +3,28 @@ import history from '../history'
 import axios from 'axios'
 
 const professionalModel = {
+  applyJob: thunk(async (actions, payload) => {
+    try {
+      await axios.post(`/api/job/apply`, payload)
+      return history.push(`/dashboard/profissional`)
+    }
+    catch (err) {
+      console.log(err)
+      const error = err.response.data && err.response.data.job
+      actions.setError(error)
+    }
+  }),
+  getMyJobs: thunk(async (actions, payload) => {
+    try {
+      console.log(payload)
+      return  await axios.get(`/api/job/myjobs/${payload}`)
+    }
+    catch (err) {
+      console.log(err)
+      const error = err.response.data
+      actions.setError({...error})
+    }
+  }),
   getAllProfessionals: thunk(async (actions, payload) => {
     try {
       const professionals = await axios.get('/api/professional/all')

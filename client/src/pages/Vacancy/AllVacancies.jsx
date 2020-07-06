@@ -74,6 +74,7 @@ const AllVacancies = () => {
               location={job.city + ' - ' + job.stateName}
               period={job.total_period}
               jobDescription={job.requirements}
+              money={'Cachê: R$ ' + job.cache}
             />
           ))) :
           <Grid item xs={12}>

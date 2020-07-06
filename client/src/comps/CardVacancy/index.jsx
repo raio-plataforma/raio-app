@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Title from '../Title'
 import Text from '../Text'
+import {useStoreActions, useStoreState} from "easy-peasy";
 
 const useStyles = makeStyles(theme => {
   return ({
@@ -42,8 +43,18 @@ display: block;
   text-overflow: ellipsis;
 `
 
-function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period }) {
+function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money}) {
   const classes = useStyles();
+  const applyJob = useStoreActions(actions => actions.professional.applyJob)
+
+  const user = useStoreState(state => state.auth.auth.user)
+
+  const onApply = (id)=>{
+    console.log(id)
+    console.log(user)
+
+    applyJob({id, user_id:user.id})
+  };
 
   return (
     <Grid item xs={12} md={4}>
@@ -66,11 +77,12 @@ function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, p
               {jobDescription}
             </Text>
           </StyledText>
+          <Title color="secondary" size="sm">
+            {money}
+          </Title>
         </CardContent>
         <CardActions>
-          <Link to={`/vaga/${id}`}>
-            <Button size="small">Detalhe da Vaga</Button>
-          </Link>
+          <Button size="small" onClick={()=>{onApply(id)}}>Candidate-se</Button>
         </CardActions>
       </Card>
     </Grid>

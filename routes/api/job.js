@@ -3,7 +3,10 @@ const router = express.Router()
 const passport = require('passport')
 
 const Job = require('../../models/Job')
+const JobProfessional = require('../../models/JobProfessional')
 const Enterprise = require('../../models/Enterprise')
+const Professional = require('../../models/Professional')
+const User = require('../../models/User')
 
 // @route   GET api/job/all
 // @desc    Get jobs
@@ -60,6 +63,23 @@ router.get('/', passport.authenticate('jwt', { session: false }), async (req, re
   }
 });
 
+// @route   GET api/job/myjobs/:userId
+// @desc    Return all company jobs
+// @access  Private
+router.get('/myjobs/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    console.log(req.params)
+    const job = await Job.find({_user:req.params.userId}).sort({'createAt':'desc'}).populate('company')
+
+    return res.status(200).json(job);
+  }
+  catch (err) {
+    res.status(400).send({
+      error: ' Erro ao carregar as vagas',
+    });
+  }
+});
+
 // @route   GET api/job/:jobId
 // @desc    Return one company job
 // @access  Private
@@ -87,7 +107,6 @@ router.get('/:jobId', passport.authenticate('jwt', { session: false }),
 router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   Enterprise.findOne({ user_id: req.user.id })
     .then(enterprise => {
-      console.log('!!!!!!!!!!!!!!');
       if (enterprise) {
         console.log(enterprise);
         const newJob = new Job({
@@ -119,6 +138,50 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
         job: 'Erro ao encontrar uma empresa para esse usuário',
       });
     })
+});
+
+// @route   POST api/job/apply
+// @desc    Create new job
+// @access  Private
+router.post('/apply', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  // console.log(req.body.id)
+  Job.findOne({_id: req.body.id }).then(job =>{
+    // console.log(job)
+
+    User.findOne({_id: req.body.user_id }).then(user => {
+      // console.log(user)
+
+      const jobProf = new JobProfessional({
+        _job:req.body.id,
+        _user:req.body.user_id
+      })
+
+      jobProf
+          .save()
+          .then(jobProfessional => {
+            console.log(jobProf)
+            JobProfessional.findOne({_id:jobProf._id}).populate('_user').populate('_job').then(jp => {
+              return res.status(200).json(jp)
+            })
+          })
+          .catch(err => {
+            console.log(err)
+            res.status(500).json({ jobProfessional: 'Erro ao salvar cadastro' })
+          })
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(400).json({
+        jobProfessional: 'Profissional não encontrado',
+      });
+    })
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(400).json({
+      jobApply: 'Vaga não encontrada',
+    });
+  })
 });
 
 
