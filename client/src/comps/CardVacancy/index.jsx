@@ -42,7 +42,7 @@ display: block;
   text-overflow: ellipsis;
 `
 
-function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location }) {
+function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period }) {
   const classes = useStyles();
 
   return (
@@ -57,6 +57,9 @@ function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location })
           </Title>
           <Text className={classes.pos} color="textSecondary">
             {location}
+          </Text>
+          <Text className={classes.pos} color="textSecondary">
+            {period}
           </Text>
           <StyledText>
             <Text color="textPrimary">

@@ -49,7 +49,7 @@ router.get('/all/:enterprise_id', (req, res) => {
 
 router.get('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
-    const job = await Job.find().populate('company');
+    const job = await Job.find().sort({'createAt':'desc'}).populate('company')
 
     return res.status(200).json(job);
   }
@@ -87,15 +87,18 @@ router.get('/:jobId', passport.authenticate('jwt', { session: false }),
 router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
   Enterprise.findOne({ user_id: req.user.id })
     .then(enterprise => {
+      console.log('!!!!!!!!!!!!!!');
       if (enterprise) {
+        console.log(enterprise);
         const newJob = new Job({
           enterprise_id: enterprise.id,
-          enterprise_name: enterprise.name,
+          enterprise_name: enterprise.enterprise_name,
           title: req.body.title,
           function: req.body.function,
           requirements: req.body.requirements,
           city: req.body.city,
           state: req.body.state,
+          stateName: req.body.stateName,
           cache: req.body.cache,
           total_period: req.body.total_period,
           hiring_type: req.body.hiring_type

@@ -50,6 +50,11 @@ const Vacancy = () => {
   const onSubmit = data => {
     const period = `${parseDate(selectedDate.start)}-${parseDate(selectedDate.end)}`
 
+    for(let s in states)
+    {
+      if(states[s].id === Number(data.state))data.stateName = states[s].name
+    }
+
     const formatted = {
       ...data,
       hiring_type: normalizeArrayData(data.hiring_type),

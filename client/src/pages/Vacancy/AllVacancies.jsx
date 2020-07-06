@@ -71,7 +71,8 @@ const AllVacancies = () => {
               id={job._id}
               enterpriseName={job.enterprise_name || "Confidencial"}
               jobTitle={job.title}
-              location={job.location}
+              location={job.city + ' - ' + job.stateName}
+              period={job.total_period}
               jobDescription={job.requirements}
             />
           ))) :
