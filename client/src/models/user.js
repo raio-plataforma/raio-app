@@ -61,9 +61,13 @@ const userModel = {
       actions.setError(error)
     }
   }),
-  getProfessionalAll: thunk(async () => {
+  getProfessionalAll: thunk(async (actions, payload) => {
     try {
-      return await axios.get('/api/professional/all')
+      console.log('getProfessionalAll', payload)
+      return await axios.post(
+          '/api/professional/all',
+          payload
+      )
     }
     catch (err) {
       console.log(err)

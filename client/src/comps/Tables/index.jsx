@@ -73,7 +73,7 @@ function EnhancedTableHead(props) {
         )}
         {
           actions && (
-            <TableCell  
+            <TableCell
               align="center"
               padding='default'
             >
@@ -161,9 +161,9 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
     setPage(0);
   };
 
-  
+
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, list.length - page * rowsPerPage);
-  
+
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
@@ -171,7 +171,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
         <TableContainer>
           <Table
             className={classes.table}
-            size="big"
+            size="medium"
             aria-label="enhanced table"
           >
             <EnhancedTableHead
@@ -187,7 +187,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
             <TableBody>
               {stableSort(list, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map(row => {
+                .map((row, index) => {
                   const hc = headCells.map(nameCell => ({
                     cell: nameCell.id
                   }))
@@ -195,12 +195,12 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                     <TableRow
                       hover
                       tabIndex={-1}
-                      key={row[hc[0].cell]}
+                      key={`${row[hc[0].cell]}-${index}`}
                     >
                       {
                         hc.map(name => {
                           return (
-                            <TableCell padding="default">
+                            <TableCell padding="default" key={name.cell}>
                               {row[name.cell] || '-'}
                             </TableCell>
                           )
@@ -211,7 +211,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                           <TableCell align="right">
                             {actions.map(action => {
                               return (
-                                <Tooltip title={action.tooltip}>
+                                <Tooltip title={action.tooltip} key={action.action}>
                                   {action.type === 'link' ?
                                   <Link to={`${action.action}${row.id}`}>
                                     <IconButton aria-label="delete">{action.btn}</IconButton>
@@ -221,7 +221,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                                 </Tooltip>
                               )
                             })}
-                          </TableCell> 
+                          </TableCell>
                         )
                       }
                     </TableRow>
@@ -245,7 +245,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      
+
     </div>
   );
 }

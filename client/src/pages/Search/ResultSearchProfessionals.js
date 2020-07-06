@@ -8,6 +8,7 @@ import states from '../../assets/states.json'
 import loading from '../../assets/loading.svg'
 import LinkIcon from '@material-ui/icons/Link'
 import IconButton from '@material-ui/core/IconButton';
+import Loading from "../../components/loading";
 import { Wrapper, Group, WrapperResultSearch, SubTitle, Text, Link } from './styles'
 import Button from '../../comps/Button'
 import Tables from '../../comps/Tables'
@@ -21,41 +22,55 @@ const LinkBtn = ({linkRef}) => (
 
 const checkArray = (src, search) => {
   const searchKeys = Object.keys(search)
-  
+
   console.log(src)
 }
 
 const ResultSearchProfessionals = ({ data }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [notRegister, setNotRegister] = useState("")
   const [professionals, setProfessionals] = useState([])
   const getProfessionalAll = useStoreActions(actions => actions.user.getProfessionalAll)
   const getAllUsers = useStoreActions(actions => actions.user.getAllUsers)
 
-  useEffect(async () => {
-    const professionalAll = await getProfessionalAll()
-    const user = await getAllUsers()
-    const userProf = user.data.filter(isProf => isProf.type === 'professional')
-    
-    if (!professionalAll.data === "Não existem profissionais cadastrados ainda") {
-      setNotRegister("Não existem profissionais cadastrados ainda")
-    } else {
-      
-      const dataTable = professionalAll.data.map((professional) => {
-        const uprof = userProf.find(user => user._id == professional.user_id)
-        return({
-          ...professional,
-          name: uprof.name,
-          gender: uprof.gender,
-          self_declaration: uprof.self_declaration,
-          phone: uprof.phone,
-          home_state: states.filter(uf => uf.id == professional.home_state)[0].name
-        })
-      }).filter(p => p.pcd == data.pcd || p.cnpj == data.cpnj)
-      
-      setProfessionals(dataTable)
-      
-    }
-  }, [data])
+  useEffect(() =>
+    {
+      setIsLoading(true);
+
+      (
+          async () => {
+            const professionalAll = await getProfessionalAll(data)
+            const user = await getAllUsers()
+            const userProf = user.data.filter(isProf => isProf.type === 'professional')
+
+            if (professionalAll.data.length === 0) {
+              setProfessionals(professionalAll.data);
+              setNotRegister("Não existem profissionais cadastrados ainda")
+            } else {
+
+              console.log(professionalAll.data);
+
+              const dataTable = professionalAll.data.map((professional) => {
+                const uprof = userProf.find(user => user._id == professional.user_id)
+
+                return({
+                  ...professional,
+                  name: uprof.name,
+                  gender: uprof.gender,
+                  self_declaration: uprof.self_declaration,
+                  phone: uprof.phone,
+                  home_state: states.filter(uf => uf.id == professional.home_state)[0].name
+                })
+              }).filter(p => p.pcd == data.pcd || p.cnpj == data.cpnj)
+
+              setProfessionals(dataTable)
+            }
+            setIsLoading(false)
+          }
+      )();
+    },
+      [data]
+  )
 
   const headCells = [
     { id: 'name', numeric: false, disablePadding: true, label: 'Nome' },
@@ -75,25 +90,24 @@ const ResultSearchProfessionals = ({ data }) => {
     pcd: 'PcD',
     company_registry: 'Possui CNPJ',
   }
+
   console.log('data', data)
+
+  if(isLoading) return <Loading/>;
+  if(professionals.length === 0) return <p>{notRegister}</p>;
+
   return (
-    <>
-      {
-        notRegister || professionals.length === 0 ?
-        <img src={loading} /> :
         <Tables
           title={`${professionals.length} profissiona${professionals.length > 1 ? 'is' : 'l'} 
           encontrado${professionals.length > 1 && 's'}`}
           headCells={headCells}
           list={professionals.map(p => ({
-            ...p, 
+            ...p,
             cnpj: p.cnpj ? "Sim": "Não",
             pcd: p.pcd ? "Sim": "Não",
             links: <LinkBtn linkRef={p.links} />
           }))}
         />
-      }
-    </>
   )
 }
 
