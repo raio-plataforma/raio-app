@@ -9,3 +9,4 @@ v8*
 yarn.lock
 client/yarn.lock
 /*.env
+.idea
