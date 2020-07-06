@@ -14,6 +14,7 @@ const MyJobs = () => {
     const getAllJobs = useStoreActions(actions => actions.professional.getMyJobs)
     const [jobList, setJobs] = useState([])
     const [jobFullList, setFullJobs] = useState([])
+    const deleteJob = useStoreActions(actions => actions.professional.deleteMyJob)
 
     const user = useStoreState(state => state.auth.auth.user)
 
@@ -26,6 +27,8 @@ const MyJobs = () => {
                 {
                     try
                     {
+                        if(!user.id)return
+
                         const jobs = await getAllJobs(user.id)
                         jobList.length === 0 && setJobs(jobs.data)
 
@@ -38,8 +41,17 @@ const MyJobs = () => {
                 }
             )();
         },
-        []
+        [user]
     )
+
+    const handleDelete = async (id)=> {
+        console.log(id)
+
+        await deleteJob(id)
+
+        const jobs = await getAllJobs(user.id)
+        jobList.length === 0 && setJobs(jobs.data)
+    };
 
     const handleText = event => {
         const lowerText = event.target.value.toLowerCase()
@@ -79,6 +91,7 @@ const MyJobs = () => {
                                 period={job._job.total_period}
                                 jobDescription={job._job.requirements}
                                 money={'Cachê: R$ ' + job._job.cache}
+                                deleteFunc={handleDelete}
                             />
                         ))) :
                         <Grid item xs={12}>

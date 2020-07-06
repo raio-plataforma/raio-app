@@ -18,7 +18,7 @@ const professionalModel = {
     try {
       console.log(payload)
       await axios.delete(`/api/job/myjobs/${payload}`)
-      return history.push(`/listagem/candidaturas`)
+      return history.replace(`/listagem/candidaturas`)
     }
     catch (err) {
       console.log(err)

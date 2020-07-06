@@ -43,14 +43,13 @@ display: block;
   text-overflow: ellipsis;
 `
 
-function CardMyVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money}) {
+function CardMyVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money, deleteFunc}) {
   const classes = useStyles();
-  const deleteJob = useStoreActions(actions => actions.professional.deleteMyJob)
 
   const user = useStoreState(state => state.auth.auth.user)
 
   const onDelete = (id)=>{
-    deleteJob(id)
+    deleteFunc(id)
   };
 
   return (

@@ -11,7 +11,7 @@ import FormText from '../../comps/FormText'
 import CardVacancy from '../../comps/CardVacancy'
 
 const AllVacancies = () => {
-  const vacancies = useStoreState(state => state.vacancy.vacancies)
+  // const vacancies = useStoreState(state => state.vacancy.vacancies)
   const getAllJobs = useStoreActions(actions => actions.vacancy.getAllJobs)
   const [jobList, setJobs] = useState([])
   const [jobFullList, setFullJobs] = useState([])
@@ -34,7 +34,8 @@ const AllVacancies = () => {
             }
         )();
       },
-      [vacancies]
+      // [vacancies]
+      []
   )
 
   const handleText = event => {
