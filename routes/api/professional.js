@@ -77,27 +77,30 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 router.post('/all', (req, res) => {
   const errors = {}
   const {
-      expertise_areas
+      expertise_areas,
+      company_registry,
+      gender,
+      home_state,
+      pcd,
+      self_declaration,
   } = req.body;
 
   Professional.find(
       {
-          expertise_areas
+          expertise_areas: { $in: expertise_areas },
+          self_declaration: { $in: self_declaration },
       }
   )
     .sort({ createdAt: -1 })
+      .populate('user_id')
     .then(professionals => {
-        console.log('professionals')
-        console.log(professionals)
       // if (!professionals) {
       //   errors.noprofessionals = 'Não existem profissionais cadastrados ainda'
       //   return res.status(404).json(errors)
       // }
       res.json(professionals)
     })
-    .catch(() => res.status(404).json({
-      professionals: 'Não existem profissionais cadastrados ainda'
-    }))
+    .catch(() => res.status(404).json([]))
 })
 
 router.get('/:id', (req, res) => {
