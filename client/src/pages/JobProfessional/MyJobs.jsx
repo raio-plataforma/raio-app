@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import Title from '../../comps/Title'
 import Button from '../../comps/Button'
 import FormText from '../../comps/FormText'
-import CardVacancy from '../../comps/CardVacancy'
+import CardMyVacancy from '../../comps/CardMyVacancy'
 
 const MyJobs = () => {
     const getAllJobs = useStoreActions(actions => actions.professional.getMyJobs)
@@ -26,11 +26,8 @@ const MyJobs = () => {
                 {
                     try
                     {
-                        console.log(user)
                         const jobs = await getAllJobs(user.id)
                         jobList.length === 0 && setJobs(jobs.data)
-
-                        console.log(jobs)
 
                         setFullJobs(jobs.data)
                     }
@@ -46,7 +43,7 @@ const MyJobs = () => {
 
     const handleText = event => {
         const lowerText = event.target.value.toLowerCase()
-        const filteredJobs = jobList.filter(job => job.title.toLowerCase().startsWith(lowerText))
+        const filteredJobs = jobList.filter(job => job._job.title.toLowerCase().startsWith(lowerText))
 
         !lowerText || lowerText === "" ? setJobs(jobFullList) : setJobs(filteredJobs)
     }
@@ -73,15 +70,15 @@ const MyJobs = () => {
                 {
                     jobList.length > 0 ?
                         (jobList.map(job => (
-                            <CardVacancy
+                            <CardMyVacancy
                                 key={job._id}
                                 id={job._id}
-                                enterpriseName={job.enterprise_name || "Confidencial"}
-                                jobTitle={job.title}
-                                location={job.city + ' - ' + job.stateName}
-                                period={job.total_period}
-                                jobDescription={job.requirements}
-                                money={'Cachê: R$ ' + job.cache}
+                                enterpriseName={job._job.enterprise_name || "Confidencial"}
+                                jobTitle={job._job.title}
+                                location={job._job.city + ' - ' + job._job.stateName}
+                                period={job._job.total_period}
+                                jobDescription={job._job.requirements}
+                                money={'Cachê: R$ ' + job._job.cache}
                             />
                         ))) :
                         <Grid item xs={12}>

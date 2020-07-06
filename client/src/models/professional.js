@@ -14,9 +14,20 @@ const professionalModel = {
       actions.setError(error)
     }
   }),
-  getMyJobs: thunk(async (actions, payload) => {
+  deleteMyJob: thunk(async (actions, payload) => {
     try {
       console.log(payload)
+      await axios.delete(`/api/job/myjobs/${payload}`)
+      return history.push(`/listagem/candidaturas`)
+    }
+    catch (err) {
+      console.log(err)
+      const error = err.response.data && err.response.data.job
+      actions.setError(error)
+    }
+  }),
+  getMyJobs: thunk(async (actions, payload) => {
+    try {
       return  await axios.get(`/api/job/myjobs/${payload}`)
     }
     catch (err) {
