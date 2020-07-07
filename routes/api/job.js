@@ -8,6 +8,8 @@ const Enterprise = require('../../models/Enterprise')
 const Professional = require('../../models/Professional')
 const User = require('../../models/User')
 
+const states = require('../../client/src/assets/states.json');
+
 // @route   GET api/job/all
 // @desc    Get jobs
 // @access  Public
@@ -48,19 +50,73 @@ router.get('/all/:enterprise_id', (req, res) => {
         }))
 })
 
+// @route   GET api/job/:enterprise_id/all
+// @desc    Get all specific enterprise jobs
+// @access  Public
+router.post('/all/:enterprise_id', async(req, res) => {
+    const errors = {}
+    const {
+        expertise_areas,
+        company_registry,
+        gender,
+        home_state,
+        pcd,
+        self_declaration,
+    } = req.body;
+
+    const filters = {enterprise_id: req.params.enterprise_id};
+
+    Job
+        .find(filters)
+        .sort({createdAt: -1})
+        .then(jobs => {
+            if(!jobs)
+            {
+                return res.status(404).json({
+                    jobs: 'Essa empresa ainda não publicou vagas'
+                })
+            }
+            res.json(jobs)
+        })
+        .catch(() => res.status(404).json({
+            jobs: 'Essa empresa ainda não publicou vagas'
+        }))
+})
+
 // @route   GET api/job/
 // @desc    Return all company jobs
 // @access  Private
 
 router.get('/', passport.authenticate('jwt', {session: false}), async(req, res) => {
+    const errors = {}
+    const {
+        expertise_areas,
+        home_state
+    } = req.query;
+
     try
     {
-        const job = await Job.find().sort({'createAt': 'desc'}).populate('company')
+        console.log(req.query)
+        const filters = {};
+
+        if(expertise_areas && expertise_areas.length > 0) filters.function = {$in: expertise_areas};
+        if(home_state && home_state.length > 0)
+        {
+            const statesFilter = home_state.map(
+                stateAbbr => states.find(s => s.abbr === stateAbbr).id
+            );
+            filters.state = {$in: statesFilter};
+        }
+
+        console.log(filters)
+
+        const job = await Job.find(filters).sort({'createAt': 'desc'}).populate('company')
 
         return res.status(200).json(job);
     }
     catch(err)
     {
+        console.log(err)
         res.status(400).send({
             error: ' Erro ao carregar as vagas',
         });

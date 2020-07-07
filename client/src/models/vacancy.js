@@ -12,9 +12,10 @@ const vacancyModel = {
       console.log(err)
     }
   }),
-  getAllJobs: thunk(async (actions) => {
+  getAllJobs: thunk(async (actions, payload) => {
     try {
-      return await axios.get('/api/job/')
+      console.log(payload)
+      return await axios.get('/api/job/', {params:payload})
     }
     catch (err) {
       console.log(err)

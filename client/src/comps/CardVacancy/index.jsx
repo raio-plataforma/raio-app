@@ -43,7 +43,7 @@ display: block;
   text-overflow: ellipsis;
 `
 
-function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money}) {
+function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money, func}) {
   const classes = useStyles();
   const applyJob = useStoreActions(actions => actions.professional.applyJob)
 
@@ -64,7 +64,7 @@ function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, p
             {enterpriseName}
           </Text>
           <Title color="secondary" size="sm">
-            {jobTitle}
+            {jobTitle} - {func}
           </Title>
           <Text className={classes.pos} color="textSecondary">
             {location}
