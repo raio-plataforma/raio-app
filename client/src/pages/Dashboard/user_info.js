@@ -146,7 +146,7 @@ export const getInfo = (user, type) => {
         },
         {
           campo: 'Funções que busca diversificar na empresa',
-          valor: (user.identity_segments && user.diversity_functions.join(', ')) || 'Nenhum'
+          valor: (user.identity_segments && user?.diversity_functions.join(', ')) || 'Nenhum'
           // .join(', ')
         }
       ]
