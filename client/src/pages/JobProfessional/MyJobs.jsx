@@ -50,7 +50,7 @@ const MyJobs = () => {
         await deleteJob(id)
 
         const jobs = await getAllJobs(user.id)
-        jobList.length === 0 && setJobs(jobs.data)
+        setJobs(jobs.data)
     };
 
     const handleText = event => {

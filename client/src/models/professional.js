@@ -6,7 +6,7 @@ const professionalModel = {
   applyJob: thunk(async (actions, payload) => {
     try {
       await axios.post(`/api/job/apply`, payload)
-      return history.push(`/dashboard/profissional`)
+      return history.push(`/listagem/candidaturas`)
     }
     catch (err) {
       console.log(err)
