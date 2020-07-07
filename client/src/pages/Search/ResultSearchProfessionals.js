@@ -88,7 +88,7 @@ const ResultSearchProfessionals = ({ data }) => {
     company_registry: 'Possui CNPJ',
   }
 
-  console.log('data', data)
+  console.log('filters', data)
 
   if(isLoading) return <Loading/>;
   if(professionals.length === 0) return <p>{notRegister}</p>;

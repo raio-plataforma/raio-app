@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const passport = require('passport')
 
+const states = require('../../client/src/assets/states.json');
+
 // Load Input Validation
 // const validateRegisterInput = require('../../validator/register')
 // Load professional model
@@ -87,11 +89,22 @@ router.post('/all', async (req, res) => {
 
     try
     {
-        const professionals = await Professional.find(
-            {
-                expertise_areas: { $in: expertise_areas },
-            }
-        ).sort({ createdAt: -1 }).populate('user_id');
+        const professionalsFilter = {};
+
+        if(expertise_areas.length > 0) professionalsFilter.expertise_areas = { $in: expertise_areas };
+        if(company_registry) professionalsFilter.cnpj = true;
+        if(pcd) professionalsFilter.pcd = true;
+        if(home_state && home_state.length > 0)
+        {
+            const statesFilter = home_state.map(
+                stateAbbr => states.find(s => s.abbr === stateAbbr).id
+            );
+            professionalsFilter.state = { $in: statesFilter };
+        }
+
+        // professionalsFilter['user_id.gender'] = { $in: ['Negra'] }
+
+        const professionals = await Professional.find(professionalsFilter).sort({ createdAt: -1 }).populate('user_id');
 
         res.json(professionals);
     }
