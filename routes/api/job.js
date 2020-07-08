@@ -8,6 +8,8 @@ const Enterprise = require('../../models/Enterprise')
 const Professional = require('../../models/Professional')
 const User = require('../../models/User')
 
+const sendEmailNewJobApply = require('../../helpers/mail')
+
 const states = require('../../client/src/assets/states.json');
 
 // @route   GET api/job/all
@@ -205,8 +207,10 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
             jobProf
                 .save()
                 .then(jobProfessional => {
-                    console.log(jobProf)
+                    // console.log(jobProf)
                     JobProfessional.findOne({_id: jobProf._id}).populate('_user').populate('_job').then(jp => {
+                        sendEmailNewJobApply(jp);
+
                         return res.status(200).json(jp)
                     })
                 })
@@ -236,9 +240,9 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
 router.get('/myjobs/:userId', passport.authenticate('jwt', {session: false}), async(req, res) => {
     try
     {
-        console.log(req.params)
+        // console.log(req.params)
         const jobs = await JobProfessional.find({_user: req.params.userId}).sort({'createAt': 'desc'}).populate('_user').populate('_job')
-        console.log(jobs)
+        // console.log(jobs)
 
         return res.status(200).json(jobs);
     }
