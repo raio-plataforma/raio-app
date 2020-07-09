@@ -8,7 +8,8 @@ const Enterprise = require('../../models/Enterprise')
 const Professional = require('../../models/Professional')
 const User = require('../../models/User')
 
-const sendEmailNewJobApply = require('../../helpers/mail')
+const emailFuncs = require('../../helpers/mail');
+const sendEmailNewJobApply = emailFuncs.sendEmailNewJobApply;
 
 const states = require('../../client/src/assets/states.json');
 
@@ -193,6 +194,10 @@ router.post('/', passport.authenticate('jwt', {session: false}), async(req, res)
 // @access  Private
 router.post('/apply', passport.authenticate('jwt', {session: false}), async(req, res) => {
     // console.log(req.body.id)
+
+    const existing = await JobProfessional.findOne({_job:req.body.id, _user:req.body.user_id}).populate('_user').populate('_job');
+    if(existing)return res.status(200).json(existing)
+
     Job.findOne({_id: req.body.id}).then(job => {
         // console.log(job)
 

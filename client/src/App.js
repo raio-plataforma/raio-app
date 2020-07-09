@@ -31,6 +31,8 @@ import SearchProfessionals from './pages/Search/SearchProfessionals'
 import ResultSearchEnterprise from './pages/Search/ResultSearchEnterprise'
 import ResultSearchProfessionals from './pages/Search/ResultSearchProfessionals'
 import MyJobs from './pages/JobProfessional/MyJobs'
+import Forgot from './pages/Login/Forgot'
+import Reset from './pages/Login/Reset'
 
 const App = ({ store }) => {
   return (
@@ -43,6 +45,8 @@ const App = ({ store }) => {
           />
           <AppBody>
             <Route path="/" exact component={Login} />
+            <Route path="/esqueci-senha" exact component={Forgot} />
+            <Route path="/reset/:token" component={Reset} />
             <Route path="/cadastro" exact component={Users} />
             <Switch>
               <PrivateRoute path='/dashboard/admin' exact component={Admin} />
@@ -105,7 +109,7 @@ const App = ({ store }) => {
                   path='/listagem/candidaturas'
                   component={MyJobs}
               />
-              <Redirect from='*' to='/' />
+              {/*<Redirect from='*' to='/' />*/}
             </Switch>
           </AppBody>
         </>

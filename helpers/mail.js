@@ -16,15 +16,17 @@ let transporter;
 const getEmailTransport = () => {
     if(!transporter)
     {
-        transporter = nodemailer.createTransport({
-            host: "mail.raio.agency",
-            port: 465,
+        const config = {
+            host: process.env.SMTP_HOST,
+            port: process.env.SMTP_PORT,
             secure: true,
             auth: {
-                user: 'admin@raio.agency',
-                pass: 'Raio123!@#',
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PWD,
             },
-        });
+        };
+        console.log(config)
+        transporter = nodemailer.createTransport(config);
     }
 
     return transporter;
@@ -81,4 +83,15 @@ const sendEmailNewJobApply = async(jobProf) => {
     console.log(info)
 };
 
-module.exports = sendEmailNewJobApply
+const sendEmailForgotPwd = async(msg) => {
+    const transporter = getEmailTransport();
+
+    let info = await transporter.sendMail({
+        from: '👻Raio <admin@raio.agency>',
+        to: msg.to,
+        subject: msg.subject,
+        text: msg.text
+    });
+}
+
+module.exports = {sendEmailNewJobApply, sendEmailForgotPwd}

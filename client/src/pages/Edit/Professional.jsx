@@ -37,7 +37,6 @@ const EditProfessional = ({ match }) => {
  
   const professional = useStoreState(state => state.professional.professional)
   const error = useStoreState(state => state.professional.error)
-
   
   useEffect(() => {
     (!professional || Object.values(professional).length === 0) && getProfessionalById(match.params.id)
@@ -59,6 +58,8 @@ const EditProfessional = ({ match }) => {
       identity_segments: normalizeArrayData(data.identity_segments),
       type: 'professional'
     }
+    console.log(formatted)
+
     editProfessional(formatted)
   }
 
@@ -75,7 +76,7 @@ const EditProfessional = ({ match }) => {
       {isLoading ? <img src={loading} /> :
         hasError ? 
         <Alert severity="warning">Erro ao localizar o usuário</Alert> :
-        (<StyledForm onSubmit={handleSubmit(onSubmit)}>
+        (<StyledForm onSubmit={handleSubmit(onSubmit)} >
         <TextField
             name="birthday"
             label="Data de Nascimento"

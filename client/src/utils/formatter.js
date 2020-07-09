@@ -26,7 +26,6 @@ const checkSegments = segment => {
 }
 
 function getKeys (obj) {
-  console.log(obj)
   var keys = Object.keys(obj);
 
   var filtered = keys.filter(key => obj[key]);
