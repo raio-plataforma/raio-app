@@ -10,3 +10,4 @@ yarn.lock
 client/yarn.lock
 /*.env
 .idea
+client/build
