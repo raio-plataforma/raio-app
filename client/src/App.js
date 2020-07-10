@@ -109,7 +109,7 @@ const App = ({ store }) => {
                   path='/listagem/candidaturas'
                   component={MyJobs}
               />
-              {/*<Redirect from='*' to='/' />*/}
+              <Redirect from='*' to='/' />
             </Switch>
           </AppBody>
         </>
