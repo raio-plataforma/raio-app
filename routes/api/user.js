@@ -319,6 +319,12 @@ router.post('/forgot-password', async(req, res) => {
         })
 })
 
+router.delete('/:user_id', async (req, res, next) => {
+    await User.findByIdAndDelete(req.params.user_id)
+
+    return res.status(200).json({message:'Excluído'})
+});
+
 router.post('/reset/:token', async (req, res, next) => {
     const errors = {}
     const {password, confirmedPassword} = req.body

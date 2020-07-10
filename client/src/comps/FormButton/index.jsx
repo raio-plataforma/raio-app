@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FormButton = ({ type, variant, color, children }) => {
+const FormButton = ({ type, variant, color, children, onClick }) => {
   const compColor = color || 'primary'
   const compVariant = variant || 'contained'
   const classes = useStyles()
@@ -18,6 +18,7 @@ const FormButton = ({ type, variant, color, children }) => {
       variant={compVariant}
       size="large"
       className={classes.margin}
+      onClick={onClick}
       color={compColor}>
     {children}
   </Button>
