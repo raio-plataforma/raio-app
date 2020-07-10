@@ -27,69 +27,76 @@ const ResultSearchProfessionals = ({ data }) => {
       list.push(data[item])
   ))
 
-  useEffect(async () => {
-    const enterpriseAll = await getEnterpriseAll()
+  useEffect(() =>
+      {
+        (
+            async () => {
+              const enterpriseAll = await getEnterpriseAll()
 
-    if (!enterpriseAll.data) {
-      setNotRegister("Não existem empresas cadastradas ainda")
-    } else {
-      let filter = enterpriseAll.data.filter((item) => {
-        let itemFunctions = ""
-        let dataFunctions = ""
-        let itemSegments = ""
-        let dataSegments = ""
-        let itemFields = ""
-        let dataFields = ""
+              if (!enterpriseAll.data) {
+                setNotRegister("Não existem empresas cadastradas ainda")
+              } else {
+                let filter = enterpriseAll.data.filter((item) => {
+                  let itemFunctions = ""
+                  let dataFunctions = ""
+                  let itemSegments = ""
+                  let dataSegments = ""
+                  let itemFields = ""
+                  let dataFields = ""
 
-        if (item.diversity_functions.length > 0) {
-          item.diversity_functions.map((functions) => {
-            itemFunctions = functions
-          })
-          if (data.diversity_functions.length > 0) {
-            data.diversity_functions.map((functions) => {
-              if (itemFunctions === functions) {
-                dataFunctions = functions
+                  if (item.diversity_functions.length > 0) {
+                    item.diversity_functions.map((functions) => {
+                      itemFunctions = functions
+                    })
+                    if (data.diversity_functions.length > 0) {
+                      data.diversity_functions.map((functions) => {
+                        if (itemFunctions === functions) {
+                          dataFunctions = functions
+                        }
+                      })
+                    }
+                  }
+
+                  if (item.business_segments.length > 0) {
+                    item.business_segments.map((segments) => {
+                      itemSegments = segments
+                    })
+
+                    if (data.business_segments.length > 0) {
+                      data.business_segments.map((segments) => {
+                        if (itemSegments === segments) {
+                          dataSegments = segments
+                        }
+                      })
+                    }
+                  }
+                  if (item.business_fields.length > 0) {
+                    item.business_fields.map((fields) => {
+                      itemFields = fields
+                    })
+                    if (data.business_fields.length > 0) {
+                      data.business_fields.map((fields) => {
+                        if (itemFields === fields) {
+                          dataFields = fields
+                        }
+                      })
+                    }
+                  }
+
+                  return (
+                      itemFunctions === dataFunctions ||
+                      itemSegments === dataSegments ||
+                      itemFields === dataFields ||
+                      item.state === data.state)
+                })
+
+                setEnterprise(filter)
               }
-            })
-          }
-        }
-
-        if (item.business_segments.length > 0) {
-          item.business_segments.map((segments) => {
-            itemSegments = segments
-          })
-
-          if (data.business_segments.length > 0) {
-            data.business_segments.map((segments) => {
-              if (itemSegments === segments) {
-                dataSegments = segments
-              }
-            })
-          }
-        }
-        if (item.business_fields.length > 0) {
-          item.business_fields.map((fields) => {
-            itemFields = fields
-          })
-          if (data.business_fields.length > 0) {
-            data.business_fields.map((fields) => {
-              if (itemFields === fields) {
-                dataFields = fields
-              }
-            })
-          }
-        }
-
-        return (
-          itemFunctions === dataFunctions ||
-          itemSegments === dataSegments ||
-          itemFields === dataFields ||
-          item.state === data.state)
-      })
-
-      setEnterprise(filter)
-    }
-  }, [])
+            }
+        )();
+      },
+      []
+  )
 
   return (
     <WrapperResultSearch>
