@@ -32,7 +32,8 @@ const SearchProfessionals = () => {
         register,
         handleSubmit,
         errors,
-        setValue
+        setValue,
+        reset
     } = useForm()
 
     const [dados, setDados] = useState([])
@@ -66,9 +67,8 @@ const SearchProfessionals = () => {
 
     const clearForm = () => {
         console.log('clear');
-        setDados([]);
-        setValue([]);
         setAreas([]);
+        reset();
     };
 
     const programIsLoading = () => {
