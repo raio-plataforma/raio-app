@@ -266,24 +266,24 @@ const EditProfessional = ({ match }) => {
             ))
           }
           </Grid>
-          <Grid item xs={12}>
-          <Switch
-            name="identity_content"
-            label="Empresa voltada para conteúdo identitário?"
-            onChange={(e) => toggleIdentity(e.target.checked)}
-            value={professional.identity_content}
-            register={register}
-          />
-          </Grid>
-          {hasIdentity && <Grid item xs={12}>
-            <Checkbox
-              name="identity_segments"
-              label="Segmentos identitários"
-              options={identitySegments}
-              value={professional.identity_segments}
-              register={register}
-            />
-          </Grid>}
+          {/*<Grid item xs={12}>*/}
+          {/*<Switch*/}
+          {/*  name="identity_content"*/}
+          {/*  label="Empresa voltada para conteúdo identitário?"*/}
+          {/*  onChange={(e) => toggleIdentity(e.target.checked)}*/}
+          {/*  value={professional.identity_content}*/}
+          {/*  register={register}*/}
+          {/*/>*/}
+          {/*</Grid>*/}
+          {/*{hasIdentity && <Grid item xs={12}>*/}
+          {/*  <Checkbox*/}
+          {/*    name="identity_segments"*/}
+          {/*    label="Segmentos identitários"*/}
+          {/*    options={identitySegments}*/}
+          {/*    value={professional.identity_segments}*/}
+          {/*    register={register}*/}
+          {/*  />*/}
+          {/*</Grid>}*/}
           <Grid item xs={12}>
           <TextField
             name="bio"

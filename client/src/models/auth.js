@@ -50,7 +50,7 @@ const authModel = {
         }
         catch(err)
         {
-            const error = err.response.data
+            const error = err.response?.data
             return actions.setErrors({...error})
         }
     }),

@@ -5,6 +5,8 @@ import Alert from '@material-ui/lab/Alert'
 import { Container, Group, Background } from './style'
 import { IfElse } from '../../components/If'
 import Tables from '../../comps/Tables'
+import Button from "../../comps/Button";
+import Grid from "@material-ui/core/Grid";
 
 const headCells = [
   { id: 'enterprise_name', numeric: false, disablePadding: true, label: 'Empresa' },
@@ -27,6 +29,13 @@ const VacancyList = ({ match }) => {
   return (
     <Background>
       <Container>
+        <div style={{marginBottom:50}}>
+          <a href="/dashboard/profissional">
+            <Button
+                variant="contained"
+            >Voltar</Button>
+          </a>
+        </div>
         <Group>
           <IfElse
             condition={typeof vacancies !== 'undefined' && vacancies.length > 0}

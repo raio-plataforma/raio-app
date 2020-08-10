@@ -58,7 +58,18 @@ const sendEmailNewJobApply = async(jobProf) => {
         prof: prof
     };
 
-    let html = tpl
+    let linkarr = data.prof.links.split(',');
+    let linkstags = '';
+    for(let l in linkarr)
+    {
+        linkstags += `<a href="${linkarr[l]}">${linkarr[l]}</a><br/>`;
+    }
+
+    data.prof.links = linkstags;
+
+    console.log(data);
+
+    let html = tpl;
     for(let k in data)
     {
         let olabel = k + '.';

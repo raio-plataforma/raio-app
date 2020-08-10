@@ -254,24 +254,24 @@ const Professionals = () => {
                         ))
                     }
                 </Grid>
-                <Grid item xs={12}>
-                    <Switch
-                        name="identity_content"
-                        label="Empresa voltada para conteúdo identitário?"
-                        onChange={(e) => toggleIdentity(e.target.checked)}
-                        register={register}
-                    />
-                </Grid>
-                {hasIdentity && <Grid item xs={12}>
-                    <Checkbox
-                        name="identity_segments"
-                        label="Segmentos identitários"
-                        options={identitySegments}
-                        register={register({
-                            required: 'Esse campo é obrigatório'
-                        })}
-                    />
-                </Grid>}
+                {/*<Grid item xs={12}>*/}
+                {/*    <Switch*/}
+                {/*        name="identity_content"*/}
+                {/*        label="Empresa voltada para conteúdo identitário?"*/}
+                {/*        onChange={(e) => toggleIdentity(e.target.checked)}*/}
+                {/*        register={register}*/}
+                {/*    />*/}
+                {/*</Grid>*/}
+                {/*{hasIdentity && <Grid item xs={12}>*/}
+                {/*    <Checkbox*/}
+                {/*        name="identity_segments"*/}
+                {/*        label="Segmentos identitários"*/}
+                {/*        options={identitySegments}*/}
+                {/*        register={register({*/}
+                {/*            required: 'Esse campo é obrigatório'*/}
+                {/*        })}*/}
+                {/*    />*/}
+                {/*</Grid>}*/}
                 <Grid item xs={12}>
                     <TextField
                         name="bio"
