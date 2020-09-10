@@ -4,11 +4,17 @@ Criação de API para projeto ARIO. Usando NodeJS, ExpressJS e MongoDB.
 
 ## Primeira vez fazendo o install? Segue esse passo a passo:
 
-- Na pasta '/' do projeto dê `yarn`
+- Na pasta '/' do projeto dê `npm install`
+- E depois digite `yarn`
 - Depois `yarn run client-install` para instalar as dependencias do frontend
-- E por fim rode o server e o client junto com `yarn run dev`
+- E depois incie um servidor do MongoDB no seu localhost usando `mongod`
+- E por fim o comando `npm run dev-local` para iniciar o servidor de desenvolvimento preparado para conectar no MongoDB do localhost
 
 ## Scripts Disponíveis
+
+### `npm run dev-local`
+
+Roda o front e o back-end em modo de desenvolvimento preparado para conectar ao localhost do MongoDB.
 
 ### `yarn run dev`
 
