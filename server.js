@@ -12,6 +12,7 @@ const professional = require('./routes/api/professional')
 const enterprise = require('./routes/api/enterprise')
 const user = require('./routes/api/user')
 const job = require('./routes/api/job')
+const mercadopago = require('./routes/api/mercadopago')
 
 const app = express()
 
@@ -42,6 +43,7 @@ app.use('/api/professional', professional)
 app.use('/api/enterprise', enterprise)
 app.use('/api/user', user)
 app.use('/api/job', job)
+app.use('/api/mercadopago', mercadopago)
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
