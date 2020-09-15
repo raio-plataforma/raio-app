@@ -33,6 +33,7 @@ import ResultSearchProfessionals from './pages/Search/ResultSearchProfessionals'
 import MyJobs from './pages/JobProfessional/MyJobs'
 import Forgot from './pages/Login/Forgot'
 import Reset from './pages/Login/Reset'
+import Invoice from './pages/Invoice/Invoice'
 
 const App = ({ store }) => {
   return (
@@ -49,6 +50,7 @@ const App = ({ store }) => {
             <Route path="/reset/:token" component={Reset} />
             <Route path="/cadastro" exact component={Users} />
             <Switch>
+              <PrivateRoute path='/create/invoice' component={Invoice} />
               <PrivateRoute path='/dashboard/admin' exact component={Admin} />
               <PrivateRoute
                 path='/listagem/vagas/:id'
