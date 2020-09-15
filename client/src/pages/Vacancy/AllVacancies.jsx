@@ -26,43 +26,45 @@ const AllVacancies = () => {
         handleSubmit,
         errors,
         setValue
-    } = useForm()
+    } = useForm();
 
-    const [dados, setDados] = useState([])
+    const [dados, setDados] = useState([]);
     const [selectedAreas, setAreas] = React.useState([]);
     const [isLoading, setLoader] = useState({
         city: false,
         submit: false
-    })
+    });
 
     const formatCheckboxFields = (field) => {
-        const identifiers = Object.keys(field)
+        const identifiers = Object.keys(field);
         return identifiers.filter((i) => field[i])
-    }
+    };
 
-    const handleChange = (e, value) => setAreas(value)
+    const handleChange = (e, value) => setAreas(value);
 
     const onSubmit = (data) => {
         const formatted = {
             ...data,
             expertise_areas: selectedAreas
-        }
+        };
 
-        console.log(formatted)
+        console.log(formatted);
 
         setDados(formatted)
-    }
+    };
 
     const programIsLoading = () => {
-        setLoader({ ...isLoading, city: true })
-        setTimeout(() => { setLoader({ ...isLoading, city: false }) }, 2000);
-    }
+        setLoader({...isLoading, city: true})
+        setTimeout(() => {
+            setLoader({...isLoading, city: false})
+        }, 2000);
+    };
 
-    const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'))
+    const handleRadio = (field, selectedOption) => setValue(field, (selectedOption.toLowerCase() === 'true'));
 
     // const vacancies = useStoreState(state => state.vacancy.vacancies)
-    const getAllJobs = useStoreActions(actions => actions.vacancy.getAllJobs)
-    const [jobList, setJobs] = useState([])
+    const getAllJobs = useStoreActions(actions => actions.vacancy.getAllJobs);
+    const [jobList, setJobs] = useState([]);
 
     useEffect(() =>
         {
@@ -172,6 +174,8 @@ const AllVacancies = () => {
                                 jobDescription={job.requirements}
                                 money={'Cachê: R$ ' + job.cache}
                                 func={job.function}
+                                level={job.level}
+                                travel={job.travel}
                             />
                         ))) :
                         <Grid item xs={12}>

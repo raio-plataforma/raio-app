@@ -19,7 +19,8 @@ import {
     cnpj_type,
     formations,
     identitySegments,
-    separated_functions
+    separated_functions,
+    levels
 } from './dicioFields'
 import {formatCheckboxFields} from '../../utils/service'
 import {parseDate, normalizeArrayData} from '../../utils/formatter'
@@ -32,31 +33,27 @@ const Professionals = () => {
         handleSubmit,
         errors,
         setValue
-    } = useForm()
+    } = useForm();
 
-    const [numCols, setCols] = useState(4)
-    const [hasIdentity, toggleIdentity] = useState(false)
-    const [citiesFromStates, setCities] = useState([])
-    const registerUser = useStoreActions(actions => actions.register.registerProfessional)
-    const registerError = useStoreState(state => state.register.error)
-    const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
-    const [filteredStates, setStates] = useState(states.map(uf => uf.name))
-
-    console.log(errors)
-    // console.log(register)
-    console.log('????????????????????')
-    console.log(separated_functions)
+    const [numCols, setCols] = useState(4);
+    const [hasIdentity, toggleIdentity] = useState(false);
+    const [citiesFromStates, setCities] = useState([]);
+    const registerUser = useStoreActions(actions => actions.register.registerProfessional);
+    const registerError = useStoreState(state => state.register.error);
+    const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}));
+    const [filteredStates, setStates] = useState(states.map(uf => uf.name));
 
     const hideOptionCNPJ = check => {
         check ? setCols(3) : setCols(4)
-    }
+    };
     const handleCities = state => {
 
-        const filteredCities = cities.filter(city => city.state_id == state)
-        const filteredStates = states.filter(uf => uf.id != state).map(uf => uf.name)
-        setCities(filteredCities)
-        setStates(filteredStates)
-    }
+        const filteredCities = cities.filter(city => city.state_id === state);
+        const filteredStates = states.filter(uf => uf.id !== state).map(uf => uf.name);
+        setCities(filteredCities);
+        setStates(filteredStates);
+    };
+
     const onSubmit = (data) => {
         const formatted = {
             ...data,
@@ -64,10 +61,10 @@ const Professionals = () => {
             expertise_areas: normalizeArrayData(data.expertise_areas),
             identity_segments: normalizeArrayData(data.identity_segments),
             type: 'professional'
-        }
-        // console.log('=>', formatted)
-        registerUser(formatted)
-    }
+        };
+        console.log(formatted);
+        registerUser(formatted);
+    };
 
     // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
     return (
@@ -179,6 +176,26 @@ const Professionals = () => {
                             inputRef={register}
                             label="Instituição ou processo de formação"
                             variant="filled"
+                        />
+                    </Grid>
+                </Grid>
+                <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                        <Select
+                            name="level"
+                            error={errors.level && errors.level.message}
+                            register={register({
+                                required: 'Esse campo é obrigatório'
+                            })}
+                            options={levels}
+                            label="Nível Profissional"
+                        />
+                    </Grid>
+                    <Grid item xs={numCols}>
+                        <Switch
+                            name="travel"
+                            label="Disponibilidade para viagens"
+                            register={register}
                         />
                     </Grid>
                 </Grid>

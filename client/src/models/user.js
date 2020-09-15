@@ -9,14 +9,14 @@ const userModel = {
     getUser: thunk(async(actions, payload) => {
         try
         {
-            const user = await axios.get('/api/user/current')
-            const userTypeData = await axios.get(`/api/${payload}`)
+            const user = await axios.get('/api/user/current');
+            const userTypeData = await axios.get(`/api/${payload}`);
             // Set current user profile
             actions.setUser({
                 ...user.data,
                 ...userTypeData.data,
                 enterprise_id: userTypeData.data._id
-            })
+            });
         }
         catch(e)
         {
@@ -26,13 +26,12 @@ const userModel = {
     deleteUser: thunk(async(actions, payload) => {
         try
         {
-            const res = await axios.delete(`/api/user/${payload}`)
-            console.log(res)
+            const res = await axios.delete(`/api/user/${payload}`);
 
-            localStorage.removeItem('jwtToken')
-            setAuthToken(false)
+            localStorage.removeItem('jwtToken');
+            setAuthToken(false);
 
-            window.location.reload()
+            window.location.reload();
         }
         catch(e)
         {

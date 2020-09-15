@@ -42,15 +42,16 @@ const sendEmailNewJobApply = async(jobProf) => {
     const transporter = getEmailTransport();
 
 
-    const tpl = fs.readFileSync(path.resolve('email/', 'interessa-vaga.html'), 'utf8')
+    const tpl = fs.readFileSync(path.resolve('email/', 'interessa-vaga.html'), 'utf8');
 
     // console.log(jobProf)
-    const prof = await Professional.findOne({user_id: jobProf._user.id})
+    const prof = await Professional.findOne({user_id: jobProf._user.id});
     prof.pcdName = prof.pcd?'PCD':'Não PCD';
     const state = states.filter((obj)=>{
         return obj.id === Number(prof.state)
     });
-    prof.stateName = state[0].name
+    prof.stateName = state[0].name;
+    prof.travelStr = prof.travel?'Sim':'Não';
 
     data = {
         user: jobProf._user,
@@ -66,8 +67,6 @@ const sendEmailNewJobApply = async(jobProf) => {
     }
 
     data.prof.links = linkstags;
-
-    console.log(data);
 
     let html = tpl;
     for(let k in data)

@@ -1,12 +1,12 @@
-const express = require('express')
-const router = express.Router()
-const passport = require('passport')
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
 
-const Job = require('../../models/Job')
-const JobProfessional = require('../../models/JobProfessional')
-const Enterprise = require('../../models/Enterprise')
-const Professional = require('../../models/Professional')
-const User = require('../../models/User')
+const Job = require('../../models/Job');
+const JobProfessional = require('../../models/JobProfessional');
+const Enterprise = require('../../models/Enterprise');
+const Professional = require('../../models/Professional');
+const User = require('../../models/User');
 
 const emailFuncs = require('../../helpers/mail');
 const sendEmailNewJobApply = emailFuncs.sendEmailNewJobApply;
@@ -22,7 +22,7 @@ router.get('/all', (req, res) => {
         .then(jobs => {
             if(!jobs)
             {
-                errors.nojobs = 'Não existem vagas cadastradas ainda'
+                errors.nojobs = 'Não existem vagas cadastradas ainda';
                 return res.status(404).json(errors)
             }
             res.json(jobs)
@@ -30,7 +30,7 @@ router.get('/all', (req, res) => {
         .catch(() => res.status(404).json({
             jobs: 'Não existem vagas cadastradas ainda'
         }))
-})
+});
 
 // @route   GET api/job/:enterprise_id/all
 // @desc    Get all specific enterprise jobs
@@ -57,7 +57,7 @@ router.get('/all/:enterprise_id', (req, res) => {
 // @desc    Get all specific enterprise jobs
 // @access  Public
 router.post('/all/:enterprise_id', async(req, res) => {
-    const errors = {}
+    const errors = {};
     const {
         expertise_areas,
         company_registry,
@@ -84,14 +84,14 @@ router.post('/all/:enterprise_id', async(req, res) => {
         .catch(() => res.status(404).json({
             jobs: 'Essa empresa ainda não publicou vagas'
         }))
-})
+});
 
 // @route   GET api/job/
 // @desc    Return all company jobs
 // @access  Private
 
 router.get('/', passport.authenticate('jwt', {session: false}), async(req, res) => {
-    const errors = {}
+    const errors = {};
     const {
         expertise_areas,
         home_state
@@ -99,7 +99,6 @@ router.get('/', passport.authenticate('jwt', {session: false}), async(req, res) 
 
     try
     {
-        console.log(req.query)
         const filters = {};
 
         if(expertise_areas && expertise_areas.length > 0) filters.function = {$in: expertise_areas};
@@ -111,15 +110,13 @@ router.get('/', passport.authenticate('jwt', {session: false}), async(req, res) 
             filters.state = {$in: statesFilter};
         }
 
-        console.log(filters)
-
         const job = await Job.find(filters).sort({'createAt': 'desc'}).populate('company')
 
         return res.status(200).json(job);
     }
     catch(err)
     {
-        console.log(err)
+        console.log(err);
         res.status(400).send({
             error: ' Erro ao carregar as vagas',
         });
@@ -169,20 +166,22 @@ router.post('/', passport.authenticate('jwt', {session: false}), async(req, res)
                     stateName: req.body.stateName,
                     cache: req.body.cache,
                     total_period: req.body.total_period,
-                    hiring_type: req.body.hiring_type
-                })
+                    hiring_type: req.body.hiring_type,
+                    level: req.body.level,
+                    travel: req.body.travel
+                });
 
                 newJob
                     .save()
                     .then(job => res.status(200).json(job))
                     .catch(err => {
-                        console.log(err)
+                        console.log(err);
                         res.status(500).json({job: 'Erro ao salvar vaga'})
                     })
             }
         })
         .catch(err => {
-            console.log(err)
+            console.log(err);
             res.status(400).json({
                 job: 'Erro ao encontrar uma empresa para esse usuário',
             });
@@ -195,8 +194,11 @@ router.post('/', passport.authenticate('jwt', {session: false}), async(req, res)
 router.post('/apply', passport.authenticate('jwt', {session: false}), async(req, res) => {
     // console.log(req.body.id)
 
-    const existing = await JobProfessional.findOne({_job:req.body.id, _user:req.body.user_id}).populate('_user').populate('_job');
-    if(existing)return res.status(200).json(existing)
+    const existing = await JobProfessional.findOne({
+        _job: req.body.id,
+        _user: req.body.user_id
+    }).populate('_user').populate('_job');
+    if(existing) return res.status(200).json(existing);
 
     Job.findOne({_id: req.body.id}).then(job => {
         // console.log(job)
@@ -207,7 +209,7 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
             const jobProf = new JobProfessional({
                 _job: req.body.id,
                 _user: req.body.user_id
-            })
+            });
 
             jobProf
                 .save()
@@ -220,19 +222,19 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
                     })
                 })
                 .catch(err => {
-                    console.log(err)
+                    console.log(err);
                     res.status(500).json({jobProfessional: 'Erro ao salvar cadastro'})
                 })
         })
             .catch(err => {
-                console.log(err)
+                console.log(err);
                 res.status(400).json({
                     jobProfessional: 'Profissional não encontrado',
                 });
             })
     })
         .catch(err => {
-            console.log(err)
+            console.log(err);
             res.status(400).json({
                 jobApply: 'Vaga não encontrada',
             });
@@ -250,6 +252,35 @@ router.get('/myjobs/:userId', passport.authenticate('jwt', {session: false}), as
         // console.log(jobs)
 
         return res.status(200).json(jobs);
+    }
+    catch(err)
+    {
+        res.status(400).send({
+            error: ' Erro ao carregar as vagas',
+        });
+    }
+});
+
+// @route   GET api/job/myjobs/:jobId
+// @desc    Return all jobprofs for job
+// @access  Private
+router.get('/profs/:jobId', passport.authenticate('jwt', {session: false}), async(req, res) => {
+    try
+    {
+        console.log(req.params.jobId);
+        const jobs = await JobProfessional.find({_job: req.params.jobId}).sort({'createAt': 'desc'}).populate('_user').populate('_job');
+        const profs  = [];
+
+        for(let j = 0; j < jobs.length; j++)
+        {
+            const prof = await Professional.findOne({user_id: jobs[j]._user._id}).populate('user_id');
+            profs.push(prof);
+        }
+
+        console.log(profs);
+        console.log('?????');
+
+        return res.status(200).json(profs);
     }
     catch(err)
     {
@@ -323,4 +354,4 @@ router.post('/:jobId', async(req, res) => {
     }
 })
 
-module.exports = router
+module.exports = router;

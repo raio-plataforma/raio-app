@@ -25,33 +25,27 @@ import loading from '../../assets/loading.svg'
 // } from './style'
 
 const Dashboard = () => {
-    const userType = useStoreState(state => state.auth.auth.user)
-    const getUser = useStoreActions(actions => actions.user.getUser)
-    const user = useStoreState(state => state.user.user)
+    const userType = useStoreState(state => state.auth.auth.user);
+    const getUser = useStoreActions(actions => actions.user.getUser);
+    const user = useStoreState(state => state.user.user);
     const hasVacancies = user.vacancies - user.usedVacancies > 0;
 
-    const deleteUser = useStoreActions(actions => actions.user.deleteUser)
+    const deleteUser = useStoreActions(actions => actions.user.deleteUser);
 
-    const [modalStatus, setModalStatus] = useState(false)
-    const [modalInfoPlans, setModalInfoPlans] = useState(false)
-    const [modalBoasVindas, setModalBoasVindas] = useState(false)
+    const [modalStatus, setModalStatus] = useState(false);
+    const [modalInfoPlans, setModalInfoPlans] = useState(false);
+    const [modalBoasVindas, setModalBoasVindas] = useState(false);
 
     useEffect(() => {
         typeof userType.type !== 'undefined' && getUser(userType.type)
-        // if (userType.type === "professional") setModalBoasVindas(true)
-        // if (userType.type === "enterprise") setModalInfoPlans(true)
 
-        // setTimeout(() => {
-        //   setModalBoasVindas(false)
-        //   setModalInfoPlans(false)
-        // }, 3000)
+    }, [userType, getUser]);
 
-    }, [userType, getUser])
 
     const handleDelete = () => {
-        console.log('delete me')
+        console.log('delete me');
         deleteUser(user.id)
-    }
+    };
 
     return (
         <Container>

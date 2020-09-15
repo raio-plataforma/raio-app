@@ -34,23 +34,23 @@ const SearchProfessionals = () => {
         errors,
         setValue,
         reset
-    } = useForm()
+    } = useForm();
 
-    const [dados, setDados] = useState([])
-    const [showAdvanced, setShowAdvanced] = useState(false)
+    const [dados, setDados] = useState([]);
+    const [showAdvanced, setShowAdvanced] = useState(false);
     const [selectedAreas, setAreas] = React.useState([]);
-    const registerUser = useStoreActions(actions => actions.user.registerProfessional)
+    const registerUser = useStoreActions(actions => actions.user.registerProfessional);
     const [isLoading, setLoader] = useState({
         city: false,
         submit: false
     });
 
     const formatCheckboxFields = (field) => {
-        const identifiers = Object.keys(field)
-        return identifiers.filter((i) => field[i])
+        const identifiers = Object.keys(field);
+        return identifiers.filter((i) => field[i]);
     };
 
-    const handleChange = (e, value) => setAreas(value)
+    const handleChange = (e, value) => setAreas(value);
 
     const onSubmit = (data) => {
         const formatted = showAdvanced ? {
@@ -59,8 +59,6 @@ const SearchProfessionals = () => {
         } : {
             expertise_areas: selectedAreas
         };
-
-        console.log(formatted)
 
         setDados(formatted)
     };
@@ -72,9 +70,9 @@ const SearchProfessionals = () => {
     };
 
     const programIsLoading = () => {
-        setLoader({...isLoading, city: true})
+        setLoader({...isLoading, city: true});
         setTimeout(() => {
-            setLoader({...isLoading, city: false})
+            setLoader({...isLoading, city: false});
         }, 2000);
     };
 
