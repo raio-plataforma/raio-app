@@ -4,6 +4,8 @@ const passport = require('passport')
 const cors = require('cors')
 const helmet = require('helmet')
 const db = require('./config/db')
+const https = require('https');
+const fs = require('fs');
 require('dotenv').config();
 
 const path = require('path')
@@ -51,5 +53,4 @@ app.get('/*', (req, res) => {
 
 // TODO: colocar isso em um .env
 const port = process.env.PORT || 5000
-
 app.listen(port, () => console.log(`Server running on port ${port}`))

@@ -5,8 +5,8 @@ import axios from 'axios'
 const enterpriseModel = {
   registerJob: thunk(async (actions, payload) => {
     try {
-      await axios.post('/api/job', payload)
-      return history.push(`/dashboard/empresa`)
+      let respostaAPI = await axios.post('/api/job', payload)
+      return history.push(`/vaga/${respostaAPI.data.id}`)
     }
     catch (err) {
       console.log(err)

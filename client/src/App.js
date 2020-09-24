@@ -33,7 +33,7 @@ import ResultSearchProfessionals from './pages/Search/ResultSearchProfessionals'
 import MyJobs from './pages/JobProfessional/MyJobs'
 import Forgot from './pages/Login/Forgot'
 import Reset from './pages/Login/Reset'
-import Invoice from './pages/Invoice/Invoice'
+import PaginaVaga from './pages/Vacancy/vaga'
 
 const App = ({ store }) => {
   return (
@@ -50,7 +50,6 @@ const App = ({ store }) => {
             <Route path="/reset/:token" component={Reset} />
             <Route path="/cadastro" exact component={Users} />
             <Switch>
-              <PrivateRoute path='/create/invoice' component={Invoice} />
               <PrivateRoute path='/dashboard/admin' exact component={Admin} />
               <PrivateRoute
                 path='/listagem/vagas/:id'
@@ -61,6 +60,7 @@ const App = ({ store }) => {
                 component={AllVacancies}
               />
               <PrivateRoute path='/cadastro/vaga' component={VacancyRegister} />
+              <PrivateRoute path='/vaga/:id' component={PaginaVaga} />
               <PrivateRoute path='/cadastro/empresa' component={Enterprise} />
               <PrivateRoute
                 path='/cadastro/profissional'

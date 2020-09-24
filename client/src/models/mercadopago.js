@@ -2,7 +2,7 @@ import mercadopago from 'mercadopago';
 
 mercadopago.configure({
     sandbox: true,
-    access_token: "ACCESS_TOKEN"
+    access_token: "TEST-644853399630358-091722-edc73f4a076c3939f5661d9fc7db4417-301619184"
   });
 
 export default class ApiMercadoPago {

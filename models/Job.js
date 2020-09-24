@@ -3,6 +3,12 @@ const Schema = mongoose.Schema
 
 // Create Schema
 const JobSchema = new Schema({
+  id: {
+    type: mongoose.Schema.Types.ObjectId,
+    index: true,
+    auto: true,
+    required: true,
+  },
   enterprise_id: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Enterprise',
@@ -11,6 +17,10 @@ const JobSchema = new Schema({
   enterprise_name: {
     type: Schema.Types.String,
     ref: 'Enterprise',
+    required: true
+  },
+  status: {
+    type: String,
     required: true
   },
   title: {

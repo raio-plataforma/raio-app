@@ -16,4 +16,4 @@ const url = process.env.mongoURI
 mongoose
   .connect(url, { useNewUrlParser: true })
   .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.log(err))
+  .catch(err => console.log("MONGODB-ERRO: ",err))
