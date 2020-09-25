@@ -23,7 +23,7 @@ export default class ApiMercadoPago {
       };
   
       let response = await mercadopago.preferences.create(preference);
-      if (responde.body.id) {
+      if (response.body.id) {
         console.log(response.body.id);
         sucesso(response.body.id);
       } else {
