@@ -7,7 +7,10 @@ mercadopago.configure({
 export default class ApiMercadoPago {
 
   async prepararBotaoDePagamento() {
-    return new Promise(async(responder)=>{
+    return new Promise(async (responder) => {
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "text/plain");
+
       // Cria um objeto de preferência
       let preference = {
         items: [
@@ -20,19 +23,21 @@ export default class ApiMercadoPago {
         ],
         external_reference: "ID-DO-SISTEMA"
       };
-  
-      try {
-        let response = await mercadopago.preferences.create(preference);
-        if (response.body.id) {
-          console.log(response.body.id);
-          responder(response.body.id);
-        } else {
-          console.error(response);
-          responder("ERRO");
-        }
-      } catch (error) {
-        responder("ERRO");
-      }
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: JSON.stringify(preference),
+        redirect: 'follow'
+      };
+
+      fetch("https://api.mercadopago.com/checkout/preferences?access_token=APP_USR-644853399630358-091722-c547e83404160670c73b75d3306b3687-301619184", requestOptions)
+        .then( async (response) => {
+          let body = await response.json();
+          console.log(body);
+          responder(body.id)
+        })
+        .catch(error => responder("ERRO"));
 
     });
   }

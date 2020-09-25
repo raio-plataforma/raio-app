@@ -103,8 +103,9 @@ export default class PaginaVaga extends Component {
                       <form method="POST">
                         <script
                           src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js"
-                          data-preference-id={this.state.botaoPagamento}>
+                          data-preference-id={""+this.state.botaoPagamento}>
                         </script>
+                        <button>pimba</button>
                       </form>
                     </div>
                   }
