@@ -8,6 +8,7 @@ const Enterprise = require('../../models/Enterprise')
 
 
 router.get('/ipn', async (req, res) => {
+    res.statusCode(200);
 
     async function ativarCompra(id) {
         const job = await Job.findById(id).populate('company');
