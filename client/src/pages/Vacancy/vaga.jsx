@@ -42,10 +42,19 @@ export default class PaginaVaga extends Component {
         }
     }
 
-    await this.setState({
-      isLoaded: true,
-      listaVagas
-    });
+    let preparandoBotao = await ApiMercadoPago.prototype.prepararBotaoDePagamento();
+    if(preparandoBotao !== "ERRO"){
+      await this.setState({
+        isLoaded: true,
+        listaVagas,
+        botaoPagamento: preparandoBotao
+      });
+    }else{
+      await this.setState({
+        erro: "Ocorreu um erro ao criar o botao de pagamento, tente novamente mais tarde."
+      });
+    }
+
   }
 
   render() {
@@ -77,9 +86,18 @@ export default class PaginaVaga extends Component {
                     <br />
                     <b><Typography variant="subtitle1" color="initial">Valor para pagamento da vaga é de R$ 10,00</Typography></b>
 
-                    <Button variant="contained" onClick={() => { ApiMercadoPago.prototype.createInvoice() }}>
+                    <Button variant="contained" onClick={() => { ApiMercadoPago.prototype.criarPagamento() }}>
                       Pagar com Mercado Pago
                     </Button>
+
+                    <p>Novo - vvvvv</p>
+
+                    <form method="POST">
+                      <script
+                        src="https://www.mercadopago.com.br/integrations/v1/web-payment-checkout.js"
+                        data-preference-id={this.state.botaoPagamento}>
+                      </script>
+                    </form>
                   </div>
                 }
               />
