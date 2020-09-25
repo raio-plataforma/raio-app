@@ -7,27 +7,28 @@ mercadopago.configure({
 
 export default class ApiMercadoPago {
 
-  prepararBotaoDePagamento() {
-    return new Promise((sucesso, erro)=>{
+  async prepararBotaoDePagamento() {
+    return new Promise(async(sucesso, erro)=>{
       // Cria um objeto de preferência
       let preference = {
         items: [
           {
             title: 'Meu produto',
-            unit_price: 100,
+            unit_price: 10,
             quantity: 1,
           }
         ]
       };
   
-      mercadopago.preferences.create(preference)
-        .then(function (response) {
-          console.log(response.body.id);
-          sucesso(response.body.id);
-        }).catch(function (error) {
-          console.log(error);
-          erro("ERRO");
-        });
+      let response = await mercadopago.preferences.create(preference);
+      if (responde.body.id) {
+        console.log(response.body.id);
+        sucesso(response.body.id);
+      } else {
+        console.log(response);
+        erro("ERRO");
+      }
+
     });
   }
 
