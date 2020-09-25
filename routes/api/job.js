@@ -169,7 +169,8 @@ router.post('/', passport.authenticate('jwt', {session: false}), async(req, res)
                     stateName: req.body.stateName,
                     cache: req.body.cache,
                     total_period: req.body.total_period,
-                    hiring_type: req.body.hiring_type
+                    hiring_type: req.body.hiring_type,
+                    status: "comprando"
                 })
 
                 newJob
