@@ -15,9 +15,11 @@ export default class ApiMercadoPago {
           {
             title: 'Meu produto',
             unit_price: 10,
+            currency_id: "BRL",
             quantity: 1,
           }
-        ]
+        ],
+        external_reference: "ID-DO-SISTEMA"
       };
   
       let response = await mercadopago.preferences.create(preference);
@@ -53,12 +55,12 @@ export default class ApiMercadoPago {
     });
   }
 
-  listaMeiosPagamentos() {
-    mercadopago.payment.create().then(function (mpResponse) {
-      console.log(mpResponse);
-    }).catch(function (err) {
-      console.log(err);
-    });
-  }
+  // listaMeiosPagamentos() {
+  //   mercadopago.payment.create().then(function (mpResponse) {
+  //     console.log(mpResponse);
+  //   }).catch(function (err) {
+  //     console.log(err);
+  //   });
+  // }
 
 }
