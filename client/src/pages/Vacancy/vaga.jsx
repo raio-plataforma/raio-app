@@ -43,11 +43,11 @@ export default class PaginaVaga extends Component {
           break;
         }
     }
-    if(b == false){window.location.href = "/dashboard/empresa";}
+    if (b == false) { window.location.href = "/dashboard/empresa"; }
 
     // Fazendo conta do valor a ser pago
     var valorCalculoDesconto = parseFloat(listaVagas.cache * (50 / 100));
-    listaVagas.valorDevedor = parseFloat( parseFloat(listaVagas.cache) - parseFloat(valorCalculoDesconto) );
+    listaVagas.valorDevedor = parseFloat(parseFloat(listaVagas.cache) - parseFloat(valorCalculoDesconto));
 
     // Gerando link de pagamento para colocar no botoão
     let linkPagamento = await ApiMercadoPago.prototype.criarLinkDePagamento(listaVagas);
@@ -91,9 +91,12 @@ export default class PaginaVaga extends Component {
 
 
               <IfElse
-                condition={typeof this.state.listaVagas.status == 'Visivel'}
+                condition={this.state.listaVagas.status == 'Visivel'}
                 True={
-                  <Alert severity="warning">Essa vaga já foi paga o valor devido!</Alert>
+                  <div>
+                    <br />
+                    <Alert severity="warning">Essa vaga já foi paga o valor devido!</Alert>
+                  </div>
                 }
                 False={
                   <div>

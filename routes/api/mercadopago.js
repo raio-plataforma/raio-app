@@ -12,7 +12,7 @@ router.get('/ipn', async (req, res) => {
     async function ativarCompra(id) {
         const job = await Job.findById(id).populate('company');
         if (job._id) {
-            const jobEdit = await Job.findOneAndUpdate(id, { status: "Visivel" }, { new: true });
+            const jobEdit = await Job.findOneAndUpdate({_id: id}, { status: "Visivel" });
             await jobEdit.save();
             enviarEmail({
                 from: 'RAIO <contato@raio.agency>',
@@ -29,7 +29,7 @@ router.get('/ipn', async (req, res) => {
                 text: 'Olá, acabamos que confirmar seu pagamento da vaga ' + job.title + ' agora sua vaga já se encontra visivel ao publico e os candidatos já poderão se inscrever na mesma, dentro de 7 dias a equipe RAIO já disponibilizar um rank de TOP 3 candidatos na plataforma RAIO para sua vaga, obrigado.'
             });
         } else {
-
+            console.log("Não achei a vaga pelo ID");
         }
     }
 
