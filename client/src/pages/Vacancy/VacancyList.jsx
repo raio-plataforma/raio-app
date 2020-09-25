@@ -15,7 +15,7 @@ const headCells = [
   { id: 'requirements', numeric: false, disablePadding: false, label: 'Requisitos' },
   { id: 'location', numeric: false, disablePadding: false, label: 'Endereço' },
   { id: 'cache', numeric: true, disablePadding: false, label: 'Cachê' },
-  { id: 'total_period', numeric: true, disablePadding: false, label: 'Período' }
+  { id: 'status', numeric: true, disablePadding: false, label: 'Status' }
 ];
 
 const VacancyList = ({ match }) => {
@@ -44,6 +44,8 @@ const VacancyList = ({ match }) => {
                 title="Vagas"
                 headCells={headCells}
                 list={vacancies} 
+                linkMoreCampo="id"
+                link="/vaga/"
               />
             }
             False={

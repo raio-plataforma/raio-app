@@ -59,7 +59,7 @@ const Vacancy = () => {
       ...data,
       hiring_type: normalizeArrayData(data.hiring_type),
       total_period: period,
-      status: 'comprando'
+      status: 'Aguardando pagamento'
     }
     registerJob(formatted)
   }

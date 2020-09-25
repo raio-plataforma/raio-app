@@ -6,22 +6,24 @@ mercadopago.configure({
 
 export default class ApiMercadoPago {
 
-  async prepararBotaoDePagamento() {
+  async criarLinkDePagamento(vaga) {
     return new Promise(async (responder) => {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "text/plain");
+      console.log(vaga);
 
       // Cria um objeto de preferência
       let preference = {
         items: [
           {
-            title: 'Meu produto',
-            unit_price: 10,
+            title: 'Ativação vaga '+vaga.title,
+            description: 'Ativação da vaga '+vaga.title+' '+vaga.hiring_type[0]+', área '+vaga.function+', empresa '+vaga.enterprise_name+' do estado '+vaga.stateName,
+            unit_price: vaga.valorDevedor,
             currency_id: "BRL",
             quantity: 1,
           }
         ],
-        external_reference: "ID-DO-SISTEMA"
+        external_reference: "VAGA | "+vaga._id+" | "+vaga.id
       };
 
       var requestOptions = {
@@ -35,40 +37,11 @@ export default class ApiMercadoPago {
         .then( async (response) => {
           let body = await response.json();
           console.log(body);
-          responder(body.id)
+          responder(body.init_point)
         })
         .catch(error => responder("ERRO"));
 
     });
   }
-
-  criarPagamento() {
-    mercadopago.payment.create({
-      description: 'Buying a PS4',
-      transaction_amount: 10,
-      payment_method_id: 'rapipago',
-      payer: {
-        email: 'test_user_3931694@testuser.com',
-
-        identification: {
-          type: 'DNI',
-          number: '34123123'
-        }
-
-      }
-    }).then(function (mpResponse) {
-      console.log(mpResponse);
-    }).catch(function (err) {
-      console.log(err);
-    });
-  }
-
-  // listaMeiosPagamentos() {
-  //   mercadopago.payment.create().then(function (mpResponse) {
-  //     console.log(mpResponse);
-  //   }).catch(function (err) {
-  //     console.log(err);
-  //   });
-  // }
 
 }

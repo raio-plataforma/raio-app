@@ -69,7 +69,8 @@ function EnhancedTableHead(props) {
                 {colName}
               </TableSortLabel>
             </TableCell>
-          )}
+          )
+        }
         )}
         {
           actions && (
@@ -94,13 +95,13 @@ const useToolbarStyles = makeStyles(theme => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-          color: theme.palette.secondary.main,
-          backgroundColor: lighten(theme.palette.secondary.light, 0.85),
-        }
+        color: theme.palette.secondary.main,
+        backgroundColor: lighten(theme.palette.secondary.light, 0.85),
+      }
       : {
-          color: theme.palette.text.primary,
-          backgroundColor: theme.palette.secondary.dark,
-        },
+        color: theme.palette.text.primary,
+        backgroundColor: theme.palette.secondary.dark,
+      },
   title: {
     flex: '1 1 100%',
   },
@@ -139,7 +140,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function EnhancedTable({ headCells, list, title, actions }) {
+export default function EnhancedTable({ headCells, list, title, actions, link = "", linkMoreCampo = "id" }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name_enterprise');
@@ -167,7 +168,7 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar title={title} color="secondary"  />
+        <EnhancedTableToolbar title={title} color="secondary" />
         <TableContainer>
           <Table
             className={classes.table}
@@ -196,18 +197,20 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                       hover
                       tabIndex={-1}
                       key={`${row[hc[0].cell]}-${index}`}
+                      style={{cursor:"pointer"}}
+                      onClick={()=>{ window.location.href = ""+link + "" + row[linkMoreCampo] }}
                     >
                       {
                         hc.map(name => {
                           let c = '-';
                           const s = name.cell.split('.');
 
-                          if(s.length === 1) c = row[s[0]];
+                          if (s.length === 1) c = row[s[0]];
                           else c = row[s[0]][s[1]];
 
                           return (
                             <TableCell padding="default" key={name.cell}>
-                              {c}
+                                {c}
                             </TableCell>
                           )
                         })
@@ -219,10 +222,10 @@ export default function EnhancedTable({ headCells, list, title, actions }) {
                               return (
                                 <Tooltip title={action.tooltip} key={action.action}>
                                   {action.type === 'link' ?
-                                  <Link to={`${action.action}${row.id}`}>
-                                    <IconButton aria-label="delete">{action.btn}</IconButton>
-                                  </Link> :
-                                  <IconButton aria-label="delete">{action.btn}</IconButton>}
+                                    <Link to={`${action.action}${row.id}`}>
+                                      <IconButton aria-label="delete">{action.btn}</IconButton>
+                                    </Link> :
+                                    <IconButton aria-label="delete">{action.btn}</IconButton>}
 
                                 </Tooltip>
                               )

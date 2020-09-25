@@ -92,12 +92,12 @@ const Header = () => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <a href="https://raio.agency/">
+        <a href="/">
           <StyledLogo
             src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
             width="274.141"
             height="93.594"
-            alt="RIO Logo"
+            alt="RAIO Logo"
           />
         </a>
         <button
@@ -118,7 +118,7 @@ const Header = () => {
             <div className="buttons">
               <StyledLink
                 background="#200122"
-                href="https://raio.agency/"
+                href="/"
               >
                 Home
               </StyledLink>

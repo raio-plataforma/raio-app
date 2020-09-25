@@ -162,6 +162,7 @@ const AllVacancies = () => {
                 {
                     jobList.length > 0 ?
                         (jobList.map(job => (
+                            job.status == "Visivel" &&
                             <CardVacancy
                                 key={job._id}
                                 id={job._id}

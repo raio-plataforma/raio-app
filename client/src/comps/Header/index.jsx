@@ -64,7 +64,7 @@ import {
       >
         <Container>
           <Grid container justify="space-between">
-            <a href="https://raio.agency/">
+            <a href="/">
               <StyledLogo
                 src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
                 width="274.141"
@@ -83,7 +83,7 @@ import {
           >
             <div className="buttons">
               <a
-                href="https://raio.agency/"
+                href="/"
                 onClick={() => toggleMenu(!menuOpened)}
               >
                 <Button>Home</Button>
