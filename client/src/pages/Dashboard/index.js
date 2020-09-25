@@ -39,7 +39,7 @@ const Dashboard = () => {
     useEffect(() => {
         typeof userType.type !== 'undefined' && getUser(userType.type)
         // if (userType.type === "professional") setModalBoasVindas(true)
-        // if (userType.type === "enterprise") setModalInfoPlans(true)
+        if (userType.type === "enterprise") setModalInfoPlans(true)
 
         // setTimeout(() => {
         //   setModalBoasVindas(false)

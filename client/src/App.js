@@ -94,6 +94,10 @@ const App = ({ store }) => {
                 path='/dashboard/empresa'
                 component={Dashboard}
               />
+              <PrivateRoute
+                path='/dashboard/enterprise'
+                component={Dashboard}
+              />
               <Route
                 path='/busca/profissionais'
                 component={SearchProfessionals}
