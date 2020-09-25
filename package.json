@@ -10,7 +10,7 @@
     "server": "nodemon -r dotenv/config server.js",
     "client": "yarn --cwd client start",
     "dev-local-api": "secretOrKey='secret' siteURL='http://localhost:5000/' SMTP_HOST='mail.raio.agency' SMTP_PORT=465 SMTP_PWD='Raio123!@#' SMTP_USER='admin@raio.agency' mongoURI='mongodb://localhost:27017/rio?authSource=admin' NODE_ENV=development concurrently \"yarn run server\"",
-    "dev-local": "NODE_ENV=development concurrently \"npm run dev-api-local\" \"yarn run client\"",
+    "dev-local": "NODE_ENV=development concurrently \"npm run dev-local-api\" \"yarn run client\"",
     "dev": "NODE_ENV=development concurrently \"yarn run server\" \"yarn run client\"",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn --cwd client && yarn --cwd client run build"
   },
