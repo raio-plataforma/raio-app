@@ -178,7 +178,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), async(req, res)
                     .then(job => res.status(200).json(job))
                     .catch(err => {
                         console.log(err)
-                        res.status(500).json({job: 'Erro ao salvar vaga'})
+                        res.status(500).json({job: 'Erro ao salvar vaga', err})
                     })
             }
         })
@@ -222,7 +222,7 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
                 })
                 .catch(err => {
                     console.log(err)
-                    res.status(500).json({jobProfessional: 'Erro ao salvar cadastro'})
+                    res.status(500).json({jobProfessional: 'Erro ao salvar cadastro', err})
                 })
         })
             .catch(err => {
