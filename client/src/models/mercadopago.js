@@ -22,9 +22,8 @@ export default class ApiMercadoPago {
   
       mercadopago.preferences.create(preference)
         .then(function (response) {
-          // Este valor substituirá a string "<%= global.id %>" no seu HTML
-          global.id = response.body.id;
-          sucesso(global.id);
+          console.log(response.body.id);
+          sucesso(response.body.id);
         }).catch(function (error) {
           console.log(error);
           erro("ERRO");
