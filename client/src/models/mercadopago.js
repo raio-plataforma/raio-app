@@ -27,7 +27,7 @@ export default class ApiMercadoPago {
         console.log(response.body.id);
         sucesso(response.body.id);
       } else {
-        console.log(response);
+        console.error(response);
         erro("ERRO");
       }
 
