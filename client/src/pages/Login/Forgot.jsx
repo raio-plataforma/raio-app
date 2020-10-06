@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {useForm} from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import Typography from '@material-ui/core/Typography'
-import {Link} from 'react-router-dom'
-import {useStoreActions, useStoreState} from 'easy-peasy'
+import { Link } from 'react-router-dom'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 
 import Email from '@material-ui/icons/Mail'
 import Senha from '@material-ui/icons/Lock'
@@ -15,41 +15,49 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-import {Error} from '../../components/Status'
+import { Error } from '../../components/Status'
 import Button from '../../comps/Button'
 import Title from '../../comps/Title'
 
 import {
     Background
 } from './style'
-import {emailValidation} from '../../utils/service'
+import { emailValidation } from '../../utils/service'
 import history from '../../history'
 
 const Forgot = () => {
-    const {register, handleSubmit, errors} = useForm()
+    const { register, handleSubmit, errors } = useForm()
     const [modalStatus, setModalStatus] = useState(false)
     const [modalMsg, setModalMsg] = useState('')
+    const [modalStatusError, setModalStatusError] = useState(false)
+    const [modalMsgError, setModalMsgError] = useState('')
     const authUser = useStoreActions(actions => actions.auth.forgotPwd)
     const auth = useStoreState(state => state.auth.forgot)
     const loginError = useStoreState(state => state.auth.error)
     const onSubmit = (data) => authUser(data)
 
     useEffect(() => {
-        if(auth)
-        {
+        if (auth) {
             setModalMsg(auth.resp.data)
             setModalStatus(true)
         }
 
-        if(loginError && loginError.message)
-        {
+        if (loginError && loginError.recovery) {
+            setModalMsgError(loginError.recovery)
+            setModalStatusError(true)
+        }
+
+        if (loginError && loginError.message) {
             setModalMsg(loginError.message)
             setModalStatus(true)
         }
+
     }, [auth, loginError])
+
 
     return (
         <Container
+            maxWidth="sm"
             center="true"
             style={{
                 height: 'calc(100vh - 107px)',
@@ -58,12 +66,10 @@ const Forgot = () => {
             }}
         >
             <Grid container alignItems="stretch" justify="space-between">
-                <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
-                    <Title>
-                        Informe seu email
-                    </Title>
+                <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
+                    <center><Title> Informe seu email </Title></center>
 
-                    <FormControl fullWidth style={{margin: '10px 0'}} variant="filled">
+                    <FormControl fullWidth style={{ margin: '10px 0' }} variant="filled">
                         <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
                         <FilledInput
                             type="text"
@@ -78,20 +84,28 @@ const Forgot = () => {
                             })}
                             endAdornment={
                                 <InputAdornment position="end">
-                                    <Email color="primary"/>
+                                    <Email color="primary" />
                                 </InputAdornment>
                             }
                         />
                         {errors.email && (<FormHelperText error>{errors.email.message}</FormHelperText>)}
+                        {onSubmit.recovery && (<FormHelperText error>{onSubmit.recovery}</FormHelperText>)}
                     </FormControl>
-                    <Button variant="contained" type="submit">
-                        Recuperar
+                    <center hide={""+modalStatus}>
+                        <Button variant="contained" type="submit">
+                            Recuperar
                     </Button>
+                    </center>
                 </form>
             </Grid>
-            <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>
-                <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="success">
+            <Snackbar open={modalStatus}>
+                <Alert elevation={6} variant="filled" severity="success">
                     {modalMsg}
+                </Alert>
+            </Snackbar>
+            <Snackbar open={modalStatusError} autoHideDuration={3000} onClose={() => setModalStatusError(false)}>
+                <Alert elevation={6} variant="filled" onClose={() => setModalStatusError(false)} severity="error">
+                    {modalMsgError}
                 </Alert>
             </Snackbar>
         </Container>

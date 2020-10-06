@@ -35,9 +35,6 @@ export const WrapButton = styled.div`
 `
 
 export const Title = styled.h1`
-  font-size: 1.5em;
-  font-weight: 600;
-  color: #000;
-  text-align: center;
-  margin-bottom: 20px;
+  color:#F9A639;
+  font-size: 40px;
 `

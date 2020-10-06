@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import {useForm} from 'react-hook-form'
-import {useStoreActions, useStoreState} from 'easy-peasy'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
 
+import Flexbox from '../../components/Flexbox'
 import Button from '../../comps/Button'
 import Checkbox from '../../comps/Checkbox'
 import Grid from '@material-ui/core/Grid'
@@ -21,10 +22,11 @@ import {
     identitySegments,
     separated_functions
 } from './dicioFields'
-import {formatCheckboxFields} from '../../utils/service'
-import {parseDate, normalizeArrayData} from '../../utils/formatter'
+import { formatCheckboxFields } from '../../utils/service'
+import { parseDate, normalizeArrayData } from '../../utils/formatter'
 
-import {Form, Background, Title} from './styles'
+import { Form, Background, Title } from './styles'
+import { Container } from '@material-ui/core'
 
 const Professionals = () => {
     const {
@@ -39,7 +41,7 @@ const Professionals = () => {
     const [citiesFromStates, setCities] = useState([])
     const registerUser = useStoreActions(actions => actions.register.registerProfessional)
     const registerError = useStoreState(state => state.register.error)
-    const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
+    const stateList = list => list.map(uf => ({ value: uf.id, name: uf.name }))
     const [filteredStates, setStates] = useState(states.map(uf => uf.name))
 
     console.log(errors)
@@ -71,8 +73,10 @@ const Professionals = () => {
 
     // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
     return (
-        <Background className="container center">
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <Container center="true" maxWidth="lg" >
+            <Form width="auto" onSubmit={handleSubmit(onSubmit)}>
+                <center><Title> Formulário de Cadastro do profissional </Title></center>
+
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <TextField
@@ -208,16 +212,16 @@ const Professionals = () => {
                         />
                     </Grid>
                     {numCols === 3 &&
-                    <Grid item xs={numCols}>
-                        <Select
-                            name="cnpj_type"
-                            error={errors.cnpj_type && errors.cnpj_type.message}
-                            helperText={errors.cnpj_type && errors.cnpj_type.message}
-                            options={cnpj_type}
-                            register={register}
-                            label="Tipo de CNPJ"
-                        />
-                    </Grid>
+                        <Grid item xs={numCols}>
+                            <Select
+                                name="cnpj_type"
+                                error={errors.cnpj_type && errors.cnpj_type.message}
+                                helperText={errors.cnpj_type && errors.cnpj_type.message}
+                                options={cnpj_type}
+                                register={register}
+                                label="Tipo de CNPJ"
+                            />
+                        </Grid>
                     }
 
                 </Grid>
@@ -246,9 +250,9 @@ const Professionals = () => {
                                     label={check.title}
                                     error={errors.expertiseAreas && errors.expertiseAreas.message}
                                     options={check.list.sort()}
-                                    // register={register({
-                                    //     required: 'Esse campo é obrigatório'
-                                    // })}
+                                // register={register({
+                                //     required: 'Esse campo é obrigatório'
+                                // })}
                                 />
                             </>
                         ))
@@ -287,9 +291,14 @@ const Professionals = () => {
                         variant="filled"
                     />
                 </Grid>
-                <Button type="submit" variant="contained" color="primary">Confirmar</Button>
-            </form>
-        </Background>
+
+                <center>
+                    <br /><br />
+                    <Button type="submit" variant="contained" color="primary">Confirmar</Button>
+                </center>
+
+            </Form>
+        </Container>
     )
 }
 

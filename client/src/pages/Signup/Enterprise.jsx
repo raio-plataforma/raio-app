@@ -28,6 +28,8 @@ import { formatCheckboxFields } from '../../utils/service'
 import { parseDate } from '../../utils/formatter'
 // import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
 import { Form, Background, WrapButton, Title } from './styles'
+import { Container } from '@material-ui/core'
+import FormSelect from '../../comps/FormSelect'
 
 const Enterprise = () => {
   const { register, handleSubmit, errors, setValue } = useForm()
@@ -68,10 +70,9 @@ const Enterprise = () => {
 
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
   return (
-    <Background>
-      <Flexbox justify="center">
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h4" component="h2">Formulário de Cadastro da Empresa</Typography>
+    <Container center="true" maxWidth="lg" >
+      <Form width="auto" onSubmit={handleSubmit(onSubmit)}>
+        <center><Title> Formulário de Cadastro da Empresa </Title></center>
 
         <TextField
           label="Nome da Empresa"
@@ -84,6 +85,8 @@ const Enterprise = () => {
             required: 'Esse campo é obrigatório',
           })}
         />
+
+        <br /><br />
 
         <TextField
           name="foundation_date"
@@ -100,7 +103,7 @@ const Enterprise = () => {
             shrink: true,
           }}
         />
-
+        <br />
         <ChipOptions
           name="links"
           label="Links para site e redes sociais da empresa"
@@ -133,19 +136,19 @@ const Enterprise = () => {
           })}
         />
 
-          <Select
-            label="Estado"
-            error={errors.state && errors.state.message}
-            name="state"
-            firstValue="Estado Sede"
-            register={register}
-            onChange={programIsLoading}
-            isLoading={isLoading}
-          >
-            {states.map(item =>
-              <option value={item.id} key={item.id}>{item.name}</option>
-            )}
-          </Select>
+        <Select
+          label="Estado"
+          error={errors.state && errors.state.message}
+          name="state"
+          firstValue="Estado Sede"
+          register={register}
+          onChange={programIsLoading}
+          isLoading={isLoading}
+        >
+          {states.map(item =>
+            <option value={item.id} key={item.id}>{item.name}</option>
+          )}
+        </Select>
 
         <TextField
           label="Cidade"
@@ -159,76 +162,72 @@ const Enterprise = () => {
           })}
         />
 
-          <Checkbox
-            label="Outros estados que a empresa tem atuação"
-            register={register}
-            options={states.map(uf => uf.name)}
-            name="other_states"
-          />
+        <Checkbox
+          label="Outros estados que a empresa tem atuação"
+          register={register}
+          options={states.map(uf => uf.name)}
+          name="other_states"
+        />
 
-          <Checkbox
-            label="Segmento de atuação"
-            register={register}
-            options={segment}
-            name="business_segments"
-          />
-          <Checkbox
-            label="Campos de atuação"
-            register={register}
-            options={actions}
-            name="business_fields"
-          />
-          <Checkbox
-            label="Funções que busca diversificar na empresa"
-            register={register}
-            options={functions}
-            name="diversity_functions"
-          />
+        <Checkbox
+          label="Segmento de atuação"
+          register={register}
+          options={segment}
+          name="business_segments"
+        />
+        <Checkbox
+          label="Campos de atuação"
+          register={register}
+          options={actions}
+          name="business_fields"
+        />
+        <Checkbox
+          label="Funções que busca diversificar na empresa"
+          register={register}
+          options={functions}
+          name="diversity_functions"
+        />
 
-          <Select
-            label="Qual o tipo do seu CNPJ?"
-            register={register}
-            firstValue="Tipo de CNPJ"
-            name="cnpjType"
-            error={errors.cnpjType && errors.cnpjType.message}
-          >
-            {cnpj_type.map(item =>
-              <option value={item} key={uuid()}>{item}</option>
-            )}
-          </Select>
 
-          <Switch
-            label="Sua empresa é vocacionada para conteúdo identitário?"
-            name="identityContent"
-            error={errors.identityContent && errors.identityContent.message}
-            onChange={e => handleRadio('identityContent', e.target.value)}
-          />
+        <FormSelect
+          name="cnpjType"
+          error={errors.cnpjType && errors.cnpjType.message}
+          options={cnpj_type}
+          register={register}
+          firstValue="Tipo de CNPJ"
+          label="Qual o tipo do seu CNPJ?"
+        />
 
-          <Checkbox
-            label="Se sim, em qual segmento?"
-            options={identitySegments}
-            name="identity_segments"
-            register={register}
-          />
+        <Switch
+          label="Sua empresa é vocacionada para conteúdo identitário?"
+          name="identityContent"
+          error={errors.identityContent && errors.identityContent.message}
+          onChange={e => handleRadio('identityContent', e.target.value)}
+        />
 
-          <Switch
-            label="A empresa é associado(a) da APAN?"
-            name="apanAssociate"
-            error={errors.apanAssociate && errors.apanAssociate.message}
-            onChange={e => handleRadio('apanAssociate', e.target.value)}
-          />
+        <Checkbox
+          label="Se sim, em qual segmento?"
+          options={identitySegments}
+          name="identity_segments"
+          register={register}
+        />
 
-          <Error msg={registerError && registerError.enterprise} />
+        <Switch
+          label="A empresa é associado(a) da APAN?"
+          name="apanAssociate"
+          error={errors.apanAssociate && errors.apanAssociate.message}
+          onChange={e => handleRadio('apanAssociate', e.target.value)}
+        />
 
-          <WrapButton>
-            <Button variant="contained" type="submit">
-              Enviar
-            </Button>
-          </WrapButton>
+        <Error msg={registerError && registerError.enterprise} />
 
-        </Form>
-      </Flexbox>
-    </Background>
+        <center>
+          <br /><br />
+          <Button variant="contained" type="submit"> Enviar </Button>
+        </center>
+
+      </Form>
+    </Container>
   )
 }
 

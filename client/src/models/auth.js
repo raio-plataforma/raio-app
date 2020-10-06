@@ -55,16 +55,15 @@ const authModel = {
         }
     }),
     forgotPwd: thunk(async(actions, payload) => {
-        console.log(payload)
-
         try
         {
-            const res = await axios.post('/api/user/forgot-password', payload)
+            const res = await axios.post('/api/user/forgot-password', payload);
+            console.log(res);
             return actions.setForgotResp({resp: res})
         }
         catch(err)
         {
-            const error = err.response.data
+            const error = err.response.data;
             return actions.setErrors({...error})
         }
     }),

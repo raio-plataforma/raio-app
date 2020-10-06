@@ -40,7 +40,7 @@ const Login = () => {
       if (isAuthenticated) return history.push(`/dashboard/${type}`)
     }
 
-    if(loginError && loginError.message){
+    if (loginError && loginError.message) {
       setModalMsg(loginError.message)
       setModalStatus(true)
     }
@@ -48,78 +48,83 @@ const Login = () => {
 
   return (
     <Container
+      maxWidth="sm"
       center="true"
       style={{
         height: 'calc(100vh - 107px)',
         display: 'flex',
-        alignItems: 'center'}}
-        >
-        <Grid container alignItems="stretch" justify="space-between">
-          <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
-            <Title>
-              Entre na Raio
-            </Title>
+        alignItems: 'center'
+      }}
+    >
+      <Grid container alignItems="stretch" justify="space-between">
+        <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
+          <center><Title> Entre na Raio </Title></center>
 
-            <FormControl fullWidth style={{margin: '10px 0'}} variant="filled">
-              <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
-              <FilledInput
-                type="text"
-                name="email"
-                error={errors.email !== undefined}
-                inputRef={register({
-                  required: 'Esse campo é obrigatório',
-                  pattern: {
-                    value: emailValidation(),
-                    message: 'Insira um endereço de e-mail válido'
-                  }
-                })}
-                endAdornment={
-                  <InputAdornment position="end">
-                      <Email color="primary"/>
-                  </InputAdornment>
+          <FormControl fullWidth style={{ margin: '10px 0' }} variant="filled">
+            <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>
+            <FilledInput
+              type="text"
+              name="email"
+              error={errors.email !== undefined}
+              inputRef={register({
+                required: 'Esse campo é obrigatório',
+                pattern: {
+                  value: emailValidation(),
+                  message: 'Insira um endereço de e-mail válido'
                 }
-              />
-              {errors.email && (<FormHelperText error>{errors.email.message}</FormHelperText>)}
-            </FormControl>
+              })}
+              endAdornment={
+                <InputAdornment position="end">
+                  <Email color="primary" />
+                </InputAdornment>
+              }
+            />
+            {errors.email && (<FormHelperText error>{errors.email.message}</FormHelperText>)}
+          </FormControl>
 
-            <FormControl fullWidth variant="filled">
-              <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
-              <FilledInput
-                type="password"
-                name="password"
-                error={errors.password !== undefined}
-                inputRef={register({
-                  required: 'Esse campo é obrigatório',
-                  minLength: {
-                    value: 6,
-                    message: 'A senha deve ter no mínimo 6 caracteres'
-                  }
-                })}
-                endAdornment={
-                  <InputAdornment position="end">
-                      <Senha color="primary" />
-                  </InputAdornment>
+          <FormControl fullWidth variant="filled">
+            <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
+            <FilledInput
+              type="password"
+              name="password"
+              error={errors.password !== undefined}
+              inputRef={register({
+                required: 'Esse campo é obrigatório',
+                minLength: {
+                  value: 6,
+                  message: 'A senha deve ter no mínimo 6 caracteres'
                 }
-              />
-              {errors.password && (<FormHelperText error>{errors.password.message}</FormHelperText>)}
-            </FormControl>
+              })}
+              endAdornment={
+                <InputAdornment position="end">
+                  <Senha color="primary" />
+                </InputAdornment>
+              }
+            />
+            {errors.password && (<FormHelperText error>{errors.password.message}</FormHelperText>)}
+          </FormControl>
 
-          <Link to="/esqueci-senha">
-            <Button>
-              esqueceu sua senha?
+          <br /><br />
+
+          <center>
+            <Link to="/esqueci-senha">
+              <Button>
+                esqueceu sua senha?
             </Button>
-          </Link>
+            </Link>
 
-          <Button variant="contained" type="submit">
-            Entrar
+            <Button variant="contained" type="submit">
+              Entrar
           </Button>
-          </form>
-        </Grid>
-        <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>
-          <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="error">
-            {modalMsg}
-          </Alert>
-        </Snackbar>
+          </center>
+
+        </form>
+      </Grid>
+      <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>
+        <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="error">
+          {modalMsg}
+        </Alert>
+      </Snackbar>
     </Container>
   )
 }

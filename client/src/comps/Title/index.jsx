@@ -19,7 +19,7 @@ const getSize = size => {
       break
     case 'xl':
       default:
-      component = 'h2'
+      component = 'h3'
       break
   }
   return component

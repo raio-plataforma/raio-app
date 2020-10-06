@@ -24,6 +24,7 @@ import Button from '../../comps/Button'
 import ChipOptions from '../../comps/ChipOptions'
 import loading from '../../assets/loading.svg'
 import { StyledForm } from './style'
+import { Container } from '@material-ui/core'
 
 const EditEnterprise = ({ match }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -79,10 +80,10 @@ const EditEnterprise = ({ match }) => {
   const stateList = list => list.map(uf => ({value: uf.id, name: uf.name}))
 
   return (
-    <section className="container">
+    <Container center="true" >
     <Typography variant="h2" style={{textAlign: 'center', fontWeight: 'bold'}}>Editar Empresa</Typography>
 
-     {isLoading ? <img src={loading} /> :
+     {isLoading ? <center><img src={loading} /></center> :
       hasError ? 
       <Alert severity="warning">Erro ao localizar o usuário</Alert> :
       (<StyledForm onSubmit={handleSubmit(onSubmit)}>
@@ -171,7 +172,7 @@ const EditEnterprise = ({ match }) => {
       </Grid>
 
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={5}>
           <Switch
             name="apan_associate"
             label="Associado APAN"
@@ -179,7 +180,7 @@ const EditEnterprise = ({ match }) => {
             register={register}
           />
         </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={7}>
             <Select 
               name="cnpj_type"
               value={enterprise.cnpj_type}
@@ -191,7 +192,7 @@ const EditEnterprise = ({ match }) => {
               })}
               label="Tipo de CNPJ"
             />
-          </Grid>          
+          </Grid>
       </Grid>
       
       <Grid item xs={12}>
@@ -273,10 +274,14 @@ const EditEnterprise = ({ match }) => {
           variant="filled"
         />
       </Grid> 
+      <center>
+        <br/>
         <Button type="submit" variant="contained" color="primary">Confirmar</Button>
+      </center>
       </StyledForm>)
     }
-  </section>
+    <br/><br/>
+    </Container>
   )
   
 }

@@ -4,28 +4,30 @@ import { makeStyles } from '@material-ui/core/styles'
 import SelectMaterial from '@material-ui/core/Select'
 import FormControl from '@material-ui/core/FormControl'
 import FormHelperText from '@material-ui/core/FormHelperText'
+import { MenuItem, Select } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   margin: {
-    margin: theme.spacing(1)+ ' 0',
+    margin: theme.spacing(1) + ' 0',
   },
 }));
 
 const FormSelect = ({ label, register, name, options, value, onChange, error, color }) => {
-  const [ opt, setOpt ] = useState(value)
+  const [opt, setOpt] = useState(value)
   const compColor = color || 'primary'
   const classes = useStyles();
   const handleChange = value => {
     setOpt(value)
-    if(onChange)
+    if (onChange)
       onChange(value)
   }
-  
-  return(
-    <FormControl  className={classes.margin} fullWidth>
-      <InputLabel htmlFor="self_declaration">{label}</InputLabel>
-      <SelectMaterial
+
+  return (
+    <FormControl className={classes.formControl+" formSelect"} fullWidth>
+      <InputLabel HtmlFor="self_declaration">{label}</InputLabel>
+      <Select
         native
+        name={name}
         inputRef={register}
         defaultValue={opt}
         color={compColor}
@@ -33,17 +35,17 @@ const FormSelect = ({ label, register, name, options, value, onChange, error, co
         onChange={(e) => handleChange(e.target.value)}
         inputProps={{
           name: name,
+          id: name
         }}
       >
-        <option value="" />
         {
           options.map((option, index) => {
             return option.value ?
-              <option key={index} value={option.value}>{option.name}</option> :
-              <option key={index} value={option}>{option}</option>
+              <option key={index} value={option.value} className="optionsFormSelectPersonalizado">{option.name}</option> :
+              <option key={index} value={option} className="optionsFormSelectPersonalizado">{option}</option>
           })
         }
-      </SelectMaterial>
+      </Select>
       {error && <FormHelperText error>{error}</FormHelperText>}
     </FormControl>
   )

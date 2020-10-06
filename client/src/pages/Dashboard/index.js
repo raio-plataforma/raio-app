@@ -38,13 +38,13 @@ const Dashboard = () => {
 
     useEffect(() => {
         typeof userType.type !== 'undefined' && getUser(userType.type)
-        // if (userType.type === "professional") setModalBoasVindas(true)
+        if (userType.type === "professional") setModalBoasVindas(true)
         if (userType.type === "enterprise") setModalInfoPlans(true)
 
-        // setTimeout(() => {
-        //   setModalBoasVindas(false)
-        //   setModalInfoPlans(false)
-        // }, 3000)
+        setTimeout(() => {
+          setModalBoasVindas(false)
+          setModalInfoPlans(false)
+        }, 3000)
 
     }, [userType, getUser])
 
@@ -169,7 +169,7 @@ const Dashboard = () => {
                             onClose={() => setModalStatus(false)}
                             title="Deseja realmente excluir sua conta?"
                         >
-                            <Button onClick={() => handleDelete()} color="dark"><Delete/>Excluir</Button>
+                            <Button onClick={() => handleDelete()} color="primary"><Delete/>Excluir</Button>
                         </NewModal>
                         <Modal
                             isOpen={modalInfoPlans}

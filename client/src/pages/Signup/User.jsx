@@ -19,6 +19,7 @@ import {
 } from './dicioFields'
 
 import { Form, Background, WrapButton } from './styles'
+import { Container } from '@material-ui/core'
 
 const Users = () => {
   const { register, handleSubmit, errors, getValues, reset } = useForm()
@@ -28,6 +29,7 @@ const Users = () => {
   const registerError = useStoreState(state => state.register.error)
   const labelName = localStorage.user_type === 'enterprise' ? 'Nome do Responsável' : 'Nome'
   const onSubmit = (data) => {
+    console.log(data);
     const formatted = {
       ...data,
       confirm_password: data.confirmPassword,
@@ -47,13 +49,9 @@ const Users = () => {
   }, []);
 
   return (
-    <section className="container">
-        <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography
-          color="primary"
-          variant="h3"
-          style={{textAlign: 'center', margin: '30px 0'}}
-          component="h2">Formulário de inscrição do Usuário</Typography>
+    <Container center="true" >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Typography variant="h2" style={{ textAlign: 'center', fontWeight: 'bold' }}>Formulário de inscrição do Usuário</Typography>
 
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -154,7 +152,7 @@ const Users = () => {
 
         <Grid container spacing={2}>
           <Grid item xs={6}>
-            <Select 
+            <Select
               name="gender"
               error={errors.gender && errors.gender.message}
               helperText={errors.gender && errors.gender.message}
@@ -167,7 +165,7 @@ const Users = () => {
             />
           </Grid>
           <Grid item xs={6}>
-            <Select 
+            <Select
               name="selfDeclaration"
               error={errors.selfDeclaration && errors.selfDeclaration.message}
               helperText={errors.selfDeclaration && errors.selfDeclaration.message}
@@ -182,29 +180,21 @@ const Users = () => {
         </Grid>
 
 
-          <Error msg={registerError && registerError.user} />
+        <Error msg={registerError && registerError.user} />
 
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Button
-                color="primary"
-                variant="contained"
-                type="submit"
-                styles={{display: 'block', width: '100%'}}
-              >
-                Enviar
-              </Button>
-            </Grid>
-          </Grid>
-           
-        </form>
-      
-        <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>
-          <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="success">
-            Usuário cadastrado com sucesso!
+        <center>
+          <br />
+          <Button type="submit" variant="contained" color="primary">Enviar</Button>
+        </center>
+
+      </form>
+
+      <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>
+        <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="success">
+          Usuário cadastrado com sucesso!
           </Alert>
-        </Snackbar>
-    </section>
+      </Snackbar>
+    </Container>
   )
 }
 

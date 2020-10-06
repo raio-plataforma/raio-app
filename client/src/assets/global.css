@@ -1,0 +1,89 @@
+a{
+    text-decoration: none;
+    color: #F7CC94!important;
+}
+[hide="true"]{
+    display: none!important;
+}
+[width="100%"]{
+    width:100%!important;
+}
+[width="auto"]{
+    width:auto!important;
+}
+.MuiMenu-paper.MuiPaper-root,
+.MuiAutocomplete-popper .MuiPaper-root{
+    background: linear-gradient(101deg, #410114 0%, #6f0000 200%);
+}
+.MuiIconButton-root,
+.MuiPaper-root,
+.MuiTypography-h2{
+    color: #F9A639!important;
+}
+.MuiFilledInput-input,
+.MuiButton-root,
+.MuiSelect-icon,
+.MuiAlert-filledError,
+.MuiAlert-filledError button,
+.fycPlG{
+    color: #F7CC94!important;
+}
+.MuiAlert-filledSuccess{
+    color: #F7CC94!important;
+    background-color: #347837!important;
+}
+.MuiTypography-h2{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.MuiButton-containedPrimary{
+    color: #410D14!important;
+    background-color: #F9A639!important;
+}
+.fycPlG .MuiFormLabel-root, .fycPlG .MuiIconButton-colorPrimary{
+    color: #F7CC94!important;
+}
+input[type="date"]::-webkit-inner-spin-button {
+    opacity: 0
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url(/icon-calendar.png) center/80% no-repeat;
+}
+.MuiFilledInput-input::placeholder{
+    color: #F7CC94!important;
+}
+.formSelect .MuiFormLabel-root.MuiInputLabel-shrink{
+    padding-top: 10px!important;
+    padding-left: 15px!important;
+}
+.formSelect .MuiFormLabel-root.MuiInputLabel-animated{
+    padding-left: 15px!important;
+}
+.optionsFormSelectPersonalizado{
+    background: #410114!important;
+    color: #F9A639!important;
+    border: none!important;
+    transition: 1s;
+}
+
+.optionsFormSelectPersonalizado:hover{
+    border-radius: 10px;
+    transition: 0.5s;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #3C0B13 inset;
+    border: none;
+}
+input:-webkit-autofill {
+    -webkit-text-fill-color: #F7CC94 !important;
+}
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background: #F9A639;
+}
+::-webkit-scrollbar-track {
+    background: #410D14;
+}
