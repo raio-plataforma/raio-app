@@ -4,6 +4,8 @@ Criação de API para projeto ARIO. Usando NodeJS, ExpressJS e MongoDB.
 
 ## Primeira vez fazendo o install? Segue esse passo a passo:
 
+- Antes de uso instale o pacote `nvm` ou o `n` no seu global para poder mudar sua versão do NodeJS
+- A versão suporta por esse projeto é a v10.13.0
 - Na pasta '/' do projeto dê `npm install`
 - E depois digite `yarn`
 - Depois `yarn run client-install` para instalar as dependencias do frontend
