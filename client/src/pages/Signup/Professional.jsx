@@ -73,8 +73,8 @@ const Professionals = () => {
 
     // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
     return (
-        <Container center="true" maxWidth="lg" >
-            <Form width="auto" onSubmit={handleSubmit(onSubmit)}>
+        <Container center="true" maxWidth="md" >
+            <Form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
                 <center><Title> Formulário de Cadastro do profissional </Title></center>
 
                 <Grid container spacing={2}>
@@ -239,8 +239,9 @@ const Professionals = () => {
                         })}
                     />
                 </Grid>
+                <br/><br/>
                 <Grid item xs={12}>
-                    <Typography variant="h5">Áreas de atuação</Typography>
+                    <center><Typography variant="h5"><b>Áreas de atuação</b></Typography></center>
                     {
                         separated_functions.map(check => (
                             <>

@@ -11,6 +11,18 @@ a{
 [width="auto"]{
     width:auto!important;
 }
+.form-sem-espaco{
+    margin: 0px;
+    padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.MuiInputLabel-root{
+  max-width: 85%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .MuiMenu-paper.MuiPaper-root,
 .MuiAutocomplete-popper .MuiPaper-root{
     background: linear-gradient(101deg, #410114 0%, #6f0000 200%);

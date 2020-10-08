@@ -18,7 +18,7 @@ import {
   color
 } from './dicioFields'
 
-import { Form, Background, WrapButton } from './styles'
+import { Form, Background, WrapButton, Title } from './styles'
 import { Container } from '@material-ui/core'
 
 const Users = () => {
@@ -49,9 +49,9 @@ const Users = () => {
   }, []);
 
   return (
-    <Container center="true" >
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h2" style={{ textAlign: 'center', fontWeight: 'bold' }}>Formulário de inscrição do Usuário</Typography>
+    <Container center="true" maxWidth="md" >
+      <form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
+        <center><Title> Formulário de inscrição do Usuário </Title></center>
 
         <Grid container spacing={2}>
           <Grid item xs={12}>

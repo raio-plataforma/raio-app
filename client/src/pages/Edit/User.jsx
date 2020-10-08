@@ -15,6 +15,7 @@ import Select from '../../comps/Select'
 import Button from '../../comps/Button'
 import loading from '../../assets/loading.svg'
 import { StyledForm } from './style'
+import { Title } from "../Signup/styles";
 
 const EditUser = ({ match }) => {
   const { register, handleSubmit, errors, getValues, setValue } = useForm()
@@ -43,8 +44,8 @@ const EditUser = ({ match }) => {
   }
 
   return (
-    <Container>
-    <Typography variant="h2" style={{textAlign: 'center', fontWeight: 'bold'}}>Editar Usuário</Typography>
+    <Container center="true" maxWidth="md">
+    <center><Title> Editar Usuário </Title></center>
 
     {isLoading ? <img src={loading} /> :
         hasError ?
@@ -87,7 +88,7 @@ const EditUser = ({ match }) => {
           variant="filled"
         />
 
-        <Grid container spacing={3}>
+        <Grid container spacing={2}>
           <Grid item xs={6}>
             <Select
               name="self_declaration"
@@ -118,7 +119,12 @@ const EditUser = ({ match }) => {
             />
           </Grid>
         </Grid>
-        <Button type="submit" variant="contained">Confirmar</Button>
+
+              <center>
+                <br/>
+                <Button type="submit" variant="contained">Confirmar</Button>
+              </center>
+
       </StyledForm>)
       }
     </Container>

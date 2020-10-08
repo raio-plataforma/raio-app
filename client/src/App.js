@@ -63,9 +63,10 @@ const App = ({ store }) => {
                 <PrivateRoute path='/editar/usuario/:user_id' component={EditUser} />
                 <PrivateRoute path='/editar/profissional/:id' component={EditProfessional} />
                 <PrivateRoute path='/editar/empresa/:id' component={EditEnterprise} />
+                <Redirect path='/dashboard/professional' to='/dashboard/profissional' />
                 <PrivateRoute path='/dashboard/profissional' component={Dashboard} />
+                <Redirect path='/dashboard/enterprise' to='/dashboard/empresa' />
                 <PrivateRoute path='/dashboard/empresa' component={Dashboard} />
-                <PrivateRoute path='/dashboard/enterprise' component={Dashboard} />
                 <Route path='/busca/profissionais' component={SearchProfessionals} />
                 <Route path='/resultados/profissionais' component={ResultSearchProfessionals} />
                 <Route path='/busca/empresas' component={SearchEnterprise} />
