@@ -9,6 +9,7 @@ import Title from '../../comps/Title'
 import Button from '../../comps/Button'
 import FormText from '../../comps/FormText'
 import CardMyVacancy from '../../comps/CardMyVacancy'
+import Titulo from "../../components/Titulo"
 
 const MyJobs = () => {
     const getAllJobs = useStoreActions(actions => actions.professional.getMyJobs)
@@ -62,7 +63,7 @@ const MyJobs = () => {
 
     return (
         <Container>
-            <Title style={{margin: '30px 0'}}>Minhas candidaturas</Title>
+            <Titulo>Minhas candidaturas</Titulo>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <a href="/dashboard/profissional">

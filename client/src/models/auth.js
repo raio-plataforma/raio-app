@@ -23,6 +23,8 @@ const authModel = {
             const decoded = jwtDecode(token)
 
             // Set current user
+            localStorage.setItem('menuAutoAbrir', 'true' );
+
             actions.setAuth({
                 isAuthenticated: !isEmpty(decoded),
                 user: decoded
@@ -45,12 +47,22 @@ const authModel = {
             catch(err)
             {
                 const error = err.response.data
+
+                if(String(err.response.data.message)){
+                    window.location.href = `/?errorLogin=true`;
+                }
+
                 return actions.setErrors({...error})
             }
         }
         catch(err)
         {
             const error = err.response?.data
+
+            if(String(err.response.data.message)){
+                window.location.href = `/?errorLogin=true`;
+            }
+
             return actions.setErrors({...error})
         }
     }),
@@ -84,6 +96,7 @@ const authModel = {
     logoutUser: thunk(async(actions, payload) => {
         // Remove token from localStorage
         localStorage.removeItem('jwtToken')
+        localStorage.removeItem('menuAutoAbrir')
 
         // Remove auth header for future requests
         setAuthToken(false)

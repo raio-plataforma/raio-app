@@ -32,6 +32,7 @@ import FormSelect from '../../comps/FormSelect'
 import Autocomplete from '@material-ui/lab/Autocomplete'
 import states from '../../assets/states.json'
 import cities from '../../assets/cities.json'
+import Titulo from '../../components/Titulo'
 
 const Enterprise = () => {
   const { register, handleSubmit, errors, setValue } = useForm()
@@ -86,7 +87,7 @@ const Enterprise = () => {
   return (
     <Container center="true" maxWidth="md" >
       <Form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
-        <center><Title> Formulário de Cadastro da Empresa </Title></center>
+        <Titulo> Formulário de Cadastro da Empresa </Titulo>
 
         <TextField
           label="Nome da Empresa"

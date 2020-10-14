@@ -36,6 +36,7 @@ import Reset from './pages/Login/Reset'
 import PaginaVaga from './pages/Vacancy/vaga'
 import './assets/global.css';
 import Pagina404 from './pages/404/404'
+import PaginaDashboardEmpresa from './pages/Dashboard/empresa'
 
 const App = ({ store }) => {
   return (
@@ -46,27 +47,40 @@ const App = ({ store }) => {
           <AppBody>
             <Switch>
 
+              {/* Redirecionamento de rotas antigas */}
+              <Redirect path='/editar/usuario/:user_id' to='/editar/usuario' />
+              <Redirect path='/editar/empresa/:id' to='/editar/empresa' />  
+              <Redirect path='/listagem/vagas/:id' to='/painel/empresa/vagas' />
+              <Redirect path='/cadastro/vaga' to='/painel/empresa/cadastro/vaga' />
+              <Redirect path='/dashboard/empresa' to='/painel/empresa' />
+              <Redirect path='/dashboard/enterprise' to='/painel/empresa' />
+              <Redirect path='/dashboard/profissional' to='/painel/profissional' />
+              <Redirect path='/dashboard/professional' to='/painel/profissional' />
+              <Redirect path='/listagem/vagas' to='/vagas' />
+
+              {/* Rotas sem protenção de login */}
               <Route path="/" exact={true} component={Login} />
               <Route path="/esqueci-senha" exact={true} component={Forgot} />
               <Route path="/reset/:token" component={Reset} />
               <Route path="/cadastro" exact={true} component={Users} />
               <Switch>
+
+                {/* Painel da empresa */}
+                <PrivateRoute path='/painel/empresa/cadastro/vaga' component={VacancyRegister} />
+                <PrivateRoute path='/painel/empresa/vagas' component={VacancyList} />
+                <PrivateRoute path='/painel/empresa' component={PaginaDashboardEmpresa} />
+
                 <PrivateRoute path='/dashboard/admin' exact component={Admin} />
-                <PrivateRoute path='/listagem/vagas/:id' component={VacancyList} />
-                <PrivateRoute path='/listagem/vagas' component={AllVacancies} />
-                <PrivateRoute path='/cadastro/vaga' component={VacancyRegister} />
+                <PrivateRoute path='/vagas' component={AllVacancies} />
                 <PrivateRoute path='/vaga/:id' component={PaginaVaga} />
                 <PrivateRoute path='/cadastro/empresa' component={Enterprise} />
                 <PrivateRoute path='/cadastro/profissional' component={Professional} />
                 <PrivateRoute path='/dashboard/admin/empresas' component={AllEnterprises} />
                 <PrivateRoute path='/dashboard/admin/profissionais' component={AllProfessionals} />
-                <PrivateRoute path='/editar/usuario/:user_id' component={EditUser} />
+                <PrivateRoute path='/editar/usuario' component={EditUser} />
                 <PrivateRoute path='/editar/profissional/:id' component={EditProfessional} />
-                <PrivateRoute path='/editar/empresa/:id' component={EditEnterprise} />
-                <Redirect path='/dashboard/professional' to='/dashboard/profissional' />
-                <PrivateRoute path='/dashboard/profissional' component={Dashboard} />
-                <Redirect path='/dashboard/enterprise' to='/dashboard/empresa' />
-                <PrivateRoute path='/dashboard/empresa' component={Dashboard} />
+                <PrivateRoute path='/editar/empresa' component={EditEnterprise} />
+                <PrivateRoute path='/painel/profissional' component={Dashboard} />
                 <Route path='/busca/profissionais' component={SearchProfessionals} />
                 <Route path='/resultados/profissionais' component={ResultSearchProfessionals} />
                 <Route path='/busca/empresas' component={SearchEnterprise} />

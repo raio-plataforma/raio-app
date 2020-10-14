@@ -20,6 +20,7 @@ import Checkbox from '../../comps/Checkbox'
 import { Error, Success } from '../../components/Status'
 import { parseDate, normalizeArrayData } from '../../utils/formatter'
 import history from '../../history'
+import Titulo from "../../components/Titulo";
 
 
 
@@ -66,9 +67,7 @@ const Vacancy = () => {
   return (
     <Container center="true">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Typography variant="h2" style={{ textAlign: 'center', fontWeight: 'bold', margin: '20px 0' }}>
-          Cadastro de Vaga
-        </Typography>
+        <Titulo>Cadastro de Vaga</Titulo>
         <Grid container spacing={3}>
           <Grid item xs={12}>
             <TextField

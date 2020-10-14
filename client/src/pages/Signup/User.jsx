@@ -20,6 +20,7 @@ import {
 
 import { Form, Background, WrapButton, Title } from './styles'
 import { Container } from '@material-ui/core'
+import Titulo from '../../components/Titulo'
 
 const Users = () => {
   const { register, handleSubmit, errors, getValues, reset } = useForm()
@@ -51,7 +52,7 @@ const Users = () => {
   return (
     <Container center="true" maxWidth="md" >
       <form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
-        <center><Title> Formulário de inscrição do Usuário </Title></center>
+        <Titulo> Formulário de inscrição do Usuário </Titulo>
 
         <Grid container spacing={2}>
           <Grid item xs={12}>

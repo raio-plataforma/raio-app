@@ -27,6 +27,7 @@ import { parseDate, normalizeArrayData } from '../../utils/formatter'
 
 import { Form, Background, Title } from './styles'
 import { Container } from '@material-ui/core'
+import Titulo from '../../components/Titulo'
 
 const Professionals = () => {
     const {
@@ -75,7 +76,7 @@ const Professionals = () => {
     return (
         <Container center="true" maxWidth="md" >
             <Form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
-                <center><Title> Formulário de Cadastro do profissional </Title></center>
+                <Titulo> Formulário de Cadastro do profissional </Titulo>
 
                 <Grid container spacing={2}>
                     <Grid item xs={12}>

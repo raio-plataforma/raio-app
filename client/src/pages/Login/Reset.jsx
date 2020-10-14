@@ -24,6 +24,7 @@ import {
 } from './style'
 import { emailValidation } from '../../utils/service'
 import history from '../../history'
+import Titulo from '../../components/Titulo'
 
 const Reset = ({ match }) => {
     const { register, handleSubmit, errors } = useForm()
@@ -66,7 +67,7 @@ const Reset = ({ match }) => {
         >
             <Grid container alignItems="stretch" justify="space-between">
                 <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
-                    <center><Title>Redefinir senha </Title></center>
+                    <Titulo>Redefinir senha </Titulo>
 
                     <FormControl fullWidth variant="filled">
                         <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>

@@ -1,12 +1,15 @@
 import React from 'react';
 import loading from '../../assets/loading.svg';
-import './style.css';
 
-export default function Loading()
-{
+export default function Loading(){
     return(
-        <div className={'general-loading'}>
-            <img src={loading} alt={''}/>
+        <div className="carregando">
+            <center>
+            <br/><br/>
+            <img src={loading} alt="Imagem de carregando"/>
+            <br/>
+            <p><b>Carregando...</b></p>
+            </center>
         </div>
     );
 }

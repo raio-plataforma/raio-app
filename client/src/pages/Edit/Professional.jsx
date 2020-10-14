@@ -25,6 +25,7 @@ import Text from '../../comps/Text'
 import ChipOptions from '../../comps/ChipOptions'
 import loading from '../../assets/loading.svg'
 import { StyledForm } from './style'
+import Titulo from '../../components/Titulo'
 
 const EditProfessional = ({ match }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -71,7 +72,7 @@ const EditProfessional = ({ match }) => {
 
   return (
     <Container center="true" maxWidth="md">
-      <center><Title> Editar Profissional </Title></center>
+      <Titulo> Editar Profissional </Titulo>
 
       {isLoading ? <img src={loading} /> :
         hasError ?

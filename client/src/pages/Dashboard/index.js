@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
-import {useStoreActions, useStoreState} from 'easy-peasy'
+import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 import Person from '@material-ui/icons/Person'
 
 import Enterprise from '@material-ui/icons/AccountBalanceOutlined'
@@ -9,7 +9,7 @@ import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Loading from "../../components/loading";
-import {getInfo} from './user_info'
+import { getInfo } from './user_info'
 // import uuid from 'uuid'
 
 import Profile from './Profile'
@@ -42,8 +42,8 @@ const Dashboard = () => {
         if (userType.type === "enterprise") setModalInfoPlans(true)
 
         setTimeout(() => {
-          setModalBoasVindas(false)
-          setModalInfoPlans(false)
+            setModalBoasVindas(false)
+            setModalInfoPlans(false)
         }, 3000)
 
     }, [userType, getUser])
@@ -56,48 +56,48 @@ const Dashboard = () => {
     return (
         <Container>
             {Object.values(user).length ? (
-                    <>
-                        <Paper style={{backgroundColor: '#f7cc94', padding: '15px'}}>
-                            <Grid container>
-                                <Grid item xs={4}>
-                                    <Profile
-                                        id={user._id}
-                                        name={user.enterprise_name || user.name}
-                                        icon={userType.type === "enterprise" ?
-                                            <Enterprise style={{fontSize: 60}}/> :
-                                            <Person style={{fontSize: 60}}/>}
-                                        associate={user.apan_associate}
-                                        type={userType.type === "enterprise" ? "Empresa" : "Profissional"}
-                                        bio={userType.type === "enterprise" ? user.presentation : user.bio}
-                                        pcd={user.pcd}
-                                        segments={userType.type === "enterprise" ? user.business_segments : user.identity_segments}
-                                    />
+                <>
+                    <Paper style={{ backgroundColor: '#f7cc94', padding: '15px' }}>
+                        <Grid container>
+                            <Grid item xs={4}>
+                                <Profile
+                                    id={user._id}
+                                    name={user.enterprise_name || user.name}
+                                    icon={userType.type === "enterprise" ?
+                                        <Enterprise style={{ fontSize: 60 }} /> :
+                                        <Person style={{ fontSize: 60 }} />}
+                                    associate={user.apan_associate}
+                                    type={userType.type === "enterprise" ? "Empresa" : "Profissional"}
+                                    bio={userType.type === "enterprise" ? user.presentation : user.bio}
+                                    pcd={user.pcd}
+                                    segments={userType.type === "enterprise" ? user.business_segments : user.identity_segments}
+                                />
 
-                                </Grid>
-                                <Grid item xs={8}>
-                                    <Info
-                                        infoList={getInfo(user, userType.type)}
-                                    />
-                                </Grid>
                             </Grid>
+                            <Grid item xs={8}>
+                                <Info
+                                    infoList={getInfo(user, userType.type)}
+                                />
+                            </Grid>
+                        </Grid>
 
-                        </Paper>
+                    </Paper>
 
-                        <Container>
-                            {userType.type === "enterprise" ?
-                                (<>
-                                    {!hasVacancies ? <Link to="/cadastro/vaga">
-                                            <Button variant="contained">
-                                                Cadastrar Vagas
+                    <Container>
+                        {userType.type === "enterprise" ?
+                            (<>
+                                {!hasVacancies ? <Link to="/cadastro/vaga">
+                                    <Button variant="contained">
+                                        Cadastrar Vagas
                                             </Button>
-                                        </Link> :
-                                        <a href="http://raio.agency/planos">
-                                            <Button variant="contained">
-                                                Cadastrar Vagas
+                                </Link> :
+                                    <a href="http://raio.agency/planos">
+                                        <Button variant="contained">
+                                            Cadastrar Vagas
                                             </Button>
-                                        </a>
-                                    }
-                                    {!(user && user.usedVacancies > 0) &&
+                                    </a>
+                                }
+                                {!(user && user.usedVacancies > 0) &&
                                     (<Link to={`/listagem/vagas/${user.enterprise_id}`}>
                                         <Button
                                             variant="contained"
@@ -107,79 +107,79 @@ const Dashboard = () => {
                                             Ver minhas vagas
                                         </Button>
                                     </Link>)}
-                                    <Link to={'/busca/profissionais'}>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                        >
-                                            Buscar profissional
+                                <Link to={'/busca/profissionais'}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                    >
+                                        Buscar profissional
                                         </Button>
-                                    </Link>
-                                </>) :
-                                (<>
-                                    <Link to={`/listagem/vagas`}>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                        >
-                                            Ver vagas
+                                </Link>
+                            </>) :
+                            (<>
+                                <Link to={`/listagem/vagas`}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                    >
+                                        Ver vagas
                                         </Button>
-                                    </Link>
-                                    <Link to={`/listagem/candidaturas`}>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                        >
-                                            Ver minhas candidaturas
+                                </Link>
+                                <Link to={`/listagem/candidaturas`}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                    >
+                                        Ver minhas candidaturas
                                         </Button>
-                                    </Link>
-                                </>)
-                            }
+                                </Link>
+                            </>)
+                        }
 
 
-                            <Link to={`/editar/usuario/${user.user_id}`}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                >
-                                    Editar Dados de Acesso
-                                </Button>
-                            </Link>
-
+                        <Link to={`/editar/usuario/${user.user_id}`}>
                             <Button
                                 variant="contained"
                                 color="primary"
-
-                                onClick={() => setModalStatus(true)}
                             >
-                                Deletar Perfil
+                                Editar Dados de Acesso
+                                </Button>
+                        </Link>
+
+                        <Button
+                            variant="contained"
+                            color="primary"
+
+                            onClick={() => setModalStatus(true)}
+                        >
+                            Deletar Perfil
                             </Button>
-                        </Container>
+                    </Container>
 
-                        <Modal
-                            isOpen={modalBoasVindas}
-                            onClose={() => setModalBoasVindas(false)}
-                            width="300px"
-                        >
-                            <img style={{width: '300px'}} src={welcome} alt={''}/>
-                        </Modal>
+                    <Modal
+                        isOpen={modalBoasVindas}
+                        onClose={() => setModalBoasVindas(false)}
+                        width="300px"
+                    >
+                        <img style={{ width: '300px' }} src={welcome} alt={''} />
+                    </Modal>
 
-                        <NewModal
-                            isOpen={modalStatus}
-                            onClose={() => setModalStatus(false)}
-                            title="Deseja realmente excluir sua conta?"
-                        >
-                            <Button onClick={() => handleDelete()} color="primary"><Delete/>Excluir</Button>
-                        </NewModal>
-                        <Modal
-                            isOpen={modalInfoPlans}
-                            onClose={() => setModalInfoPlans(false)}
-                            width="300px"
-                        >
-                            <img src={seloPlans} alt={''}/>
-                        </Modal>
-                    </>) :
-                <Loading/>}
+                    <NewModal
+                        isOpen={modalStatus}
+                        onClose={() => setModalStatus(false)}
+                        title="Deseja realmente excluir sua conta?"
+                    >
+                        <Button onClick={() => handleDelete()} color="primary"><Delete />Excluir</Button>
+                    </NewModal>
+                    <Modal
+                        isOpen={modalInfoPlans}
+                        onClose={() => setModalInfoPlans(false)}
+                        width="300px"
+                    >
+                        <img src={seloPlans} alt={''} />
+                    </Modal>
+                </>) :
+                <Loading />}
         </Container>
     )
 }

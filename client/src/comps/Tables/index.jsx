@@ -14,6 +14,7 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import { Button, Container } from '@material-ui/core';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -49,7 +50,7 @@ function EnhancedTableHead(props) {
 
   return (
     <TableHead>
-      <TableRow>
+      <TableRow style={{ border: '1px solid #F9A639' }}>
         {headCells.map(headCell => {
           const cols = Object.keys(headCell).indexOf('label')
           const colName = Object.values(headCell)[cols]
@@ -60,11 +61,13 @@ function EnhancedTableHead(props) {
               align="center"
               padding='default'
               sortDirection={orderBy === headCell.id ? order : false}
+              style={{ border: 'none' }}
             >
               <TableSortLabel
                 active={orderBy === headCell.id}
                 direction={orderBy === headCell.id ? order : 'asc'}
                 onClick={createSortHandler(headCell.id)}
+                style={{ color: '#F9A639' }}
               >
                 {colName}
               </TableSortLabel>
@@ -95,11 +98,11 @@ const useToolbarStyles = makeStyles(theme => ({
   highlight:
     theme.palette.type === 'light'
       ? {
-        color: theme.palette.secondary.main,
+        color: '#F9A639',
         backgroundColor: lighten(theme.palette.secondary.light, 0.85),
       }
       : {
-        color: theme.palette.text.primary,
+        color: '#F9A639',
         backgroundColor: theme.palette.secondary.dark,
       },
   title: {
@@ -107,18 +110,27 @@ const useToolbarStyles = makeStyles(theme => ({
   },
 }));
 
-const EnhancedTableToolbar = ({ title }) => {
+const EnhancedTableToolbar = ({ title, style, btnAddLink, btnAddLabel }) => {
   const classes = useToolbarStyles();
   return (
     <Toolbar
       className={classes.root}
+      style={{ overflow: 'hidden' }}
     >
       <Typography
-        className={classes.title}
+        className={classes.title+' tabela-titulo'}
         variant="h6"
         component="h2"
         id="tableTitle"
+        style={style}
       >
+        {
+          btnAddLink && (
+            <div style={{ float: 'right' }}>
+              <Link to={btnAddLink}><Button variant="contained" color="primary">{btnAddLabel}</Button></Link>
+            </div>
+          )
+        }
         {title}
       </Typography>
     </Toolbar>
@@ -133,19 +145,21 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
-    backgroundColor: '#f7cc94',
+    boxShadow: 'none',
+    backgroundColor: 'transparent',
+    color: '#F9A639'
   },
   table: {
     minWidth: 750,
   },
 }));
 
-export default function EnhancedTable({ headCells, list, title, actions, link = "", linkMoreCampo = "id" }) {
+export default function EnhancedTable({ headCells, list, title, actions, link = "", linkMoreCampo = "id", btnAddLink = "", btnAddLabel = "" }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('name_enterprise');
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -168,91 +182,106 @@ export default function EnhancedTable({ headCells, list, title, actions, link = 
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar title={title} color="secondary" />
-        <TableContainer>
-          <Table
-            className={classes.table}
-            size="medium"
-            aria-label="enhanced table"
-          >
-            <EnhancedTableHead
-              classes={classes}
-              order={order}
-              orderBy={orderBy}
-              headCells={headCells}
-              onRequestSort={handleRequestSort}
-              rowCount={list.length}
-              actions={actions}
-            />
+        <Container center="true" maxWidth="lg">
 
-            <TableBody>
-              {stableSort(list, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const hc = headCells.map(nameCell => ({
-                    cell: nameCell.id
-                  }))
-                  return (
-                    <TableRow
-                      hover
-                      tabIndex={-1}
-                      key={`${row[hc[0].cell]}-${index}`}
-                      style={{cursor:"pointer"}}
-                      onClick={()=>{ window.location.href = ""+link + "" + row[linkMoreCampo] }}
-                    >
-                      {
-                        hc.map(name => {
-                          let c = '-';
-                          const s = name.cell.split('.');
+          <EnhancedTableToolbar
+            title={title}
+            style={{ color: '#F9A639' }}
+            btnAddLink={btnAddLink}
+            btnAddLabel={btnAddLabel}
+          />
 
-                          if (s.length === 1) c = row[s[0]];
-                          else c = row[s[0]][s[1]];
+          <TableContainer style={{ border: 'none' }}>
+            <Table
+              className={classes.table}
+              size="medium"
+              aria-label="enhanced table"
+              style={{ border: 'none' }}
+            >
+              <EnhancedTableHead
+                classes={classes}
+                order={order}
+                orderBy={orderBy}
+                headCells={headCells}
+                onRequestSort={handleRequestSort}
+                rowCount={list.length}
+                actions={actions}
+                style={{ color: '#F9A639' }}
+              />
 
-                          return (
-                            <TableCell padding="default" key={name.cell}>
+              <TableBody>
+                {stableSort(list, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, index) => {
+                    const hc = headCells.map(nameCell => ({
+                      cell: nameCell.id
+                    }))
+                    return (
+                      <TableRow
+                        hover
+                        tabIndex={-1}
+                        key={`${row[hc[0].cell]}-${index}`}
+                        style={{ cursor: "pointer" }}
+                        onClick={() => { window.location.href = "" + link + "" + row[linkMoreCampo] }}
+                        style={{ color: '#F9A639', border: '1px solid #F9A639' }}
+                      >
+                        {
+                          hc.map(name => {
+                            let c = '-';
+                            const s = name.cell.split('.');
+
+                            if (s.length === 1) c = row[s[0]];
+                            else c = row[s[0]][s[1]];
+
+                            return (
+                              <TableCell padding="default" key={name.cell} style={{ color: '#F9A639', border: 'none' }}>
                                 {c}
+                              </TableCell>
+                            )
+                          })
+                        }
+                        {
+                          actions && (
+                            <TableCell align="right">
+                              {actions.map(action => {
+                                return (
+                                  <Tooltip title={action.tooltip} key={action.action}>
+                                    {action.type === 'link' ?
+                                      <Link to={`${action.action}${row.id}`}>
+                                        <IconButton aria-label="delete">{action.btn}</IconButton>
+                                      </Link> :
+                                      <IconButton aria-label="delete">{action.btn}</IconButton>}
+
+                                  </Tooltip>
+                                )
+                              })}
                             </TableCell>
                           )
-                        })
-                      }
-                      {
-                        actions && (
-                          <TableCell align="right">
-                            {actions.map(action => {
-                              return (
-                                <Tooltip title={action.tooltip} key={action.action}>
-                                  {action.type === 'link' ?
-                                    <Link to={`${action.action}${row.id}`}>
-                                      <IconButton aria-label="delete">{action.btn}</IconButton>
-                                    </Link> :
-                                    <IconButton aria-label="delete">{action.btn}</IconButton>}
-
-                                </Tooltip>
-                              )
-                            })}
-                          </TableCell>
-                        )
-                      }
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow style={{ height: 53 * emptyRows }}>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25, 50, 100]}
-          component="div"
-          count={list.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+                        }
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow style={{ height: 53 * emptyRows }}>
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <br />
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            component="div"
+            count={list.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onChangePage={handleChangePage}
+            onChangeRowsPerPage={handleChangeRowsPerPage}
+            style={{ color: '#F9A639' }}
+            labelRowsPerPage="Linhas:"
+          />
+        </Container>
       </Paper>
 
     </div>

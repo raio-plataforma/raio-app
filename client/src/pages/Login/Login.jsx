@@ -24,8 +24,9 @@ import {
 } from './style'
 import { emailValidation } from '../../utils/service'
 import history from '../../history'
+import Titulo from '../../components/Titulo'
 
-const Login = () => {
+const Login = (props) => {
   const { register, handleSubmit, errors } = useForm()
   const [modalStatus, setModalStatus] = useState(false)
   const [modalMsg, setModalMsg] = useState('')
@@ -33,6 +34,7 @@ const Login = () => {
   const auth = useStoreState(state => state.auth.auth)
   const loginError = useStoreState(state => state.auth.error)
   const onSubmit = (data) => authUser(data)
+
 
   useEffect(() => {
     if (auth) {
@@ -44,7 +46,14 @@ const Login = () => {
       setModalMsg(loginError.message)
       setModalStatus(true)
     }
-  }, [auth, loginError])
+
+    if (String(props.location.search).includes("?errorLogin=true")) {
+      props.location.search = "";
+      setModalMsg("Email ou senha incorreto, tente novamente.");
+      setModalStatus(true);
+    }
+
+  }, [auth, loginError, props])
 
   return (
     <Container
@@ -58,7 +67,7 @@ const Login = () => {
     >
       <Grid container alignItems="stretch" justify="space-between">
         <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
-          <center><Title> Entre na Raio </Title></center>
+          <Titulo> Entre na Raio </Titulo>
 
           <FormControl fullWidth style={{ margin: '10px 0' }} variant="filled">
             <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>

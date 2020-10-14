@@ -24,6 +24,7 @@ import {
 } from './style'
 import { emailValidation } from '../../utils/service'
 import history from '../../history'
+import Titulo from '../../components/Titulo'
 
 const Forgot = () => {
     const { register, handleSubmit, errors } = useForm()
@@ -67,7 +68,7 @@ const Forgot = () => {
         >
             <Grid container alignItems="stretch" justify="space-between">
                 <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
-                    <center><Title> Informe seu email </Title></center>
+                    <Titulo> Informe seu email </Titulo>
 
                     <FormControl fullWidth style={{ margin: '10px 0' }} variant="filled">
                         <InputLabel htmlFor="filled-adornment-password">E-mail</InputLabel>

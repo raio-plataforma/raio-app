@@ -18,6 +18,7 @@ import {
 
 import setAuthToken from '../../utils/setAuthToken'
 import { isEmpty, getUserType } from '../../utils/service'
+import LinkButtonNav from './linkButtonNav'
 
 
 
@@ -28,6 +29,8 @@ const Header = () => {
   const toggleMenu = useStoreActions(actions => actions.ui.toggleMenu)
   const auth = useStoreState(state => state.auth.auth)
   const { menuOpened } = useStoreState(state => state.ui)
+  const userType = useStoreState(state => state.auth.auth.user)
+  const user = useStoreState(state => state.user.user)
 
 
   useEffect(() => {
@@ -78,38 +81,36 @@ const Header = () => {
             isOpened={menuOpened}
           />
         </Grid>
-        <StyledAside
-          className={menuOpened && 'opened'}
-        >
+
+        <StyledAside className={menuOpened && 'opened'} >
           <div className="buttons">
-            <a href="/" onClick={() => toggleMenu(!menuOpened)} >
-              <Button>Home</Button>
-            </a>
-            {
-              auth && auth.isAuthenticated ?
-                (<>
-                  <NavLink to={`/dashboard/${type}`}>
-                    <Button onClick={() => toggleMenu(!menuOpened)}>
-                      Dashboard
-                    </Button>
-                  </NavLink>
-                  <Button onClick={() => { logoutUser(); toggleMenu(!menuOpened) }}>
-                    Sair
-                  </Button>
-                </>) :
-                (<>
-                  <Button onClick={() => { setModalStatus(!modalStatus); toggleMenu(!menuOpened) }}>
-                    Cadastre-se
-                  </Button>
-                  <Button onClick={() => toggleMenu(false)}>
-                    <StyledNavLink to="/">
-                      Entrar
-                    </StyledNavLink>
-                  </Button>
-                </>)
+            {auth && auth.isAuthenticated ? (
+              <div className="navbarUserLogado">
+                <LinkButtonNav to={`/dashboard/${type}`}> Home </LinkButtonNav>
+
+                {
+                  userType.type === "enterprise" ? (
+                    <div className="navbarEmpresas">
+                      <LinkButtonNav to={`/painel/empresa/vagas`}> Vagas </LinkButtonNav>
+                      <LinkButtonNav to={`/busca/profissionais`}> Buscar profissional </LinkButtonNav>
+                      <LinkButtonNav to={`/editar/empresa`}> Editar empresa </LinkButtonNav>
+                      <LinkButtonNav to={`/editar/usuario`}> Editar perfil </LinkButtonNav>
+                    </div>
+                  ) : (<></>)
+                }
+
+                <LinkButtonNav to={`/`} onClick={() => { logoutUser() }}> Sair </LinkButtonNav>
+              </div>
+            ) : (
+                <div className="navbarUserDeslogado">
+                  <LinkButtonNav to={`/`} onClick={() => { setModalStatus(!modalStatus); }}> Cadastre-se </LinkButtonNav>
+                  <LinkButtonNav to={`/`}> Entrar </LinkButtonNav>
+                </div>
+              )
             }
           </div>
         </StyledAside>
+
       </Container>
       <Modal
         title="Cadastre-se"

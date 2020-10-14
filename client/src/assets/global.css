@@ -17,6 +17,31 @@ a{
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.dashboard-paper{
+    color: #ba3b29!important;
+    background: #e79a3f!important;
+    padding: 10px;
+}
+.dashboard-paper h1{
+    margin: 0px;
+}
+.dashboard-paper,
+.dashboard-paper h6,
+.dashboard-paper h5,
+.dashboard-paper h4,
+.dashboard-paper h3,
+.dashboard-paper h2,
+.dashboard-paper h1,
+.dashboard-paper p,
+.dashboard-paper strong,
+.dashboard-paper{
+    color: #ba3b29!important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.profile .image{
+    overflow: hidden;
+}
 .MuiInputLabel-root{
   max-width: 85%;
   overflow: hidden;
@@ -39,6 +64,18 @@ a{
 .MuiAlert-filledError button,
 .fycPlG{
     color: #F7CC94!important;
+}
+.tabela-titulo{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.MuiTableCell-root{
+    border: none!important;
+}
+.MuiTableRow-hover:hover{
+    background-color: rgba(231, 155, 63, 0.2)!important;
+    cursor: pointer;
 }
 .MuiAlert-filledSuccess{
     color: #F7CC94!important;
@@ -98,4 +135,29 @@ input:-webkit-autofill {
 }
 ::-webkit-scrollbar-track {
     background: #410D14;
+}
+
+
+/* Tela de Mobile */
+
+@media (max-width:767px) {
+    .remove-mobile, [remove-mobile] {
+        display: none!important;
+    }
+}
+
+/* Tela de Mobile Teclado Ativo */
+
+@media (max-width:767px) and (max-height:450px) {
+    .remove-mobile-teclado, [remove-mobile-teclado] {
+        display: none!important;
+    }
+}
+
+/* Tela de PC */
+
+@media (min-width:768px) {
+    .remove-pc, [remove-pc] {
+        display: none!important;
+    }
 }

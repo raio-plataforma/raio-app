@@ -26,6 +26,7 @@ import loading from '../../assets/loading.svg'
 import { StyledForm } from './style'
 import { Container } from '@material-ui/core'
 import { Title } from '../Signup/styles'
+import Titulo from '../../components/Titulo'
 
 const EditEnterprise = ({ match }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -82,7 +83,7 @@ const EditEnterprise = ({ match }) => {
 
   return (
     <Container center="true" maxWidth="md">
-      <center><Title> Editar Empresa </Title></center>
+      <Titulo> Editar Empresa </Titulo>
 
       {isLoading ? <center><img src={loading} /></center> :
         hasError ?
