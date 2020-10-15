@@ -17,6 +17,20 @@ a{
     margin-top: 20px;
     margin-bottom: 20px;
 }
+.card-vaga,
+.card-candidaturas-vaga{
+    color: #ba3b29;
+    background: #e79a3f!important;
+    padding: 10px;
+}
+.card-vaga h1,
+.card-candidaturas-vaga h1{
+    margin: 0px;
+}
+.card-vaga p,
+.card-candidaturas-vaga p{
+    color: #ba3b29;
+}
 .dashboard-paper{
     color: #ba3b29!important;
     background: #e79a3f!important;
@@ -145,7 +159,11 @@ input:-webkit-autofill {
 hr.cor-laranja{
     border-color: #f9a639;
 }
-
+.MuiAlert-filledWarning{
+    color: #ba3b29!important;
+    background: #e79a3f!important;
+    padding: 10px;
+}
 .MuiButton-label{
     vertical-align: middle;
 }
@@ -154,6 +172,10 @@ hr.cor-laranja{
     margin-right: 5px;
     margin-left: 5px;
     vertical-align: middle;
+}
+
+.text-vermelho{
+    color: #e22e17!important;
 }
 ::-webkit-scrollbar {
     width: 7px;

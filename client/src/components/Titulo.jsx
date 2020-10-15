@@ -1,9 +1,9 @@
 import { Typography } from '@material-ui/core';
 import React from 'react';
 
-export default function Titulo({ children }) {
+export default function Titulo({ children, className }) {
     return (
-        <Typography variant="h2" style={{
+        <Typography className={className} variant="h2" style={{
             color: '#F9A639',
             fontFamily: '"Roboto", "Helvetica", "Arial", "sans-serif"',
             fontSize: '3.0rem',

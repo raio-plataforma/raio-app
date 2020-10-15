@@ -54,7 +54,7 @@ function CardMyVacancy({ id, jobTitle, enterpriseName, jobDescription, location,
 
   return (
     <Grid item xs={12} md={4}>
-      <Card className={classes.root} variant="outlined">
+      <Card className={classes.root+" card-candidaturas-vaga"} variant="outlined">
         <CardContent >
           <Text className={classes.title} color="textSecondary" gutterBottom>
             {enterpriseName}
@@ -78,7 +78,7 @@ function CardMyVacancy({ id, jobTitle, enterpriseName, jobDescription, location,
           </Title>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={()=>{onDelete(id)}}>Excluir</Button>
+          <Button variant="contained" color="secondary" size="small" onClick={()=>{onDelete(id)}}>Excluir</Button>
         </CardActions>
       </Card>
     </Grid>

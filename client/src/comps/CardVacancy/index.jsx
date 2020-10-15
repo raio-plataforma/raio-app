@@ -41,6 +41,8 @@ display: block;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  backgroun-color: #E79A3F;
+  color: #BA3B29!important;
 `
 
 function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money, func}) {
@@ -57,8 +59,8 @@ function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, p
   };
 
   return (
-    <Grid item xs={12} md={4}>
-      <Card className={classes.root} variant="outlined">
+    <Grid item xs={12}>
+      <Card className={classes.root + " card-vaga"} variant="outlined">
         <CardContent >
           <Text className={classes.title} color="textSecondary" gutterBottom>
             {enterpriseName}
@@ -82,7 +84,7 @@ function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, p
           </Title>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={()=>{onApply(id)}}>Candidate-se</Button>
+          <Button variant="contained" color="secondary" size="small" onClick={()=>{onApply(id)}}>Candidate-se</Button>
         </CardActions>
       </Card>
     </Grid>

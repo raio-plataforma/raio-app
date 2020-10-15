@@ -173,7 +173,7 @@ const EditUser = ({ match }) => {
                   <br /><br /><br /><br /><br /><br />
                   <br /><br /><br /><br />
                   <center>
-                    <Titulo> Zona de alerta </Titulo>
+                    <Titulo className="text-vermelho"> Zona vermelha </Titulo>
                     <br />
                     <Button variant="contained" color="secondary" onClick={() => setModalStatus(true)} >
                       <Delete /> Deletar conta

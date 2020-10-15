@@ -98,7 +98,7 @@ const Header = () => {
                   userType.type === "enterprise" ? (
                     <div className="navbarEmpresas">
                       <LinkButtonNav to={`/painel/empresa/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
-                      <LinkButtonNav to={`/busca/profissionais`}> <SearchIcon /> Buscar profissional </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/empresa/buscar/profissionais`}> <SearchIcon /> Buscar profissional </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/empresa`}> <EditIcon /> Editar empresa </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
                     </div>
@@ -109,8 +109,8 @@ const Header = () => {
                 {
                   userType.type === "professional" ? (
                     <div className="navbarProfissional">
-                      <LinkButtonNav to={`/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
-                      <LinkButtonNav to={`/listagem/candidaturas`}> <HistoryIcon /> Candidaturas </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/profissional/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/profissional/candidaturas`}> <HistoryIcon /> Candidaturas </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/profissional`}> <EditIcon /> Editar currículo </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
                     </div>
