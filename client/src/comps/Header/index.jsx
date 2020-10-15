@@ -25,7 +25,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HistoryIcon from '@material-ui/icons/History';
-
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Header = () => {
   const [modalStatus, setModalStatus] = useState(false)
@@ -120,8 +121,8 @@ const Header = () => {
               </div>
             ) : (
                 <div className="navbarUserDeslogado">
-                  <LinkButtonNav to={`/`} onClick={() => { setModalStatus(!modalStatus); }}> Cadastre-se </LinkButtonNav>
-                  <LinkButtonNav to={`/`}> Entrar </LinkButtonNav>
+                  <LinkButtonNav to={`/`} onClick={() => { setModalStatus(!modalStatus); }}> <PersonAddIcon /> Cadastre-se </LinkButtonNav>
+                  <LinkButtonNav to={`/`}> <AccountCircleIcon /> Entrar </LinkButtonNav>
                 </div>
               )
             }
