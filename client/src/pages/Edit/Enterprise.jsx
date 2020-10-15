@@ -27,8 +27,13 @@ import { StyledForm } from './style'
 import { Container } from '@material-ui/core'
 import { Title } from '../Signup/styles'
 import Titulo from '../../components/Titulo'
+import Carregando from '../../components/loading/carregando'
+import Erro from '../../components/erro'
 
 const EditEnterprise = ({ match }) => {
+  const [carregando, setCarregando] = useState(true)
+  const [erro, setErro] = useState(null)
+
   const { register, handleSubmit, errors } = useForm()
   const [isLoading, setLoading] = useState(true)
   const [hasError, setError] = useState(false)
@@ -42,15 +47,32 @@ const EditEnterprise = ({ match }) => {
   const error = useStoreState(state => state.enterprise.error)
 
 
+  const user = useStoreState(state => state.user.user)
+  const userType = useStoreState(state => state.auth.auth.user)
+  const getUser = useStoreActions(actions => actions.user.getUser)
+
+
   useEffect(() => {
-    (!enterprise || Object.values(enterprise).length === 0) && getEnterpriseById(match.params.id)
-    if (enterprise && Object.values(enterprise).length > 0) {
-      setLoading(false)
+    if ( (String(userType.type) !== 'undefined') && (!user.enterprise_id) ) {
+      getUser(userType.type);
     }
+
+    if ( (user.enterprise_id) && (String(enterprise) == '') ) {
+      getEnterpriseById(user.enterprise_id);
+    }
+
+    console.log(String(enterprise));
+
+    if (!String(enterprise) == '') {
+      setCarregando(false);
+    }
+
+
+    
 
     enterprise && enterprise.identity_content ? toggleIdentity(true) : toggleIdentity(false)
 
-  }, [enterprise, getEnterpriseById])
+  }, [enterprise, getEnterpriseById, user, userType, getUser, setCarregando])
 
 
   const onSubmit = (data) => {
@@ -81,210 +103,225 @@ const EditEnterprise = ({ match }) => {
 
   const stateList = list => list.map(uf => ({ value: uf.id, name: uf.name }))
 
+
+
+  
+
   return (
-    <Container center="true" maxWidth="md">
-      <Titulo> Editar Empresa </Titulo>
-
-      {isLoading ? <center><img src={loading} /></center> :
-        hasError ?
-          <Alert severity="warning">Erro ao localizar o usuário</Alert> :
-          (<StyledForm onSubmit={handleSubmit(onSubmit)}>
-            <TextField
-              name="enterprise_name"
-              fullWidth
-              defaultValue={enterprise.enterprise_name}
-              error={errors.enterprise_name && errors.enterprise_name.message}
-              helperText={errors.enterprise_name && errors.enterprise_name.message}
-              inputRef={register({
-                required: 'Esse campo é obrigatório'
-              })}
-              label="Nome da Empresa"
-              variant="filled"
-            />
-
-            <TextField
-              name="foundation_date"
-              label="Data de Fundação"
-              type="date"
-              fullWidth
-              defaultValue={dateToString(enterprise.foundation_date)}
-              variant="filled"
-              error={errors.foundation_date && errors.foundation_date.message}
-              helperText={errors.foundation_date && errors.foundation_date.message}
-              inputRef={register({
-                required: 'Esse campo é obrigatório'
-              })}
-              InputLabelProps={{
-                shrink: true,
-              }}
-            />
-
-
-            <Grid container spacing={2}>
-              <Grid item xs={6}>
-                <Select
-                  name="state"
-                  value={enterprise.state}
-                  error={errors.state && errors.state.message}
-                  helperText={errors.state && errors.state.message}
-                  onChange={(e) => handleCities(e)}
-                  options={stateList(states)}
-                  register={register({
-                    required: 'Esse campo é obrigatório'
-                  })}
-                  label="Estado"
-                />
-              </Grid>
-
-              <Grid item xs={6}>
-                <Autocomplete
-                  fullWidth
-                  freeSolo
-                  disabled={citiesFromStates.length === 0}
-                  defaultValue={enterprise.city}
-                  options={citiesFromStates.map(city => city.name).sort()}
-                  renderInput={params => (
+    <div className="pageRender">
+      { erro !== null ? (
+        <Erro erro={erro} />
+      ) : (
+          <div>
+            { carregando == true ? (
+              <Carregando />
+            ) : (
+                <Container center="true" maxWidth="md">
+                  <Titulo> Editar perfil da empresa </Titulo>
+                  <StyledForm onSubmit={handleSubmit(onSubmit)}>
                     <TextField
-                      {...params}
-                      name="city"
+                      name="enterprise_name"
+                      fullWidth
+                      defaultValue={enterprise.enterprise_name}
+                      error={errors.enterprise_name && errors.enterprise_name.message}
+                      helperText={errors.enterprise_name && errors.enterprise_name.message}
                       inputRef={register({
                         required: 'Esse campo é obrigatório'
                       })}
-                      color="primary"
-                      label="Cidade"
+                      label="Nome da Empresa"
                       variant="filled"
-                      placeholder="Busque a cidade"
-                      error={errors.city && errors.city.message}
-                      helperText={errors.city && errors.city.message}
                     />
-                  )}
-                />
-              </Grid>
-            </Grid>
 
-            <Grid item xs={12}>
-              <Checkbox
-                name="other_states"
-                label="Outros estados onde a empresa tem atuação"
-                options={filteredStates}
-                error={errors.other_states && errors.other_states.message}
-                value={enterprise.other_states && enterprise.other_states[0]}
-                register={register}
-              />
-            </Grid>
+                    <TextField
+                      name="foundation_date"
+                      label="Data de Fundação"
+                      type="date"
+                      fullWidth
+                      defaultValue={dateToString(enterprise.foundation_date)}
+                      variant="filled"
+                      error={errors.foundation_date && errors.foundation_date.message}
+                      helperText={errors.foundation_date && errors.foundation_date.message}
+                      inputRef={register({
+                        required: 'Esse campo é obrigatório'
+                      })}
+                      InputLabelProps={{
+                        shrink: true,
+                      }}
+                    />
 
-            <Grid container spacing={2}>
-              <Grid item xs={5}>
-                <Switch
-                  name="apan_associate"
-                  label="Associado APAN"
-                  value={enterprise.apan_associate}
-                  register={register}
-                />
-              </Grid>
-              <Grid item xs={7}>
-                <Select
-                  name="cnpj_type"
-                  value={enterprise.cnpj_type}
-                  error={errors.cnpj_type && errors.cnpj_type.message}
-                  helperText={errors.cnpj_type && errors.cnpj_type.message}
-                  options={cnpj_type}
-                  register={register({
-                    required: 'Esse campo é obrigatório'
-                  })}
-                  label="Tipo de CNPJ"
-                />
-              </Grid>
-            </Grid>
 
-            <Grid item xs={12}>
-              <Checkbox
-                value={enterprise.busines_segments && enterprise.busines_segments}
-                label="Segmento de atuação"
-                register={register}
-                options={segment}
-                name="business_segments"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Checkbox
-                label="Campos de atuação"
-                register={register}
-                options={actions}
-                name="business_fields"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Checkbox
-                label="Funções que busca diversificar na empresa"
-                value={enterprise.diversity_functions && enterprise.diversity_functions}
-                register={register}
-                options={functions}
-                name="diversity_functions"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Switch
-                name="identity_content"
-                label="Empresa voltada para conteúdo identitário?"
-                onChange={(e) => toggleIdentity(e.target.checked)}
-                value={enterprise.identity_content}
-                register={register}
-              />
-            </Grid>
-            {hasIdentity && <Grid item xs={12}>
-              <Checkbox
-                name="identity_segments"
-                label="Segmentos identitários"
-                options={identitySegments}
-                value={enterprise.identity_segments && enterprise.identity_segments}
-                register={register}
-              />
-            </Grid>}
+                    <Grid container spacing={2}>
+                      <Grid item xs={6}>
+                        <Select
+                          name="state"
+                          value={enterprise.state}
+                          error={errors.state && errors.state.message}
+                          helperText={errors.state && errors.state.message}
+                          onChange={(e) => handleCities(e)}
+                          options={stateList(states)}
+                          register={register({
+                            required: 'Esse campo é obrigatório'
+                          })}
+                          label="Estado"
+                        />
+                      </Grid>
 
-            <Grid item xs={12}>
-              <ChipOptions
-                name="links"
-                value={typeof enterprise.links === 'string' ?
-                  enterprise.links.toLowerCase().split(',') :
-                  enterprise.links
-                }
-                label="Links para site e redes sociais da empresa"
-                error={errors.links && errors.links.message}
-                register={register({
-                  required: 'Esse campo é obrigatório',
-                  minLength: {
-                    value: 10,
-                    message: 'Insira pelo menos um link'
-                  }
-                })}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                name="presentation"
-                fullWidth
-                multiline
-                rows="5"
-                defaultValue={enterprise.presentation}
-                error={errors.presentation && errors.presentation.message}
-                helperText={errors.presentation && errors.presentation.message}
-                inputRef={register({
-                  required: 'Esse campo é obrigatório'
-                })}
-                label="Descrição da Empresa"
-                variant="filled"
-              />
-            </Grid>
-            <center>
-              <br />
-              <Button type="submit" variant="contained" color="primary">Confirmar</Button>
-            </center>
-          </StyledForm>)
+                      <Grid item xs={6}>
+                        <Autocomplete
+                          fullWidth
+                          freeSolo
+                          disabled={citiesFromStates.length === 0}
+                          defaultValue={enterprise.city}
+                          options={citiesFromStates.map(city => city.name).sort()}
+                          renderInput={params => (
+                            <TextField
+                              {...params}
+                              name="city"
+                              inputRef={register({
+                                required: 'Esse campo é obrigatório'
+                              })}
+                              color="primary"
+                              label="Cidade"
+                              variant="filled"
+                              placeholder="Busque a cidade"
+                              error={errors.city && errors.city.message}
+                              helperText={errors.city && errors.city.message}
+                            />
+                          )}
+                        />
+                      </Grid>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Checkbox
+                        name="other_states"
+                        label="Outros estados onde a empresa tem atuação"
+                        options={filteredStates}
+                        error={errors.other_states && errors.other_states.message}
+                        value={enterprise.other_states && enterprise.other_states[0]}
+                        register={register}
+                      />
+                    </Grid>
+
+                    <Grid container spacing={2}>
+                      <Grid item xs={5}>
+                        <Switch
+                          name="apan_associate"
+                          label="Associado APAN"
+                          value={enterprise.apan_associate}
+                          register={register}
+                        />
+                      </Grid>
+                      <Grid item xs={7}>
+                        <Select
+                          name="cnpj_type"
+                          value={enterprise.cnpj_type}
+                          error={errors.cnpj_type && errors.cnpj_type.message}
+                          helperText={errors.cnpj_type && errors.cnpj_type.message}
+                          options={cnpj_type}
+                          register={register({
+                            required: 'Esse campo é obrigatório'
+                          })}
+                          label="Tipo de CNPJ"
+                        />
+                      </Grid>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Checkbox
+                        value={enterprise.busines_segments && enterprise.busines_segments}
+                        label="Segmento de atuação"
+                        register={register}
+                        options={segment}
+                        name="business_segments"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Checkbox
+                        label="Campos de atuação"
+                        register={register}
+                        options={actions}
+                        name="business_fields"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Checkbox
+                        label="Funções que busca diversificar na empresa"
+                        value={enterprise.diversity_functions && enterprise.diversity_functions}
+                        register={register}
+                        options={functions}
+                        name="diversity_functions"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Switch
+                        name="identity_content"
+                        label="Empresa voltada para conteúdo identitário?"
+                        onChange={(e) => toggleIdentity(e.target.checked)}
+                        value={enterprise.identity_content}
+                        register={register}
+                      />
+                    </Grid>
+                    {hasIdentity && <Grid item xs={12}>
+                      <Checkbox
+                        name="identity_segments"
+                        label="Segmentos identitários"
+                        options={identitySegments}
+                        value={enterprise.identity_segments && enterprise.identity_segments}
+                        register={register}
+                      />
+                    </Grid>}
+
+                    <Grid item xs={12}>
+                      <ChipOptions
+                        name="links"
+                        value={typeof enterprise.links === 'string' ?
+                          enterprise.links.toLowerCase().split(',') :
+                          enterprise.links
+                        }
+                        label="Links para site e redes sociais da empresa"
+                        error={errors.links && errors.links.message}
+                        register={register({
+                          required: 'Esse campo é obrigatório',
+                          minLength: {
+                            value: 10,
+                            message: 'Insira pelo menos um link'
+                          }
+                        })}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        name="presentation"
+                        fullWidth
+                        multiline
+                        rows="5"
+                        defaultValue={enterprise.presentation}
+                        error={errors.presentation && errors.presentation.message}
+                        helperText={errors.presentation && errors.presentation.message}
+                        inputRef={register({
+                          required: 'Esse campo é obrigatório'
+                        })}
+                        label="Descrição da Empresa"
+                        variant="filled"
+                      />
+                    </Grid>
+                    <center>
+                      <br />
+                      <Button type="submit" variant="contained" color="primary">Confirmar</Button>
+                    </center>
+                  </StyledForm>
+                  <br /><br />
+                </Container>
+              )
+            }
+          </div>
+        )
       }
-      <br /><br />
-    </Container>
+    </div>
   )
+
+
 
 }
 

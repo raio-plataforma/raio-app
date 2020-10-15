@@ -65,7 +65,7 @@ const EditUser = ({ match }) => {
               <Carregando />
             ) : (
                 <Container center="true" maxWidth="md">
-                  <Titulo> Editar Usuário </Titulo>
+                  <Titulo> Editar perfil de usuário </Titulo>
 
                   <StyledForm onSubmit={handleSubmit(onSubmit)}>
                     <TextField

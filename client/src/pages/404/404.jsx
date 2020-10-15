@@ -36,7 +36,7 @@ export default class Pagina404 extends Component {
               <Typography variant="body1" style={{ textAlign: 'center' }}>Página não encontrada.</Typography>
               <center>
                 <br />
-                <Button onClick={()=>{window.location.href = "/"}} variant="contained" color="primary">Voltar a home.</Button>
+                <Button onClick={()=>{window.location.href = "/"}} variant="contained" color="primary">Voltar a início.</Button>
               </center>
           </Container>
         )

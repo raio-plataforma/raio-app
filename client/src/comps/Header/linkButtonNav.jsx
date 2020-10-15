@@ -9,8 +9,10 @@ const LinkButtonNav = ({children, to, onClick = ()=>{} }) => {
   const { menuOpened } = useStoreState(state => state.ui)
 
   return (
-    <NavLink to={to}>
-      <Button onClick={() => {toggleMenu(!menuOpened); onClick()}}> {children} </Button>
+    <NavLink to={to} className="LinkButtonNav">
+      <Button onClick={() => {toggleMenu(!menuOpened); onClick()}}>
+        {children}
+      </Button>
     </NavLink>
   )
 }

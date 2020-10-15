@@ -127,6 +127,30 @@ input:-webkit-autofill {
     -webkit-text-fill-color: #F7CC94 !important;
 }
 
+.LinkButtonNav{
+    margin-bottom: 5px;
+}
+
+.LinkButtonNav button{
+    padding: 10px;
+}
+
+.LinkButtonNav button:hover{
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: rgba(32, 1, 34, 0.2);
+    transition: 0.5s;
+}
+
+.MuiButton-label{
+    vertical-align: middle;
+}
+
+.MuiButton-label .MuiSvgIcon-root{
+    margin-right: 5px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
 ::-webkit-scrollbar {
     width: 7px;
 }

@@ -79,7 +79,7 @@ const ResultSearchProfessionals = ({data}) => {
     return (
         <Tables
             title={`${professionals.length} profissiona${professionals.length > 1 ? 'is' : 'l'} 
-          encontrado${professionals.length > 1 && 's'}`}
+          encontrado${professionals.length > 1 ? 's' : ''}`}
             headCells={headCells}
             list={professionals.map(p => ({
                 ...p,
