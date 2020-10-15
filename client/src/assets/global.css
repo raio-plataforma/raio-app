@@ -142,6 +142,10 @@ input:-webkit-autofill {
     transition: 0.5s;
 }
 
+hr.cor-laranja{
+    border-color: #f9a639;
+}
+
 .MuiButton-label{
     vertical-align: middle;
 }

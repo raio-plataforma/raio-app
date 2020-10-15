@@ -24,6 +24,7 @@ import WorkIcon from '@material-ui/icons/Work';
 import SearchIcon from '@material-ui/icons/Search';
 import EditIcon from '@material-ui/icons/Edit';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import HistoryIcon from '@material-ui/icons/History';
 
 
 const Header = () => {
@@ -90,20 +91,32 @@ const Header = () => {
           <div className="buttons">
             {auth && auth.isAuthenticated ? (
               <div className="navbarUserLogado">
-                <LinkButtonNav to={`/dashboard/${type}`}> <HomeIcon/> Início </LinkButtonNav>
+                <LinkButtonNav to={`/dashboard/${type}`}> <HomeIcon /> Início </LinkButtonNav>
 
                 {
                   userType.type === "enterprise" ? (
                     <div className="navbarEmpresas">
-                      <LinkButtonNav to={`/painel/empresa/vagas`}> <WorkIcon/> Vagas </LinkButtonNav>
-                      <LinkButtonNav to={`/busca/profissionais`}> <SearchIcon/> Buscar profissional </LinkButtonNav>
-                      <LinkButtonNav to={`/perfil/editar/empresa`}> <EditIcon/> Editar empresa </LinkButtonNav>
-                      <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon/> Editar usuário </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/empresa/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
+                      <LinkButtonNav to={`/busca/profissionais`}> <SearchIcon /> Buscar profissional </LinkButtonNav>
+                      <LinkButtonNav to={`/perfil/editar/empresa`}> <EditIcon /> Editar empresa </LinkButtonNav>
+                      <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
                     </div>
                   ) : (<></>)
                 }
 
-                <LinkButtonNav to={`/`} onClick={() => { logoutUser() }}> <ExitToAppIcon/> Sair </LinkButtonNav>
+
+                {
+                  userType.type === "professional" ? (
+                    <div className="navbarProfissional">
+                      <LinkButtonNav to={`/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
+                      <LinkButtonNav to={`/listagem/candidaturas`}> <HistoryIcon /> Candidaturas </LinkButtonNav>
+                      <LinkButtonNav to={`/perfil/editar/profissional`}> <EditIcon /> Editar currículo </LinkButtonNav>
+                      <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
+                    </div>
+                  ) : (<></>)
+                }
+
+                <LinkButtonNav to={`/`} onClick={() => { logoutUser() }}> <ExitToAppIcon /> Sair </LinkButtonNav>
               </div>
             ) : (
                 <div className="navbarUserDeslogado">

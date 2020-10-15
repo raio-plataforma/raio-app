@@ -100,10 +100,7 @@ const PaginaDashboardEmpresa = () => {
                           name={user.name}
                           icon={<img src="https://i.imgur.com/gRmLJPQ.jpg" width="100%" />}
                           associate={user.apan_associate}
-                          type={"Profissional"}
-                          bio={user.bio}
-                          pcd={user.pcd}
-                          segments={user.identity_segments}
+                          type={"Usuario"}
                         />
                         <center>
                           <br />

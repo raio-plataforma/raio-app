@@ -21,6 +21,8 @@ import { Title } from "../Signup/styles";
 import Titulo from "../../components/Titulo";
 import Erro from "../../components/erro";
 import Carregando from "../../components/loading/carregando";
+import { Link } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit';
 
 const EditUser = ({ match }) => {
   const [carregando, setCarregando] = useState(true)
@@ -139,18 +141,42 @@ const EditUser = ({ match }) => {
 
                     <center>
                       <br />
-                      <Button type="submit" variant="contained">Confirmar</Button>
+                      <Button type="submit" variant="contained" color="primary">Confirmar</Button>
                     </center>
 
                   </StyledForm>
 
-                  <br /><br /><br /><br /><br /><br /><br /><br />
+                  <br /><br />
                   <center>
-                    <Typography variant="h4">Zona de alerta</Typography>
-                    <hr />
+                    <Titulo> Atalhos para editar outros perfis: </Titulo>
+                    <br />
+                    {
+                      userType.type === "enterprise" ? (
+                        <Link to="/perfil/editar/empresa" style={{ padding: "10px" }}>
+                          <Button variant="contained" color="primary"><EditIcon /> Editar perfil da empresa</Button>
+                        </Link>
+                      ) : (<></>)
+                    }
+
+                    <br remove-pc="true" /><br remove-pc="true" />
+
+                    {
+                      userType.type === "professional" ? (
+                        <Link to="/perfil/editar/profissional" style={{ padding: "10px" }}>
+                          <Button variant="contained" color="primary"><EditIcon /> Editar perfil do profissional</Button>
+                        </Link>
+                      ) : (<></>)
+                    }
+                  </center>
+                  <br /><br />
+                  
+                  <br /><br /><br /><br /><br /><br />
+                  <br /><br /><br /><br />
+                  <center>
+                    <Titulo> Zona de alerta </Titulo>
                     <br />
                     <Button variant="contained" color="secondary" onClick={() => setModalStatus(true)} >
-                      <Delete /> Deletar Perfil
+                      <Delete /> Deletar conta
                     </Button>
                     <br /><br /><br /><br />
                   </center>

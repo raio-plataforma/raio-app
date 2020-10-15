@@ -81,10 +81,14 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
         }
       </div>
 
-      <section className="segments">
-        <Title size="xs">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Title>
-        <Text className="bio" color="secondary">{bio}</Text>
-      </section>
+      {
+        type !== "Usuario" ? (
+          <section className="segments">
+            <Title size="xs">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Title>
+            <Text className="bio" color="secondary">{bio}</Text>
+          </section>
+        ) : (<></>)
+      }
 
       {segments && segments.length > 0 &&
         <section className="segments">

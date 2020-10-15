@@ -29,14 +29,14 @@ import { Title } from '../Signup/styles'
 import Titulo from '../../components/Titulo'
 import Carregando from '../../components/loading/carregando'
 import Erro from '../../components/erro'
+import { Link } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit';
 
 const EditEnterprise = ({ match }) => {
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState(null)
 
   const { register, handleSubmit, errors } = useForm()
-  const [isLoading, setLoading] = useState(true)
-  const [hasError, setError] = useState(false)
   const [citiesFromStates, setCities] = useState([])
   const [hasIdentity, toggleIdentity] = useState(false)
   const getEnterpriseById = useStoreActions(actions => actions.enterprise.getEnterpriseById)
@@ -53,25 +53,19 @@ const EditEnterprise = ({ match }) => {
 
 
   useEffect(() => {
-    if ( (String(userType.type) !== 'undefined') && (!user.enterprise_id) ) {
+    if ((String(userType.type) !== 'undefined') && (!user.enterprise_id)) {
       getUser(userType.type);
     }
 
-    if ( (user.enterprise_id) && (String(enterprise) == '') ) {
+    if ((user.enterprise_id) && (String(enterprise) == '')) {
       getEnterpriseById(user.enterprise_id);
     }
-
-    console.log(String(enterprise));
-
+    
     if (!String(enterprise) == '') {
       setCarregando(false);
     }
 
-
-    
-
     enterprise && enterprise.identity_content ? toggleIdentity(true) : toggleIdentity(false)
-
   }, [enterprise, getEnterpriseById, user, userType, getUser, setCarregando])
 
 
@@ -105,7 +99,7 @@ const EditEnterprise = ({ match }) => {
 
 
 
-  
+
 
   return (
     <div className="pageRender">
@@ -312,6 +306,28 @@ const EditEnterprise = ({ match }) => {
                     </center>
                   </StyledForm>
                   <br /><br />
+
+                  <br /><br />
+                  <center>
+                    <Titulo> Atalhos para editar outros perfis: </Titulo>
+                    <br />
+
+                    <Link to="/perfil/editar/usuario" style={{ padding: "10px" }}>
+                      <Button variant="contained" color="primary"><EditIcon /> Editar perfil de usuário</Button>
+                    </Link>
+
+                    <br remove-pc="true" /><br remove-pc="true" />
+
+                    {
+                      userType.type === "professional" ? (
+                        <Link to="/perfil/editar/profissional" style={{ padding: "10px" }}>
+                          <Button variant="contained" color="primary"><EditIcon /> Editar perfil do profissional</Button>
+                        </Link>
+                      ) : (<></>)
+                    }
+                  </center>
+                  <br /><br />
+
                 </Container>
               )
             }
