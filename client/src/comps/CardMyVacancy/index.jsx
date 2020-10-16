@@ -9,13 +9,14 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Title from '../Title'
 import Text from '../Text'
-import {useStoreActions, useStoreState} from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import { formatMoney } from '../../utils/formatter'
 
 const useStyles = makeStyles(theme => {
   return ({
     root: {
       minWidth: 275,
-      minHeight: 232,
+      // minHeight: 232,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
@@ -43,42 +44,44 @@ display: block;
   text-overflow: ellipsis;
 `
 
-function CardMyVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money, deleteFunc}) {
+function CardMyVacancy({ id, jobTitle, slug, enterpriseName, jobDescription, location, period, money, deleteFunc }) {
   const classes = useStyles();
 
   const user = useStoreState(state => state.auth.auth.user)
 
-  const onDelete = (id)=>{
+  const onDelete = (id) => {
     deleteFunc(id)
   };
 
   return (
     <Grid item xs={12} md={4}>
-      <Card className={classes.root+" card-candidaturas-vaga"} variant="outlined">
-        <CardContent >
-          <Text className={classes.title} color="textSecondary" gutterBottom>
-            {enterpriseName}
-          </Text>
-          <Title color="secondary" size="sm">
-            {jobTitle}
-          </Title>
-          <Text className={classes.pos} color="textSecondary">
-            {location}
-          </Text>
-          <Text className={classes.pos} color="textSecondary">
-            {period}
-          </Text>
-          <StyledText>
-            <Text color="textPrimary">
-              {jobDescription}
+      <Card className={classes.root + " card-candidaturas-vaga"} variant="outlined">
+        <Link to={'/vaga/'+slug}>
+          <CardContent >
+            <Text className={classes.title} color="textSecondary" gutterBottom>
+              {enterpriseName}
             </Text>
-          </StyledText>
-          <Title color="secondary" size="sm">
-            {money}
-          </Title>
-        </CardContent>
+            <Title color="secondary" size="sm">
+              {jobTitle}
+            </Title>
+            <Text className={classes.pos} color="textSecondary">
+              {location}
+            </Text>
+            <Text className={classes.pos} color="textSecondary">
+              {period}
+            </Text>
+            <StyledText>
+              <Text color="textPrimary">
+                {jobDescription}
+              </Text>
+            </StyledText>
+            <Title color="secondary" size="sm">
+              {'Cachê: R$ ' + formatMoney(money, 2, ",", ".")}
+            </Title>
+          </CardContent>
+        </Link>
         <CardActions>
-          <Button variant="contained" color="secondary" size="small" onClick={()=>{onDelete(id)}}>Excluir</Button>
+          <Button variant="contained" color="secondary" size="small" onClick={() => { onDelete(id) }}>Excluir</Button>
         </CardActions>
       </Card>
     </Grid>

@@ -92,7 +92,7 @@ const AllVacancies = () => {
 
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <Grid container spacing={3}>
-                            <Grid item xs={10}>
+                                <Grid item xs={12} sm={10} md={11}>
                                 <Autocomplete
                                     multiple
                                     options={functions}
@@ -110,11 +110,11 @@ const AllVacancies = () => {
                                     )}
                                 />
                             </Grid>
-                            <Grid item xs={2}>
-                                <Button type="submit" variant="contained" color="primary" styles={{ display: 'block', width: '100%' }} isLoading={isLoading.submit} >
-                                    <SearchIcon/> Buscar
-                                </Button>
-                            </Grid>
+                                <Grid item xs={0} md={1} remove-mobile="true">
+                                    <Button type="submit" variant="contained" color="primary" styles={{ display: 'block', width: '100%', height: '100%' }} isLoading={isLoading.submit} >
+                                        <SearchIcon />
+                                    </Button>
+                                </Grid>
                         </Grid>
                         <br />
                     </form>
@@ -160,13 +160,15 @@ const AllVacancies = () => {
                                     job.status == "Visivel" &&
                                     <CardVacancy
                                         key={job._id}
+                                        slug={job.slug || job._id}
                                         id={job._id}
+                                        foto={"https://i.imgur.com/gRmLJPQ.jpg"}
                                         enterpriseName={job.enterprise_name || "Confidencial"}
                                         jobTitle={job.title}
                                         location={job.city + ' - ' + job.stateName}
                                         period={job.total_period}
                                         jobDescription={job.requirements}
-                                        money={'Cachê: R$ ' + job.cache}
+                                        money={job.cache}
                                         func={job.function}
                                     />
                                 ))) :

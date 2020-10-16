@@ -29,6 +29,7 @@ const MyJobs = () => {
                     if (!user.id) return
 
                     const jobs = await getAllJobs(user.id)
+                    console.log(jobs.data);
                     jobList.length === 0 && setJobs(jobs.data)
 
                     setFullJobs(jobs.data)
@@ -88,12 +89,13 @@ const MyJobs = () => {
                             <CardMyVacancy
                                 key={job._id}
                                 id={job._id}
+                                slug={job._job.slug || job._job._id}
                                 enterpriseName={job._job.enterprise_name || "Confidencial"}
                                 jobTitle={job._job.title}
                                 location={job._job.city + ' - ' + job._job.stateName}
-                                period={job._job.total_period}
-                                jobDescription={job._job.requirements}
-                                money={'Cachê: R$ ' + job._job.cache}
+                                // period={job._job.total_period}
+                                // jobDescription={job._job.requirements}
+                                money={job._job.cache}
                                 deleteFunc={handleDelete}
                             />
                         ))) :

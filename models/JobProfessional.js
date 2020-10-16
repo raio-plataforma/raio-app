@@ -13,7 +13,8 @@ const JobProfesssionalSchema = new Schema({
     ref: 'User',
     required: true,
   }
-})
+},
+{ strict: false})
 
 const JobProfesssional = mongoose.model('JobProfesssional', JobProfesssionalSchema)
 module.exports = JobProfesssional

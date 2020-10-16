@@ -27,6 +27,10 @@ const JobSchema = new Schema({
     type: String,
     required: true
   },
+  slug: {
+    type: String,
+    required: true
+  },
   function: {
     type: String,
     required: true
@@ -63,7 +67,8 @@ const JobSchema = new Schema({
     type: Date,
     default: Date.now,
   }
-})
+},
+{ strict: false})
 
 const Job = mongoose.model('Job', JobSchema)
 

@@ -39,6 +39,9 @@ a{
 .dashboard-paper h1{
     margin: 0px;
 }
+.dashboard-paper p{
+    font-size: 18px;
+}
 .dashboard-paper,
 .dashboard-paper h6,
 .dashboard-paper h5,
@@ -176,6 +179,47 @@ hr.cor-laranja{
 
 .text-vermelho{
     color: #e22e17!important;
+}
+.foto-perfil{
+    border-radius: 100%;
+}
+hr[color="laranja"]{
+    border-color: #F9A639;
+}
+.PaginaVaga .colunaEsqurda h1{
+    color: #F9A639;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h2{
+    color: #F9A639;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h3{
+    color: #F9A639;
+    font-size: 16px;
+    font-weight: 450;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h4{
+    color: #F9A639;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h6 {
+    font-size: 1.2rem;
 }
 ::-webkit-scrollbar {
     width: 7px;

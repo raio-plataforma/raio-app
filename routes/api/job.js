@@ -18,10 +18,9 @@ const states = require('../../client/src/assets/states.json');
 // @access  Public
 router.get('/all', (req, res) => {
     Job.find()
-        .sort({createdAt: -1})
+        .sort({ createdAt: -1 })
         .then(jobs => {
-            if(!jobs)
-            {
+            if (!jobs) {
                 errors.nojobs = 'Não existem vagas cadastradas ainda'
                 return res.status(404).json(errors)
             }
@@ -37,11 +36,10 @@ router.get('/all', (req, res) => {
 // @access  Public
 router.get('/all/:enterprise_id', (req, res) => {
     Job
-        .find({enterprise_id: req.params.enterprise_id})
-        .sort({createdAt: -1})
+        .find({ enterprise_id: req.params.enterprise_id })
+        .sort({ createdAt: -1 })
         .then(jobs => {
-            if(!jobs)
-            {
+            if (!jobs) {
                 return res.status(404).json({
                     jobs: 'Essa empresa ainda não publicou vagas'
                 })
@@ -56,7 +54,7 @@ router.get('/all/:enterprise_id', (req, res) => {
 // @route   GET api/job/:enterprise_id/all
 // @desc    Get all specific enterprise jobs
 // @access  Public
-router.post('/all/:enterprise_id', async(req, res) => {
+router.post('/all/:enterprise_id', async (req, res) => {
     const errors = {}
     const {
         expertise_areas,
@@ -67,14 +65,13 @@ router.post('/all/:enterprise_id', async(req, res) => {
         self_declaration,
     } = req.body;
 
-    const filters = {enterprise_id: req.params.enterprise_id};
+    const filters = { enterprise_id: req.params.enterprise_id };
 
     Job
         .find(filters)
-        .sort({createdAt: -1})
+        .sort({ createdAt: -1 })
         .then(jobs => {
-            if(!jobs)
-            {
+            if (!jobs) {
                 return res.status(404).json({
                     jobs: 'Essa empresa ainda não publicou vagas'
                 })
@@ -90,35 +87,47 @@ router.post('/all/:enterprise_id', async(req, res) => {
 // @desc    Return all company jobs
 // @access  Private
 
-router.get('/', passport.authenticate('jwt', {session: false}), async(req, res) => {
+router.get('/', async (req, res) => {
     const errors = {}
     const {
         expertise_areas,
         home_state
     } = req.query;
 
-    try
-    {
+    try {
         console.log(req.query)
         const filters = {};
 
-        if(expertise_areas && expertise_areas.length > 0) filters.function = {$in: expertise_areas};
-        if(home_state && home_state.length > 0)
-        {
+        if (expertise_areas && expertise_areas.length > 0) filters.function = { $in: expertise_areas };
+        if (home_state && home_state.length > 0) {
             const statesFilter = home_state.map(
                 stateAbbr => states.find(s => s.abbr === stateAbbr).id
             );
-            filters.state = {$in: statesFilter};
+            filters.state = { $in: statesFilter };
         }
 
-        console.log(filters)
+        var jobs = await Job.find(filters).sort({ 'createAt': 'desc' }).populate('company');
 
-        const job = await Job.find(filters).sort({'createAt': 'desc'}).populate('company')
+        if (req.query.userId) {
+            jobs.forEach(async (obj, index) => {
+                let myJobs = await JobProfessional.find({ $and: [{ _user: req.query.userId }, { _job: jobs[index]["_id"] }] }).sort({ 'createAt': 'desc' }).populate('_user').populate('_job');
+                if (String(myJobs[0]) !== "undefined") {
+                    jobs[index].set("btnCandidateSe", "false");
+                } else {
+                    jobs[index].set("btnCandidateSe", "true");
+                }
+            })
+            
+            setTimeout(async () => {
+                return res.status(200).json(jobs);
+            }, 1000);
 
-        return res.status(200).json(job);
+        } else {
+            return res.status(200).json(jobs);
+        }
+
     }
-    catch(err)
-    {
+    catch (err) {
         console.log(err)
         res.status(400).send({
             error: ' Erro ao carregar as vagas',
@@ -129,19 +138,17 @@ router.get('/', passport.authenticate('jwt', {session: false}), async(req, res) 
 // @route   GET api/job/:jobId
 // @desc    Return one company job
 // @access  Private
-router.get('/:jobId', passport.authenticate('jwt', {session: false}),
-    async(req, res) => {
+router.get('/:jobId', passport.authenticate('jwt', { session: false }),
+    async (req, res) => {
 
-        try
-        {
+        try {
             const job = await Job.findById(req.params.projectId).populate('company');
 
             return res.send({
                 job
             });
         }
-        catch(err)
-        {
+        catch (err) {
             res.status(400).send({
                 error: ' Erro ao carregar as vagas',
             });
@@ -152,16 +159,19 @@ router.get('/:jobId', passport.authenticate('jwt', {session: false}),
 // @route   POST api/job/
 // @desc    Create new job
 // @access  Private
-router.post('/', passport.authenticate('jwt', {session: false}), async(req, res) => {
-    Enterprise.findOne({user_id: req.user.id})
+router.post('/', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    Enterprise.findOne({ user_id: req.user.id })
         .then(enterprise => {
-            if(enterprise)
-            {
-                console.log(enterprise);
+            if (enterprise) {
+                let randomNumber = Math.floor((Math.random() * 9999) + 1);
+                let slug = enterprise.enterprise_name + "-" + req.body.title + "-" + randomNumber;
+                slug = String(slug).toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+
                 const newJob = new Job({
                     enterprise_id: enterprise.id,
                     enterprise_name: enterprise.enterprise_name,
                     title: req.body.title,
+                    slug: slug,
                     function: req.body.function,
                     requirements: req.body.requirements,
                     city: req.body.city,
@@ -178,7 +188,7 @@ router.post('/', passport.authenticate('jwt', {session: false}), async(req, res)
                     .then(job => res.status(200).json(job))
                     .catch(err => {
                         console.log(err)
-                        res.status(500).json({job: 'Erro ao salvar vaga', err})
+                        res.status(500).json({ job: 'Erro ao salvar vaga', err })
                     })
             }
         })
@@ -193,16 +203,16 @@ router.post('/', passport.authenticate('jwt', {session: false}), async(req, res)
 // @route   POST api/job/apply
 // @desc    Create new job
 // @access  Private
-router.post('/apply', passport.authenticate('jwt', {session: false}), async(req, res) => {
+router.post('/apply', passport.authenticate('jwt', { session: false }), async (req, res) => {
     // console.log(req.body.id)
 
-    const existing = await JobProfessional.findOne({_job:req.body.id, _user:req.body.user_id}).populate('_user').populate('_job');
-    if(existing)return res.status(200).json(existing)
+    const existing = await JobProfessional.findOne({ _job: req.body.id, _user: req.body.user_id }).populate('_user').populate('_job');
+    if (existing) return res.status(200).json(existing)
 
-    Job.findOne({_id: req.body.id}).then(job => {
+    Job.findOne({ _id: req.body.id }).then(job => {
         // console.log(job)
 
-        User.findOne({_id: req.body.user_id}).then(user => {
+        User.findOne({ _id: req.body.user_id }).then(user => {
             // console.log(user)
 
             const jobProf = new JobProfessional({
@@ -214,7 +224,7 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
                 .save()
                 .then(jobProfessional => {
                     // console.log(jobProf)
-                    JobProfessional.findOne({_id: jobProf._id}).populate('_user').populate('_job').then(jp => {
+                    JobProfessional.findOne({ _id: jobProf._id }).populate('_user').populate('_job').then(jp => {
                         sendEmailNewJobApply(jp);
 
                         return res.status(200).json(jp)
@@ -222,7 +232,7 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
                 })
                 .catch(err => {
                     console.log(err)
-                    res.status(500).json({jobProfessional: 'Erro ao salvar cadastro', err})
+                    res.status(500).json({ jobProfessional: 'Erro ao salvar cadastro', err })
                 })
         })
             .catch(err => {
@@ -243,17 +253,15 @@ router.post('/apply', passport.authenticate('jwt', {session: false}), async(req,
 // @route   GET api/job/myjobs/:userId
 // @desc    Return all company jobs
 // @access  Private
-router.get('/myjobs/:userId', passport.authenticate('jwt', {session: false}), async(req, res) => {
-    try
-    {
+router.get('/myjobs/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
         // console.log(req.params)
-        const jobs = await JobProfessional.find({_user: req.params.userId}).sort({'createAt': 'desc'}).populate('_user').populate('_job')
+        const jobs = await JobProfessional.find({ _user: req.params.userId }).sort({ 'createAt': 'desc' }).populate('_user').populate('_job')
         // console.log(jobs)
 
         return res.status(200).json(jobs);
     }
-    catch(err)
-    {
+    catch (err) {
         res.status(400).send({
             error: ' Erro ao carregar as vagas',
         });
@@ -263,15 +271,13 @@ router.get('/myjobs/:userId', passport.authenticate('jwt', {session: false}), as
 // @route   GET api/job/myjobs/:userId
 // @desc    Return all company jobs
 // @access  Private
-router.delete('/myjobs/:jobProfId', passport.authenticate('jwt', {session: false}), async(req, res) => {
-    try
-    {
+router.delete('/myjobs/:jobProfId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
         await JobProfessional.findByIdAndDelete(req.params.jobProfId);
 
         return res.send();
     }
-    catch(err)
-    {
+    catch (err) {
         console.log(err)
         res.status(400).send({
             error: ' Erro ao deletar candidatura',
@@ -283,13 +289,12 @@ router.delete('/myjobs/:jobProfId', passport.authenticate('jwt', {session: false
 // @route   PUT api/job/:jobId
 // @desc    Update a job
 // @access  Private
-router.put('/:jobId', passport.authenticate('jwt', {session: false}), async(req, res) => {
+router.put('/:jobId', passport.authenticate('jwt', { session: false }), async (req, res) => {
 
-    const {name, occupation} = req.body; //this is example TO DO add all
+    const { name, occupation } = req.body; //this is example TO DO add all
 
-    try
-    {
-        const job = await Job.findOneAndUpdate(req.params.jobId, {name, occupation}, {new: true});
+    try {
+        const job = await Job.findOneAndUpdate(req.params.jobId, { name, occupation }, { new: true });
 
         await job.save();
 
@@ -297,8 +302,7 @@ router.put('/:jobId', passport.authenticate('jwt', {session: false}), async(req,
             job
         });
     }
-    catch(err)
-    {
+    catch (err) {
         res.status(400).send({
             error: ' Erro ao carregar a vaga',
         });
@@ -309,15 +313,13 @@ router.put('/:jobId', passport.authenticate('jwt', {session: false}), async(req,
 // @route   DELETE api/job/:jobId
 // @desc    Update  job
 // @access  Private
-router.post('/:jobId', async(req, res) => {
-    try
-    {
+router.post('/:jobId', async (req, res) => {
+    try {
         await Job.findByIdAndDelete(req.params.jobId);
 
         return res.send();
     }
-    catch(err)
-    {
+    catch (err) {
         res.status(400).send({
             error: ' Erro ao deletar a vaga',
         });

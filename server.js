@@ -42,7 +42,9 @@ app.use((err, req, res, next) => {
 
 // Use Routes
 app.use('/api/professional', professional)
+app.use('/api/profissional', professional)
 app.use('/api/enterprise', enterprise)
+app.use('/api/empresa', enterprise)
 app.use('/api/user', user)
 app.use('/api/job', job)
 app.use('/api/mercadopago', mercadopago)

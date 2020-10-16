@@ -9,13 +9,14 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Title from '../Title'
 import Text from '../Text'
-import {useStoreActions, useStoreState} from "easy-peasy";
+import { useStoreActions, useStoreState } from "easy-peasy";
+import { formatMoney } from '../../utils/formatter'
 
 const useStyles = makeStyles(theme => {
   return ({
     root: {
       minWidth: 275,
-      minHeight: 232,
+      // minHeight: 232,
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
@@ -45,48 +46,57 @@ display: block;
   color: #BA3B29!important;
 `
 
-function CardVacancy({ id, jobTitle, enterpriseName, jobDescription, location, period, money, func}) {
+function CardVacancy({ slug, id, jobTitle, foto, enterpriseName, jobDescription, location, period, money, func }) {
   const classes = useStyles();
   const applyJob = useStoreActions(actions => actions.professional.applyJob)
 
   const user = useStoreState(state => state.auth.auth.user)
 
-  const onApply = (id)=>{
+  const onApply = (id) => {
     console.log(id)
     console.log(user)
 
-    applyJob({id, user_id:user.id})
+    applyJob({ id, user_id: user.id })
   };
 
   return (
     <Grid item xs={12}>
-      <Card className={classes.root + " card-vaga"} variant="outlined">
-        <CardContent >
-          <Text className={classes.title} color="textSecondary" gutterBottom>
-            {enterpriseName}
-          </Text>
-          <Title color="secondary" size="sm">
-            {jobTitle} - {func}
-          </Title>
-          <Text className={classes.pos} color="textSecondary">
-            {location}
-          </Text>
-          <Text className={classes.pos} color="textSecondary">
+      <Link to={'/vaga/' + slug}>
+        <Card className={classes.root + " card-vaga"} variant="outlined">
+          <CardContent >
+            <Grid container spacing={2}>
+              <Grid item xs={1}>
+                <img src={foto} width="100%" className="foto-perfil" />
+              </Grid>
+              <Grid item xs={11}>
+                <Text className={classes.title} color="textSecondary" gutterBottom>
+                  {enterpriseName}
+                </Text>
+                <Title color="secondary" size="sm">
+                  {jobTitle} - {func}
+                </Title>
+                <Text className={classes.pos} color="textSecondary">
+                  {location}
+                </Text>
+                {/* <Text className={classes.pos} color="textSecondary">
             {period}
-          </Text>
-          <StyledText>
+          </Text> */}
+                {/* <StyledText>
             <Text color="textPrimary">
               {jobDescription}
             </Text>
-          </StyledText>
-          <Title color="secondary" size="sm">
-            {money}
-          </Title>
-        </CardContent>
-        <CardActions>
+          </StyledText> */}
+                {/* <Title color="secondary" size="sm">
+              Cachê: R$ {formatMoney(money, 2, ",", ".")}
+            </Title> */}
+              </Grid>
+            </Grid>
+          </CardContent>
+          {/* <CardActions>
           <Button variant="contained" color="secondary" size="small" onClick={()=>{onApply(id)}}>Candidate-se</Button>
-        </CardActions>
-      </Card>
+        </CardActions> */}
+        </Card>
+      </Link>
     </Grid>
   );
 }

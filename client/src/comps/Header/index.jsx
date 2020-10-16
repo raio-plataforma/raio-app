@@ -39,9 +39,14 @@ const Header = () => {
   const { menuOpened } = useStoreState(state => state.ui)
   const userType = useStoreState(state => state.auth.auth.user)
   const user = useStoreState(state => state.user.user)
+  const urlAtual = new URL(window.location.href)
 
 
   useEffect(() => {
+    if (urlAtual.searchParams.get("cadastro") == "true") {
+      setModalStatus(true);
+    }
+
     if (localStorage.jwtToken) {
       // Set the auth token header auth
       setAuthToken(localStorage.jwtToken)
@@ -110,7 +115,7 @@ const Header = () => {
                 {
                   userType.type === "professional" ? (
                     <div className="navbarProfissional">
-                      <LinkButtonNav to={`/painel/profissional/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
+                      <LinkButtonNav to={`/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
                       <LinkButtonNav to={`/painel/profissional/candidaturas`}> <HistoryIcon /> Candidaturas </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/profissional`}> <EditIcon /> Editar currículo </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
@@ -135,6 +140,7 @@ const Header = () => {
               </div>
             ) : (
                 <div className="navbarUserDeslogado">
+                  <LinkButtonNav to={`/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
                   <LinkButtonNav to={`/`} onClick={() => { setModalStatus(!modalStatus); }}> <PersonAddIcon /> Cadastre-se </LinkButtonNav>
                   <LinkButtonNav to={`/`}> <AccountCircleIcon /> Entrar </LinkButtonNav>
                 </div>

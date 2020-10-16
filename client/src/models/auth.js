@@ -37,6 +37,8 @@ const authModel = {
                 const check = await axios.get('/api/user/has-additional-register')
                 const type = getUserType(decoded.type)
 
+                localStorage.setItem('user_type', type)
+
                 if(check.data.hasAdditionalRegister || type === 'admin')
                 {
                     return history.push(`/dashboard/${type}`)
@@ -97,6 +99,7 @@ const authModel = {
         // Remove token from localStorage
         localStorage.removeItem('jwtToken')
         localStorage.removeItem('menuAutoAbrir')
+        localStorage.removeItem('user_type')
 
         // Remove auth header for future requests
         setAuthToken(false)

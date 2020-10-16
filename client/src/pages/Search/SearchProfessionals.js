@@ -117,7 +117,7 @@ const SearchProfessionals = () => {
                                 <Grid item xs={3} md={1}>
                                     <Button type="submit" variant="contained" color="primary" styles={{ display: 'block', width: '100%', height: '100%' }} isLoading={isLoading.submit} >
                                         <SearchIcon />
-                                </Button>
+                                    </Button>
                                 </Grid>
                             </Grid>
                             <br />

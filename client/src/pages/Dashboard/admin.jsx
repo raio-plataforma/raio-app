@@ -78,7 +78,7 @@ const PaginaDashboardAdmin = () => {
                           name={"RAIO"}
                           icon={<img src="https://i.imgur.com/llkK8fn.png" width="100%" />}
                           type={"Admin"}
-                          bio={"Ccuradoria de talentos e oportunidades que conecta profissionais, projetos e empresas do setor audiovisual, com objetivo de contribuir com a equidade de gênero e raça para consolidação de um mercado audiovisual mais diverso e representativo."}
+                          bio={"Curadoria de talentos e oportunidades que conecta profissionais, projetos e empresas do setor audiovisual, com objetivo de contribuir com a equidade de gênero e raça para consolidação de um mercado audiovisual mais diverso e representativo."}
                         />
                       </Paper>
 

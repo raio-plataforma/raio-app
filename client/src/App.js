@@ -32,12 +32,13 @@ import ResultSearchProfessionals from './pages/Search/ResultSearchProfessionals'
 import MyJobs from './pages/JobProfessional/MyJobs'
 import Forgot from './pages/Login/Forgot'
 import Reset from './pages/Login/Reset'
-import PaginaVaga from './pages/Vacancy/vaga'
 import './assets/global.css';
 import Pagina404 from './pages/404/404'
 import PaginaDashboardEmpresa from './pages/Dashboard/empresa'
 import PaginaDashboardProfissional from './pages/Dashboard/profissional'
 import PaginaDashboardAdmin from './pages/Dashboard/admin'
+import PaginaVagaEmpresa from './pages/Vacancy/vagaEmpresa'
+import PaginaVaga from './pages/Vacancy/vagaPage'
 
 const App = ({ store }) => {
   return (
@@ -48,50 +49,51 @@ const App = ({ store }) => {
           <AppBody>
             <Switch>
               {/* Rotas sem protenção de login */}
-              <Route path="/" exact={true} component={Login} />
+              <Route path="/entrar" exact={true} component={Login} />
+              <Route path="/cadastro" exact={true} component={Users} />
               <Route path="/recuperar/senha" exact={true} component={Forgot} />
               <Route path="/redefinir/senha/:token" component={Reset} />
-              <Route path="/cadastro" exact={true} component={Users} />
+              <Route path='/vagas' component={AllVacancies}  exact={true} />
+              <Route path='/vaga/:slug' component={PaginaVaga} />
 
               <Switch>
                 {/* Pos cadastro, dados restantes do cadastro de conta */}
-                <PrivateRoute path='/cadastro/empresa' component={Enterprise} />
-                <PrivateRoute path='/cadastro/profissional' component={Professional} />
+                <PrivateRoute path='/cadastro/empresa' component={Enterprise} exact={true} />
+                <PrivateRoute path='/cadastro/profissional' component={Professional} exact={true} />
 
                 {/* Painel da empresa */}
-                <PrivateRoute path='/painel/empresa/cadastro/vaga' component={VacancyRegister} />
-                <PrivateRoute path='/painel/empresa/vaga/:id' component={PaginaVaga} />
-                <PrivateRoute path='/painel/empresa/vagas' component={VacancyList} />
-                <PrivateRoute path='/painel/empresa' component={PaginaDashboardEmpresa} />
+                <PrivateRoute path='/painel/empresa/cadastro/vaga' component={VacancyRegister} exact={true} />
+                <PrivateRoute path='/painel/empresa/vaga/:id' component={PaginaVagaEmpresa} />
+                <PrivateRoute path='/painel/empresa/vagas' component={VacancyList} exact={true} />
+                <PrivateRoute path='/painel/empresa' component={PaginaDashboardEmpresa} exact={true} />
 
                 {/* Painel do profissional */}
-                <PrivateRoute path='/painel/profissional/candidaturas' component={MyJobs} />
-                <PrivateRoute path='/painel/profissional/vagas' component={AllVacancies} />
-                <PrivateRoute path='/painel/profissional' component={PaginaDashboardProfissional} />
+                <PrivateRoute path='/painel/profissional/candidaturas' component={MyJobs} exact={true} />
+                <PrivateRoute path='/painel/profissional' component={PaginaDashboardProfissional} exact={true} />
 
                 {/* Paginas de perfil */}
-                <PrivateRoute path='/perfil/editar/usuario' component={EditUser} />
-                <PrivateRoute path='/perfil/editar/empresa' component={EditEnterprise} />
-                <PrivateRoute path='/perfil/editar/profissional' component={EditProfessional} />
+                <PrivateRoute path='/perfil/editar/usuario' component={EditUser} exact={true} />
+                <PrivateRoute path='/perfil/editar/empresa' component={EditEnterprise} exact={true} />
+                <PrivateRoute path='/perfil/editar/profissional' component={EditProfessional} exact={true} />
 
                 {/* Painel do admin */}
-                <PrivateRoute path='/painel/admin/buscar/profissionais' component={SearchProfessionals} />
-                <PrivateRoute path='/painel/admin/profissionais' component={AllProfessionals} />
-                <PrivateRoute path='/painel/admin/empresas' component={AllEnterprises} />
-                <PrivateRoute path='/painel/admin' exact component={PaginaDashboardAdmin} />
+                <PrivateRoute path='/painel/admin/buscar/profissionais' component={SearchProfessionals} exact={true} />
+                <PrivateRoute path='/painel/admin/profissionais' component={AllProfessionals} exact={true} />
+                <PrivateRoute path='/painel/admin/empresas' component={AllEnterprises} exact={true} />
+                <PrivateRoute path='/painel/admin' exact component={PaginaDashboardAdmin} exact={true} />
 
                 {/* Rotas que não sei pra que serve ainda */}
-                <Route path='/resultados/profissionais' component={ResultSearchProfessionals} />
-                <Route path='/busca/empresas' component={SearchEnterprise} />
-                <Route path='/resultados/empresas' component={ResultSearchEnterprise} />
+                <Route path='/resultados/profissionais' component={ResultSearchProfessionals} exact={true} />
+                <Route path='/busca/empresas' component={SearchEnterprise} exact={true} />
+                <Route path='/resultados/empresas' component={ResultSearchEnterprise} exact={true} />
 
                 {/* Redirecionamento de rotas antigas */}
+                <Redirect path='/painel/profissional/vagas' to='/vagas' />
                 <Redirect path='/dashboard/admin/profissionais' to='/painel/admin/profissionais' />
                 <Redirect path='/dashboard/admin/empresas' to='/painel/admin/empresas' />
                 <Redirect path='/dashboard/admin' to='/painel/admin' />
                 <Redirect path='/reset/:token' to='/redefinir/senha/:token' />
                 <Redirect path='/esqueci-senha' to='/recuperar/senha' />
-                <Redirect path='/vagas' to='/painel/profissional/vagas' />
                 <Redirect path='/listagem/candidaturas' to='/painel/profissional/candidaturas' />
                 <Redirect path='/listagem/vagas/:id' to='/painel/empresa/vagas' />
                 <Redirect path='/cadastro/vaga' to='/painel/empresa/cadastro/vaga' />
@@ -108,6 +110,7 @@ const App = ({ store }) => {
                 <Redirect path='/editar/profissional' to='/perfil/editar/profissional' />
                 <Redirect path='/vaga/:id' to='/painel/empresa/vaga/:id' />
                 <Redirect path='/busca/profissionais' to='/painel/admin/buscar/profissionais' />
+                <Redirect path='/' to='/entrar' />
 
                 {/* Pagina 404 */}
                 <Route path='/*' exact={true} component={Pagina404} />

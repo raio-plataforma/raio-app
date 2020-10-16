@@ -10,10 +10,10 @@ import Grid from "@material-ui/core/Grid";
 import ApiMercadoPago from "../../models/mercadopago"
 import { CircularProgress, Typography } from "@material-ui/core"
 import { Title } from "../Signup/styles"
-import ApiVaga from "../../models/vaga"
+import ApiVaga from "../../api/vaga"
 import Loading from "../../components/loading/index";
 
-export default class PaginaVaga extends Component {
+export default class PaginaVagaEmpresa extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,24 +26,7 @@ export default class PaginaVaga extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
     const id = this.props.match.params.id;
-    let listaVagas = await ApiVaga.prototype.getTodas();
-    console.log(listaVagas);
-
-    // Validando se o id da vaga está valido
-    let b = false;
-    for (var j = 0; j < listaVagas.length; ++j) {
-      if (listaVagas[j].id == id) {
-        listaVagas = listaVagas[j];
-        b = true;
-        break;
-      } else
-        if (listaVagas[j]._id == id) {
-          listaVagas = listaVagas[j];
-          b = true;
-          break;
-        }
-    }
-    if (b == false) { window.location.href = "/dashboard/empresa"; }
+    let listaVagas = await ApiVaga.prototype.getById(id, ()=>{window.location.href = "/dashboard/empresa";});
 
     // Fazendo conta do valor a ser pago
     var valorCalculoDesconto = parseFloat(listaVagas.cache * (50 / 100));
