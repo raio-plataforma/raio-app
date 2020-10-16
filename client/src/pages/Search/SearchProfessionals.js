@@ -27,6 +27,7 @@ import {
 } from '../Signup/dicioFields'
 import Titulo from '../../components/Titulo'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import SearchIcon from '@material-ui/icons/Search';
 
 
 const SearchProfessionals = () => {
@@ -86,138 +87,133 @@ const SearchProfessionals = () => {
 
     return (
         <div>
-            <Container center="true" maxWidth="md">
-                <Titulo> Busca de Profissionais </Titulo>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <Grid container spacing={2}>
-
-                        <Grid item sm={10} xs={8}>
-                            <Autocomplete
-                                multiple
-                                options={functions}
-                                onChange={handleChange}
-                                value={selectedAreas}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        name="expertise_areas"
-                                        inputRef={register}
-                                        variant="filled"
-                                        label="Áreas de atuação"
-                                        placeholder="Adicione as áreas de atuação"
-                                    />
-                                )}
-                            />
-                        </Grid>
-
-                        <Grid item sm={2} xs={4} alignItems="center" onClick={() => setShowAdvanced(!showAdvanced)}>
-                            <Button styles={{ display: 'block', width: '100%' }}>Mais <ExpandMoreIcon /></Button>
-                        </Grid>
-                        {
-                            showAdvanced && (
-                                <>
-                                    <Grid item xs={6} sm={4}>
-                                        <FormControl fullWidth>
-                                            <InputLabel shrink htmlFor="select-multiple-native">
-                                                Auto-Declaração
-                                        </InputLabel>
-                                            <Select
-                                                multiple
-                                                native
-                                                variant="filled"
-                                                inputRef={register}
-                                                name="self_declaration"
-                                            >
-                                                {selfDeclaration.map((name) => (
-                                                    <option key={name} value={name} key={`self-${name}`}>
-                                                        {name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-
-                                    <Grid item xs={6} sm={4}>
-                                        <FormControl fullWidth>
-                                            <InputLabel shrink htmlFor="select-multiple-native">
-                                                Gênero
-                                        </InputLabel>
-                                            <Select
-                                                multiple
-                                                native
-                                                variant="filled"
-                                                inputRef={register}
-                                                name="gender"
-                                            >
-                                                {gender.map((name) => (
-                                                    <option key={name} value={name} key={name}>
-                                                        {name}
-                                                    </option>
-                                                ))}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-
-                                    <Grid item xs={6} sm={4}>
-                                        <FormControl fullWidth>
-                                            <InputLabel shrink htmlFor="select-multiple-native">
-                                                Estado de residência
-                                        </InputLabel>
-                                            <Select
-                                                multiple
-                                                native
-                                                variant="filled"
-                                                inputRef={register}
-                                                name="home_state"
-                                            >
-                                                {states.map((name) => (
-                                                    <option key={name.abbr} value={name.abbr}>
-                                                        {name.name}
-                                                    </option>
-                                                )
-                                                )}
-                                            </Select>
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={6} sm={12}>
-                                        <Switch
-                                            name="pcd"
-                                            label="PcD (Pessoa com deficiência)"
-                                            register={register}
-                                        />
-                                        <Switch
-                                            name="company_registry"
-                                            label="Possui CNPJ"
-                                            register={register}
-                                        />
-                                    </Grid>
-                                </>
-                            )
-                        }
-                    </Grid>
-                    <Grid container alignItems="center" style={{ margin: '20px 0' }} xs={12}>
-                        <Button
-                            type="submit"
-                            variant="contained"
-                            color="primary"
-                            styles={{ display: 'block', width: '100%' }}
-                            isLoading={isLoading.submit}
-                        >
-                            Buscar
-                    </Button>
-                    </Grid>
-                </form>
-
-                {/* <Button styles={{ marginLeft: 30 }} onClick={() => {clearForm() }}>
-                Limpar
-            </Button> */}
-
-            <br/><br/>
-
-            </Container>
-
             <Container center="true" maxWidth="lg">
-                {Object.keys(dados).length > 0 && <ResultSearchProfessionals data={dados} />}
+                <Titulo> Busca de Profissionais </Titulo>
+
+
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={9} md={11}>
+                                    <Autocomplete
+                                        multiple
+                                        options={functions}
+                                        onChange={handleChange}
+                                        value={selectedAreas}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                name="expertise_areas"
+                                                inputRef={register}
+                                                variant="filled"
+                                                label="Áreas de atuação"
+                                                placeholder="Adicione as áreas de atuação"
+                                            />
+                                        )}
+                                    />
+                                </Grid>
+                                <Grid item xs={3} md={1}>
+                                    <Button type="submit" variant="contained" color="primary" styles={{ display: 'block', width: '100%', height: '100%' }} isLoading={isLoading.submit} >
+                                        <SearchIcon />
+                                </Button>
+                                </Grid>
+                            </Grid>
+                            <br />
+                        </form>
+                    </Grid>
+
+                    <Grid item xs={12} sm={2}>
+
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <FormControl fullWidth>
+                                <InputLabel shrink htmlFor="select-multiple-native">
+                                    Auto-Declaração
+                                        </InputLabel>
+                                <Select
+                                    multiple
+                                    native
+                                    variant="filled"
+                                    inputRef={register}
+                                    name="self_declaration"
+                                >
+                                    {selfDeclaration.map((name) => (
+                                        <option key={name} value={name} key={`self-${name}`}>
+                                            {name}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <br /><br />
+                            <FormControl fullWidth>
+                                <InputLabel shrink htmlFor="select-multiple-native">
+                                    Gênero
+                                        </InputLabel>
+                                <Select
+                                    multiple
+                                    native
+                                    variant="filled"
+                                    inputRef={register}
+                                    name="gender"
+                                >
+                                    {gender.map((name) => (
+                                        <option key={name} value={name} key={name}>
+                                            {name}
+                                        </option>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                            <br /><br />
+                            <FormControl fullWidth>
+                                <InputLabel shrink htmlFor="select-multiple-native">
+                                    Estado de residência
+                                        </InputLabel>
+                                <Select
+                                    multiple
+                                    native
+                                    variant="filled"
+                                    inputRef={register}
+                                    name="home_state"
+                                >
+                                    {states.map((name) => (
+                                        <option key={name.abbr} value={name.abbr}>
+                                            {name.name}
+                                        </option>
+                                    )
+                                    )}
+                                </Select>
+                            </FormControl>
+                            <br /><br />
+                            <Switch
+                                name="pcd"
+                                label="PcD (Pessoa com deficiência)"
+                                register={register}
+                            />
+                            <Switch
+                                name="company_registry"
+                                label="Possui CNPJ"
+                                register={register}
+                            />
+                            <br /><br />
+                            <Button type="submit" variant="contained" color="primary" styles={{ display: 'block', width: '100%' }} isLoading={isLoading.submit} >
+                                <SearchIcon /> Buscar
+                        </Button>
+                            <br /><br />
+                            <br /><br />
+                        </form>
+                    </Grid>
+
+                    <Grid xs={12} sm={10}>
+
+                        <Grid container spacing={2} style={{ padding: "8px" }}>
+                            {Object.keys(dados).length > 0 && <ResultSearchProfessionals data={dados} />}
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+
+                <br /><br />
             </Container>
         </div>
     )

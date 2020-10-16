@@ -8,7 +8,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 
-const PaginaDashboardProfissional = () => {
+const PaginaDashboardAdmin = () => {
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState(null)
 
@@ -19,11 +19,11 @@ const PaginaDashboardProfissional = () => {
 
 
   useEffect(() => {
-    if ((String(userType.type) !== 'undefined') && (String(user._id) == 'undefined')) {
+    if ((String(userType.type) !== 'undefined') && (String(user.id) == 'undefined')) {
       getUser(userType.type);
     }
 
-    if ((String(user._id) !== 'undefined')) {
+    if ((String(user.id) !== 'undefined')) {
       setCarregando(false);
     }
 
@@ -53,17 +53,17 @@ const PaginaDashboardProfissional = () => {
                   <Grid container spacing={2}>
                     <Grid item sm={6} xs={12} remove-pc="true">
 
-                      <Grid container spacing={2}>
+                    <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
                           <Paper className="dashboard-paper">
-                            <h1>Vagas em aberto</h1>
+                            <h1>Empresas</h1>
                             <p><b>100</b></p>
                           </Paper>
                         </Grid>
                         <Grid item sm={6} xs={6}>
                           <Paper className="dashboard-paper">
-                            <h1>Candidaturas</h1>
-                            <p><b>20</b></p>
+                            <h1>Profissionais</h1>
+                            <p><b>1.000</b></p>
                           </Paper>
                         </Grid>
                       </Grid>
@@ -75,20 +75,11 @@ const PaginaDashboardProfissional = () => {
                       <Paper className="dashboard-paper">
                         <Profile
                           id={user._id}
-                          name={user.name}
-                          icon={<img src="https://i.imgur.com/gRmLJPQ.jpg" width="100%" />}
-                          associate={user.apan_associate}
-                          type={"Profissional"}
-                          bio={user.bio}
-                          pcd={user.pcd}
-                          segments={user.identity_segments}
+                          name={"RAIO"}
+                          icon={<img src="https://i.imgur.com/llkK8fn.png" width="100%" />}
+                          type={"Admin"}
+                          bio={"Ccuradoria de talentos e oportunidades que conecta profissionais, projetos e empresas do setor audiovisual, com objetivo de contribuir com a equidade de gênero e raça para consolidação de um mercado audiovisual mais diverso e representativo."}
                         />
-                        <center>
-                          <br />
-                          <Link to="/perfil/editar/profissional">
-                            <Button variant="contained" color="secondary"><EditIcon /> Editar currículo</Button>
-                          </Link>
-                        </center>
                       </Paper>
 
                     </Grid>
@@ -117,14 +108,14 @@ const PaginaDashboardProfissional = () => {
                       <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
                           <Paper className="dashboard-paper">
-                            <h1>Vagas em aberto</h1>
+                            <h1>Empresas</h1>
                             <p><b>100</b></p>
                           </Paper>
                         </Grid>
                         <Grid item sm={6} xs={6}>
                           <Paper className="dashboard-paper">
-                            <h1>Candidaturas</h1>
-                            <p><b>20</b></p>
+                            <h1>Profissionais</h1>
+                            <p><b>1.000</b></p>
                           </Paper>
                         </Grid>
                       </Grid>
@@ -144,4 +135,4 @@ const PaginaDashboardProfissional = () => {
 
 }
 
-export default PaginaDashboardProfissional;
+export default PaginaDashboardAdmin;

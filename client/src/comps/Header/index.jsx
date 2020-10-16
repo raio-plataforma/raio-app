@@ -27,6 +27,8 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import HistoryIcon from '@material-ui/icons/History';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PersonIcon from '@material-ui/icons/Person';
+import BusinessIcon from '@material-ui/icons/Business';
 
 const Header = () => {
   const [modalStatus, setModalStatus] = useState(false)
@@ -98,7 +100,6 @@ const Header = () => {
                   userType.type === "enterprise" ? (
                     <div className="navbarEmpresas">
                       <LinkButtonNav to={`/painel/empresa/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
-                      <LinkButtonNav to={`/painel/empresa/buscar/profissionais`}> <SearchIcon /> Buscar profissional </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/empresa`}> <EditIcon /> Editar empresa </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
                     </div>
@@ -116,6 +117,19 @@ const Header = () => {
                     </div>
                   ) : (<></>)
                 }
+
+
+                {
+                  userType.type === "admin" ? (
+                    <div className="navbarAdmin">
+                      <LinkButtonNav to={`/painel/admin/empresas`}> <BusinessIcon /> Empresas </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/admin/buscar/profissionais`}> <PersonIcon /> Profissional </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/admin/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
+                      <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
+                    </div>
+                  ) : (<></>)
+                }
+
 
                 <LinkButtonNav to={`/`} onClick={() => { logoutUser() }}> <ExitToAppIcon /> Sair </LinkButtonNav>
               </div>

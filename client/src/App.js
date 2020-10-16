@@ -13,7 +13,6 @@ import Header from './comps/Header'
 import AppBody from './comps/AppBody'
 import Users from './pages/Signup/User'
 import Login from './pages/Login/Login'
-import Dashboard from './pages/Dashboard/index'
 import Admin from './pages/Dashboard/Admin/Admin'
 import Enterprise from './pages/Signup/Enterprise'
 import PrivateRoute from './components/PrivateRoute'
@@ -38,6 +37,7 @@ import './assets/global.css';
 import Pagina404 from './pages/404/404'
 import PaginaDashboardEmpresa from './pages/Dashboard/empresa'
 import PaginaDashboardProfissional from './pages/Dashboard/profissional'
+import PaginaDashboardAdmin from './pages/Dashboard/admin'
 
 const App = ({ store }) => {
   return (
@@ -59,7 +59,6 @@ const App = ({ store }) => {
                 <PrivateRoute path='/cadastro/profissional' component={Professional} />
 
                 {/* Painel da empresa */}
-                <PrivateRoute path='/painel/empresa/buscar/profissionais' component={SearchProfessionals} />
                 <PrivateRoute path='/painel/empresa/cadastro/vaga' component={VacancyRegister} />
                 <PrivateRoute path='/painel/empresa/vaga/:id' component={PaginaVaga} />
                 <PrivateRoute path='/painel/empresa/vagas' component={VacancyList} />
@@ -76,9 +75,10 @@ const App = ({ store }) => {
                 <PrivateRoute path='/perfil/editar/profissional' component={EditProfessional} />
 
                 {/* Painel do admin */}
-                <PrivateRoute path='/dashboard/admin' exact component={Admin} />
-                <PrivateRoute path='/dashboard/admin/empresas' component={AllEnterprises} />
-                <PrivateRoute path='/dashboard/admin/profissionais' component={AllProfessionals} />
+                <PrivateRoute path='/painel/admin/buscar/profissionais' component={SearchProfessionals} />
+                <PrivateRoute path='/painel/admin/profissionais' component={AllProfessionals} />
+                <PrivateRoute path='/painel/admin/empresas' component={AllEnterprises} />
+                <PrivateRoute path='/painel/admin' exact component={PaginaDashboardAdmin} />
 
                 {/* Rotas que não sei pra que serve ainda */}
                 <Route path='/resultados/profissionais' component={ResultSearchProfessionals} />
@@ -86,6 +86,9 @@ const App = ({ store }) => {
                 <Route path='/resultados/empresas' component={ResultSearchEnterprise} />
 
                 {/* Redirecionamento de rotas antigas */}
+                <Redirect path='/dashboard/admin/profissionais' to='/painel/admin/profissionais' />
+                <Redirect path='/dashboard/admin/empresas' to='/painel/admin/empresas' />
+                <Redirect path='/dashboard/admin' to='/painel/admin' />
                 <Redirect path='/reset/:token' to='/redefinir/senha/:token' />
                 <Redirect path='/esqueci-senha' to='/recuperar/senha' />
                 <Redirect path='/vagas' to='/painel/profissional/vagas' />
@@ -104,7 +107,7 @@ const App = ({ store }) => {
                 <Redirect path='/editar/empresa' to='/perfil/editar/empresa' />
                 <Redirect path='/editar/profissional' to='/perfil/editar/profissional' />
                 <Redirect path='/vaga/:id' to='/painel/empresa/vaga/:id' />
-                <Redirect path='/busca/profissionais' to='/painel/empresa/buscar/profissionais' />
+                <Redirect path='/busca/profissionais' to='/painel/admin/buscar/profissionais' />
 
                 {/* Pagina 404 */}
                 <Route path='/*' exact={true} component={Pagina404} />

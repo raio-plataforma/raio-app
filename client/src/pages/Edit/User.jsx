@@ -148,7 +148,11 @@ const EditUser = ({ match }) => {
 
                   <br /><br />
                   <center>
-                    <Titulo> Atalhos para editar outros perfis: </Titulo>
+                    {
+                      userType.type !== "admin" ? (
+                        <Titulo> Atalhos para editar outros perfis: </Titulo>
+                      ) : (<></>)
+                    }
                     <br />
                     {
                       userType.type === "enterprise" ? (
