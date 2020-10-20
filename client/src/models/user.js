@@ -27,6 +27,8 @@ const userModel = {
             }
         }
         catch (e) {
+            console.error(e);
+            history.push(`/cadastro/${payload}`)
             throw e
         }
     }),

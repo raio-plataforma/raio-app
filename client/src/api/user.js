@@ -58,6 +58,7 @@ export default class ApiUser {
         }
       }
       catch (err) {
+        history.push(`/cadastro/${tipo}`)
         erro(err);
       }
     })

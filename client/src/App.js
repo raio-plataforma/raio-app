@@ -100,6 +100,8 @@ const App = ({ store }) => {
                 <Redirect path='/listagem/candidaturas' to='/painel/profissional/candidaturas' />
                 <Redirect path='/listagem/vagas/:id' to='/painel/empresa/vagas' />
                 <Redirect path='/cadastro/vaga' to='/painel/empresa/cadastro/vaga' />
+                <Redirect path='/cadastro/enterprise' to='/cadastro/empresa' />
+                <Redirect path='/cadastro/professional' to='/cadastro/profissional' />
                 <Redirect path='/dashboard/empresa' to='/painel/empresa' />
                 <Redirect path='/dashboard/enterprise' to='/painel/empresa' />
                 <Redirect path='/dashboard/profissional' to='/painel/profissional' />

@@ -36,8 +36,11 @@ const UserSchema = new Schema({
     required: true
   },
   reset_password_token: {
-    type: String,
-    unique: true
+    type: Schema.Types.ObjectId,
+    unique: true,
+    required: true,
+    auto: true,
+    index: true
   },
   reset_password_expires: {
     type: Date

@@ -26,7 +26,7 @@ const PaginaDashboardEmpresa = () => {
     if ((String(user._id) !== 'undefined')) {
       setCarregando(false);
     }
-
+    
 
     if (localStorage.getItem('menuAutoAbrir') == 'true') {
       setTimeout(() => { toggleMenu(true); localStorage.setItem('menuAutoAbrir', 'false'); }, 500);
