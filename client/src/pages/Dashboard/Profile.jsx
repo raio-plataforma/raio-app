@@ -85,7 +85,11 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
         type !== "Usuario" ? (
           <section className="segments">
             <Title size="xs">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Title>
-            <Text className="bio" color="secondary">{bio}</Text>
+            <Text className="bio" color="secondary" style={{
+              maxHeight: '105px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}>{bio}</Text>
           </section>
         ) : (<></>)
       }

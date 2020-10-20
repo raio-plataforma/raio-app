@@ -141,17 +141,19 @@ router.post('/all', async(req, res) => {
 
 router.get('/:id', (req, res) => {
     const errors = {}
-    Professional.findOne({_id: req.params.id})
+    let id = req.params.id;
+    Professional.findOne({$or: [{_id: id}, {user_id: id}]})
         .then(professionals => {
             if(!professionals)
             {
-                errors.noprofessionals = `Não foram encontrados profissionais com o id ${req.params.id}`
+                errors.noprofessionals = `Não foram encontrados profissionais com o id ${id}`
                 return res.status(404).json(errors)
             }
             res.json(professionals)
         })
-        .catch(() => res.status(404).json({
-            professionals: 'Não existem profissionais cadastrados ainda'
+        .catch((err) => res.status(404).json({
+            professionals: 'Não existem profissionais cadastrados ainda',
+            err
         }))
 })
 

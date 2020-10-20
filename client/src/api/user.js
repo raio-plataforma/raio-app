@@ -3,6 +3,30 @@ const axios = require('axios');
 
 export default class ApiUser {
 
+  async getById(id, funErro = ()=>{}) {
+    return new Promise(async(sucesso, erro)=>{
+
+      var config = {
+        method: 'get',
+        url: '/api/user/'+id,
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+  
+      axios(config)
+        .then(function (response) {
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+          funErro();
+          erro(error);
+        });
+    })
+
+  }
+
   async getUserLogado(tipo = "admin") {
     return new Promise(async (sucesso, erro) => {
       try {

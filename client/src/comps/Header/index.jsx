@@ -29,6 +29,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonIcon from '@material-ui/icons/Person';
 import BusinessIcon from '@material-ui/icons/Business';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 
 const Header = () => {
   const [modalStatus, setModalStatus] = useState(false)
@@ -117,6 +118,7 @@ const Header = () => {
                     <div className="navbarProfissional">
                       <LinkButtonNav to={`/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
                       <LinkButtonNav to={`/painel/profissional/candidaturas`}> <HistoryIcon /> Candidaturas </LinkButtonNav>
+                      <LinkButtonNav to={`/perfil/profissional/userLogado`}> <VisibilityIcon /> Ver meu perfil </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/profissional`}> <EditIcon /> Editar currículo </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
                     </div>

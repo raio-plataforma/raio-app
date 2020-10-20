@@ -39,6 +39,7 @@ import PaginaDashboardProfissional from './pages/Dashboard/profissional'
 import PaginaDashboardAdmin from './pages/Dashboard/admin'
 import PaginaVagaEmpresa from './pages/Vacancy/vagaEmpresa'
 import PaginaVaga from './pages/Vacancy/vagaPage'
+import profissionalPagina from './pages/Professionals/profissionalPagina'
 
 const App = ({ store }) => {
   return (
@@ -49,11 +50,12 @@ const App = ({ store }) => {
           <AppBody>
             <Switch>
               {/* Rotas sem protenção de login */}
+              <Redirect path='/' to='/entrar' exact={true} />
               <Route path="/entrar" exact={true} component={Login} />
               <Route path="/cadastro" exact={true} component={Users} />
               <Route path="/recuperar/senha" exact={true} component={Forgot} />
               <Route path="/redefinir/senha/:token" component={Reset} />
-              <Route path='/vagas' component={AllVacancies}  exact={true} />
+              <Route path='/vagas' component={AllVacancies} exact={true} />
               <Route path='/vaga/:slug' component={PaginaVaga} />
 
               <Switch>
@@ -75,6 +77,7 @@ const App = ({ store }) => {
                 <PrivateRoute path='/perfil/editar/usuario' component={EditUser} exact={true} />
                 <PrivateRoute path='/perfil/editar/empresa' component={EditEnterprise} exact={true} />
                 <PrivateRoute path='/perfil/editar/profissional' component={EditProfessional} exact={true} />
+                <PrivateRoute path='/perfil/profissional/:userId' component={profissionalPagina} />
 
                 {/* Painel do admin */}
                 <PrivateRoute path='/painel/admin/buscar/profissionais' component={SearchProfessionals} exact={true} />
@@ -110,7 +113,6 @@ const App = ({ store }) => {
                 <Redirect path='/editar/profissional' to='/perfil/editar/profissional' />
                 <Redirect path='/vaga/:id' to='/painel/empresa/vaga/:id' />
                 <Redirect path='/busca/profissionais' to='/painel/admin/buscar/profissionais' />
-                <Redirect path='/' to='/entrar' />
 
                 {/* Pagina 404 */}
                 <Route path='/*' exact={true} component={Pagina404} />

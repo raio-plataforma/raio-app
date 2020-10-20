@@ -221,6 +221,9 @@ hr[color="laranja"]{
 .PaginaVaga .colunaEsqurda h6 {
     font-size: 1.2rem;
 }
+.display-inline{
+    display: inline;
+}
 ::-webkit-scrollbar {
     width: 7px;
 }
