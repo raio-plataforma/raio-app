@@ -32,11 +32,11 @@ const VacancyList = () => {
 
 
   useEffect(() => {
-    if ( (String(userType.type) !== 'undefined') && (!user.enterprise_id) ) {
+    if ((String(userType.type) !== 'undefined') && (!user.enterprise_id)) {
       getUser(userType.type)
     }
 
-    if ( (user.enterprise_id) && (String(vacancies) == 'undefined') ) {
+    if ((user.enterprise_id) && (String(vacancies) == 'undefined')) {
       getAllVacancies(user.enterprise_id);
     }
 
@@ -45,7 +45,7 @@ const VacancyList = () => {
     }
   });
 
-  
+
 
   return (
     <div className="pageRender">
@@ -57,27 +57,17 @@ const VacancyList = () => {
               <Carregando />
             ) : (
                 <Container center="true" maxWidth="lg">
-                <Titulo> Vagas </Titulo>
+                  <Titulo> Vagas </Titulo>
 
-                  <Group>
-                    <IfElse
-                      condition={typeof vacancies !== 'undefined' && vacancies.length > 0}
-                      True={
-                        <Tables
-                          title="Vagas cadastradas na sua empresa"
-                          headCells={headCells}
-                          list={vacancies}
-                          linkMoreCampo="id"
-                          link="/vaga/"
-                          btnAddLink="/cadastro/vaga"
-                          btnAddLabel="Adicionar nova"
-                        />
-                      }
-                      False={
-                        <Alert severity="warning">Não há vagas cadastradas</Alert>
-                      }
-                    />
-                  </Group>
+                  <Tables
+                    title="Vagas cadastradas na sua empresa"
+                    headCells={headCells}
+                    list={vacancies}
+                    linkMoreCampo="id"
+                    link="/vaga/"
+                    btnAddLink="/cadastro/vaga"
+                    btnAddLabel="Adicionar nova"
+                  />
                 </Container>
               )
             }

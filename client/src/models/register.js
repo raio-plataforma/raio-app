@@ -34,12 +34,16 @@ const registerModel = {
   registerUser: thunk(async (actions, payload) => {
     try {
       await axios.post('/api/user/register', payload)
-      return history.push('/')
+      if (payload.type == "admin") {
+        return history.push('/painel/admin/administradores') 
+      } else {
+        return history.push('/entrar?register=ok')
+      }
     }
     catch (err) {
       console.log(err)
       const error = {
-        user: err.response.data && err.response.data.register
+        user: err.response.data.register || err.response.data.email
       }
       return actions.setErrors(error)
     }

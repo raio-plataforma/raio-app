@@ -30,6 +30,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonIcon from '@material-ui/icons/Person';
 import BusinessIcon from '@material-ui/icons/Business';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
 const Header = () => {
   const [modalStatus, setModalStatus] = useState(false)
@@ -129,9 +130,10 @@ const Header = () => {
                 {
                   userType.type === "admin" ? (
                     <div className="navbarAdmin">
-                      <LinkButtonNav to={`/painel/admin/empresas`}> <BusinessIcon /> Empresas </LinkButtonNav>
-                      <LinkButtonNav to={`/painel/admin/buscar/profissionais`}> <PersonIcon /> Profissional </LinkButtonNav>
                       <LinkButtonNav to={`/painel/admin/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/admin/empresas`}> <BusinessIcon /> Empresas </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/admin/buscar/profissionais`}> <PersonIcon /> Profissionais </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/admin/administradores`}> <SupervisorAccountIcon /> Administradores </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
                     </div>
                   ) : (<></>)

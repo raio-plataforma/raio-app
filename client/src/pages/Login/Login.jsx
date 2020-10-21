@@ -30,6 +30,8 @@ const Login = (props) => {
   const { register, handleSubmit, errors } = useForm()
   const [modalStatus, setModalStatus] = useState(false)
   const [modalMsg, setModalMsg] = useState('')
+  const [modalSucessoStatus, setModalSucessoStatus] = useState(false)
+  const [modalSucessoMsg, setModalSucessoMsg] = useState('')
   const authUser = useStoreActions(actions => actions.auth.authUser)
   const auth = useStoreState(state => state.auth.auth)
   const loginError = useStoreState(state => state.auth.error)
@@ -49,8 +51,16 @@ const Login = (props) => {
 
     if (String(props.location.search).includes("?errorLogin=true")) {
       props.location.search = "";
+      window.history.pushState("", "", "/entrar");
       setModalMsg("Email ou senha incorreto, tente novamente.");
       setModalStatus(true);
+    }
+
+    if (String(props.location.search).includes("?register=ok")) {
+      props.location.search = "";
+      window.history.pushState("", "", "/entrar");
+      setModalSucessoMsg("Usuário cadastrado com sucesso, faça o login!");
+      setModalSucessoStatus(true);
     }
 
   }, [auth, loginError, props])
@@ -129,9 +139,14 @@ const Login = (props) => {
 
         </form>
       </Grid>
-      <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>
+      <Snackbar open={modalStatus} autoHideDuration={5000} onClose={() => setModalStatus(false)}>
         <Alert elevation={6} variant="filled" onClose={() => setModalStatus(false)} severity="error">
           {modalMsg}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={modalSucessoStatus} autoHideDuration={5000} onClose={() => setModalSucessoStatus(false)}>
+        <Alert elevation={6} variant="filled" onClose={() => setModalSucessoStatus(false)} severity="success">
+          {modalSucessoMsg}
         </Alert>
       </Snackbar>
     </Container>

@@ -224,6 +224,12 @@ hr[color="laranja"]{
 .display-inline{
     display: inline;
 }
+.table-pointer-onclick{
+    cursor: default!important;
+}
+.table-pointer-onclick[onclick]{
+    cursor: pointer!important;
+}
 ::-webkit-scrollbar {
     width: 7px;
 }

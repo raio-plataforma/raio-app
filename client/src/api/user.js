@@ -3,6 +3,30 @@ const axios = require('axios');
 
 export default class ApiUser {
 
+  async deleteById(id, funErro = ()=>{}) {
+    return new Promise(async(sucesso, erro)=>{
+
+      var config = {
+        method: 'delete',
+        url: '/api/user/'+id,
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+  
+      axios(config)
+        .then(function (response) {
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+          funErro();
+          erro(error);
+        });
+    })
+
+  }
+
   async getById(id, funErro = ()=>{}) {
     return new Promise(async(sucesso, erro)=>{
 
@@ -21,6 +45,37 @@ export default class ApiUser {
         .catch(function (error) {
           console.error(error);
           funErro();
+          erro(error);
+        });
+    })
+
+  }
+
+
+  async getTodos(tipo = false) {
+    return new Promise(async(sucesso, erro)=>{
+      let url;
+
+      if (tipo) {
+        url = '/api/user/all?tipo='+tipo;  
+      } else {
+        url = '/api/user/all';
+      }
+
+      var config = {
+        method: 'get',
+        url,
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+  
+      axios(config)
+        .then(function (response) {
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
           erro(error);
         });
     })

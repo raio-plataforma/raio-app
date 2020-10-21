@@ -63,14 +63,17 @@ export default class ApiVaga {
     })
   }
 
-  async getTodas(userId = "") {
+  async getTodas(userId = "", status = "") {
     return new Promise(async(sucesso, erro)=>{
       let url;
 
       if (userId) {
         url = '/api/job/?userId='+userId;  
+      } else 
+      if (status) {
+        url = '/api/job/all?status='+status;  
       } else {
-        url = '/api/job/';
+        url = '/api/job/all';
       }
 
       var config = {

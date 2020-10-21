@@ -33,6 +33,7 @@ export default class PaginaVaga extends Component {
     // verificando status da vaga
     if (vaga.status !== "Visivel") {
       window.location.href = "/404";
+      return;
     }
 
     vaga.createAt = new Date(vaga.createAt).toLocaleDateString();
@@ -94,7 +95,7 @@ export default class PaginaVaga extends Component {
 
                     <br />
                     {
-                      this.state.user.email ? (
+                      this.state.user.type == "professional" ? (
                         <>
                           {
                             this.state.vaga.btnCandidateSe == "true" ? (
@@ -110,7 +111,7 @@ export default class PaginaVaga extends Component {
                         </>
                       ) : (
                           <div>
-                            <p>Para se candidatar a essa vaga você deve ter uma conta profissional na plataforma da RAIO, crie sua conta grátis agora mesmo.</p>
+                            <p>Para se candidatar a essa vaga você deve ter uma <b>conta de profissional</b> na plataforma da RAIO, crie sua conta grátis agora mesmo.</p>
                             <a href="/entrar?cadastro=true">
                               <Button variant="contained" color="secondary">
                                 Cadastre-se no site

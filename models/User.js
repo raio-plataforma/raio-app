@@ -24,16 +24,13 @@ const UserSchema = new Schema({
     enum: ['admin', 'professional', 'enterprise']
   },
   phone: {
-    type: String,
-    required: true
+    type: String
   },
   gender: {
-    type: String,
-    required: true
+    type: String
   },
   self_declaration: {
-    type: String,
-    required: true
+    type: String
   },
   reset_password_token: {
     type: Schema.Types.ObjectId,

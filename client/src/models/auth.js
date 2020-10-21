@@ -51,7 +51,7 @@ const authModel = {
                 const error = err.response.data
 
                 if(String(err.response.data.message)){
-                    window.location.href = `/?errorLogin=true`;
+                    window.location.href = `/entrar?errorLogin=true`;
                 }
 
                 return actions.setErrors({...error})
@@ -62,7 +62,7 @@ const authModel = {
             const error = err.response?.data
 
             if(String(err.response.data.message)){
-                window.location.href = `/?errorLogin=true`;
+                window.location.href = `/entrar?errorLogin=true`;
             }
 
             return actions.setErrors({...error})

@@ -196,7 +196,15 @@ router.get('/has-additional-register',
 // @desc    Get users
 // @access  Public
 router.get('/all', (req, res) => {
-    User.find()
+    let findQuery = {};
+    if (req.query.tipo) {
+        findQuery = {type: req.query.tipo};
+    }
+    if (req.query.status) {
+        findQuery = {status: req.query.status};
+    }
+
+    User.find(findQuery)
         .sort({name: 1})
         .then(users => {
             if(!users)

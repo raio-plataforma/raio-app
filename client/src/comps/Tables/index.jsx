@@ -58,7 +58,7 @@ function EnhancedTableHead(props) {
           return (
             <TableCell
               key={headCell.id}
-              align="center"
+              align="left"
               padding='default'
               sortDirection={orderBy === headCell.id ? order : false}
               style={{ border: 'none' }}
@@ -78,10 +78,14 @@ function EnhancedTableHead(props) {
         {
           actions && (
             <TableCell
-              align="center"
+              align="right"
               padding='default'
             >
-              <TableSortLabel></TableSortLabel>
+              <TableSortLabel
+                style={{ color: '#F9A639', align: "right" }}
+              >
+                Ações
+              </TableSortLabel>
             </TableCell>
           )
         }
@@ -118,7 +122,7 @@ const EnhancedTableToolbar = ({ title, style, btnAddLink, btnAddLabel }) => {
       style={{ overflow: 'hidden' }}
     >
       <Typography
-        className={classes.title+' tabela-titulo'}
+        className={classes.title + ' tabela-titulo'}
         variant="h6"
         component="h2"
         id="tableTitle"
@@ -221,9 +225,13 @@ export default function EnhancedTable({ headCells, list, title, actions, link = 
                         hover
                         tabIndex={-1}
                         key={`${row[hc[0].cell]}-${index}`}
-                        style={{ cursor: "pointer" }}
-                        onClick={() => { window.location.href = "" + link + "" + row[linkMoreCampo] }}
+                        className="table-pointer-onclick"
                         style={{ color: '#F9A639', border: '1px solid #F9A639' }}
+                        onClick={() => {
+                          if (link) {
+                            window.location.href = "" + link + "" + row[linkMoreCampo]
+                          }
+                        }}
                       >
                         {
                           hc.map(name => {
@@ -246,12 +254,23 @@ export default function EnhancedTable({ headCells, list, title, actions, link = 
                               {actions.map(action => {
                                 return (
                                   <Tooltip title={action.tooltip} key={action.action}>
-                                    {action.type === 'link' ?
-                                      <Link to={`${action.action}${row.id}`}>
-                                        <IconButton aria-label="delete">{action.btn}</IconButton>
-                                      </Link> :
-                                      <IconButton aria-label="delete">{action.btn}</IconButton>}
-
+                                    {
+                                      action.type === 'link' ? (
+                                        <> {
+                                          action.target ? (
+                                            <a href={`${action.action}${row[action.actionCampo]}`} target={action.target}>
+                                              <IconButton aria-label="delete">{action.btn}</IconButton>
+                                            </a>
+                                          ) : (
+                                              <Link to={`${action.action}${row[action.actionCampo]}`}>
+                                                <IconButton aria-label="delete">{action.btn}</IconButton>
+                                              </Link>
+                                            )
+                                        } </>
+                                      ) : (
+                                          <IconButton aria-label="delete" onClick={() => { action.action(row[action.actionCampo], action.actionShelf) }} data={row[action.actionCampo]}>{action.btn}</IconButton>
+                                        )
+                                    }
                                   </Tooltip>
                                 )
                               })}

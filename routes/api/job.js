@@ -17,7 +17,12 @@ const states = require('../../client/src/assets/states.json');
 // @desc    Get jobs
 // @access  Public
 router.get('/all', (req, res) => {
-    Job.find()
+    let findQuery = {};
+    if (req.query.status) {
+        findQuery = {status: req.query.status};
+    }
+
+    Job.find(findQuery)
         .sort({ createdAt: -1 })
         .then(jobs => {
             if (!jobs) {

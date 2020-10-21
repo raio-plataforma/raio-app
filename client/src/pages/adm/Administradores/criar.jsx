@@ -1,38 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
-import uuid from 'uuid'
-
-import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
-import Button from '../../comps/Button'
-import Select from '../../comps/Select'
+import Button from '../../../comps/Button'
+import Select from '../../../comps/Select'
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import { Error } from '../../components/Status'
-
-import { emailValidation } from '../../utils/service'
-import {
-  gender,
-  color
-} from './dicioFields'
-
-import { Form, Background, WrapButton, Title } from './styles'
+import { Error } from '../../../components/Status'
+import { emailValidation } from '../../../utils/service'
 import { Container } from '@material-ui/core'
-import Titulo from '../../components/Titulo'
-import Erro from '../../components/erro'
-import Carregando from '../../components/loading/carregando'
+import Titulo from '../../../components/Titulo'
+import Erro from '../../../components/erro'
+import Carregando from '../../../components/loading/carregando'
 
-const Users = () => {
-  const [carregando, setCarregando] = useState(true)
+const CriarAdmPagina = () => {
+  const [carregando, setCarregando] = useState(false)
   const [erro, setErro] = useState(null)
 
   const { register, handleSubmit, errors, getValues, reset } = useForm()
   const registerUser = useStoreActions(actions => actions.register.registerUser)
   const [modalStatus, setModalStatus] = useState(false)
   const registerError = useStoreState(state => state.register.error)
-  const labelName = localStorage.user_type === 'enterprise' ? 'Nome do Responsável' : 'Nome'
 
 
   const onSubmit = (data) => {
@@ -41,8 +30,7 @@ const Users = () => {
     const formatted = {
       ...data,
       confirm_password: data.confirmPassword,
-      self_declaration: data.selfDeclaration,
-      type: localStorage.user_type
+      type: "admin"
     }
 
     setTimeout(() => {
@@ -51,12 +39,6 @@ const Users = () => {
   }
 
   useEffect(() => {
-    if (typeof localStorage.user_type === 'undefined') {
-      return setModalStatus(true)
-    } else {
-      setCarregando(false);
-    }
-
     if (registerError && registerError.user) {
       setCarregando(false);
       setErro(registerError.user);
@@ -77,7 +59,8 @@ const Users = () => {
               <Carregando />
             ) : (
                 <Container center="true" maxWidth="md">
-                  <Titulo> Formulário de inscrição do Usuário </Titulo>
+                  <Titulo> Criar nova conta de administrador </Titulo>
+
                   <form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
 
                     <TextField
@@ -92,7 +75,7 @@ const Users = () => {
                           message: 'Insira um endereço de e-mail válido'
                         }
                       })}
-                      label="Endereço de e-mail"
+                      label="Endereço de e-mail do adm"
                       variant="filled"
                     />
                     <br /><br />
@@ -106,7 +89,7 @@ const Users = () => {
                           error={errors.password && errors.password.message}
                           helperText={errors.password && errors.password.message}
                           inputRef={register({
-                            required: 'Insira uma senha',
+                            required: 'Insira uma senha para o adm',
                           })}
                           label="Senha"
                           variant="filled"
@@ -129,7 +112,7 @@ const Users = () => {
                               message: 'A senha precisa ter no mínimo 6 caracteres'
                             }
                           })}
-                          label="Confirme sua senha"
+                          label="Confirme sua senha do adm"
                           variant="filled"
                         />
                       </Grid>
@@ -144,61 +127,10 @@ const Users = () => {
                       inputRef={register({
                         required: 'Esse campo é obrigatório'
                       })}
-                      label={labelName}
+                      label="Nome do adm"
                       variant="filled"
                     />
                     <br /><br />
-
-                    <TextField
-                      name="phone"
-                      fullWidth
-                      error={errors.phone && errors.phone.message}
-                      helperText={errors.phone && errors.phone.message}
-                      inputRef={register({
-                        required: 'Esse campo é obrigatório',
-                        pattern: {
-                          message: 'Insira apenas números'
-                        },
-                        maxLength: {
-                          value: 11,
-                          message: 'Máximo de onze números'
-                        }
-                      })}
-                      label="Contato Telefonico (DDD + nº)"
-                      variant="filled"
-                    />
-                    <br /><br />
-
-                    <Grid container spacing={2}>
-                      <Grid item xs={6}>
-                        <Select
-                          name="gender"
-                          error={errors.gender && errors.gender.message}
-                          helperText={errors.gender && errors.gender.message}
-                          inputRef={register({
-                            required: 'Esse campo é obrigatório'
-                          })}
-                          options={gender}
-                          register={register}
-                          label="Gênero"
-                        />
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Select
-                          name="selfDeclaration"
-                          error={errors.selfDeclaration && errors.selfDeclaration.message}
-                          helperText={errors.selfDeclaration && errors.selfDeclaration.message}
-                          inputRef={register({
-                            required: 'Esse campo é obrigatório'
-                          })}
-                          options={color}
-                          register={register}
-                          label="Auto Declaração"
-                        />
-                      </Grid>
-                    </Grid>
-                    <br />
-
 
                     <Error msg={registerError && registerError.user} />
 
@@ -228,4 +160,4 @@ const Users = () => {
 
 }
 
-export default Users
+export default CriarAdmPagina
