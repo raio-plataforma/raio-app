@@ -20,6 +20,8 @@ export default class ApiProfissional {
           let resposta = response.data;
           resposta.stateName = statesJSON.filter(function(i) { return String(i.id) === String(resposta.state); });
           resposta.stateName = resposta.stateName[0].name;
+          resposta.idade = String(resposta.birthday).split("/");
+          resposta.idade = parseInt(new Date().getFullYear()) - parseInt(resposta.idade[2]);
           sucesso(resposta);
         })
         .catch(function (error) {

@@ -258,17 +258,17 @@ export default function EnhancedTable({ headCells, list, title, actions, link = 
                                       action.type === 'link' ? (
                                         <> {
                                           action.target ? (
-                                            <a href={`${action.action}${row[action.actionCampo]}`} target={action.target}>
+                                            <a href={`${action.action}${row[action.actionCampo]}`} target={action.target} title={action.tooltip}>
                                               <IconButton aria-label="delete">{action.btn}</IconButton>
                                             </a>
                                           ) : (
-                                              <Link to={`${action.action}${row[action.actionCampo]}`}>
+                                              <Link to={`${action.action}${row[action.actionCampo]}`} title={action.tooltip}>
                                                 <IconButton aria-label="delete">{action.btn}</IconButton>
                                               </Link>
                                             )
                                         } </>
                                       ) : (
-                                          <IconButton aria-label="delete" onClick={() => { action.action(row[action.actionCampo], action.actionShelf) }} data={row[action.actionCampo]}>{action.btn}</IconButton>
+                                          <IconButton aria-label="delete" onClick={() => { action.action(row[action.actionCampo], action.actionShelf) }} data={row[action.actionCampo]} title={action.tooltip}>{action.btn}</IconButton>
                                         )
                                     }
                                   </Tooltip>

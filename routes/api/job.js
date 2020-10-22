@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const axios = require('axios')
 
 const Job = require('../../models/Job')
 const JobProfessional = require('../../models/JobProfessional')
@@ -19,7 +20,7 @@ const states = require('../../client/src/assets/states.json');
 router.get('/all', (req, res) => {
     let findQuery = {};
     if (req.query.status) {
-        findQuery = {status: req.query.status};
+        findQuery = { status: req.query.status };
     }
 
     Job.find(findQuery)
@@ -122,7 +123,7 @@ router.get('/', async (req, res) => {
                     jobs[index].set("btnCandidateSe", "true");
                 }
             })
-            
+
             setTimeout(async () => {
                 return res.status(200).json(jobs);
             }, 1000);
@@ -273,6 +274,23 @@ router.get('/myjobs/:userId', passport.authenticate('jwt', { session: false }), 
     }
 });
 
+router.get('/candidaturas/:jobId', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    try {
+        // console.log(req.params)
+        const jobs = await JobProfessional.find({ _job: req.params.jobId }).sort({ 'createAt': 'desc' }).populate('_user').populate('_job')
+        // console.log(jobs)
+
+        return res.status(200).json(jobs);
+    }
+    catch (err) {
+        console.error(err);
+        res.status(400).send({
+            error: ' Erro ao carregar as vagas',
+            err
+        });
+    }
+});
+
 // @route   GET api/job/myjobs/:userId
 // @desc    Return all company jobs
 // @access  Private
@@ -296,10 +314,10 @@ router.delete('/myjobs/:jobProfId', passport.authenticate('jwt', { session: fals
 // @access  Private
 router.put('/:jobId', passport.authenticate('jwt', { session: false }), async (req, res) => {
 
-    const { name, occupation } = req.body; //this is example TO DO add all
+    // const { name, occupation } = req.body; //this is example TO DO add all
 
     try {
-        const job = await Job.findOneAndUpdate(req.params.jobId, { name, occupation }, { new: true });
+        const job = await Job.findOneAndUpdate({ _id: req.params.jobId }, req.body, { new: true });
 
         await job.save();
 
@@ -308,6 +326,7 @@ router.put('/:jobId', passport.authenticate('jwt', { session: false }), async (r
         });
     }
     catch (err) {
+        console.error(err);
         res.status(400).send({
             error: ' Erro ao carregar a vaga',
         });

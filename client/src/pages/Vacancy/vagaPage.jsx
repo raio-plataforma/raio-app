@@ -31,7 +31,7 @@ export default class PaginaVaga extends Component {
     let vaga = await ApiVaga.prototype.getBySlugOrId(slug, () => { window.location.href = "/404"; }, user.id);
 
     // verificando status da vaga
-    if (vaga.status !== "Visivel") {
+    if (vaga.status !== "Atraindo candidatos") {
       window.location.href = "/404";
       return;
     }

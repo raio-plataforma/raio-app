@@ -65,7 +65,7 @@ const Vacancy = () => {
   }
 
   return (
-    <Container center="true">
+    <Container center="true" maxWidth="md">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Titulo>Cadastro de Vaga</Titulo>
         <Grid container spacing={3}>

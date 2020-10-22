@@ -6,9 +6,8 @@ import { Button, Container, Grid, Paper, Snackbar, Typography } from "@material-
 import ApiUser from "../../../api/user"
 import Tables from '../../../comps/Tables'
 import Titulo from "../../../components/Titulo"
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Alert from "@material-ui/lab/Alert"
 import ApiVaga from "../../../api/vaga"
@@ -59,7 +58,7 @@ export default class admVagasListaPagina extends Component {
       isLoaded: false,
     })
 
-    let vagasList = await ApiVaga.prototype.getTodas("", "Visivel");
+    let vagasList = await ApiVaga.prototype.getTodas("", "Aguardando seleção");
 
     await this.setState({
       isLoaded: true,
@@ -99,6 +98,14 @@ export default class admVagasListaPagina extends Component {
                     btn: <EditIcon />,
                     type: 'link', // link or btn
                     tooltip: 'Editar vaga'
+                  },
+                  {
+                    actionCampo: "_id",
+                    action: "/painel/admin/candidatos/vaga/",
+                    btn: <FormatListBulletedIcon />,
+                    type: 'link', // link or btn
+                    target: '_blank',
+                    tooltip: 'Lista de candidatos'
                   },
                   {
                     actionCampo: "_id",

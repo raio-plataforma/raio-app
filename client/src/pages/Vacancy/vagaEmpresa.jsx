@@ -74,14 +74,14 @@ export default class PaginaVagaEmpresa extends Component {
 
 
               <IfElse
-                condition={this.state.listaVagas.status == 'Visivel'}
-                True={
+                condition={this.state.listaVagas.status == 'Aguardando pagamento'}
+                False={
                   <div>
                     <br />
                     <Alert severity="warning">Essa vaga já foi paga o valor devido!</Alert>
                   </div>
                 }
-                False={
+                True={
                   <div>
                     <Typography variant="body2" color="initial">Essa vaga ainda não está vinculada em nosso site pois, está aguardando ser paga, só apos o pagamento ser aprovado que a vaga estará visivel no site para os candidatos, e que você poderá ver os candidatos inscrito na vaga.</Typography>
                     <br />

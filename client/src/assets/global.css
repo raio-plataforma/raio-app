@@ -230,6 +230,9 @@ hr[color="laranja"]{
 .table-pointer-onclick[onclick]{
     cursor: pointer!important;
 }
+.btn-transparente{
+    background-color: rgba(0, 0, 0, 0.3)!important;
+}
 ::-webkit-scrollbar {
     width: 7px;
 }

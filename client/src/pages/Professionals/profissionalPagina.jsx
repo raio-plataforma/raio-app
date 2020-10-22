@@ -45,8 +45,6 @@ export default class profissionalPagina extends Component {
     // Formatando
     userProfissional.createAt = new Date(userProfissional.createAt).toLocaleDateString();
     userProfissional.bio = userProfissional.bio.replace(/\n/g, "<br />");
-    userProfissional.idade = String(userProfissional.birthday).split("/");
-    userProfissional.idade = parseInt(new Date().getFullYear()) - parseInt(userProfissional.idade[2]);
 
     // Passando para o state html variaveis 
     await this.setState({
