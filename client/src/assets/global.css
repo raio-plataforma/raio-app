@@ -233,6 +233,24 @@ hr[color="laranja"]{
 .btn-transparente{
     background-color: rgba(0, 0, 0, 0.3)!important;
 }
+.MuiAlert-standardWarning{
+    background-color: rgb(102, 60, 0)!important;
+    color: #fff!important;
+}
+.MuiAlert-standardWarning svg{
+    color: #fff!important;
+}
+.posicaoTopPaper{
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #E79A3F;
+    background: #210C22;
+    padding: 5px;
+    border-radius: 0px 0px  10px 0px;
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -10px;
+}
 ::-webkit-scrollbar {
     width: 7px;
 }

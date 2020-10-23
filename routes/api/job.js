@@ -23,7 +23,7 @@ router.get('/all', (req, res) => {
         findQuery = { status: req.query.status };
     }
 
-    Job.find(findQuery)
+    Job.find(findQuery).populate('top1').populate('top2').populate('top3')
         .sort({ createdAt: -1 })
         .then(jobs => {
             if (!jobs) {
@@ -32,17 +32,19 @@ router.get('/all', (req, res) => {
             }
             res.json(jobs)
         })
-        .catch(() => res.status(404).json({
-            jobs: 'Não existem vagas cadastradas ainda'
-        }))
+        .catch((err) => {
+            console.error(err);
+            res.status(404).json({
+                jobs: 'Não existem vagas cadastradas ainda'
+            })
+        })
 })
 
 // @route   GET api/job/:enterprise_id/all
 // @desc    Get all specific enterprise jobs
 // @access  Public
 router.get('/all/:enterprise_id', (req, res) => {
-    Job
-        .find({ enterprise_id: req.params.enterprise_id })
+    Job.find({ enterprise_id: req.params.enterprise_id })
         .sort({ createdAt: -1 })
         .then(jobs => {
             if (!jobs) {
@@ -73,8 +75,7 @@ router.post('/all/:enterprise_id', async (req, res) => {
 
     const filters = { enterprise_id: req.params.enterprise_id };
 
-    Job
-        .find(filters)
+    Job.find(filters)
         .sort({ createdAt: -1 })
         .then(jobs => {
             if (!jobs) {
@@ -277,7 +278,12 @@ router.get('/myjobs/:userId', passport.authenticate('jwt', { session: false }), 
 router.get('/candidaturas/:jobId', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         // console.log(req.params)
-        const jobs = await JobProfessional.find({ _job: req.params.jobId }).sort({ 'createAt': 'desc' }).populate('_user').populate('_job')
+        const jobs = await JobProfessional.find({ _job: req.params.jobId }).sort({ 'createAt': 'desc' }).populate('_user').populate({
+            path: '_job',
+            populate: { path: 'top1' },
+            populate: { path: 'top2' },
+            populate: { path: 'top3' }
+          })
         // console.log(jobs)
 
         return res.status(200).json(jobs);

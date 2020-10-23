@@ -65,13 +65,16 @@ const JobSchema = new Schema(
       required: true
     },
     top1: {
-      type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     },
     top2: {
-      type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     },
     top3: {
-      type: String
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
     },
     comentarioTop1: {
       type: String

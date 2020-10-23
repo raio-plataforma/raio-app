@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react"
 import { useStoreState, useStoreActions } from 'easy-peasy'
-import Alert from '@material-ui/lab/Alert'
 import { Container, Group, Background } from './style'
-import { IfElse } from '../../components/If'
+import LinearScaleIcon from '@material-ui/icons/LinearScale';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import AddIcon from '@material-ui/icons/Add';
 import Tables from '../../comps/Tables'
-import Button from "../../comps/Button";
-import Grid from "@material-ui/core/Grid";
 import Erro from "../../components/erro"
 import Carregando from "../../components/loading/carregando"
 import Titulo from "../../components/Titulo"
@@ -14,8 +13,6 @@ const headCells = [
   { id: 'enterprise_name', numeric: false, disablePadding: true, label: 'Empresa' },
   { id: 'title', numeric: false, disablePadding: false, label: 'Título' },
   { id: 'function', numeric: false, disablePadding: false, label: 'Funções' },
-  { id: 'requirements', numeric: false, disablePadding: false, label: 'Requisitos' },
-  { id: 'location', numeric: false, disablePadding: false, label: 'Endereço' },
   { id: 'cache', numeric: true, disablePadding: false, label: 'Cachê' },
   { id: 'status', numeric: true, disablePadding: false, label: 'Status' }
 ];
@@ -63,10 +60,25 @@ const VacancyList = () => {
                     title="Vagas cadastradas na sua empresa"
                     headCells={headCells}
                     list={vacancies}
-                    linkMoreCampo="id"
-                    link="/vaga/"
                     btnAddLink="/cadastro/vaga"
-                    btnAddLabel="Adicionar nova"
+                    btnAddLabel={(<span><AddIcon style={{marginLeft:"0px"}}/> Anunciar uma nova</span>)}
+                    actions={[
+                      {
+                        actionCampo: "_id",
+                        action: "/painel/empresa/vaga/",
+                        btn: <LinearScaleIcon />,
+                        type: 'link', // link or btn
+                        tooltip: 'Acompanhar detalhes da vaga'
+                      },
+                      {
+                        actionCampo: "_id",
+                        action: "/vaga/",
+                        btn: <VisibilityIcon />,
+                        type: 'link', // link or btn
+                        target: '_blank',
+                        tooltip: 'Ver pagina da vaga (Publica)'
+                      }
+                    ]}
                   />
                 </Container>
               )

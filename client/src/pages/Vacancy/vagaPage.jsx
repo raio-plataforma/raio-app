@@ -1,16 +1,11 @@
 import React, { Component } from "react"
-
-import ApiMercadoPago from "../../models/mercadopago"
 import ApiVaga from "../../api/vaga"
 import Carregando from "../../components/loading/carregando"
 import Erro from "../../components/erro"
 import { Button, Container, Grid, Paper, Typography } from "@material-ui/core"
 import ScheduleIcon from '@material-ui/icons/Schedule';
-import MonetizationOnIcon from '@material-ui/icons/MonetizationOn';
 import { formatMoney } from "../../utils/formatter"
-import { Link } from "react-router-dom"
 import htmlParser from "html-react-parser"
-import { useStoreActions, useStoreState } from "easy-peasy"
 import ApiProfissional from "../../api/profissional"
 import ApiUser from "../../api/user"
 
@@ -27,7 +22,7 @@ export default class PaginaVaga extends Component {
   async componentDidMount() {
     window.scrollTo(0, 0);
     const slug = this.props.match.params.slug;
-    let user = await ApiUser.prototype.getUserLogado(localStorage.getItem("user_type"));
+    let user = await ApiUser.prototype.getUserLogado(localStorage.getItem("user_type"), false);
     let vaga = await ApiVaga.prototype.getBySlugOrId(slug, () => { window.location.href = "/404"; }, user.id);
 
     // verificando status da vaga

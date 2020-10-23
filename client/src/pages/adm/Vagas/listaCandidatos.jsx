@@ -7,9 +7,7 @@ import Titulo from "../../../components/Titulo"
 import Alert from "@material-ui/lab/Alert"
 import ApiVaga from "../../../api/vaga"
 import ApiCandidaturas from "../../../api/candidaturas"
-import Star from '@material-ui/icons/Star'
-import PcD from '@material-ui/icons/Accessible'
-import BusinessIcon from '@material-ui/icons/Business';
+import CardProfissional from "../../../components/CardProfissional"
 
 export default class admVagasListaCandidatosPagina extends Component {
   constructor(props) {
@@ -70,38 +68,20 @@ export default class admVagasListaCandidatosPagina extends Component {
 
               {
                 this.state.candidatos.map(candidato => (
-                  <Paper className="dashboard-paper">
-                    <a title="Clique para abrir o perfil" href={"/perfil/profissional/"+candidato._user._id} target="_blank">
-                    <Grid container spacing={2}>
-                      <Grid item xs={2}>
-                        <img src={"https://i.imgur.com/gRmLJPQ.jpg"} width="90%" className="foto-perfil" />
-                      </Grid>
-                      <Grid item xs={10}>
-                        <h1>{candidato._user.name} ({candidato.userProf.idade} anos) </h1>
-                        <Typography variant="body1" >{candidato.userProf.education} - {candidato.userProf.formation_institution}</Typography>
-                        <Typography variant="body1" >{candidato.userProf.city} - {candidato.userProf.stateName}</Typography>
-                        {candidato.userProf.apan_associate && (
-                          <Typography variant="body1" className="display-inline">
-                            <Star style={{ verticalAlign: "middle", marginRight: "5px", marginLeft: "0px" }} />
-                            Associado APAN
-                          </Typography>)
-                        }
-                        {candidato.userProf.pcd && (
-                          <Typography variant="body1" className="display-inline">
-                            <PcD style={{ verticalAlign: "middle", marginRight: "5px", marginLeft: "5px" }} />
-                            PcD
-                          </Typography>)
-                        }
-                        {candidato.userProf.cnpj && (
-                          <Typography variant="body1" className="display-inline">
-                            <BusinessIcon style={{ verticalAlign: "middle", marginRight: "5px", marginLeft: "5px" }} />
-                            Possui CNPJ - {candidato.userProf.cnpj_type}
-                          </Typography>)
-                        }
-                      </Grid>
-                    </Grid>
-                    </a>
-                  </Paper>
+                  <CardProfissional 
+                    id={candidato._user._id}
+                    img={"https://i.imgur.com/gRmLJPQ.jpg"}
+                    nome={candidato._user.name}
+                    idade={candidato.userProf.idade}
+                    educacao={candidato.userProf.education}
+                    univercidade={candidato.userProf.formation_institution}
+                    cidade={candidato.userProf.city}
+                    estado={candidato.userProf.stateName}
+                    apan_associate={candidato.userProf.apan_associate}
+                    pcd={candidato.userProf.pcd}
+                    cnpj={candidato.userProf.cnpj}
+                    cnpj_type={candidato.userProf.cnpj_type}
+                  />
                 ))
               }
 

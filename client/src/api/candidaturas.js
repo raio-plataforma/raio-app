@@ -33,7 +33,8 @@ export default class ApiCandidaturas {
               if (parseInt(i) === parseInt(data.length - 1)) {
                 setTimeout(() => {
                   sucesso(data);
-                }, 2000);
+                  console.log(data);
+                }, 1000);
               }
             }
           }

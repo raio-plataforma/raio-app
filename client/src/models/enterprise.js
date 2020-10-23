@@ -6,7 +6,7 @@ const enterpriseModel = {
   registerJob: thunk(async (actions, payload) => {
     try {
       let respostaAPI = await axios.post('/api/job', payload)
-      return history.push(`/vaga/${respostaAPI.data.id}`)
+      return history.push(`/painel/empresa/vaga/${respostaAPI.data.id}`)
     }
     catch (err) {
       console.log(err)

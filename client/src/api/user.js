@@ -82,7 +82,7 @@ export default class ApiUser {
 
   }
 
-  async getUserLogado(tipo = "admin") {
+  async getUserLogado(tipo = "admin", deslogadoRedirect = true) {
     return new Promise(async (sucesso, erro) => {
       try {
 
@@ -113,7 +113,9 @@ export default class ApiUser {
         }
       }
       catch (err) {
-        history.push(`/cadastro/${tipo}`)
+        if(deslogadoRedirect){
+          history.push(`/cadastro/${tipo}`);
+        }
         erro(err);
       }
     })

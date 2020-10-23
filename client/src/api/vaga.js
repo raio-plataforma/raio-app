@@ -1,4 +1,5 @@
 import { json } from 'body-parser';
+import ApiProfissional from './profissional';
 
 const axios = require('axios');
 
@@ -59,6 +60,15 @@ export default class ApiVaga {
         funErro();
         erro("ERRO: Não achamos ninguem com esse ID.");
       } else {
+        for (let index = 1; index < 4; index++) {
+          console.log(index);
+          if (listaVagas['top'+index]) {
+            if (listaVagas['top'+index]['type'] == "professional") {
+            let userProf = await ApiProfissional.prototype.getById(listaVagas['top'+index]['_id']);
+            listaVagas['top'+index+'Prof'] = userProf;
+            }
+          }
+        }
         sucesso(listaVagas);
       }
 

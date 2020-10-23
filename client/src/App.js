@@ -113,6 +113,7 @@ const App = ({ store }) => {
                 <Redirect path='/cadastro/enterprise' to='/cadastro/empresa' />
                 <Redirect path='/cadastro/professional' to='/cadastro/profissional' />
                 <Redirect path='/cadastro/admin' to='/' />
+                <Redirect path='/cadastro/null' to='/' />
                 <Redirect path='/dashboard/empresa' to='/painel/empresa' />
                 <Redirect path='/dashboard/enterprise' to='/painel/empresa' />
                 <Redirect path='/dashboard/profissional' to='/painel/profissional' />

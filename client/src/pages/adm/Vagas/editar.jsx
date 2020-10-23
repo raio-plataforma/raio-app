@@ -43,6 +43,7 @@ export default class admVagasEditarPagina extends Component {
       userLogado,
       candidatos
     });
+    console.log(this.state);
 
   }
 
@@ -51,8 +52,15 @@ export default class admVagasEditarPagina extends Component {
     let dadosFormFormado = {};
     let dadosInputsForm = new FormData(e.target);
     dadosInputsForm.forEach((valor, chave) => {
-      dadosFormFormado[chave] = valor;
+      if (valor != "") {
+        dadosFormFormado[chave] = valor;
+      }
     });
+    try {
+      dadosFormFormado.top1 = (dadosFormFormado.top1.split(" - "))[1];
+      dadosFormFormado.top2 = (dadosFormFormado.top2.split(" - "))[1];
+      dadosFormFormado.top3 = (dadosFormFormado.top3.split(" - "))[1];
+    } catch (error) { }
 
     await this.setState({ isLoaded: true, erro: null });
 
@@ -107,8 +115,11 @@ export default class admVagasEditarPagina extends Component {
                     <Autocomplete
                       fullWidth
                       freeSolo
-                      value={this.state.vaga.top1}
-                      options={this.state.candidatos.map(candidato => candidato._user.name).sort()}
+                      autoHighlight={true}
+                      options={this.state.candidatos}
+                      renderOption={option => <>{option._user?.name}</>}
+                      getOptionLabel={option => option._user?.name + " - " + option._user?._id}
+                      defaultValue={this.state.vaga.top1}
                       renderInput={params => (
                         <TextField
                           {...params}
@@ -117,7 +128,6 @@ export default class admVagasEditarPagina extends Component {
                           label="Candidato Top 1"
                           variant="filled"
                           placeholder="Digite o nome do candidato top 1"
-                          value={this.state.vaga.top1}
                         />
                       )}
                     />
@@ -129,7 +139,10 @@ export default class admVagasEditarPagina extends Component {
                       fullWidth
                       freeSolo
                       value={this.state.vaga.top2}
-                      options={this.state.candidatos.map(candidato => candidato._user.name).sort()}
+                      autoHighlight={true}
+                      options={this.state.candidatos}
+                      getOptionLabel={option => option._user?.name + " - " + option._user?._id}
+                      renderOption={option => <>{option._user?.name}</>}
                       renderInput={params => (
                         <TextField
                           {...params}
@@ -173,7 +186,10 @@ export default class admVagasEditarPagina extends Component {
                       fullWidth
                       freeSolo
                       value={this.state.vaga.top3}
-                      options={this.state.candidatos.map(candidato => candidato._user.name).sort()}
+                      autoHighlight={true}
+                      options={this.state.candidatos}
+                      getOptionLabel={option => option._user?.name + " - " + option._user?._id}
+                      renderOption={option => <>{option._user?.name}</>}
                       renderInput={params => (
                         <TextField
                           {...params}
