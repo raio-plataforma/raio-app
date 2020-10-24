@@ -8,6 +8,7 @@ import Alert from "@material-ui/lab/Alert"
 import ApiVaga from "../../../api/vaga"
 import ApiCandidaturas from "../../../api/candidaturas"
 import CardProfissional from "../../../components/CardProfissional"
+import config from "../../../config"
 
 export default class admVagasListaCandidatosPagina extends Component {
   constructor(props) {
@@ -70,7 +71,7 @@ export default class admVagasListaCandidatosPagina extends Component {
                 this.state.candidatos.map(candidato => (
                   <CardProfissional 
                     id={candidato._user._id}
-                    img={"https://i.imgur.com/gRmLJPQ.jpg"}
+                    img={config.pastaFotoPerfil+candidato._user.fotoPerfil}
                     nome={candidato._user.name}
                     idade={candidato.userProf.idade}
                     educacao={candidato.userProf.education}

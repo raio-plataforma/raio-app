@@ -14,7 +14,7 @@ export const registryTypes = ["MEI", "EIRELI", "ME", "Outro"]
 
 export const hiringType = ["CLT", "PJ", "RPA"]
 
-export const formations = ["Analfabeta", "Fundamental I incompleto (1o ao 5o ano)", "Fundamental I completo (1o ao 5o ano)", "Fundamental II incompleto (6o ao 9o ano)", "Fundamental II completo (6o ao 9o ano)", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós Graduação"]
+export const formations = ["Analfabeta", "Fundamental I incompleto (1o ao 5o ano)", "Fundamental I completo (1o ao 5o ano)", "Fundamental II incompleto (6o ao 9o ano)", "Fundamental II completo (6o ao 9o ano)", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós Graduação", "Autodidata"]
 
 export const cnpj_type = ["EIRELI", "LTDA", "ME", "MEI", "S.A"]
 

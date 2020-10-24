@@ -82,6 +82,13 @@ a{
 .fycPlG{
     color: #F7CC94!important;
 }
+.MuiChip-root{
+    color: #F7CC94!important;
+    background: rgba(231, 155, 63, 0.2)!important;
+}
+.MuiChip-deleteIcon{
+    color: #F7CC94!important;
+}
 .tabela-titulo{
     overflow: hidden;
     text-overflow: ellipsis;

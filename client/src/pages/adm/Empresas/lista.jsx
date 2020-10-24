@@ -39,7 +39,8 @@ export default class admEmpresasListaPagina extends Component {
       { id: 'user_id.name', numeric: false, disablePadding: false, label: 'Responsavel' },
       { id: 'user_id.email', numeric: false, disablePadding: true, label: 'E-mail' },
       { id: 'user_id.phone', numeric: false, disablePadding: false, label: 'Telefone' },
-      { id: 'business_segments', numeric: false, disablePadding: false, label: 'Segmento' }
+      { id: 'business_segments', numeric: false, disablePadding: false, label: 'Segmento' },
+      { id: '', numeric: false, disablePadding: false, label: '' }
     ]
 
 
@@ -92,16 +93,6 @@ export default class admEmpresasListaPagina extends Component {
                 title="Lista de empresas cadastradas"
                 headCells={this.state.tablesHeads}
                 list={this.state.empresaLista}
-                actions={[
-                  {
-                    actionCampo: "_id",
-                    action: "/painel/admin/candidatos/vaga/",
-                    btn: <FormatListBulletedIcon />,
-                    type: 'link', // link or btn
-                    target: '_blank',
-                    tooltip: 'Lista de vagas anunciadas'
-                  }
-                ]}
               />
               <Snackbar open={this.state.modalSucessoMsg} autoHideDuration={5000} onClose={() => this.setModalSucessoStatus(false)}>
                 <Alert elevation={6} variant="filled" onClose={() => this.setModalSucessoStatus(false)} severity="success">
