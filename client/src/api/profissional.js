@@ -46,6 +46,9 @@ export default class ApiProfissional {
       axios(config)
         .then(function (response) {
           let resposta = response.data;
+          for (let index = 0; index < resposta.length; index++) {
+            resposta[index].userId = resposta[index].user_id._id;
+          }
           sucesso(resposta);
         })
         .catch(function (error) {

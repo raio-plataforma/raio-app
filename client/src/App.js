@@ -45,6 +45,8 @@ import CriarAdmPagina from './pages/adm/Administradores/criar';
 import admVagasListaPagina from './pages/adm/Vagas/lista'
 import admVagasEditarPagina from './pages/adm/Vagas/editar'
 import admVagasListaCandidatosPagina from './pages/adm/Vagas/listaCandidatos'
+import admEmpresasListaPagina from './pages/adm/Empresas/lista'
+import admProfissionaisListaPagina from './pages/adm/Profissionais/lista'
 
 const App = ({ store }) => {
   return (
@@ -87,8 +89,9 @@ const App = ({ store }) => {
                 {/* Painel do admin */}
                 <PrivateRoute path='/painel/admin' exact component={PaginaDashboardAdmin} exact={true} />
                 <PrivateRoute path='/painel/admin/vagas' component={admVagasListaPagina} exact={true} />
-                <PrivateRoute path='/painel/admin/empresas' component={AllEnterprises} exact={true} />
+                <PrivateRoute path='/painel/admin/empresas' component={admEmpresasListaPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/administradores' component={admListaPagina} exact={true} />
+                <PrivateRoute path='/painel/admin/profissionais' component={admProfissionaisListaPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/buscar/profissionais' component={SearchProfessionals} exact={true} />
                 <PrivateRoute path='/painel/admin/cadastro/administrador' component={CriarAdmPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/editar/vaga/:id' component={admVagasEditarPagina} exact={true} />

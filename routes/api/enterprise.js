@@ -135,7 +135,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 router.get('/all', (req, res) => {
   const errors = {}
-  Enterprise.find()
+  Enterprise.find().populate('user_id')
     .sort({ createdAt: -1 })
     .then(enterprises => {
       if (!enterprises) {

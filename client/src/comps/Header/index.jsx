@@ -132,7 +132,7 @@ const Header = () => {
                     <div className="navbarAdmin">
                       <LinkButtonNav to={`/painel/admin/vagas`}> <WorkIcon /> Vagas </LinkButtonNav>
                       <LinkButtonNav to={`/painel/admin/empresas`}> <BusinessIcon /> Empresas </LinkButtonNav>
-                      <LinkButtonNav to={`/painel/admin/buscar/profissionais`}> <PersonIcon /> Profissionais </LinkButtonNav>
+                      <LinkButtonNav to={`/painel/admin/profissionais`}> <PersonIcon /> Profissionais </LinkButtonNav>
                       <LinkButtonNav to={`/painel/admin/administradores`}> <SupervisorAccountIcon /> Administradores </LinkButtonNav>
                       <LinkButtonNav to={`/perfil/editar/usuario`}> <EditIcon /> Editar usuário </LinkButtonNav>
                     </div>
