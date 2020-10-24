@@ -11,6 +11,7 @@ import Title from '../Title'
 import Text from '../Text'
 import { useStoreActions, useStoreState } from "easy-peasy";
 import { formatMoney } from '../../utils/formatter'
+import config from '../../config'
 
 const useStyles = makeStyles(theme => {
   return ({
@@ -46,7 +47,7 @@ display: block;
   color: #BA3B29!important;
 `
 
-function CardVacancy({ slug, id, jobTitle, foto, enterpriseName, jobDescription, location, period, money, func }) {
+function CardVacancy({ slug, id, jobTitle, foto, enterpriseName, sumirNomeEmpresa, jobDescription, location, period, money, func }) {
   const classes = useStyles();
   const applyJob = useStoreActions(actions => actions.professional.applyJob)
 
@@ -66,12 +67,22 @@ function CardVacancy({ slug, id, jobTitle, foto, enterpriseName, jobDescription,
           <CardContent >
             <Grid container spacing={2}>
               <Grid item xs={3} md={1}>
-                <img src={foto} width="100%" className="foto-perfil" />
+                {
+                  sumirNomeEmpresa == false ? (
+                    <img src={foto} width="100%" className="foto-perfil" />
+                  ) : (
+                    <img src={config.pastaLogotipo+"SemLogo.png"} width="100%" className="foto-perfil" />
+                  )
+                }
               </Grid>
               <Grid item xs={9} md={11}>
-                <Text className={classes.title} color="textSecondary" gutterBottom>
-                  {enterpriseName}
-                </Text>
+                {
+                  sumirNomeEmpresa == false ? (
+                    <Text className={classes.title} color="textSecondary" gutterBottom>
+                      {enterpriseName}
+                    </Text>
+                  ) : (<></>)
+                }
                 <Title color="secondary" size="sm">
                   {jobTitle} - {func}
                 </Title>

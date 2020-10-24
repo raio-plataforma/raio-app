@@ -64,6 +64,10 @@ const JobSchema = new Schema(
       type: String,
       required: true
     },
+    sumirNomeEmpresa: {
+      type: Boolean,
+      default: false
+    },
     top1: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'

@@ -62,8 +62,18 @@ export default class PaginaVaga extends Component {
                 </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={4} md={2}>
-                    <img src={config.pastaLogotipo + this.state.vaga.enterprise_id.logotipo} width="100%" className="foto-perfil" />
-                    <center><Typography variant="h3" >{this.state.vaga.enterprise_name}</Typography></center>
+                    {
+                      this.state.vaga.sumirNomeEmpresa == false ? (
+                        <div>
+                          <img src={config.pastaLogotipo + this.state.vaga.enterprise_id.logotipo} width="100%" className="foto-perfil" />
+                          <center><Typography variant="h3" >{this.state.vaga.enterprise_name}</Typography></center>
+                        </div>
+                      ) : (
+                          <div>
+                            <img src={config.pastaLogotipo+"SemLogo.png"} width="100%" className="foto-perfil" />
+                          </div>
+                        )
+                    }
                   </Grid>
                   <Grid item xs={8} md={10}>
                     <Typography variant="h1" >{this.state.vaga.title}</Typography>

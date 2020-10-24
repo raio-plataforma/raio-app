@@ -21,6 +21,7 @@ import { Error, Success } from '../../components/Status'
 import { parseDate, normalizeArrayData } from '../../utils/formatter'
 import history from '../../history'
 import Titulo from "../../components/Titulo";
+import SwitchLabels from "../../comps/Switch";
 
 
 
@@ -198,6 +199,13 @@ const Vacancy = () => {
             <Checkbox
               name="hiring_type"
               options={hiringType}
+              register={register}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <SwitchLabels
+              name="sumirNomeEmpresa"
+              label="Esconder nome da empresa na página publica da vaga?"
               register={register}
             />
           </Grid>

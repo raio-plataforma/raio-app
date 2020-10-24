@@ -171,6 +171,7 @@ const AllVacancies = () => {
                                         jobDescription={job.requirements}
                                         money={job.cache}
                                         func={job.function}
+                                        sumirNomeEmpresa={job.sumirNomeEmpresa}
                                     />
                                 ))) :
                                 <Grid item xs={12}>
