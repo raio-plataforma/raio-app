@@ -21,6 +21,7 @@ import Switch from "../../comps/Switch";
 import { useForm } from "react-hook-form";
 import Titulo from "../../components/Titulo"
 import SearchIcon from '@material-ui/icons/Search';
+import config from "../../config"
 
 const AllVacancies = () => {
     const {
@@ -162,7 +163,7 @@ const AllVacancies = () => {
                                         key={job._id}
                                         slug={job.slug || job._id}
                                         id={job._id}
-                                        foto={"https://i.imgur.com/gRmLJPQ.jpg"}
+                                        foto={config.pastaLogotipo + job.enterprise_id.logotipo}
                                         enterpriseName={job.enterprise_name || "Confidencial"}
                                         jobTitle={job.title}
                                         location={job.city + ' - ' + job.stateName}

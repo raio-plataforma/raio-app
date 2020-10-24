@@ -29,10 +29,11 @@ const StyledProfile = styled.div`
     height: 80px;
     border-radius: 100%;
     color: #f2be8a;
-    background: #601819;
+    background: #210C22;
     display: flex;
     justify-content: center;
     align-items: center;
+    object-fit: cover;
   }
 
   .associate {

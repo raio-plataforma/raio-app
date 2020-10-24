@@ -182,6 +182,10 @@ hr.cor-laranja{
 }
 .foto-perfil{
     border-radius: 100%;
+    color: #f2be8a;
+    background: #210C22;
+    object-position: center;
+    object-fit: cover;
 }
 hr[color="laranja"]{
     border-color: #F9A639;
@@ -230,15 +234,15 @@ hr[color="laranja"]{
 .table-pointer-onclick[onclick]{
     cursor: pointer!important;
 }
-.btn-transparente{
-    background-color: rgba(0, 0, 0, 0.3)!important;
-}
 .MuiAlert-standardWarning{
     background-color: rgb(102, 60, 0)!important;
     color: #fff!important;
 }
 .MuiAlert-standardWarning svg{
     color: #fff!important;
+}
+.btn-transparente{
+    background-color: rgba(0, 0, 0, 0.3)!important;
 }
 .posicaoTopPaper{
     font-size: 1.5em;

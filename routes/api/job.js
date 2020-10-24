@@ -23,7 +23,7 @@ router.get('/all', (req, res) => {
         findQuery = { status: req.query.status };
     }
 
-    Job.find(findQuery).populate('top1').populate('top2').populate('top3')
+    Job.find(findQuery).populate('enterprise_id').populate('top1').populate('top2').populate('top3')
         .sort({ createdAt: -1 })
         .then(jobs => {
             if (!jobs) {
@@ -113,11 +113,11 @@ router.get('/', async (req, res) => {
             filters.state = { $in: statesFilter };
         }
 
-        var jobs = await Job.find(filters).sort({ 'createAt': 'desc' }).populate('company');
+        var jobs = await Job.find(filters).sort({ 'createdAt': 'desc' }).populate('company').populate('enterprise_id');
 
         if (req.query.userId) {
             jobs.forEach(async (obj, index) => {
-                let myJobs = await JobProfessional.find({ $and: [{ _user: req.query.userId }, { _job: jobs[index]["_id"] }] }).sort({ 'createAt': 'desc' }).populate('_user').populate('_job');
+                let myJobs = await JobProfessional.find({ $and: [{ _user: req.query.userId }, { _job: jobs[index]["_id"] }] }).sort({ 'createdAt': 'desc' }).populate('_user').populate('_job');
                 if (String(myJobs[0]) !== "undefined") {
                     jobs[index].set("btnCandidateSe", "false");
                 } else {
@@ -263,7 +263,7 @@ router.post('/apply', passport.authenticate('jwt', { session: false }), async (r
 router.get('/myjobs/:userId', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         // console.log(req.params)
-        const jobs = await JobProfessional.find({ _user: req.params.userId }).sort({ 'createAt': 'desc' }).populate('_user').populate('_job')
+        const jobs = await JobProfessional.find({ _user: req.params.userId }).sort({ 'createdAt': 'desc' }).populate('_user').populate('_job')
         // console.log(jobs)
 
         return res.status(200).json(jobs);
@@ -278,7 +278,7 @@ router.get('/myjobs/:userId', passport.authenticate('jwt', { session: false }), 
 router.get('/candidaturas/:jobId', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         // console.log(req.params)
-        const jobs = await JobProfessional.find({ _job: req.params.jobId }).sort({ 'createAt': 'desc' }).populate('_user').populate({
+        const jobs = await JobProfessional.find({ _job: req.params.jobId }).sort({ 'createdAt': 'desc' }).populate('_user').populate({
             path: '_job',
             populate: { path: 'top1' },
             populate: { path: 'top2' },

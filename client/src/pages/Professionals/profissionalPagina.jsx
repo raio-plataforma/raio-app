@@ -13,6 +13,7 @@ import ApiUser from "../../api/user"
 import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
 import BusinessIcon from '@material-ui/icons/Business';
+import config from "../../config";
 
 export default class profissionalPagina extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ export default class profissionalPagina extends Component {
               <Grid item xs={12} md={12} className="colunaEsqurda">
                 <Grid container spacing={2}>
                   <Grid item xs={4} md={2}>
-                    <img src="https://i.imgur.com/gRmLJPQ.jpg" width="100%" className="foto-perfil" />
+                    <img src={config.pastaFotoPerfil + this.state.user.fotoPerfil} width="100%" className="foto-perfil" />
                   </Grid>
                   <Grid item xs={8} md={10}>
                     <Typography variant="h1" >{this.state.user.name} ({this.state.userProfissional.idade} anos) </Typography>

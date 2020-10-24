@@ -65,10 +65,10 @@ function CardVacancy({ slug, id, jobTitle, foto, enterpriseName, jobDescription,
         <Card className={classes.root + " card-vaga"} variant="outlined">
           <CardContent >
             <Grid container spacing={2}>
-              <Grid item xs={1}>
+              <Grid item xs={3} md={1}>
                 <img src={foto} width="100%" className="foto-perfil" />
               </Grid>
-              <Grid item xs={11}>
+              <Grid item xs={9} md={11}>
                 <Text className={classes.title} color="textSecondary" gutterBottom>
                   {enterpriseName}
                 </Text>

@@ -13,6 +13,7 @@ import htmlParser from "html-react-parser"
 import CommentIcon from '@material-ui/icons/Comment';
 import Erro from "../../components/erro";
 import Carregando from "../../components/loading/carregando";
+import config from "../../config";
 
 export default class PaginaVagaEmpresa extends Component {
   constructor(props) {
@@ -263,7 +264,7 @@ export default class PaginaVagaEmpresa extends Component {
                               <CardProfissional
                                 posicaoTop={index}
                                 id={this.state.listaVagas['top' + index]['_id']}
-                                img={"https://i.imgur.com/gRmLJPQ.jpg"}
+                                img={config.pastaFotoPerfil + this.state.listaVagas['top' + index]['fotoPerfil']}
                                 nome={this.state.listaVagas['top' + index]['name']}
                                 idade={this.state.listaVagas['top' + index + 'Prof']['idade']}
                                 educacao={this.state.listaVagas['top' + index + 'Prof']['education']}

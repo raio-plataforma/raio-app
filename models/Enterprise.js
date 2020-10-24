@@ -23,6 +23,11 @@ const EnterpriseSchema = new Schema(
       required: false,
       ref: 'User'
     },
+    logotipo: {
+      type: String,
+      default: "SemLogo.png",
+      required: true
+    },
     foundation_date: {
       type: String,
       required: true

@@ -8,6 +8,7 @@ import { formatMoney } from "../../utils/formatter"
 import htmlParser from "html-react-parser"
 import ApiProfissional from "../../api/profissional"
 import ApiUser from "../../api/user"
+import config from "../../config"
 
 export default class PaginaVaga extends Component {
   constructor(props) {
@@ -31,7 +32,7 @@ export default class PaginaVaga extends Component {
       return;
     }
 
-    vaga.createAt = new Date(vaga.createAt).toLocaleDateString();
+    vaga.createdAt = new Date(vaga.createdAt).toLocaleDateString();
     vaga.requirements = vaga.requirements.replace(/\n/g, "<br />");
 
     await this.setState({
@@ -57,11 +58,11 @@ export default class PaginaVaga extends Component {
               <Grid item xs={12} md={8} className="colunaEsqurda">
                 <Typography variant="body1" remove-mobile="true">
                   <ScheduleIcon style={{ verticalAlign: "middle", marginRight: "5px" }} />
-                  Publicada em {this.state.vaga.createAt}
+                  Publicada em {this.state.vaga.createdAt}
                 </Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={4} md={2}>
-                    <img src="https://i.imgur.com/gRmLJPQ.jpg" width="100%" className="foto-perfil" />
+                    <img src={config.pastaLogotipo + this.state.vaga.enterprise_id.logotipo} width="100%" className="foto-perfil" />
                     <center><Typography variant="h3" >{this.state.vaga.enterprise_name}</Typography></center>
                   </Grid>
                   <Grid item xs={8} md={10}>

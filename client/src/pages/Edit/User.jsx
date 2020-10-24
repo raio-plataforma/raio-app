@@ -1,4 +1,4 @@
-import { Container } from "@material-ui/core";
+import { Button, Container } from "@material-ui/core";
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
@@ -7,14 +7,13 @@ import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Delete from '@material-ui/icons/Delete';
-
 import {
   color as selfDeclaration,
   gender,
 } from '../Signup/dicioFields'
 import NewModal from '../../comps/Modal'
 import Select from '../../comps/Select'
-import Button from '../../comps/Button'
+// import Button from '../../comps/Button'
 import loading from '../../assets/loading.svg'
 import { StyledForm } from './style'
 import { Title } from "../Signup/styles";
@@ -23,6 +22,8 @@ import Erro from "../../components/erro";
 import Carregando from "../../components/loading/carregando";
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import config from "../../config";
 
 const EditUser = ({ match }) => {
   const [carregando, setCarregando] = useState(true)
@@ -69,7 +70,33 @@ const EditUser = ({ match }) => {
                 <Container center="true" maxWidth="md">
                   <Titulo> Editar perfil de usuário </Titulo>
 
+
+                  <center className="editarFotoPerfil">
+                    {
+                      user.fotoPerfil ?
+                        <img src={config.pastaFotoPerfil + user.fotoPerfil} width="100px" className="foto-perfil" />
+                        :
+                        <img src={config.pastaFotoPerfil + "SemFoto.png"} width="100px" className="foto-perfil" />
+                    }
+                    <br /><br />
+                    <form
+                      id='uploadForm'
+                      action='/api/user/upload/foto'
+                      method='post'
+                      encType="multipart/form-data">
+                      <input type="hidden" name="_id" id="_id" defaultValue={user.id}></input>
+                      <label htmlFor="arquivo">
+                        <Button variant="contained" component="label" className="btn-transparente">
+                          <CloudUploadIcon /> Mudar foto
+                          <input type="file" name="arquivo" id="arquivo" accept="image/*" onChange={() => { document.getElementById('uploadForm').submit(); }} style={{ display: "none" }} />
+                        </Button>
+                      </label>
+                    </form>
+                    <br /><br /><br />
+                  </center>
+
                   <StyledForm onSubmit={handleSubmit(onSubmit)}>
+
                     <TextField
                       name="name"
                       fullWidth
@@ -173,7 +200,7 @@ const EditUser = ({ match }) => {
                     }
                   </center>
                   <br /><br />
-                  
+
                   <br /><br /><br /><br /><br /><br />
                   <br /><br /><br /><br />
                   <center>

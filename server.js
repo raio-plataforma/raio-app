@@ -6,6 +6,7 @@ const helmet = require('helmet')
 const db = require('./config/db')
 const https = require('https');
 const fs = require('fs');
+const fileUpload = require('express-fileupload');
 require('dotenv').config();
 
 const path = require('path')
@@ -31,6 +32,8 @@ app.use(cors())
 // Passport middleware
 app.use(passport.initialize())
 
+app.use(fileUpload());
+
 // Passport Config
 require('./config/passport')(passport)
 
@@ -41,6 +44,7 @@ app.use((err, req, res, next) => {
 })
 
 // Use Routes
+app.use('/api/files/upload', express.static('./upload'));
 app.use('/api/professional', professional)
 app.use('/api/profissional', professional)
 app.use('/api/enterprise', enterprise)

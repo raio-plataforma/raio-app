@@ -6,7 +6,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import states from '../../assets/states.json'
 import cities from '../../assets/cities.json'
 import {
@@ -20,17 +20,17 @@ import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatt
 import Checkbox from '../../comps/Checkbox'
 import Switch from '../../comps/Switch'
 import Select from '../../comps/Select'
-import Button from '../../comps/Button'
 import ChipOptions from '../../comps/ChipOptions'
 import loading from '../../assets/loading.svg'
 import { StyledForm } from './style'
-import { Container } from '@material-ui/core'
+import { Button, Container } from '@material-ui/core'
 import { Title } from '../Signup/styles'
 import Titulo from '../../components/Titulo'
 import Carregando from '../../components/loading/carregando'
 import Erro from '../../components/erro'
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+import config from '../../config'
 
 const EditEnterprise = ({ match }) => {
   const [carregando, setCarregando] = useState(true)
@@ -60,7 +60,7 @@ const EditEnterprise = ({ match }) => {
     if ((user.enterprise_id) && (String(enterprise) == '')) {
       getEnterpriseById(user.enterprise_id);
     }
-    
+
     if (!String(enterprise) == '') {
       setCarregando(false);
     }
@@ -112,6 +112,33 @@ const EditEnterprise = ({ match }) => {
             ) : (
                 <Container center="true" maxWidth="md">
                   <Titulo> Editar perfil da empresa </Titulo>
+
+
+                  <center className="editarLogotipo">
+                    {
+                      user.logotipo ?
+                        <img src={config.pastaLogotipo + user.logotipo} width="100px" className="foto-perfil" />
+                        :
+                        <img src={config.pastaLogotipo + "SemLogo.png"} width="100px" className="foto-perfil" />
+                    }
+                    <br /><br />
+                    <form
+                      id='uploadForm'
+                      action='/api/enterprise/upload/logotipo'
+                      method='post'
+                      encType="multipart/form-data">
+                      <input type="hidden" name="_id" id="_id" defaultValue={enterprise.id}></input>
+                      <label htmlFor="arquivo">
+                        <Button variant="contained" component="label" className="btn-transparente">
+                          <CloudUploadIcon /> Mudar logo
+                          <input type="file" name="arquivo" id="arquivo" accept="image/*" onChange={() => { document.getElementById('uploadForm').submit(); }} style={{ display: "none" }} />
+                        </Button>
+                      </label>
+                    </form>
+                    <br /><br /><br />
+                  </center>
+
+
                   <StyledForm onSubmit={handleSubmit(onSubmit)}>
                     <TextField
                       name="enterprise_name"

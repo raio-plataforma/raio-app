@@ -18,6 +18,11 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
+    fotoPerfil: {
+      type: String,
+      default: "SemFoto.png",
+      required: true
+    },
     type: {
       required: true,
       type: String,
@@ -35,10 +40,10 @@ const UserSchema = new Schema(
     },
     reset_password_token: {
       type: Schema.Types.ObjectId,
+      auto: true,
+      index: true,
       unique: true,
       required: true,
-      auto: true,
-      index: true
     },
     reset_password_expires: {
       type: Date

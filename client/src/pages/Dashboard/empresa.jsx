@@ -7,6 +7,7 @@ import Erro from '../../components/erro';
 import { useStoreActions, useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
+import config from '../../config';
 
 const PaginaDashboardEmpresa = () => {
   const [carregando, setCarregando] = useState(true)
@@ -76,8 +77,7 @@ const PaginaDashboardEmpresa = () => {
                         <Profile
                           id={user._id}
                           name={user.enterprise_name || user.name}
-                          icon={<img src="https://i.imgur.com/gRmLJPQ.jpg" width="100%" />}
-                          associate={user.apan_associate}
+                          icon={<img src={config.pastaLogotipo + user.logotipo} width="100%" />}
                           type={"Empresa"}
                           bio={user.presentation}
                           pcd={user.pcd}
@@ -98,7 +98,7 @@ const PaginaDashboardEmpresa = () => {
                         <Profile
                           id={user._id}
                           name={user.name}
-                          icon={<img src="https://i.imgur.com/gRmLJPQ.jpg" width="100%" />}
+                          icon={<img src={config.pastaFotoPerfil+user?.fotoPerfil} width="100%" />}
                           associate={user.apan_associate}
                           type={"Usuario"}
                         />
