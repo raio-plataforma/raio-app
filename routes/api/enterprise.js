@@ -11,6 +11,17 @@ const Enterprise = require('../../models/Enterprise')
 
 
 
+router.get('/all/count', (req, res) => {
+  Enterprise.countDocuments().then(count => {
+          res.json({count})
+      })
+      .catch((err) => {
+          console.error(err);
+          res.status(404).json({
+            jobs: 'Não existe nada cadastrado ainda'
+          })
+      })
+});
 
 router.post('/upload/logotipo', async (req, res) => {
   if (!req.files || Object.keys(req.files).length === 0) {

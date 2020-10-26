@@ -14,6 +14,41 @@ const sendEmailNewJobApply = emailFuncs.sendEmailNewJobApply;
 
 const states = require('../../client/src/assets/states.json');
 
+router.get('/all/count', (req, res) => {
+    let finQuery = {};
+    let enterprise_id = req.query.enterprise_id;
+    let status = req.query.status;
+    if(status != ""){
+        finQuery.status = status;
+    }else
+    if(enterprise_id != ""){
+        finQuery.enterprise_id = enterprise_id;
+    }
+
+    Job.countDocuments(finQuery).then(count => {
+            res.json({count})
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(404).json({
+                jobs: 'Não existe nada cadastrado ainda'
+            })
+        })
+});
+
+
+router.get('/myJobs/all/count', (req, res) => {
+    JobProfessional.countDocuments({ _user: req.query.userId }).then(count => {
+            res.json({count})
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(404).json({
+                jobs: 'Não existe nada cadastrado ainda'
+            })
+        })
+});
+
 // @route   GET api/job/all
 // @desc    Get jobs
 // @access  Public

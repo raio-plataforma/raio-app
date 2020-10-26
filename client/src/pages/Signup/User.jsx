@@ -23,6 +23,7 @@ import { Container } from '@material-ui/core'
 import Titulo from '../../components/Titulo'
 import Erro from '../../components/erro'
 import Carregando from '../../components/loading/carregando'
+import Inputmask from 'inputmask';
 
 const Users = () => {
   const [carregando, setCarregando] = useState(true)
@@ -55,6 +56,9 @@ const Users = () => {
       return setModalStatus(true)
     } else {
       setCarregando(false);
+      setTimeout(() => {
+        Inputmask({mask: ["+99 (99) 9999-9999", "+99 (99) 9 9999-9999", "+99 (999) 9 9999-9999"]}).mask("#phone");
+      }, 500);
     }
 
     if (registerError && registerError.user) {
@@ -151,20 +155,14 @@ const Users = () => {
 
                     <TextField
                       name="phone"
+                      id="phone"
                       fullWidth
                       error={errors.phone && errors.phone.message}
                       helperText={errors.phone && errors.phone.message}
                       inputRef={register({
-                        required: 'Esse campo é obrigatório',
-                        pattern: {
-                          message: 'Insira apenas números'
-                        },
-                        maxLength: {
-                          value: 11,
-                          message: 'Máximo de onze números'
-                        }
+                        required: 'Esse campo é obrigatório'
                       })}
-                      label="Contato Telefonico (DDD + nº)"
+                      label="Contato Telefonico Exemplo: +País (DDD) Numero"
                       variant="filled"
                     />
                     <br /><br />

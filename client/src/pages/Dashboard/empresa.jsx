@@ -8,6 +8,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import config from '../../config';
+import ApiVaga from '../../api/vaga';
 
 const PaginaDashboardEmpresa = () => {
   const [carregando, setCarregando] = useState(true)
@@ -19,22 +20,27 @@ const PaginaDashboardEmpresa = () => {
   const getUser = useStoreActions(actions => actions.user.getUser)
 
 
+  const [VagaAll, setVagaAll] = useState(null)
+
+
   useEffect(() => {
     if ((String(userType.type) !== 'undefined') && (String(user._id) == 'undefined')) {
       getUser(userType.type);
     }
 
-    if ((String(user._id) !== 'undefined')) {
+    if ((String(VagaAll) !== 'null') && (String(user._id) !== 'undefined')) {
       setCarregando(false);
+    } else {
+      ApiVaga.prototype.getAllCount("", user.enterprise_id).then((response) => { setVagaAll(response) });
     }
-    
+
 
     if (localStorage.getItem('menuAutoAbrir') == 'true') {
       setTimeout(() => { toggleMenu(true); localStorage.setItem('menuAutoAbrir', 'false'); }, 500);
       setTimeout(() => { toggleMenu(false) }, 2500);
     }
 
-  }, [user, userType, getUser, setCarregando, carregando]);
+  }, [VagaAll, user, userType, getUser, setCarregando, carregando]);
 
 
 
@@ -56,18 +62,15 @@ const PaginaDashboardEmpresa = () => {
 
                       <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Vagas ativas</h1>
-                            <p><b>1</b></p>
-                          </Paper>
-                        </Grid>
-                        <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Candidatos</h1>
-                            <p><b>100</b></p>
-                          </Paper>
+                          <Link to="/painel/empresa/vagas">
+                            <Paper className="dashboard-paper">
+                              <h1>Vagas</h1>
+                              <p><b>{VagaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                       </Grid>
+
 
                     </Grid>
 
@@ -98,7 +101,7 @@ const PaginaDashboardEmpresa = () => {
                         <Profile
                           id={user._id}
                           name={user.name}
-                          icon={<img src={config.pastaFotoPerfil+user?.fotoPerfil} width="100%" />}
+                          icon={<img src={config.pastaFotoPerfil + user?.fotoPerfil} width="100%" />}
                           associate={user.apan_associate}
                           type={"Usuario"}
                         />
@@ -116,16 +119,12 @@ const PaginaDashboardEmpresa = () => {
 
                       <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Vagas ativas</h1>
-                            <p><b>1</b></p>
-                          </Paper>
-                        </Grid>
-                        <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Candidatos</h1>
-                            <p><b>100</b></p>
-                          </Paper>
+                          <Link to="/painel/empresa/vagas">
+                            <Paper className="dashboard-paper">
+                              <h1>Vagas ativas</h1>
+                              <p><b>{VagaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                       </Grid>
 

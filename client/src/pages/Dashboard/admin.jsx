@@ -8,6 +8,11 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import config from '../../config';
+import ApiProfissional from '../../api/profissional';
+import ApiEmpresa from '../../api/empresa';
+import { GoogleProvider, GoogleDataChart } from 'react-analytics-widget';
+import ApiUser from '../../api/user';
+import ApiVaga from '../../api/vaga';
 
 const PaginaDashboardAdmin = () => {
   const [carregando, setCarregando] = useState(true)
@@ -18,14 +23,24 @@ const PaginaDashboardAdmin = () => {
   const userType = useStoreState(state => state.auth.auth.user)
   const getUser = useStoreActions(actions => actions.user.getUser)
 
+  const [ProfissionalAll, setProfissionalAll] = useState(null)
+  const [EmpresaAll, setEmpresaAll] = useState(null)
+  const [AdmAll, setAdmAll] = useState(null)
+  const [VagaAll, setVagaAll] = useState(null)
+
 
   useEffect(() => {
     if ((String(userType.type) !== 'undefined') && (String(user.id) == 'undefined')) {
       getUser(userType.type);
     }
 
-    if ((String(user.id) !== 'undefined')) {
+    if ((String(ProfissionalAll) !== 'null') && (String(EmpresaAll) !== 'null') && (String(user.id) !== 'undefined')) {
       setCarregando(false);
+    } else {
+      ApiProfissional.prototype.getAllCount().then((response) => { setProfissionalAll(response) });
+      ApiEmpresa.prototype.getAllCount().then((response) => { setEmpresaAll(response) });
+      ApiUser.prototype.getAllCount("admin").then((response) => { setAdmAll(response) });
+      ApiVaga.prototype.getAllCount("Aguardando seleção").then((response) => { setVagaAll(response) });
     }
 
 
@@ -34,7 +49,7 @@ const PaginaDashboardAdmin = () => {
       setTimeout(() => { toggleMenu(false) }, 2500);
     }
 
-  }, [user, userType, getUser, setCarregando, carregando]);
+  }, [ProfissionalAll, user, userType, getUser, setCarregando, carregando]);
 
 
 
@@ -54,18 +69,38 @@ const PaginaDashboardAdmin = () => {
                   <Grid container spacing={2}>
                     <Grid item sm={6} xs={12} remove-pc="true">
 
-                    <Grid container spacing={2}>
+                      <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Empresas</h1>
-                            <p><b>100</b></p>
-                          </Paper>
+                          <Link to="/painel/admin/vagas">
+                            <Paper className="dashboard-paper">
+                              <h1>Vagas</h1>
+                              <p><b>{VagaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Profissionais</h1>
-                            <p><b>1.000</b></p>
-                          </Paper>
+                          <Link to="/painel/admin/empresas">
+                            <Paper className="dashboard-paper">
+                              <h1>Empresas</h1>
+                              <p><b>{EmpresaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
+                        </Grid>
+                        <Grid item sm={6} xs={6}>
+                          <Link to="/painel/admin/profissionais">
+                            <Paper className="dashboard-paper">
+                              <h1>Profissionais</h1>
+                              <p><b> {ProfissionalAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
+                        </Grid>
+                        <Grid item sm={6} xs={6}>
+                          <Link to="/painel/admin/administradores">
+                            <Paper className="dashboard-paper">
+                              <h1>Administradores</h1>
+                              <p><b>{AdmAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                       </Grid>
 
@@ -90,7 +125,7 @@ const PaginaDashboardAdmin = () => {
                         <Profile
                           id={user._id}
                           name={user.name}
-                          icon={<img src={config.pastaFotoPerfil+user?.fotoPerfil} width="100%" />}
+                          icon={<img src={config.pastaFotoPerfil + user?.fotoPerfil} width="100%" />}
                           associate={user.apan_associate}
                           type={"Usuario"}
                         />
@@ -108,16 +143,36 @@ const PaginaDashboardAdmin = () => {
 
                       <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Empresas</h1>
-                            <p><b>100</b></p>
-                          </Paper>
+                          <Link to="/painel/admin/vagas">
+                            <Paper className="dashboard-paper">
+                              <h1>Vagas</h1>
+                              <p><b>{VagaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Profissionais</h1>
-                            <p><b>1.000</b></p>
-                          </Paper>
+                          <Link to="/painel/admin/empresas">
+                            <Paper className="dashboard-paper">
+                              <h1>Empresas</h1>
+                              <p><b>{EmpresaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
+                        </Grid>
+                        <Grid item sm={6} xs={6}>
+                          <Link to="/painel/admin/profissionais">
+                            <Paper className="dashboard-paper">
+                              <h1>Profissionais</h1>
+                              <p><b> {ProfissionalAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
+                        </Grid>
+                        <Grid item sm={6} xs={6}>
+                          <Link to="/painel/admin/administradores">
+                            <Paper className="dashboard-paper">
+                              <h1>Administradores</h1>
+                              <p><b>{AdmAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                       </Grid>
 

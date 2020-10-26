@@ -10,6 +10,20 @@ const states = require('../../client/src/assets/states.json');
 const Professional = require('../../models/Professional')
 const User = require('../../models/User')
 
+
+router.get('/all/count', (req, res) => {
+    Professional.countDocuments().then(count => {
+            res.json({count})
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(404).json({
+                jobs: 'Não existe nada cadastrado ainda'
+            })
+        })
+  });
+  
+
 // @route   POST api/professional/register
 // @desc    Register professional
 // @access  Public

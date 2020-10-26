@@ -4,6 +4,30 @@ const axios = require('axios');
 
 export default class ApiProfissional {
 
+  async getAllCount(funErro = ()=>{}) {
+    return new Promise(async(sucesso, erro)=>{
+
+      var config = {
+        method: 'get',
+        url: '/api/professional/all/count',
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+  
+      axios(config)
+        .then(function (response) {
+          response.data.countFormatado = (response.data.count).toLocaleString('pt-BR');
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+          funErro();
+          erro(error);
+        });
+    })
+  }
+
   async getById(id) {
     return new Promise(async(sucesso, erro)=>{
 

@@ -20,6 +20,19 @@ const emailFuncs = require('../../helpers/mail');
 const sendEmailForgotPwd = emailFuncs.sendEmailForgotPwd;
 
 
+router.get('/all/count', (req, res) => {
+    User.countDocuments({type: req.query.tipo}).then(count => {
+            res.json({count})
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(404).json({
+                jobs: 'Não existe nada cadastrado ainda'
+            })
+        })
+  });
+
+
 router.post('/upload/foto', async (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('Nehum arquivo encontrado.');

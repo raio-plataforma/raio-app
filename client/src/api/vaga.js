@@ -5,6 +5,30 @@ const axios = require('axios');
 
 export default class ApiVaga {
 
+  async getAllCount(status, enterprise_id = "", funErro = ()=>{}) {
+    return new Promise(async(sucesso, erro)=>{
+
+      var config = {
+        method: 'get',
+        url: '/api/job/all/count?status='+status+'&enterprise_id='+enterprise_id,
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+  
+      axios(config)
+        .then(function (response) {
+          response.data.countFormatado = (response.data.count).toLocaleString('pt-BR');
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+          funErro();
+          erro(error);
+        });
+    })
+  }
+
   async getBySlugOrId(input, funErro = () => { }, userId = "") {
     return new Promise(async (sucesso, erro) => {
       let listaVagas = await this.getTodas(userId);

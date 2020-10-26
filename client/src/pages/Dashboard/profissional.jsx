@@ -8,6 +8,8 @@ import { useStoreActions, useStoreState } from 'easy-peasy';
 import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import config from '../../config';
+import ApiVaga from '../../api/vaga';
+import ApiCandidaturas from '../../api/candidaturas';
 
 const PaginaDashboardProfissional = () => {
   const [carregando, setCarregando] = useState(true)
@@ -18,14 +20,19 @@ const PaginaDashboardProfissional = () => {
   const userType = useStoreState(state => state.auth.auth.user)
   const getUser = useStoreActions(actions => actions.user.getUser)
 
+  const [VagaAll, setVagaAll] = useState(null)
+  const [CandidaturasAll, setCandidaturasAll] = useState(null)
 
   useEffect(() => {
     if ((String(userType.type) !== 'undefined') && (String(user._id) == 'undefined')) {
       getUser(userType.type);
     }
 
-    if ((String(user._id) !== 'undefined')) {
+    if ((String(CandidaturasAll) !== 'null') && (String(VagaAll) !== 'null') && (String(user._id) !== 'undefined')) {
       setCarregando(false);
+    } else {
+      ApiVaga.prototype.getAllCount("Atraindo candidatos").then((response) => { setVagaAll(response) });
+      ApiCandidaturas.prototype.getAllCount(user.id).then((response) => { setCandidaturasAll(response) });
     }
 
 
@@ -34,7 +41,7 @@ const PaginaDashboardProfissional = () => {
       setTimeout(() => { toggleMenu(false) }, 2500);
     }
 
-  }, [user, userType, getUser, setCarregando, carregando]);
+  }, [VagaAll, CandidaturasAll, user, userType, getUser, setCarregando, carregando]);
 
 
 
@@ -56,16 +63,20 @@ const PaginaDashboardProfissional = () => {
 
                       <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Vagas em aberto</h1>
-                            <p><b>100</b></p>
-                          </Paper>
+                          <Link to="/vagas">
+                            <Paper className="dashboard-paper">
+                              <h1>Vagas</h1>
+                              <p><b>{VagaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Candidaturas</h1>
-                            <p><b>20</b></p>
-                          </Paper>
+                          <Link to="/painel/profissional/candidaturas">
+                            <Paper className="dashboard-paper">
+                              <h1>Candidaturas</h1>
+                              <p><b>{CandidaturasAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                       </Grid>
 
@@ -77,7 +88,7 @@ const PaginaDashboardProfissional = () => {
                         <Profile
                           id={user._id}
                           name={user.name}
-                          icon={<img src={config.pastaFotoPerfil+user?.fotoPerfil} width="100%" />}
+                          icon={<img src={config.pastaFotoPerfil + user?.fotoPerfil} width="100%" />}
                           associate={user.apan_associate}
                           type={"Profissional"}
                           bio={user.bio}
@@ -99,7 +110,7 @@ const PaginaDashboardProfissional = () => {
                         <Profile
                           id={user._id}
                           name={user.name}
-                          icon={<img src={config.pastaFotoPerfil+user?.fotoPerfil} width="100%" />}
+                          icon={<img src={config.pastaFotoPerfil + user?.fotoPerfil} width="100%" />}
                           associate={user.apan_associate}
                           type={"Usuario"}
                         />
@@ -117,16 +128,20 @@ const PaginaDashboardProfissional = () => {
 
                       <Grid container spacing={2}>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Vagas em aberto</h1>
-                            <p><b>100</b></p>
-                          </Paper>
+                          <Link to="/vagas">
+                            <Paper className="dashboard-paper">
+                              <h1>Vagas em aberto</h1>
+                              <p><b>{VagaAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                         <Grid item sm={6} xs={6}>
-                          <Paper className="dashboard-paper">
-                            <h1>Candidaturas</h1>
-                            <p><b>20</b></p>
-                          </Paper>
+                          <Link to="/painel/profissional/candidaturas">
+                            <Paper className="dashboard-paper">
+                              <h1>Candidaturas</h1>
+                              <p><b>{CandidaturasAll.countFormatado}</b></p>
+                            </Paper>
+                          </Link>
                         </Grid>
                       </Grid>
 

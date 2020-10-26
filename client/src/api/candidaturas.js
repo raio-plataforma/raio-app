@@ -4,6 +4,30 @@ const axios = require('axios');
 
 export default class ApiCandidaturas {
 
+  async getAllCount(userId, funErro = ()=>{}) {
+    return new Promise(async(sucesso, erro)=>{
+
+      var config = {
+        method: 'get',
+        url: '/api/job/myJobs/all/count?userId='+userId,
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+  
+      axios(config)
+        .then(function (response) {
+          response.data.countFormatado = (response.data.count).toLocaleString('pt-BR');
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+          funErro();
+          erro(error);
+        });
+    })
+  }
+
   async getByJobId(id, funErro = () => { }) {
     return new Promise(async (sucesso, erro) => {
 
