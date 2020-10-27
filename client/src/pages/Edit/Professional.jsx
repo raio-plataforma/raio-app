@@ -354,7 +354,7 @@ const EditProfessional = ({ match }) => {
                       {
                         userPhotos.resposta.map((foto) => (
                           <Grid item xs={12} md={3}>
-                            <Card>
+                            <Card className="card">
                               <CardHeader
                                 subheader={foto.createdAt}
                                 action={

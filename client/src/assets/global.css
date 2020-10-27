@@ -11,10 +11,10 @@ a{
 [width="auto"]{
     width:auto!important;
 }
-.MuiPaper-root{
+.card.MuiPaper-root{
     background: rgba(0, 0, 0, 0.4)!important;
 }
-.MuiPaper-root span{
+.card.MuiPaper-root span{
     color: #F7CC94;
 }
 .form-sem-espaco{
