@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-
-
 import Button from '../../comps/Button'
+import PersonIcon from '@material-ui/icons/Person';
+import BusinessIcon from '@material-ui/icons/Business';
 
 const Wrapper = styled.div`
   display: flex;
@@ -18,14 +18,14 @@ const SignupPopup = ({ toggleModalStatus }) => {
 
   return (
     <Wrapper>
-        <Link to="/cadastro" onClick={() => handleClick("enterprise")}>
+        <Link to="/cadastro" className="LinkButtonNav" onClick={() => handleClick("enterprise")}>
           <Button variant="primary" size="lg">
-            Empresa
+            <BusinessIcon /> Empresa
           </Button>
         </Link>
-        <Link to="/cadastro" onClick={() => handleClick("professional")}>
+        <Link to="/cadastro" className="LinkButtonNav" onClick={() => handleClick("professional")}>
           <Button variant="primary" size="lg">
-            Profissional
+            <PersonIcon /> Profissional
           </Button>
         </Link>
     </Wrapper>

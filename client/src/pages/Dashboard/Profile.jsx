@@ -16,7 +16,7 @@ const StyledProfile = styled.div`
   align-items: center;
   height: 100%;
   justify-content: space-between;
-  margin-right: 40px;
+  margin-right: 0px;
 
   .main-info {
     display: flex;
@@ -28,11 +28,12 @@ const StyledProfile = styled.div`
     width: 80px;
     height: 80px;
     border-radius: 100%;
-    color: #f7cc94;
-    background: #200122;
+    color: #f2be8a;
+    background: #210C22;
     display: flex;
     justify-content: center;
     align-items: center;
+    object-fit: cover;
   }
 
   .associate {
@@ -46,13 +47,13 @@ const StyledProfile = styled.div`
   }
 
   .segments {
-    color: #200122;
+    color: #ba3b29;
     text-align: center;
     margin-top: 20px;
   }
 
   h2, h3, h4, h6 {
-    color: #200122;
+    color: #ba3b29;
   }
 
   a {
@@ -62,18 +63,18 @@ const StyledProfile = styled.div`
 
 function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
   return (
-    <StyledProfile className='profile'>
+    <StyledProfile className='profile profile-color-font'>
       <div className="main-info">
         <span className="image">{icon}</span>
         <Title size="md"><strong>{name}</strong></Title>
         <Title size="xs"><strong>Perfil {type}</strong></Title>
-        { associate && (
+        {associate && (
           <div className="associate">
             <Star color="secondary" />
             <Text color="secondary">Associado APAN</Text>
           </div>)
         }
-        { pcd && (
+        {pcd && (
           <div className="associate">
             <PcD color="secondary" />
             <Text color="secondary">PcD</Text>
@@ -81,28 +82,36 @@ function Profile({ id, icon, name, associate, bio, type, segments, pcd }) {
         }
       </div>
 
-      <section className="segments">
-        <Title size="xs">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Title>
-        <Text className="bio" color="secondary">{bio}</Text>
-      </section>
+      {
+        type !== "Usuario" ? (
+          <section className="segments">
+            <Title size="xs">{type === "Empresa" ? 'Apresentação' : 'Bio'}</Title>
+            <Text className="bio" color="secondary" style={{
+              maxHeight: '105px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}>{bio}</Text>
+          </section>
+        ) : (<></>)
+      }
 
       {segments && segments.length > 0 &&
-      <section className="segments">
-        <Title size="xs">Segmentos de atuação</Title>
-        <Text color="secondary">{segments.join(', ') || 'Nenhum'}</Text>
-      </section>}
+        <section className="segments">
+          <Title size="xs">Segmentos de atuação</Title>
+          <Text color="secondary">{segments.join(', ') || 'Nenhum'}</Text>
+        </section>}
 
-      <Link
+      {/* <Link
         className="fixed-bottom"
         to={`/editar/${type.toLowerCase()}/${id}`}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-          >
-            Editar dados de {type}
-          </Button>
-        </Link>
+        <Button
+          variant="contained"
+          color="primary"
+          size="large"
+        >
+          Editar dados de {type}
+        </Button>
+      </Link> */}
     </StyledProfile>
   )
 }

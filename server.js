@@ -4,6 +4,9 @@ const passport = require('passport')
 const cors = require('cors')
 const helmet = require('helmet')
 const db = require('./config/db')
+const https = require('https');
+const fs = require('fs');
+const fileUpload = require('express-fileupload');
 require('dotenv').config();
 
 const path = require('path')
@@ -12,6 +15,7 @@ const professional = require('./routes/api/professional')
 const enterprise = require('./routes/api/enterprise')
 const user = require('./routes/api/user')
 const job = require('./routes/api/job')
+const mercadopago = require('./routes/api/mercadopago')
 
 const app = express()
 
@@ -28,6 +32,8 @@ app.use(cors())
 // Passport middleware
 app.use(passport.initialize())
 
+app.use(fileUpload());
+
 // Passport Config
 require('./config/passport')(passport)
 
@@ -38,10 +44,15 @@ app.use((err, req, res, next) => {
 })
 
 // Use Routes
+app.use('/api/files/upload', express.static('./upload'));
+app.use('/api/userPhotos', require('./routes/api/userPhotos'))
 app.use('/api/professional', professional)
+app.use('/api/profissional', professional)
 app.use('/api/enterprise', enterprise)
+app.use('/api/empresa', enterprise)
 app.use('/api/user', user)
 app.use('/api/job', job)
+app.use('/api/mercadopago', mercadopago)
 
 app.get('/*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
@@ -49,5 +60,4 @@ app.get('/*', (req, res) => {
 
 // TODO: colocar isso em um .env
 const port = process.env.PORT || 5000
-
 app.listen(port, () => console.log(`Server running on port ${port}`))

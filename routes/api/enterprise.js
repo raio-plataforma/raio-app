@@ -1,12 +1,87 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
+const path = require('path')
 
 // Load Input Validation
 // const validateRegisterInput = require('../../validator/register')
 
 // Load Enterprise model
 const Enterprise = require('../../models/Enterprise')
+
+
+
+router.get('/all/count', (req, res) => {
+  Enterprise.countDocuments().then(count => {
+          res.json({count})
+      })
+      .catch((err) => {
+          console.error(err);
+          res.status(404).json({
+            jobs: 'Não existe nada cadastrado ainda'
+          })
+      })
+});
+
+router.post('/upload/logotipo', async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+      return res.status(400).send('Nehum arquivo encontrado.');
+  }
+
+  let fileNameExt = req.files.arquivo.name;
+  let fileExt = path.extname(fileNameExt);
+  let logotipo = String(req.body._id + fileExt);
+
+  // Use the mv() method to place the file somewhere on your server
+  try {
+      (req.files.arquivo).mv('upload/logotipo/' + logotipo, async function (err) {
+          if (err) {
+              console.error(err);
+              return res.status(500).send(err);
+          }
+
+          console.log(await Enterprise.findOne({_id: req.body._id}))
+          
+          Enterprise.findOne({_id: req.body._id}).update({ logotipo })
+              .then(empresa => {
+                console.log(empresa);
+                  res.send(`
+                  <html>
+                  <head>
+                      <meta charset="utf-8"/>
+                      <meta http-equiv="refresh" content="0; URL='/perfil/editar/empresa'"/>
+                      <style>
+                          body{
+                              background: linear-gradient(101deg, #6f0000 0%, #410114 60%);
+                              color: #F9A639!important;
+                          }
+                      </style>
+                  </head>
+                  <body>
+                      <center>
+                          <h1>Arquivo Carregado!</h1>
+                          <p>
+                              Arquivo carregado, redirecionando de volta, a pagina do usuario, 
+                              <a href="/perfil/editar/empresa">Clique aqui caso, queira voltar mais rapido./</a>
+                          </p>
+                      </center>
+                  </body>
+                  </html>
+                  `);
+              })
+              .catch((errors) => {
+                  console.error(errors);
+                  errors.resetPassword = 'Um erro ocorreu ao editar o usuário'
+                  return res.status(404).json(errors)
+              })
+      });
+  } catch (error) {
+      console.error(error);
+      return res.status(400).json(error)
+  }
+});
+
+
 
 // @route   POST api/enterprise/register
 // @desc    Register Enterprise
@@ -71,7 +146,7 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
 
 router.get('/all', (req, res) => {
   const errors = {}
-  Enterprise.find()
+  Enterprise.find().populate('user_id')
     .sort({ createdAt: -1 })
     .then(enterprises => {
       if (!enterprises) {

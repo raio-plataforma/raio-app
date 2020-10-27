@@ -16,7 +16,6 @@ import TextField from '@material-ui/core/TextField';
 import ChipOptions from '../../comps/ChipOptions'
 import Switch from '../../comps/Switch'
 
-import states from '../../assets/states.json'
 import {
   segment,
   actions,
@@ -28,6 +27,12 @@ import { formatCheckboxFields } from '../../utils/service'
 import { parseDate } from '../../utils/formatter'
 // import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
 import { Form, Background, WrapButton, Title } from './styles'
+import { Container, Grid } from '@material-ui/core'
+import FormSelect from '../../comps/FormSelect'
+import Autocomplete from '@material-ui/lab/Autocomplete'
+import states from '../../assets/states.json'
+import cities from '../../assets/cities.json'
+import Titulo from '../../components/Titulo'
 
 const Enterprise = () => {
   const { register, handleSubmit, errors, setValue } = useForm()
@@ -66,12 +71,23 @@ const Enterprise = () => {
     register({ name: 'apanAssociate' });
   }, [register]);
 
+  const stateList = list => list.map(uf => ({ value: uf.id, name: uf.name }))
+  const [filteredStates, setStates] = useState(states.map(uf => uf.name))
+  const [citiesFromStates, setCities] = useState([])
+
+  const handleCities = state => {
+
+    const filteredCities = cities.filter(city => city.state_id == state)
+    const filteredStates = states.filter(uf => uf.id != state).map(uf => uf.name)
+    setCities(filteredCities)
+    setStates(filteredStates)
+  }
+
   // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
   return (
-    <Background>
-      <Flexbox justify="center">
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Typography variant="h4" component="h2">Formulário de Cadastro da Empresa</Typography>
+    <Container center="true" maxWidth="md" >
+      <Form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
+        <Titulo> Formulário de Cadastro da Empresa </Titulo>
 
         <TextField
           label="Nome da Empresa"
@@ -84,6 +100,8 @@ const Enterprise = () => {
             required: 'Esse campo é obrigatório',
           })}
         />
+
+        <br /><br />
 
         <TextField
           name="foundation_date"
@@ -100,10 +118,11 @@ const Enterprise = () => {
             shrink: true,
           }}
         />
-
+        <br />
         <ChipOptions
           name="links"
           label="Links para site e redes sociais da empresa"
+          autocomplete="false"
           error={errors.links && errors.links.message}
           register={register({
             required: 'Esse campo é obrigatório',
@@ -133,102 +152,116 @@ const Enterprise = () => {
           })}
         />
 
-          <Select
-            label="Estado"
-            error={errors.state && errors.state.message}
-            name="state"
-            firstValue="Estado Sede"
-            register={register}
-            onChange={programIsLoading}
-            isLoading={isLoading}
-          >
-            {states.map(item =>
-              <option value={item.id} key={item.id}>{item.name}</option>
-            )}
-          </Select>
+        <br /><br />
 
-        <TextField
-          label="Cidade"
-          error={errors.city}
-          helperText={errors.city && errors.city.message}
-          fullWidth
-          name="city"
-          variant="filled"
-          inputRef={register({
-            required: 'Esse campo é obrigatório',
-          })}
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <FormSelect
+              name="state"
+              error={errors.state && errors.state.message}
+              options={stateList(states)}
+              register={register}
+              firstValue="Estado"
+              label="Estado Sede"
+              onChange={(e) => { handleCities(e); programIsLoading() }}
+              isLoading={isLoading}
+              autocomplete="false"
+            />
+          </Grid>
+
+          <Grid item xs={6}>
+            <Autocomplete
+              fullWidth
+              freeSolo
+              autocomplete="false"
+              options={citiesFromStates.map(city => city.name).sort()}
+              renderInput={params => (
+                <TextField
+                  {...params}
+                  name="city"
+                  inputRef={register({
+                    required: 'Esse campo é obrigatório'
+                  })}
+                  color="primary"
+                  label="Cidade da sede"
+                  variant="filled"
+                  placeholder="Busque a cidade"
+                  error={errors.city && errors.city.message}
+                  helperText={errors.city && errors.city.message}
+                  autocomplete="false"
+                />
+              )}
+            />
+          </Grid>
+        </Grid>
+
+        <Checkbox
+          label="Outros estados que a empresa tem atuação"
+          register={register}
+          options={states.map(uf => uf.name)}
+          name="other_states"
         />
 
-          <Checkbox
-            label="Outros estados que a empresa tem atuação"
-            register={register}
-            options={states.map(uf => uf.name)}
-            name="other_states"
-          />
+        <Checkbox
+          label="Segmento de atuação"
+          register={register}
+          options={segment}
+          name="business_segments"
+        />
+        <Checkbox
+          label="Campos de atuação"
+          register={register}
+          options={actions}
+          name="business_fields"
+        />
+        <Checkbox
+          label="Funções que busca diversificar na empresa"
+          register={register}
+          options={functions}
+          name="diversity_functions"
+        />
 
-          <Checkbox
-            label="Segmento de atuação"
-            register={register}
-            options={segment}
-            name="business_segments"
-          />
-          <Checkbox
-            label="Campos de atuação"
-            register={register}
-            options={actions}
-            name="business_fields"
-          />
-          <Checkbox
-            label="Funções que busca diversificar na empresa"
-            register={register}
-            options={functions}
-            name="diversity_functions"
-          />
+        <FormSelect
+          name="cnpjType"
+          error={errors.cnpjType && errors.cnpjType.message}
+          options={cnpj_type}
+          register={register}
+          firstValue="Tipo de CNPJ"
+          label="Qual o tipo do seu CNPJ?"
+        />
 
-          <Select
-            label="Qual o tipo do seu CNPJ?"
-            register={register}
-            firstValue="Tipo de CNPJ"
-            name="cnpjType"
-            error={errors.cnpjType && errors.cnpjType.message}
-          >
-            {cnpj_type.map(item =>
-              <option value={item} key={uuid()}>{item}</option>
-            )}
-          </Select>
+        <Switch
+          label="Sua empresa é vocacionada para conteúdo identitário?"
+          name="identityContent"
+          error={errors.identityContent && errors.identityContent.message}
+          onChange={e => handleRadio('identityContent', e.target.value)}
+        />
 
-          <Switch
-            label="Sua empresa é vocacionada para conteúdo identitário?"
-            name="identityContent"
-            error={errors.identityContent && errors.identityContent.message}
-            onChange={e => handleRadio('identityContent', e.target.value)}
-          />
+        <br />
 
-          <Checkbox
-            label="Se sim, em qual segmento?"
-            options={identitySegments}
-            name="identity_segments"
-            register={register}
-          />
+        <Checkbox
+          label="Se sim, em qual segmento?"
+          options={identitySegments}
+          name="identity_segments"
+          register={register}
+        />
 
-          <Switch
-            label="A empresa é associado(a) da APAN?"
-            name="apanAssociate"
-            error={errors.apanAssociate && errors.apanAssociate.message}
-            onChange={e => handleRadio('apanAssociate', e.target.value)}
-          />
+        <Switch
+          label="A empresa é associado(a) da APAN?"
+          name="apanAssociate"
+          error={errors.apanAssociate && errors.apanAssociate.message}
+          onChange={e => handleRadio('apanAssociate', e.target.value)}
+        />
 
-          <Error msg={registerError && registerError.enterprise} />
+        <Error msg={registerError && registerError.enterprise} />
 
-          <WrapButton>
-            <Button variant="contained" type="submit">
-              Enviar
-            </Button>
-          </WrapButton>
+        <center>
+          <br /><br />
+          <Button variant="contained" type="submit"> Enviar </Button>
+        </center>
 
-        </Form>
-      </Flexbox>
-    </Background>
+      </Form>
+    </Container>
   )
 }
 

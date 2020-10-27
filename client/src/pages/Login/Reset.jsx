@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {useForm} from 'react-hook-form'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 import Typography from '@material-ui/core/Typography'
-import {Link} from 'react-router-dom'
-import {useStoreActions, useStoreState} from 'easy-peasy'
+import { Link } from 'react-router-dom'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 
 import Email from '@material-ui/icons/Mail'
 import Senha from '@material-ui/icons/Lock'
@@ -15,18 +15,19 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Snackbar from '@material-ui/core/Snackbar'
 import Alert from '@material-ui/lab/Alert'
-import {Error} from '../../components/Status'
+import { Error } from '../../components/Status'
 import Button from '../../comps/Button'
 import Title from '../../comps/Title'
 
 import {
     Background
 } from './style'
-import {emailValidation} from '../../utils/service'
+import { emailValidation } from '../../utils/service'
 import history from '../../history'
+import Titulo from '../../components/Titulo'
 
-const Reset = ({match}) => {
-    const {register, handleSubmit, errors} = useForm()
+const Reset = ({ match }) => {
+    const { register, handleSubmit, errors } = useForm()
     const [modalStatus, setModalStatus] = useState(false)
     const [modalMsg, setModalMsg] = useState('')
     const authUser = useStoreActions(actions => actions.auth.resetPwd)
@@ -43,14 +44,12 @@ const Reset = ({match}) => {
     console.log(match.params.token)
 
     useEffect(() => {
-        if(auth)
-        {
+        if (auth) {
             setModalMsg(auth.resp.data)
             setModalStatus(true)
         }
 
-        if(loginError && loginError.message)
-        {
+        if (loginError && loginError.message) {
             setModalMsg(loginError.message)
             setModalStatus(true)
         }
@@ -58,6 +57,7 @@ const Reset = ({match}) => {
 
     return (
         <Container
+            maxWidth="sm"
             center="true"
             style={{
                 height: 'calc(100vh - 107px)',
@@ -66,10 +66,8 @@ const Reset = ({match}) => {
             }}
         >
             <Grid container alignItems="stretch" justify="space-between">
-                <form style={{width: '100%'}} onSubmit={handleSubmit(onSubmit)}>
-                    <Title>
-                        Redefinir senha
-                    </Title>
+                <form style={{ width: '100%' }} onSubmit={handleSubmit(onSubmit)}>
+                    <Titulo>Redefinir senha </Titulo>
 
                     <FormControl fullWidth variant="filled">
                         <InputLabel htmlFor="filled-adornment-password">Senha</InputLabel>
@@ -86,7 +84,7 @@ const Reset = ({match}) => {
                             })}
                             endAdornment={
                                 <InputAdornment position="end">
-                                    <Senha color="primary"/>
+                                    <Senha color="primary" />
                                 </InputAdornment>
                             }
                         />
@@ -108,20 +106,23 @@ const Reset = ({match}) => {
                             })}
                             endAdornment={
                                 <InputAdornment position="end">
-                                    <Senha color="primary"/>
+                                    <Senha color="primary" />
                                 </InputAdornment>
                             }
                         />
                         {errors.password && (<FormHelperText error>{errors.confirmedPassword.message}</FormHelperText>)}
                     </FormControl>
-                    <Link to="/">
-                        <Button>
-                            LOGIN
+
+                    <center>
+                        <Link to="/">
+                            <Button>
+                                LOGIN
                         </Button>
-                    </Link>
-                    <Button variant="contained" type="submit">
-                        Definir Senha
+                        </Link>
+                        <Button variant="contained" type="submit">
+                            Definir Senha
                     </Button>
+                    </center>
                 </form>
             </Grid>
             <Snackbar open={modalStatus} autoHideDuration={3000} onClose={() => setModalStatus(false)}>

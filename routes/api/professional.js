@@ -10,22 +10,39 @@ const states = require('../../client/src/assets/states.json');
 const Professional = require('../../models/Professional')
 const User = require('../../models/User')
 
+
+router.get('/all/count', (req, res) => {
+    Professional.countDocuments().then(count => {
+            res.json({count})
+        })
+        .catch((err) => {
+            console.error(err);
+            res.status(404).json({
+                jobs: 'Não existe nada cadastrado ainda'
+            })
+        })
+  });
+  
+
 // @route   POST api/professional/register
 // @desc    Register professional
 // @access  Public
-router.post('/register', passport.authenticate('jwt', {session: false}),
+router.post('/register', passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        let errors = {};
+        let errors = {}
 
-        Professional.findOne({user_id: req.user.id})
+        // // Check Validation
+        // if (!isValid) {
+        //   return res.status(400).json(errors)
+        // }
+
+        Professional.findOne({ user_id: req.user.id })
             .then(professional => {
-                if(professional)
-                {
-                    errors.user = 'Esse usuário já possui um cadastro.';
-                    return res.status(400).json(errors);
+                if (professional) {
+                    errors.user = 'Esse usuário já possui um cadastro.'
+                    return res.status(400).json(errors)
                 }
-                else
-                {
+                else {
                     const newProfessional = new Professional({
                         user_id: req.user.id,
                         user_email: req.user.email,
@@ -45,9 +62,7 @@ router.post('/register', passport.authenticate('jwt', {session: false}),
                         apan_associate: req.body.apan_associate,
                         links: req.body.links,
                         bio: req.body.bio,
-                        level: req.body.level,
-                        travel: req.body.travel
-                    });
+                    })
 
                     newProfessional
                         .save()
@@ -56,29 +71,45 @@ router.post('/register', passport.authenticate('jwt', {session: false}),
                 }
             })
             .catch(err => res.status(400).json(err))
-    });
+    })
+
+
+router.get('/all', (req, res) => {
+    const errors = {}
+    Professional.find().populate('user_id')
+        .sort({ createdAt: -1 })
+        .then(professionals => {
+            if (!professionals) {
+                errors.professionals = 'Não existem profissionais cadastradas ainda'
+                return res.status(404).json(errors)
+            }
+            res.json(professionals)
+        })
+        .catch(() => res.status(404).json({
+            professionals: 'Não existem profissionais cadastradas ainda'
+        }))
+})
 
 // @route   GET api/professional/
 // @desc    Get professional by id
 // @access  Private
-router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
-    const errors = {};
-    Professional.findOne({user_id: req.user.id})
+router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => {
+    const errors = {}
+    Professional.findOne({ user_id: req.user.id })
         .then(professional => {
-            if(!professional)
-            {
-                errors.noprofessional = 'Esse profissional não existe';
+            if (!professional) {
+                errors.noprofessional = 'Esse profissional não existe'
                 res.status(404).json(errors)
             }
             res.json(professional)
         })
-        .catch(() => res.status(404).json({project: 'Não existe um usuário com esse identificador'}))
-});
+        .catch(() => res.status(404).json({ project: 'Não existe um usuário com esse identificador' }))
+})
 
 // @route   GET api/professional/all
 // @desc    Get professionals
 // @access  Public
-router.post('/all', async(req, res) => {
+router.post('/all', async (req, res) => {
     const errors = {}
     const {
         expertise_areas,
@@ -89,72 +120,67 @@ router.post('/all', async(req, res) => {
         self_declaration,
     } = req.body;
 
-    try
-    {
+    try {
         const professionalsFilter = {};
 
         let user_ids;
 
-        if((Array.isArray(gender) && gender.length > 0) || (Array.isArray(self_declaration) && self_declaration.length > 0))
-        {
+        if ((Array.isArray(gender) && gender.length > 0) || (Array.isArray(self_declaration) && self_declaration.length > 0)) {
             const userFilter = {};
-            if(Array.isArray(self_declaration) && self_declaration.length > 0)
-            {
-                userFilter.self_declaration = {$in: self_declaration};
+            if (Array.isArray(self_declaration) && self_declaration.length > 0) {
+                userFilter.self_declaration = { $in: self_declaration };
             }
 
-            if(Array.isArray(gender) && gender.length > 0)
-            {
-                userFilter.gender = {$in: gender};
+            if (Array.isArray(gender) && gender.length > 0) {
+                userFilter.gender = { $in: gender };
             }
             const users = await User.find(userFilter);
 
             user_ids = users.map((u) => u._id)
-            if(user_ids.length === 0) res.status(200).json([])
+            if (user_ids.length === 0) res.status(200).json([])
         }
 
-        if(expertise_areas.length > 0) professionalsFilter.expertise_areas = {$in: expertise_areas};
-        if(company_registry) professionalsFilter.cnpj = true;
-        if(pcd) professionalsFilter.pcd = true;
-        if(home_state && home_state.length > 0)
-        {
+        if (expertise_areas.length > 0) professionalsFilter.expertise_areas = { $in: expertise_areas };
+        if (company_registry) professionalsFilter.cnpj = true;
+        if (pcd) professionalsFilter.pcd = true;
+        if (home_state && home_state.length > 0) {
             const statesFilter = home_state.map(
                 stateAbbr => states.find(s => s.abbr === stateAbbr).id
             );
-            professionalsFilter.state = {$in: statesFilter};
+            professionalsFilter.state = { $in: statesFilter };
         }
 
-        if(user_ids && user_ids.length > 0) professionalsFilter.user_id = {$in: user_ids};
+        if (user_ids && user_ids.length > 0) professionalsFilter.user_id = { $in: user_ids };
 
-        const professionals = await Professional.find(professionalsFilter).populate('user_id').sort({createdAt: -1})
+        const professionals = await Professional.find(professionalsFilter).populate('user_id').sort({ createdAt: -1 })
 
         res.status(200).json(professionals)
     }
-    catch(e)
-    {
+    catch (e) {
         res.status(404).json([]);
     }
 })
 
 router.get('/:id', (req, res) => {
-    const errors = {};
-    Professional.findOne({_id: req.params.id})
+    const errors = {}
+    let id = req.params.id;
+    Professional.findOne({ $or: [{ _id: id }, { user_id: id }] })
         .then(professionals => {
-            if(!professionals)
-            {
-                errors.noprofessionals = `Não foram encontrados profissionais com o id ${req.params.id}`
+            if (!professionals) {
+                errors.noprofessionals = `Não foram encontrados profissionais com o id ${id}`
                 return res.status(404).json(errors)
             }
             res.json(professionals)
         })
-        .catch(() => res.status(404).json({
-            professionals: 'Não existem profissionais cadastrados ainda'
+        .catch((err) => res.status(404).json({
+            professionals: 'Não existem profissionais cadastrados ainda',
+            err
         }))
-});
+})
 
 router.put('/edit/:id/', (req, res) => {
 
-    Professional.findOneAndUpdate({_id: req.params.id},
+    Professional.findOneAndUpdate({ _id: req.params.id },
         {
             $set: {
                 birthday: req.body.birthday,
@@ -173,12 +199,10 @@ router.put('/edit/:id/', (req, res) => {
                 apan_associate: req.body.apan_associate,
                 links: req.body.links,
                 bio: req.body.bio,
-                level: req.body.level,
-                travel: req.body.travel
             }
         },
-        {new: true})
-        .then(professional => res.json({message: `Profissional alterado com sucesso`}))
+        { new: true })
+        .then(professional => res.json({ message: `Profissional alterado com sucesso` }))
         .catch((errors) => {
             errors.editError = 'Um erro ocorreu ao editar o Profissional'
             return res.status(404).json(errors)

@@ -1,0 +1,318 @@
+a{
+    text-decoration: none;
+    color: #F7CC94!important;
+}
+[hide="true"]{
+    display: none!important;
+}
+[width="100%"]{
+    width:100%!important;
+}
+[width="auto"]{
+    width:auto!important;
+}
+.MuiPaper-root{
+    background: rgba(0, 0, 0, 0.4)!important;
+}
+.MuiPaper-root span{
+    color: #F7CC94;
+}
+.form-sem-espaco{
+    margin: 0px;
+    padding: 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.card-vaga,
+.card-candidaturas-vaga{
+    color: #ba3b29;
+    background: #e79a3f!important;
+    padding: 10px;
+}
+.card-vaga h1,
+.card-candidaturas-vaga h1{
+    margin: 0px;
+}
+.card-vaga p,
+.card-candidaturas-vaga p{
+    color: #ba3b29;
+}
+.dashboard-paper{
+    color: #ba3b29!important;
+    background: #e79a3f!important;
+    padding: 10px;
+}
+.dashboard-paper h1{
+    margin: 0px;
+}
+.dashboard-paper p{
+    font-size: 18px;
+}
+.dashboard-paper,
+.dashboard-paper h6,
+.dashboard-paper h5,
+.dashboard-paper h4,
+.dashboard-paper h3,
+.dashboard-paper h2,
+.dashboard-paper h1,
+.dashboard-paper p,
+.dashboard-paper strong,
+.dashboard-paper{
+    color: #ba3b29!important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.profile .image{
+    overflow: hidden;
+}
+.MuiInputLabel-root{
+  max-width: 85%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.MuiMenu-paper.MuiPaper-root,
+.MuiAutocomplete-popper .MuiPaper-root{
+    background: linear-gradient(101deg, #410114 0%, #6f0000 200%);
+}
+.MuiIconButton-root,
+.MuiPaper-root,
+.MuiTypography-h2{
+    color: #F9A639!important;
+}
+.MuiFilledInput-input,
+.MuiButton-root,
+.MuiSelect-icon,
+.MuiAlert-filledError,
+.MuiAlert-filledError button,
+.fycPlG{
+    color: #F7CC94!important;
+}
+.MuiChip-root{
+    color: #F7CC94!important;
+    background: rgba(231, 155, 63, 0.2)!important;
+}
+.MuiChip-deleteIcon{
+    color: #F7CC94!important;
+}
+.tabela-titulo{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.MuiTableCell-root{
+    border: none!important;
+}
+.MuiTableRow-hover:hover{
+    background-color: rgba(231, 155, 63, 0.2)!important;
+    cursor: pointer;
+}
+.MuiAlert-filledSuccess{
+    color: #F7CC94!important;
+    background-color: #347837!important;
+}
+.MuiTypography-h2{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.MuiButton-containedPrimary{
+    color: #410D14!important;
+    background-color: #F9A639!important;
+}
+.fycPlG .MuiFormLabel-root, .fycPlG .MuiIconButton-colorPrimary{
+    color: #F7CC94!important;
+}
+input[type="date"]::-webkit-inner-spin-button {
+    opacity: 0
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: url(/icon-calendar.png) center/80% no-repeat;
+}
+.MuiFilledInput-input::placeholder{
+    color: #F7CC94!important;
+}
+.formSelect .MuiFormLabel-root.MuiInputLabel-shrink{
+    padding-top: 10px!important;
+    padding-left: 15px!important;
+}
+.formSelect .MuiFormLabel-root.MuiInputLabel-animated{
+    padding-left: 15px!important;
+}
+.optionsFormSelectPersonalizado{
+    background: #410114!important;
+    color: #F9A639!important;
+    border: none!important;
+    transition: 1s;
+}
+
+.optionsFormSelectPersonalizado:hover{
+    border-radius: 10px;
+    transition: 0.5s;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px #3C0B13 inset;
+    border: none;
+}
+input:-webkit-autofill {
+    -webkit-text-fill-color: #F7CC94 !important;
+}
+
+.LinkButtonNav{
+    margin-bottom: 5px;
+}
+
+.LinkButtonNav button{
+    padding: 10px;
+}
+
+.LinkButtonNav button:hover{
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: rgba(32, 1, 34, 0.2);
+    transition: 0.5s;
+}
+
+hr.cor-laranja{
+    border-color: #f9a639;
+}
+.MuiAlert-filledWarning{
+    color: #ba3b29!important;
+    background: #e79a3f!important;
+    padding: 10px;
+}
+.MuiButton-label{
+    vertical-align: middle;
+}
+
+.MuiButton-label .MuiSvgIcon-root{
+    margin-right: 5px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.text-vermelho{
+    color: #e22e17!important;
+}
+.foto-perfil{
+    border-radius: 100%;
+    color: #f2be8a;
+    background: #210C22;
+    object-position: center;
+    object-fit: cover;
+}
+hr[color="laranja"]{
+    border-color: #F9A639;
+}
+.PaginaVaga .colunaEsqurda h1{
+    color: #F9A639;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h2{
+    color: #F9A639;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h3{
+    color: #F9A639;
+    font-size: 16px;
+    font-weight: 450;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h4{
+    color: #F9A639;
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0px;
+    margin-bottom: 5px;
+    padding: 0px;
+}
+.PaginaVaga .colunaEsqurda h6 {
+    font-size: 1.2rem;
+}
+.display-inline{
+    display: inline;
+}
+.table-pointer-onclick{
+    cursor: default!important;
+}
+.table-pointer-onclick[onclick]{
+    cursor: pointer!important;
+}
+.MuiAlert-standardWarning{
+    background-color: rgb(102, 60, 0)!important;
+    color: #fff!important;
+}
+.MuiAlert-standardWarning svg{
+    color: #fff!important;
+}
+.btn-transparente{
+    background-color: rgba(0, 0, 0, 0.3)!important;
+}
+.posicaoTopPaper{
+    font-size: 1.5em;
+    font-weight: 600;
+    color: #E79A3F;
+    background: #210C22;
+    padding: 5px;
+    border-radius: 0px 0px  10px 0px;
+    position: absolute;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+img.item-galeria{
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    margin: 10px;
+    border-radius: 5px;
+    transition: 1s;
+}
+img.item-galeria:hover{
+    -webkit-box-shadow: 0 0 30px 0 rgba(0,0,0,.7);
+    box-shadow: 0 0 30px 0 rgba(0,0,0,.7);
+    transition: 1s;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    background: #F9A639;
+}
+::-webkit-scrollbar-track {
+    background: #410D14;
+}
+
+
+/* Tela de Mobile */
+
+@media (max-width:767px) {
+    .remove-mobile, [remove-mobile] {
+        display: none!important;
+    }
+}
+
+/* Tela de Mobile Teclado Ativo */
+
+@media (max-width:767px) and (max-height:450px) {
+    .remove-mobile-teclado, [remove-mobile-teclado] {
+        display: none!important;
+    }
+}
+
+/* Tela de PC */
+
+@media (min-width:768px) {
+    .remove-pc, [remove-pc] {
+        display: none!important;
+    }
+}

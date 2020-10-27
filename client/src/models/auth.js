@@ -23,6 +23,8 @@ const authModel = {
             const decoded = jwtDecode(token)
 
             // Set current user
+            localStorage.setItem('menuAutoAbrir', 'true' );
+
             actions.setAuth({
                 isAuthenticated: !isEmpty(decoded),
                 user: decoded
@@ -35,36 +37,49 @@ const authModel = {
                 const check = await axios.get('/api/user/has-additional-register')
                 const type = getUserType(decoded.type)
 
+                localStorage.setItem('user_type', type)
+
                 if(check.data.hasAdditionalRegister || type === 'admin')
                 {
-                    return history.push(`/dashboard/${type}`)
+                    window.location.href = `/dashboard/${type}`
+                    return
                 }
 
-                return history.push(`/cadastro/${type}`)
+                window.location.href = `/cadastro/${type}`
+                return
             }
             catch(err)
             {
                 const error = err.response.data
+
+                if(String(err.response.data.message)){
+                    window.location.href = `/entrar?errorLogin=true`;
+                }
+
                 return actions.setErrors({...error})
             }
         }
         catch(err)
         {
             const error = err.response?.data
+
+            if(String(err.response.data.message)){
+                window.location.href = `/entrar?errorLogin=true`;
+            }
+
             return actions.setErrors({...error})
         }
     }),
     forgotPwd: thunk(async(actions, payload) => {
-        console.log(payload)
-
         try
         {
-            const res = await axios.post('/api/user/forgot-password', payload)
+            const res = await axios.post('/api/user/forgot-password', payload);
+            console.log(res);
             return actions.setForgotResp({resp: res})
         }
         catch(err)
         {
-            const error = err.response.data
+            const error = err.response.data;
             return actions.setErrors({...error})
         }
     }),
@@ -85,6 +100,8 @@ const authModel = {
     logoutUser: thunk(async(actions, payload) => {
         // Remove token from localStorage
         localStorage.removeItem('jwtToken')
+        localStorage.removeItem('menuAutoAbrir')
+        localStorage.removeItem('user_type')
 
         // Remove auth header for future requests
         setAuthToken(false)
