@@ -45,6 +45,7 @@ app.use((err, req, res, next) => {
 
 // Use Routes
 app.use('/api/files/upload', express.static('./upload'));
+app.use('/api/userPhotos', require('./routes/api/userPhotos'))
 app.use('/api/professional', professional)
 app.use('/api/profissional', professional)
 app.use('/api/enterprise', enterprise)

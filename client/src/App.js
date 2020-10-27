@@ -47,6 +47,7 @@ import admVagasEditarPagina from './pages/adm/Vagas/editar'
 import admVagasListaCandidatosPagina from './pages/adm/Vagas/listaCandidatos'
 import admEmpresasListaPagina from './pages/adm/Empresas/lista'
 import admProfissionaisListaPagina from './pages/adm/Profissionais/lista'
+import PaginaCarregando from './pages/carregando/carregando'
 
 const App = ({ store }) => {
   return (
@@ -58,6 +59,7 @@ const App = ({ store }) => {
             <Switch>
               {/* Rotas sem protenção de login */}
               <Redirect path='/' to='/entrar' exact={true} />
+              <Route path='/carregando' component={PaginaCarregando} />
               <Route path="/entrar" exact={true} component={Login} />
               <Route path="/cadastro" exact={true} component={Users} />
               <Route path="/recuperar/senha" exact={true} component={Forgot} />

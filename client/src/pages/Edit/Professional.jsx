@@ -6,7 +6,6 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import TextField from '@material-ui/core/TextField'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
-
 import states from '../../assets/states.json'
 import cities from '../../assets/cities.json'
 import {
@@ -19,8 +18,6 @@ import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatt
 import Checkbox from '../../comps/Checkbox'
 import Switch from '../../comps/Switch'
 import Select from '../../comps/Select'
-import Button from '../../comps/Button'
-import Title from '../../comps/Title'
 import Text from '../../comps/Text'
 import ChipOptions from '../../comps/ChipOptions'
 import loading from '../../assets/loading.svg'
@@ -30,6 +27,11 @@ import { Link } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import Erro from '../../components/erro'
 import Carregando from '../../components/loading/carregando'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { Button, Card, CardActions, CardHeader, CardMedia, IconButton } from '@material-ui/core'
+import ApiPhoto from '../../api/userPhoto'
+import config from '../../config'
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const EditProfessional = ({ match }) => {
   const [carregando, setCarregando] = useState(true)
@@ -48,7 +50,15 @@ const EditProfessional = ({ match }) => {
   const userType = useStoreState(state => state.auth.auth.user)
   const getUser = useStoreActions(actions => actions.user.getUser)
 
+  const [userPhotos, setUserPhotos] = useState(true)
+
+  const deletarFoto = (id) => {
+    ApiPhoto.prototype.deleteById(id);
+    window.location.href = "/carregando?redirect=/perfil/editar/profissional#galeria-trabalhos";
+  }
+
   useEffect(() => {
+
     if ((String(userType.type) !== 'undefined') && (!user._id)) {
       getUser(userType.type);
     }
@@ -57,8 +67,15 @@ const EditProfessional = ({ match }) => {
       getProfessionalById(user._id);
     }
 
-    if (String(professional) !== 'undefined') {
+    if ((String(userPhotos) !== 'undefined') && (String(professional) !== 'undefined')) {
       setCarregando(false);
+    } else {
+      ApiPhoto.prototype.getAll({ _user: user.id }).then((response) => {
+        for (let index = 0; index < response.resposta.length; index++) {
+          response.resposta[index].createdAt = new Date(response.resposta[index].createdAt).toLocaleDateString();
+        }
+        setUserPhotos(response)
+      });
     }
 
     professional && professional.cnpj ? setCols(3) : setCols(4)
@@ -74,7 +91,6 @@ const EditProfessional = ({ match }) => {
       identity_segments: normalizeArrayData(data.identity_segments),
       type: 'professional'
     }
-    console.log(formatted)
 
     editProfessional(formatted)
   }
@@ -313,6 +329,47 @@ const EditProfessional = ({ match }) => {
                       <br /><br /><br />
                     </center>
                   </StyledForm>
+
+
+                  <br /><br />
+                  <center id="galeria-trabalhos">
+                    <Titulo> Galeria de trabalhos: </Titulo>
+                    <br />
+                    <form
+                      id='uploadForm'
+                      action='/api/userPhotos/upload'
+                      method='post'
+                      encType="multipart/form-data">
+                      <input type="hidden" name="_user" id="_user" defaultValue={user.id}></input>
+                      <input type="hidden" name="_userProfessional" id="_userProfessional" defaultValue={user._id}></input>
+                      <label htmlFor="arquivo">
+                        <Button variant="contained" component="label" className="btn-transparente">
+                          <CloudUploadIcon /> Subir nova foto de trabalho
+                          <input type="file" name="arquivo" id="arquivo" accept="image/*" onChange={() => { document.getElementById('uploadForm').submit(); }} style={{ display: "none" }} />
+                        </Button>
+                      </label>
+                    </form>
+                    <br /><br /><br />
+                    <Grid container spacing={1}>
+                      {
+                        userPhotos.resposta.map((foto) => (
+                          <Grid item xs={12} md={3}>
+                            <Card>
+                              <CardHeader
+                                subheader={foto.createdAt}
+                                action={
+                                  <IconButton onClick={() => { deletarFoto(foto._id) }} aria-label="Deletar" title="Deletar Foto">
+                                    <DeleteIcon />
+                                  </IconButton>
+                                }
+                              />
+                              <img className="item-galeria" src={config.pastaFotoUser + foto.arquivo} />
+                            </Card>
+                          </Grid>
+                        ))
+                      }
+                    </Grid>
+                  </center>
 
                   <br /><br />
                   <center>

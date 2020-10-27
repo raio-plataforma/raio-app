@@ -41,10 +41,12 @@ const authModel = {
 
                 if(check.data.hasAdditionalRegister || type === 'admin')
                 {
-                    return history.push(`/dashboard/${type}`)
+                    window.location.href = `/dashboard/${type}`
+                    return
                 }
 
-                return history.push(`/cadastro/${type}`)
+                window.location.href = `/cadastro/${type}`
+                return
             }
             catch(err)
             {

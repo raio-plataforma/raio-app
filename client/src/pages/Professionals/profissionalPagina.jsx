@@ -14,6 +14,7 @@ import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
 import BusinessIcon from '@material-ui/icons/Business';
 import config from "../../config";
+import ApiPhoto from "../../api/userPhoto";
 
 export default class profissionalPagina extends Component {
   constructor(props) {
@@ -31,11 +32,12 @@ export default class profissionalPagina extends Component {
     if (String(userId) == "userLogado") {
       let userLogado = await ApiUser.prototype.getUserLogado(localStorage.getItem("user_type"));
       userId = userLogado.id;
-      window.history.pushState("", "", "/perfil/profissional/"+userId);
+      window.history.pushState("", "", "/perfil/profissional/" + userId);
     }
 
-    let user = await ApiUser.prototype.getById(userId, ()=>{ window.location.href = "/404";});
+    let user = await ApiUser.prototype.getById(userId, () => { window.location.href = "/404"; });
     let userProfissional = await ApiProfissional.prototype.getById(userId);
+    let userPhotos = await ApiPhoto.prototype.getAll({_user: userId});
 
     // verificando tipo do usuario
     if (user.type !== "professional") {
@@ -44,13 +46,15 @@ export default class profissionalPagina extends Component {
     }
 
     // Formatando
-    userProfissional.createAt = new Date(userProfissional.createAt).toLocaleDateString();
+    userProfissional.createdAt = new Date(userProfissional.createdAt).toLocaleDateString();
     userProfissional.bio = userProfissional.bio.replace(/\n/g, "<br />");
+    userProfissional.links = userProfissional.links.split(",");
 
     // Passando para o state html variaveis 
     await this.setState({
       isLoaded: true,
       userProfissional,
+      userPhotos,
       user
     });
   }
@@ -103,23 +107,34 @@ export default class profissionalPagina extends Component {
                 <br />
                 <Typography variant="h2" >Contatos e links:</Typography>
                 <Typography variant="body1">
-                  - Telefone: <a href={"tel:"+this.state.user.phone} title={"Clique para telefonar"}>{this.state.user.phone}</a>
+                  - Telefone: <a href={"tel:" + this.state.user.phone} title={"Clique para telefonar"}>{this.state.user.phone}</a>
                 </Typography>
-                <Typography variant="body1">
-                  - <a href={this.state.userProfissional.links}>{this.state.userProfissional.links}</a>
-                </Typography>
+                {
+                  this.state.userProfissional.links.map((link) => (
+                    <Typography variant="body1">
+                      - <a href={link} target="_blank">{link}</a>
+                    </Typography>
+                  ))
+                }
                 <br />
                 <Typography variant="h2" >Biografia:</Typography>
                 <Typography variant="body1">
                   {htmlParser(this.state.userProfissional.bio)}
                 </Typography>
+
+                <Typography variant="h2" >Galeria de trabalhos:</Typography>
+                {
+                  this.state.userPhotos.resposta.map((foto) => (
+                    <img className="item-galeria" src={config.pastaFotoUser + foto.arquivo} width="200px" />
+                  ))
+                }
               </Grid>
 
 
             </Grid>
 
             <br /><br /><br /><br />
-          </Container>
+          </Container >
         )
       } else {
         return (
