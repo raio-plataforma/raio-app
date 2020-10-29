@@ -33,11 +33,11 @@ const VacancyList = () => {
       getUser(userType.type)
     }
 
-    if ((user.enterprise_id) && (String(vacancies) == 'undefined')) {
+    if ((user.enterprise_id) && (String(vacancies) == '')) {
       getAllVacancies(user.enterprise_id);
     }
 
-    if (String(vacancies) !== 'undefined') {
+    if (String(vacancies) !== '') {
       setCarregando(false);
     }
   });
