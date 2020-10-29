@@ -83,13 +83,24 @@ const Header = () => {
     >
       <Container>
         <Grid container justify="space-between">
-          <a href="/">
-            <StyledLogo
-              src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
-              width="160"
-              alt="RAIO Logo"
-            />
-          </a>
+          {auth && auth.isAuthenticated ? (
+            <a href="/" className="logo-user-logado">
+              <StyledLogo
+                src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
+                width="150"
+                alt="RAIO Logo"
+              />
+            </a>
+          ) : (
+              <a href="https://raio.agency" className="logo-user-deslogado">
+                <StyledLogo
+                  src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
+                  width="150"
+                  alt="RAIO Logo"
+                />
+              </a>
+            )
+          }
           <CloseButton
             aria-label="menu"
             onClick={() => toggleMenu(!menuOpened)}
