@@ -9,7 +9,7 @@ export default class ApiPhoto {
       var config = {
         method: 'post',
         url: '/api/userPhotos/buscar',
-        body: filtros,
+        data: filtros,
         headers: {
           'Authorization': localStorage.getItem("jwtToken")
         }

@@ -57,6 +57,7 @@ export default class profissionalPagina extends Component {
       userPhotos,
       user
     });
+    console.log(String(userPhotos.resposta));
   }
 
 
@@ -122,7 +123,10 @@ export default class profissionalPagina extends Component {
                   {htmlParser(this.state.userProfissional.bio)}
                 </Typography>
 
-                <Typography variant="h2" >Galeria de trabalhos:</Typography>
+                {
+                  String(this.state.userPhotos.resposta) != "" &&
+                  <Typography variant="h2" >Galeria de trabalhos:</Typography>
+                }
                 {
                   this.state.userPhotos.resposta.map((foto) => (
                     <img className="item-galeria" src={config.pastaFotoUser + foto.arquivo} width="200px" />
