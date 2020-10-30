@@ -4,7 +4,14 @@ import Star from '@material-ui/icons/Star'
 import PcD from '@material-ui/icons/Accessible'
 import BusinessIcon from '@material-ui/icons/Business';
 
+let posicaoTop = 0;
+
 const CardProfissional = (props) => {
+
+  if (props.posicaoTop) {
+    posicaoTop = posicaoTop+1;
+  }
+
   return (
     <Paper className="dashboard-paper">
       <a title="Clique para abrir o perfil" href={"/perfil/profissional/" + props.id} target="_blank">
@@ -13,7 +20,7 @@ const CardProfissional = (props) => {
             {
               props.posicaoTop &&
               <>
-                <span className="posicaoTopPaper">Top {props.posicaoTop}</span>
+                <span className="posicaoTopPaper">Top {posicaoTop}</span>
                 <br /><br />
               </>
             }

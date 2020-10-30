@@ -13,7 +13,13 @@ const JobProfesssionalSchema = new Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       required: true,
-    }
+    },
+    status: {
+      type: String,
+      required: true,
+      default: 'Inscrito',
+      enum: ['Inscrito', 'Triagem de perfil', 'Validação  tech', 'Validade de disponibilidade', 'Top', 'Contratado']
+    },
   },
   {
     timestamps: true,

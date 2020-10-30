@@ -71,6 +71,7 @@ a{
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.MuiDialog-paper,
 .MuiMenu-paper.MuiPaper-root,
 .MuiAutocomplete-popper .MuiPaper-root{
     background: linear-gradient(101deg, #410114 0%, #6f0000 200%);
@@ -80,6 +81,7 @@ a{
 .MuiTypography-h2{
     color: #F9A639!important;
 }
+.MuiDialogContent-root,
 .MuiFilledInput-input,
 .MuiButton-root,
 .MuiSelect-icon,
@@ -119,7 +121,10 @@ a{
     color: #410D14!important;
     background-color: #F9A639!important;
 }
-.fycPlG .MuiFormLabel-root, .fycPlG .MuiIconButton-colorPrimary{
+.MuiInputBase-inputMultiline,
+.MuiFormLabel-root,
+.fycPlG .MuiFormLabel-root,
+.fycPlG .MuiIconButton-colorPrimary{
     color: #F7CC94!important;
 }
 input[type="date"]::-webkit-inner-spin-button {
@@ -138,6 +143,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 .formSelect .MuiFormLabel-root.MuiInputLabel-animated{
     padding-left: 15px!important;
 }
+
 .optionsFormSelectPersonalizado{
     background: #410114!important;
     color: #F9A639!important;
@@ -282,6 +288,33 @@ img.item-galeria:hover{
     box-shadow: 0 0 30px 0 rgba(0,0,0,.7);
     transition: 1s;
 }
+.react-trello-board{
+    background: transparent;
+    height: 57vh;
+}
+.react-trello-board .react-trello-lane{
+    background-color: #e79a3f;
+    color: #ba3b29;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 20px;
+}
+.react-trello-board .react-trello-card{
+    background-color: #d05e2f;
+    border-color: #df8c5d;
+}
+.react-trello-board .react-trello-card span,
+.react-trello-board .react-trello-card div,
+.react-trello-board .react-trello-card header,
+.react-trello-board .react-trello-card button{
+    color: #f7cc94;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+    border: none;
+}
+.react-trello-board .react-trello-card div>button{
+    display: none;
+}
+
 ::-webkit-scrollbar {
     width: 7px;
 }
@@ -289,9 +322,12 @@ img.item-galeria:hover{
     background: #F9A639;
 }
 ::-webkit-scrollbar-track {
-    background: #410D14;
+    background: #210C22;
 }
-
+.react-trello-board::-webkit-scrollbar-track,
+.react-trello-board ::-webkit-scrollbar-track {
+    background: rgba(33, 12, 34, 0.5);
+}
 
 /* Tela de Mobile */
 

@@ -22,7 +22,9 @@ const JobSchema = new Schema(
     },
     status: {
       type: String,
-      required: true
+      required: true,
+      default: "Aguardando pagamento",
+      enum: ["Aguardando pagamento", "Atraindo candidatos", "Aguardando seleção", "Candidatos selecionados", "Fechada", "Arquivada", "Pagamento negado"]
     },
     title: {
       type: String,
@@ -67,27 +69,6 @@ const JobSchema = new Schema(
     sumirNomeEmpresa: {
       type: Boolean,
       default: false
-    },
-    top1: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    top2: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    top3: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-    comentarioTop1: {
-      type: String
-    },
-    comentarioTop2: {
-      type: String
-    },
-    comentarioTop3: {
-      type: String
     }
   },
   {

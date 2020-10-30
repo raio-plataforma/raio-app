@@ -11,6 +11,7 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Alert from "@material-ui/lab/Alert"
 import ApiVaga from "../../../api/vaga"
+import ViewWeekIcon from '@material-ui/icons/ViewWeek';
 
 export default class admVagasListaPagina extends Component {
   constructor(props) {
@@ -101,12 +102,19 @@ export default class admVagasListaPagina extends Component {
                   },
                   {
                     actionCampo: "_id",
-                    action: "/painel/admin/candidatos/vaga/",
-                    btn: <FormatListBulletedIcon />,
+                    action: "/painel/admin/processo/seletivo/vaga/",
+                    btn: <ViewWeekIcon />,
                     type: 'link', // link or btn
-                    target: '_blank',
-                    tooltip: 'Lista de candidatos'
+                    tooltip: 'Processo Seletivo'
                   },
+                  // {
+                  //   actionCampo: "_id",
+                  //   action: "/painel/admin/candidatos/vaga/",
+                  //   btn: <FormatListBulletedIcon />,
+                  //   type: 'link', // link or btn
+                  //   target: '_blank',
+                  //   tooltip: 'Lista de candidatos'
+                  // },
                   {
                     actionCampo: "_id",
                     action: "/vaga/",

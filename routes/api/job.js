@@ -1,18 +1,27 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
-const axios = require('axios')
-
 const Job = require('../../models/Job')
 const JobProfessional = require('../../models/JobProfessional')
 const Enterprise = require('../../models/Enterprise')
-const Professional = require('../../models/Professional')
 const User = require('../../models/User')
-
 const emailFuncs = require('../../helpers/mail');
 const sendEmailNewJobApply = emailFuncs.sendEmailNewJobApply;
-
 const states = require('../../client/src/assets/states.json');
+
+
+router.post('/editar/status/candidatura/:_id', async (req, res) => {
+    const body = req.body;
+    const params = req.params;
+    try {
+        const response = await JobProfessional.findOne({ _id: params._id }).update({status: body.status, comentario: body.comentario});
+        res.status(200).json({ resposta: response });
+    } catch (error) {
+        console.error(error);
+        res.status(400).json({ resposta: String(error) });
+    }
+});
+
 
 router.get('/all/count', (req, res) => {
     let finQuery = {};
@@ -58,7 +67,7 @@ router.get('/all', (req, res) => {
         findQuery = { status: req.query.status };
     }
 
-    Job.find(findQuery).populate('enterprise_id').populate('top1').populate('top2').populate('top3')
+    Job.find(findQuery).populate('enterprise_id')
         .sort({ createdAt: -1 })
         .then(jobs => {
             if (!jobs) {
@@ -314,12 +323,7 @@ router.get('/myjobs/:userId', passport.authenticate('jwt', { session: false }), 
 router.get('/candidaturas/:jobId', passport.authenticate('jwt', { session: false }), async (req, res) => {
     try {
         // console.log(req.params)
-        const jobs = await JobProfessional.find({ _job: req.params.jobId }).sort({ 'createdAt': 'desc' }).populate('_user').populate({
-            path: '_job',
-            populate: { path: 'top1' },
-            populate: { path: 'top2' },
-            populate: { path: 'top3' }
-          })
+        const jobs = await JobProfessional.find({ _job: req.params.jobId }).sort({ 'createdAt': 'desc' }).populate('_user')
         // console.log(jobs)
 
         return res.status(200).json(jobs);

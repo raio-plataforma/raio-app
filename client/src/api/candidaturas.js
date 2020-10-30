@@ -4,17 +4,41 @@ const axios = require('axios');
 
 export default class ApiCandidaturas {
 
-  async getAllCount(userId, funErro = ()=>{}) {
-    return new Promise(async(sucesso, erro)=>{
+  async putStatusById(id, body, funErro = () => { }) {
+    return new Promise(async (sucesso, erro) => {
 
       var config = {
-        method: 'get',
-        url: '/api/job/myJobs/all/count?userId='+userId,
+        method: 'post',
+        url: '/api/job/editar/status/candidatura/' + id,
+        data: body,
         headers: {
           'Authorization': localStorage.getItem("jwtToken")
         }
       };
-  
+
+      axios(config)
+        .then(function (response) {
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+          funErro();
+          erro(error);
+        });
+    })
+  }
+
+  async getAllCount(userId, funErro = () => { }) {
+    return new Promise(async (sucesso, erro) => {
+
+      var config = {
+        method: 'get',
+        url: '/api/job/myJobs/all/count?userId=' + userId,
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+
       axios(config)
         .then(function (response) {
           response.data.countFormatado = (response.data.count).toLocaleString('pt-BR');
@@ -50,7 +74,7 @@ export default class ApiCandidaturas {
               if (user.type == "professional") {
                 let userProf = await ApiProfissional.prototype.getById(user._id);
                 data[i]['userProf'] = userProf;
-              }else{
+              } else {
                 delete data[i];
               }
 

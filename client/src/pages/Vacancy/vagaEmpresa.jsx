@@ -14,6 +14,7 @@ import CommentIcon from '@material-ui/icons/Comment';
 import Erro from "../../components/erro";
 import Carregando from "../../components/loading/carregando";
 import config from "../../config";
+import ApiCandidaturas from "../../api/candidaturas";
 
 export default class PaginaVagaEmpresa extends Component {
   constructor(props) {
@@ -29,13 +30,7 @@ export default class PaginaVagaEmpresa extends Component {
     window.scrollTo(0, 0);
     const id = this.props.match.params.id;
     let listaVagas = await ApiVaga.prototype.getById(id, () => { window.location.href = "/dashboard/empresa"; });
-
-    // Colocando paragrafo nos comentarios
-    try {
-      listaVagas.comentarioTop1 = listaVagas.comentarioTop1.replace(/\n/g, "<br />");
-      listaVagas.comentarioTop2 = listaVagas.comentarioTop2.replace(/\n/g, "<br />");
-      listaVagas.comentarioTop3 = listaVagas.comentarioTop3.replace(/\n/g, "<br />");
-    } catch (error) { }
+    let candidatos = await ApiCandidaturas.prototype.getByJobId(listaVagas._id);
 
     // Fazendo conta do valor a ser pago
     var valorCalculoDesconto = parseFloat(listaVagas.cache * (50 / 100));
@@ -52,9 +47,10 @@ export default class PaginaVagaEmpresa extends Component {
       await this.setState({
         isLoaded: true,
         listaVagas,
-        linkChekoutPagamento: linkPagamento,
-        loopTop3: [1, 2, 3]
+        candidatos,
+        linkChekoutPagamento: linkPagamento
       });
+      console.log(this.state);
     }
 
   }
@@ -255,49 +251,55 @@ export default class PaginaVagaEmpresa extends Component {
                   <Container center="true" maxWidth="md" className="ListaTop3">
                     <br /><br /><br /><br />
                     {
-                      this.state.loopTop3.map(index => (
+                      this.state.candidatos.map((candidato, index) => (
                         <>
                           {
-                            this.state.listaVagas['top' + index] &&
-                            <Grid item xs={12}>
-                              <br />
-                              <CardProfissional
-                                posicaoTop={index}
-                                id={this.state.listaVagas['top' + index]['_id']}
-                                img={config.pastaFotoPerfil + this.state.listaVagas['top' + index]['fotoPerfil']}
-                                nome={this.state.listaVagas['top' + index]['name']}
-                                idade={this.state.listaVagas['top' + index + 'Prof']['idade']}
-                                educacao={this.state.listaVagas['top' + index + 'Prof']['education']}
-                                univercidade={this.state.listaVagas['top' + index + 'Prof']['formation_institution']}
-                                cidade={this.state.listaVagas['top' + index + 'Prof']['city']}
-                                estado={this.state.listaVagas['top' + index + 'Prof']['stateName']}
-                                apan_associate={this.state.listaVagas['top' + index + 'Prof']['apan_associate']}
-                                pcd={this.state.listaVagas['top' + index + 'Prof']['pcd']}
-                                cnpj={this.state.listaVagas['top' + index + 'Prof']['cnpj']}
-                                cnpj_type={this.state.listaVagas['top' + index + 'Prof']['cnpj_type']}
-                              />
-                            </Grid>
-                          }
+                            ((candidato.status == "Top") || candidato.status == "Contratado") ? (
+                              <>
+                                {
+                                  candidato._id &&
+                                  <Grid item xs={12}>
+                                    <br />
+                                    <CardProfissional
+                                      posicaoTop={true}
+                                      id={candidato._user._id}
+                                      img={config.pastaFotoPerfil + candidato._user.fotoPerfil}
+                                      nome={candidato._user.name}
+                                      idade={candidato.userProf.idade}
+                                      educacao={candidato.userProf.education}
+                                      univercidade={candidato.userProf.formation_institution}
+                                      cidade={candidato.userProf.city}
+                                      estado={candidato.userProf.stateName}
+                                      apan_associate={candidato.userProf.apan_associate}
+                                      pcd={candidato.userProf.pcd}
+                                      cnpj={candidato.userProf.cnpj}
+                                      cnpj_type={candidato.userProf.cnpj_type}
+                                    />
+                                  </Grid>
+                                }
 
-                          {
-                            this.state.listaVagas['comentarioTop' + index] &&
-                            <Grid item xs={12}>
-                              <Paper className="dashboard-paper" style={{ marginTop: "-10px" }}>
-                                <hr style={{ borderColor: "#BA3B29" }} />
-                                <Grid container spacing={2}>
-                                  <Grid item xs={3} md={1}>
-                                    <center>
-                                      <br />
-                                      <CommentIcon style={{ color: "#BA3B29", fontSize: 50 }} />
-                                    </center>
+                                {
+                                  candidato.comentario &&
+                                  <Grid item xs={12}>
+                                    <Paper className="dashboard-paper" style={{ marginTop: "-10px" }}>
+                                      <hr style={{ borderColor: "#BA3B29" }} />
+                                      <Grid container spacing={2}>
+                                        <Grid item xs={3} md={1}>
+                                          <center>
+                                            <br />
+                                            <CommentIcon style={{ color: "#BA3B29", fontSize: 50 }} />
+                                          </center>
+                                        </Grid>
+                                        <Grid item xs={9} md={11}>
+                                          <h2>Comentário:</h2>
+                                          <p>{htmlParser((candidato.comentario).replace(/\n/g, "<br />"))}</p>
+                                        </Grid>
+                                      </Grid>
+                                    </Paper>
                                   </Grid>
-                                  <Grid item xs={9} md={11}>
-                                    <h2>Comentário:</h2>
-                                    <p>{htmlParser(this.state.listaVagas['comentarioTop' + index])}</p>
-                                  </Grid>
-                                </Grid>
-                              </Paper>
-                            </Grid>
+                                }
+                              </>
+                            ) : (<></>)
                           }
                         </>
                       ))
