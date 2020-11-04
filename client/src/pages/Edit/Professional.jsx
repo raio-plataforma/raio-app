@@ -8,12 +8,7 @@ import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import states from '../../assets/states.json'
 import cities from '../../assets/cities.json'
-import {
-  formations,
-  separated_functions,
-  cnpj_type,
-  identitySegments
-} from '../Signup/dicioFields'
+import { formations, separated_functions, cnpj_type, identitySegments } from '../Signup/dicioFields'
 import { dateToString, parseDate, normalizeArrayData } from '../../utils/formatter'
 import Checkbox from '../../comps/Checkbox'
 import Switch from '../../comps/Switch'
@@ -42,23 +37,16 @@ const EditProfessional = ({ match }) => {
   const [hasIdentity, toggleIdentity] = useState(false)
   const getProfessionalById = useStoreActions(actions => actions.professional.getProfessionalById)
   const editProfessional = useStoreActions(actions => actions.professional.editProfessional)
-
   const professional = useStoreState(state => state.professional.professional)
   const error = useStoreState(state => state.professional.error)
-
   const user = useStoreState(state => state.user.user)
   const userType = useStoreState(state => state.auth.auth.user)
   const getUser = useStoreActions(actions => actions.user.getUser)
-
+  const [cnpjState, setCnpjState] = useState(false);
   const [userPhotos, setUserPhotos] = useState(true)
-
-  const deletarFoto = (id) => {
-    ApiPhoto.prototype.deleteById(id);
-    window.location.href = "/carregando?redirect=/perfil/editar/profissional#galeria-trabalhos";
-  }
+  const stateList = list => list.map(uf => ({ value: uf.id, name: uf.name }))
 
   useEffect(() => {
-
     if ((String(userType.type) !== 'undefined') && (!user._id)) {
       getUser(userType.type);
     }
@@ -69,6 +57,10 @@ const EditProfessional = ({ match }) => {
 
     if ((String(userPhotos) !== 'undefined') && (String(professional) !== 'undefined')) {
       setCarregando(false);
+      
+      if (professional.cnpj == true) {
+        setCnpjState(true);
+      }
     } else {
       ApiPhoto.prototype.getAll({ _user: user.id }).then((response) => {
         for (let index = 0; index < response.resposta.length; index++) {
@@ -80,7 +72,12 @@ const EditProfessional = ({ match }) => {
 
     professional && professional.cnpj ? setCols(3) : setCols(4)
     professional && professional.identity_content ? toggleIdentity(true) : toggleIdentity(false)
-  }, [user, userType, getUser, professional, getProfessionalById, setCarregando, setErro])
+  }, [user, userType, getUser, professional, getProfessionalById, setCarregando, setErro]);
+
+  const deletarFoto = (id) => {
+    ApiPhoto.prototype.deleteById(id);
+    window.location.href = "/carregando?redirect=/perfil/editar/profissional#galeria-trabalhos";
+  }
 
   const onSubmit = (data) => {
     const formatted = {
@@ -96,11 +93,8 @@ const EditProfessional = ({ match }) => {
   }
 
   const hideOptionCNPJ = check => {
-    check ? setCols(3) : setCols(4)
+    check ? setCnpjState(true) : setCnpjState(false);
   }
-
-  const stateList = list => list.map(uf => ({ value: uf.id, name: uf.name }))
-
 
 
 
@@ -214,7 +208,7 @@ const EditProfessional = ({ match }) => {
                           })}
                           options={formations}
                           register={register}
-                          label="Formação"
+                          label="Nível de escolaridade"
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -258,18 +252,32 @@ const EditProfessional = ({ match }) => {
                           register={register}
                         />
                       </Grid>
-                      {numCols === 3 &&
-                        <Grid item xs={numCols}>
-                          <Select
-                            name="cnpj_type"
-                            value={professional.cnpj_type}
-                            error={errors.cnpj_type && errors.cnpj_type.message}
-                            helperText={errors.cnpj_type && errors.cnpj_type.message}
-                            options={cnpj_type}
-                            register={register}
-                            label="Tipo de CNPJ"
-                          />
-                        </Grid>
+                      {cnpjState === true &&
+                        <>
+                          <Grid item xs={6}>
+                            <Select
+                              name="cnpj_type"
+                              value={professional.cnpj_type}
+                              error={errors.cnpj_type && errors.cnpj_type.message}
+                              helperText={errors.cnpj_type && errors.cnpj_type.message}
+                              options={cnpj_type}
+                              register={register}
+                              label="Tipo de CNPJ"
+                            />
+                          </Grid>
+                          <Grid item xs={6}>
+                            <TextField
+                              name="cnpj_number"
+                              fullWidth
+                              value={professional.cnpj_number}
+                              error={errors.cnpj_number && errors.cnpj_number.message}
+                              helperText={errors.cnpj_number && errors.cnpj_number.message}
+                              inputRef={register}
+                              label="Digite o numero do seu CNPJ"
+                              variant="filled"
+                            />
+                          </Grid>
+                        </>
                       }
 
                     </Grid>

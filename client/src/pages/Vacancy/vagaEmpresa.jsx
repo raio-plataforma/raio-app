@@ -33,7 +33,8 @@ export default class PaginaVagaEmpresa extends Component {
     let candidatos = await ApiCandidaturas.prototype.getByJobId(listaVagas._id);
 
     // Fazendo conta do valor a ser pago
-    var valorCalculoDesconto = parseFloat(listaVagas.cache * (50 / 100));
+    var porcentagemDeLucro = 30;
+    var valorCalculoDesconto = parseFloat(listaVagas.cache * ( (100-porcentagemDeLucro) / 100));
     listaVagas.valorDevedor = parseFloat(parseFloat(listaVagas.cache) - parseFloat(valorCalculoDesconto));
 
     // Gerando link de pagamento para colocar no botoão

@@ -51,6 +51,9 @@ const ProfessionalSchema = new Schema(
     cnpj_type: {
       type: String,
     },
+    cnpj_number: {
+      type: String,
+    },
     identity_content: {
       type: Boolean,
     },

@@ -229,6 +229,7 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
                     state: req.body.state,
                     stateName: req.body.stateName,
                     cache: req.body.cache,
+                    ciclo_cache: req.body.ciclo_cache,
                     total_period: req.body.total_period,
                     hiring_type: req.body.hiring_type,
                     status: req.body.status,

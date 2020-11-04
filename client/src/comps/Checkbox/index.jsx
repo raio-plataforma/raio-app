@@ -8,6 +8,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 
 import { getKeys } from '../../utils/formatter'
+import { titleize } from '../../components/titleize';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function CheckboxesGroup({ value, register, name, label, options, error }) {
+export default function CheckboxesGroup({ required, value, register, name, label, options, error }) {
   const classes = useStyles()
   
   const listValues = value && typeof value !== 'undefined' ? value : [] 
@@ -50,10 +51,11 @@ export default function CheckboxesGroup({ value, register, name, label, options,
   return (
       <FormControl component="fieldset" className={classes.root}>
         <FormLabel component="legend" className={classes.label}>{label}</FormLabel>
-        <FormGroup className={classes.root}>
+        <FormGroup className={classes.root} required={required}>
           {
             options.sort().map((opt, index) =>(
               <FormControlLabel
+                required={required}
                 key={index}
                 className={classes.options}
                 control={<Checkbox 
@@ -63,7 +65,7 @@ export default function CheckboxesGroup({ value, register, name, label, options,
                   checked={state.includes(opt)} 
                   onChange={() => handleChange(opt)} 
                 />}
-                label={opt}
+                label={titleize(opt)}
               />
             ))
           }

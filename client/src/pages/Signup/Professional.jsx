@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import Typography from '@material-ui/core/Typography'
-
-import Flexbox from '../../components/Flexbox'
 import Button from '../../comps/Button'
 import Checkbox from '../../comps/Checkbox'
 import Grid from '@material-ui/core/Grid'
@@ -12,32 +10,19 @@ import Autocomplete from '@material-ui/lab/Autocomplete'
 import Switch from '../../comps/Switch'
 import Select from '../../comps/Select'
 import ChipOptions from '../../comps/ChipOptions'
-
 import states from '../../assets/states.json'
 import cities from '../../assets/cities.json'
-
-import {
-    cnpj_type,
-    formations,
-    identitySegments,
-    separated_functions
-} from './dicioFields'
+import { cnpj_type, formations, identitySegments, separated_functions } from './dicioFields'
 import { formatCheckboxFields } from '../../utils/service'
 import { parseDate, normalizeArrayData } from '../../utils/formatter'
-
 import { Form, Background, Title } from './styles'
 import { Container } from '@material-ui/core'
 import Titulo from '../../components/Titulo'
 
 const Professionals = () => {
-    const {
-        register,
-        handleSubmit,
-        errors,
-        setValue
-    } = useForm()
-
-    const [numCols, setCols] = useState(4)
+    const { register, handleSubmit, errors, setValue } = useForm()
+    const [numCols, setCols] = useState(4);
+    const [cnpjState, setCnpjState] = useState(false);
     const [hasIdentity, toggleIdentity] = useState(false)
     const [citiesFromStates, setCities] = useState([])
     const registerUser = useStoreActions(actions => actions.register.registerProfessional)
@@ -45,21 +30,17 @@ const Professionals = () => {
     const stateList = list => list.map(uf => ({ value: uf.id, name: uf.name }))
     const [filteredStates, setStates] = useState(states.map(uf => uf.name))
 
-    console.log(errors)
-    // console.log(register)
-    console.log('????????????????????')
-    console.log(separated_functions)
-
     const hideOptionCNPJ = check => {
-        check ? setCols(3) : setCols(4)
+        check ? setCnpjState(true) : setCnpjState(false);
     }
+    
     const handleCities = state => {
-
         const filteredCities = cities.filter(city => city.state_id == state)
         const filteredStates = states.filter(uf => uf.id != state).map(uf => uf.name)
         setCities(filteredCities)
         setStates(filteredStates)
     }
+
     const onSubmit = (data) => {
         const formatted = {
             ...data,
@@ -68,11 +49,10 @@ const Professionals = () => {
             identity_segments: normalizeArrayData(data.identity_segments),
             type: 'professional'
         }
-        // console.log('=>', formatted)
         registerUser(formatted)
     }
 
-    // TODO: req hasNoRegister p/ validar se o usuário tem algum registro como profissional ou empresa. Se sim, redireciona para o dashboard, se não, mantém na página.
+    
     return (
         <Container center="true" maxWidth="md" >
             <Form className="form-sem-espaco" width="auto" onSubmit={handleSubmit(onSubmit)}>
@@ -101,6 +81,7 @@ const Professionals = () => {
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Select
+                            required
                             name="home_state"
                             error={errors.home_state && errors.home_state.message}
                             onChange={(e) => handleCities(e)}
@@ -172,11 +153,12 @@ const Professionals = () => {
                                 required: 'Esse campo é obrigatório'
                             })}
                             options={formations}
-                            label="Formação"
+                            label="Nível de escolaridade"
                         />
                     </Grid>
                     <Grid item xs={6}>
                         <TextField
+                            required
                             name="formation_institution"
                             fullWidth
                             error={errors.formation_institution && errors.formation_institution.message}
@@ -212,17 +194,30 @@ const Professionals = () => {
                             register={register}
                         />
                     </Grid>
-                    {numCols === 3 &&
-                        <Grid item xs={numCols}>
-                            <Select
-                                name="cnpj_type"
-                                error={errors.cnpj_type && errors.cnpj_type.message}
-                                helperText={errors.cnpj_type && errors.cnpj_type.message}
-                                options={cnpj_type}
-                                register={register}
-                                label="Tipo de CNPJ"
-                            />
-                        </Grid>
+                    {cnpjState === true &&
+                        <>
+                            <Grid item xs={6}>
+                                <Select
+                                    name="cnpj_type"
+                                    error={errors.cnpj_type && errors.cnpj_type.message}
+                                    helperText={errors.cnpj_type && errors.cnpj_type.message}
+                                    options={cnpj_type}
+                                    register={register}
+                                    label="Tipo de CNPJ"
+                                />
+                            </Grid>
+                            <Grid item xs={6}>
+                                <TextField
+                                    name="cnpj_number"
+                                    fullWidth
+                                    error={errors.cnpj_number && errors.cnpj_number.message}
+                                    helperText={errors.cnpj_number && errors.cnpj_number.message}
+                                    inputRef={register}
+                                    label="Digite o numero do seu CNPJ"
+                                    variant="filled"
+                                />
+                            </Grid>
+                        </>
                     }
 
                 </Grid>
@@ -240,7 +235,7 @@ const Professionals = () => {
                         })}
                     />
                 </Grid>
-                <br/><br/>
+                <br /><br />
                 <Grid item xs={12}>
                     <center><Typography variant="h5"><b>Áreas de atuação</b></Typography></center>
                     {

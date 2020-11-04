@@ -62,6 +62,10 @@ const JobSchema = new Schema(
       type: String,
       required: true
     },
+    ciclo_cache: {
+      type: String,
+      required: true
+    },
     total_period: {
       type: String,
       required: true

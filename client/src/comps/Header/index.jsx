@@ -74,6 +74,7 @@ const Header = () => {
   }, [setAuth, logoutUser])
 
   const type = getUserType(auth && auth.user.type)
+  let url_atual = window.location.pathname;
 
   return (
     <Wrapper
@@ -83,8 +84,8 @@ const Header = () => {
     >
       <Container>
         <Grid container justify="space-between">
-          {auth && auth.isAuthenticated ? (
-            <a href="/" className="logo-user-logado">
+          {((url_atual == "/") || (url_atual == "/entrar")) ? (
+            <a href="https://raio.agency" className="logo-user-deslogado">
               <StyledLogo
                 src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
                 width="150"
@@ -92,7 +93,7 @@ const Header = () => {
               />
             </a>
           ) : (
-              <a href="https://raio.agency" className="logo-user-deslogado">
+              <a href="/" className="logo-user-logado">
                 <StyledLogo
                   src="https://raio.agency/wp-content/uploads/2020/01/RAIO_logo.png"
                   width="150"

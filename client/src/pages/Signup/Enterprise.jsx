@@ -157,6 +157,7 @@ const Enterprise = () => {
         <Grid container spacing={2}>
           <Grid item xs={6}>
             <FormSelect
+              required
               name="state"
               error={errors.state && errors.state.message}
               options={stateList(states)}
@@ -222,6 +223,7 @@ const Enterprise = () => {
         />
 
         <FormSelect
+          required
           name="cnpjType"
           error={errors.cnpjType && errors.cnpjType.message}
           options={cnpj_type}

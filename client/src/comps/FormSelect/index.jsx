@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const FormSelect = ({ label, register, name, options, value, onChange, error, color }) => {
+const FormSelect = ({ required, label, register, name, options, value, onChange, error, color }) => {
   const [opt, setOpt] = useState(value)
   const compColor = color || 'primary'
   const classes = useStyles();
@@ -23,10 +23,11 @@ const FormSelect = ({ label, register, name, options, value, onChange, error, co
   }
 
   return (
-    <FormControl className={classes.formControl+" formSelect"} fullWidth>
+    <FormControl className={classes.formControl + " formSelect"} fullWidth>
       <InputLabel HtmlFor="self_declaration">{label}</InputLabel>
       <Select
         native
+        required={required}
         name={name}
         inputRef={register}
         defaultValue={opt}
@@ -38,6 +39,7 @@ const FormSelect = ({ label, register, name, options, value, onChange, error, co
           id: name
         }}
       >
+        <option value="" className="optionsFormSelectPersonalizado" selected="true" disabled="disabled"> </option>
         {
           options.map((option, index) => {
             return option.value ?

@@ -12,7 +12,7 @@ export const identitySegments = ["Audiovisual Negro", "Audiovisual Indígena", "
 
 export const registryTypes = ["MEI", "EIRELI", "ME", "Outro"]
 
-export const hiringType = ["CLT", "PJ", "RPA"]
+export const hiringType = ["RPA", "CLT", "PJ - ME", "PJ - MEI", "PJ - EIRELI", "PJ - LTDA", "PJ - S.A"]
 
 export const formations = ["Analfabeta", "Fundamental I incompleto (1o ao 5o ano)", "Fundamental I completo (1o ao 5o ano)", "Fundamental II incompleto (6o ao 9o ano)", "Fundamental II completo (6o ao 9o ano)", "Médio incompleto", "Médio completo", "Superior incompleto", "Superior completo", "Pós Graduação", "Autodidata"]
 
@@ -22,22 +22,47 @@ export const levels = ['Estagiário', 'Júnior', 'Pleno', 'Sênior'];
 
 export const separated_functions = [
     {
-        title: 'DESENVOLVIMENTO',
-        list: ["Consultoria de Roteiro", "Pesquisa", "Produçāo Executiva", "Produçāo de Conteúdo", "Roteiro"]
+        title: 'Roteiro/Pesquisa:',
+        list: ["AUTOR / ROTEIRISTA", "PESQUISADOR CINEMATOGRÁFICO", "ESTAGIARIO"]
     },
     {
-        title: 'PRODUÇĀO',
-        list: ["Assistência de direção", "Assistência de câmera", "Assistência de Maquinária", "Assistência de som",
-            "Caracterizaçāo", "Cenografia", "Chefia de Elétrica  | Gaffer", "Chefia de Maquinária", "Continuidade", "Controller",
-            "Direçāo", "Direçāo de Arte", "Direçāo de Fotografia", "Direçāo de Produção", "DIT | Técnico de Imagem Digital - TID",
-            "Eletricista de Pré- Light", "Figurino", "GMA | Logger", "Operaçāo de Video Assistente", "Operaçāo de Câmera", "Platô",
-            "Preparaçāo de Elenco", "Produçāo de Elenco", "Produçāo de Arte", "Produçāo de Objetos", "Still", "StoryBoard",
-            "Supervisāo de Efeitos Especiais", "Técnica de som"]
+        title: 'Direção:',
+        list: ["DIRETOR", "DIRETOR DE CENA", "DIRETOR DE IMAGEM", "1º ASSISTENTE DE DIREÇÃO", "2º ASSISTENTE DE DIREÇÃO", "CONTINUISTA", "ESTAGIARIO (LEI DO ESTAGIO)"]
     },
     {
-        title: 'PÓS-PRODUÇÃO',
-        list: ["Animaçāo", "Assistência  de edição ", "Composiçāo Musical", "Correção de Cor",
-            "Ediçāo On-line", "Ediçāo de Som", "Ediçāo", "Legendagem", "Supervisāo de Efeitos Visuais",
-            "Supervisāo de Pós-Produção", "Supervisāo  Musical"]
+        title: 'Elenco:',
+        list: ["PREPARADOR DE ELENCO", "COORDENADOR DE ELENCO", "PRODUTOR DE ELENCO / FIGURAÇÃO", "ASSISTENTE DE PREPARADOR DE ELENCO /FIGURAÇÃO", "ESTAGIARIO (LEI DO ESTAGIO)"]
     },
+    {
+        title: 'Produção:',
+        list: ["PRODUTOR GERAL", "PRODUTOR EXECUTIVO", "ASSISTENTE DE PRODUTOR EXECUTIVO", "COORDENADOR DE PRODUÇÃO", "DIRETOR DE PRODUÇÃO", "1º ASSISTENTE DE PRODUÇÃO", "2º ASSISTENTE DE PRODUÇÃO", "PRODUTOR DE SET", "PRODUTOR DE PLATO", "ASSISTENTE DE PLATÔ", "PRODUTOR DE LOCAÇÃO", "ASSISTENTE DE LOCAÇÃO", "ASSISTENTE DE SET (AJUDANTE ESPECIAL)", "ESTAGIARIO (LEI DO ESTAGIO)"]
+    },
+    {
+        title: 'Arte/ Efeitos Especiais:',
+        list: ["DIRETOR DE ARTE", "PRODUTOR DE ARTE", "1º ASSISTENTE DE ARTE", "2º ASSISTENTE DE ARTE", "CENOGRAFO", "ASSISTENTE DE CENOGRAFIA", "CENOTÉCNICO", "ASSISTENTE DE CENOTECNICO", "TECNICO EFEITOS ESPECIAIS", "CONTRARREGRA", "ADERECISTA", "PRODUTOR DE OBJETO", "ASSISTENTE DE OBJETO", "FIGURINISTA", "PRODUTOR DE FIGURINO", "1º ASSISTENTE DE FIGURINO", "CAMAREIRO(A) E OU GUARDA ROUPEIRO(A)", "COSTUREIRA", "MAQUIADOR", "MAQUIADOR DE EFEITOS ESPECIAIS", "CABELEIREIRO", "ASSISTENTE DE MAQUIADOR", "ASSISTENTE DE CABELEIREIRO", "ESTAGIARIO (LEI DO ESTAGIO)"]
+    },
+    {
+        title: 'Fotografia:',
+        list: ["DIRETOR DE FOTOGRAFIA", "DIRETOR DE FOTOGRAFIA/ OPERADOR DE CAMERA", "OPERADOR DE CÂMERA", "1º ASSISTENTE DE CÂMERA", "2º ASSISTENTE DE CÂMERA", "TID", "GMA", "OPERADOR DE VÍDEO ASSIST", "OPERADOR DE CABO", "OPERADOR DE STEADCAM", "OPERADOR DE 2º CÂMERA", "ASSISTENTE DE 2º CÂMERA", "ESTAGIARIO (LEI DO ESTAGIO)"]
+    },
+    {
+        title: 'Making off:',
+        list: ["FOTOGRAFO STILL", "MAKING OFF"]
+    },
+    {
+        title: 'Som:',
+        list: ["OPERADOR DE ÁUDIO", "TÉCNICO DE SOM DIRETO", "TÉCNICO DE SOM GUIA", "MICROFONISTA", "ASSISTENTE DE SOM", "ESTAGIARIO (LEI DO ESTAGIO)"]
+    },
+    {
+        title: 'Elétrica/Maquinaria:',
+        list: ["GAFFER", "ELETRICISTA CHEFE", "MAQUINISTA CHEFE", "ELETRICISTA/MAQUINISTA", "ASSISTENTE DE ELETRICISTA", "ASSISTENTE DE MAQUINISTA", "OPERADOR DE MOVIMENTO DE CAMERA", "OPERADOR DE GERADOR", "ESTAGIARIO (LEI DO ESTAGIO)"]
+    },
+    {
+        title: 'Edição/ Pós-produção:',
+        list: ["PRODUTOR DE FINALIZAÇÃO", "EDITOR / MONTADOR", "ASSISTENTE DE EDIÇÃO", "ASSISTENTE DE MONTAGEM", "SUPERVISOR DE EDIÇÃO SOM", "EDITOR DE SOM", "FINALIZADOR", "OPERADOR DE ESTEREOSCOPIA", "ESTAGIARIO (LEI DO ESTAGIO)"]
+    },
+    {
+        title: 'Animação:',
+        list: ["DIRETOR DE ANIMAÇÃO", "ASSISTENTE DE DIREÇÃO DE ANIMAÇÃO", "ANIMADOR", "ASSISTENTE DE ANIMAÇÃO", "ARTE-FINALISTA", "ESTAGIARIO (LEI DO ESTAGIO)"]
+    }
 ]

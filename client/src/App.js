@@ -96,17 +96,18 @@ const App = ({ store }) => {
                 <PrivateRoute path='/painel/admin/empresas' component={admEmpresasListaPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/administradores' component={admListaPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/profissionais' component={admProfissionaisListaPagina} exact={true} />
-                <PrivateRoute path='/painel/admin/buscar/profissionais' component={SearchProfessionals} exact={true} />
                 <PrivateRoute path='/painel/admin/cadastro/administrador' component={CriarAdmPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/editar/vaga/:id' component={admVagasEditarPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/processo/seletivo/vaga/:id' component={admVagasProcessoSeletivoPagina} exact={true} />
-                <PrivateRoute path='/painel/admin/candidatos/vaga/:id' component={admVagasListaCandidatosPagina} exact={true} />
+                {/* <PrivateRoute path='/painel/admin/buscar/profissionais' component={SearchProfessionals} exact={true} /> */}
+                {/* <PrivateRoute path='/painel/admin/candidatos/vaga/:id' component={admVagasListaCandidatosPagina} exact={true} /> */}
                 {/* <PrivateRoute path='/painel/admin/profissionais' component={AllProfessionals} exact={true} /> */}
 
                 {/* Rotas que não sei pra que serve ainda */}
-                <Route path='/resultados/profissionais' component={ResultSearchProfessionals} exact={true} />
-                <Route path='/busca/empresas' component={SearchEnterprise} exact={true} />
-                <Route path='/resultados/empresas' component={ResultSearchEnterprise} exact={true} />
+                {/* <Route path='/resultados/profissionais' component={ResultSearchProfessionals} exact={true} /> */}
+                {/* <Route path='/busca/empresas' component={SearchEnterprise} exact={true} /> */}
+                {/* <Route path='/resultados/empresas' component={ResultSearchEnterprise} exact={true} /> */}
+
 
                 {/* Redirecionamento de rotas antigas */}
                 <Redirect path='/painel/profissional/vagas' to='/vagas' />
