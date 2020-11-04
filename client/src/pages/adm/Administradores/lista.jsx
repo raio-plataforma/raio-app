@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-
 import Carregando from "../../../components/loading/carregando"
 import Erro from "../../../components/erro"
 import { Button, Container, Grid, Paper, Snackbar, Typography } from "@material-ui/core"
@@ -7,7 +6,6 @@ import ApiUser from "../../../api/user"
 import Tables from '../../../comps/Tables'
 import Titulo from "../../../components/Titulo"
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import Alert from "@material-ui/lab/Alert"
 

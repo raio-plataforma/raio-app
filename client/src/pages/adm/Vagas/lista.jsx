@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-
 import Carregando from "../../../components/loading/carregando"
 import Erro from "../../../components/erro"
 import { Button, Container, Grid, Paper, Snackbar, Typography } from "@material-ui/core"
@@ -7,7 +6,7 @@ import ApiUser from "../../../api/user"
 import Tables from '../../../comps/Tables'
 import Titulo from "../../../components/Titulo"
 import EditIcon from '@material-ui/icons/Edit';
-import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
+import AddIcon from '@material-ui/icons/Add';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Alert from "@material-ui/lab/Alert"
 import ApiVaga from "../../../api/vaga"
@@ -92,6 +91,8 @@ export default class admVagasListaPagina extends Component {
                 title="Lista de vagas a serem trabalhadas"
                 headCells={this.state.tablesHeads}
                 list={this.state.vagasList}
+                btnAddLink="/painel/admin/cadastro/vaga"
+                btnAddLabel={(<span><AddIcon style={{marginLeft:"0px"}}/> Criar nova</span>)}
                 actions={[
                   {
                     actionCampo: "_id",

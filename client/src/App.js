@@ -50,6 +50,7 @@ import admEmpresasListaPagina from './pages/adm/Empresas/lista'
 import admProfissionaisListaPagina from './pages/adm/Profissionais/lista'
 import PaginaCarregando from './pages/carregando/carregando'
 import admVagasProcessoSeletivoPagina from './pages/adm/Vagas/processoSeletivo'
+import AdmCriarVagaPagina from './pages/adm/Vagas/criar'
 
 const App = ({ store }) => {
   return (
@@ -96,6 +97,7 @@ const App = ({ store }) => {
                 <PrivateRoute path='/painel/admin/empresas' component={admEmpresasListaPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/administradores' component={admListaPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/profissionais' component={admProfissionaisListaPagina} exact={true} />
+                <PrivateRoute path='/painel/admin/cadastro/vaga' component={AdmCriarVagaPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/cadastro/administrador' component={CriarAdmPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/editar/vaga/:id' component={admVagasEditarPagina} exact={true} />
                 <PrivateRoute path='/painel/admin/processo/seletivo/vaga/:id' component={admVagasProcessoSeletivoPagina} exact={true} />
