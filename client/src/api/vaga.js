@@ -5,6 +5,30 @@ const axios = require('axios');
 
 export default class ApiVaga {
 
+  async postAdmin(body, funErro = ()=>{}) {
+    return new Promise(async(sucesso, erro)=>{
+
+      var config = {
+        method: 'post',
+        url: '/api/job/admin',
+        data: body,
+        headers: {
+          'Authorization': localStorage.getItem("jwtToken")
+        }
+      };
+  
+      axios(config)
+        .then(function (response) {
+          sucesso(response.data);
+        })
+        .catch(function (error) {
+          console.error(error);
+          funErro();
+          erro(error);
+        });
+    })
+  }
+
   async getAllCount(status, enterprise_id = "", funErro = ()=>{}) {
     return new Promise(async(sucesso, erro)=>{
 

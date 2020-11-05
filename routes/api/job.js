@@ -253,6 +253,50 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
         })
 });
 
+
+router.post('/admin', passport.authenticate('jwt', { session: false }), async (req, res) => {
+    Enterprise.findOne({ _id: req.body.enterprise_id })
+        .then(enterprise => {
+            if (enterprise) {
+                let randomNumber = Math.floor((Math.random() * 9999) + 1);
+                let slug = enterprise.enterprise_name + "-" + req.body.title + "-" + randomNumber;
+                slug = String(slug).toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+
+                const newJob = new Job({
+                    enterprise_id: enterprise.id,
+                    enterprise_name: enterprise.enterprise_name,
+                    title: req.body.title,
+                    slug: slug,
+                    function: req.body.function,
+                    requirements: req.body.requirements,
+                    city: req.body.city,
+                    state: req.body.state,
+                    stateName: req.body.stateName,
+                    cache: req.body.cache,
+                    ciclo_cache: req.body.ciclo_cache,
+                    total_period: req.body.total_period,
+                    hiring_type: req.body.hiring_type,
+                    status: req.body.status,
+                    sumirNomeEmpresa: req.body.sumirNomeEmpresa
+                })
+
+                newJob
+                    .save()
+                    .then(job => res.status(200).json(job))
+                    .catch(err => {
+                        console.log(err)
+                        res.status(500).json({ job: 'Erro ao salvar vaga', err })
+                    })
+            }
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(400).json({
+                job: 'Erro ao encontrar uma empresa para esse usuário',
+            });
+        })
+});
+
 // @route   POST api/job/apply
 // @desc    Create new job
 // @access  Private
