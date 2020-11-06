@@ -233,7 +233,8 @@ router.post('/', passport.authenticate('jwt', { session: false }), async (req, r
                     total_period: req.body.total_period,
                     hiring_type: req.body.hiring_type,
                     status: req.body.status,
-                    sumirNomeEmpresa: req.body.sumirNomeEmpresa
+                    sumirNomeEmpresa: req.body.sumirNomeEmpresa,
+                    camposPersonalizadoCandidatura: req.body.camposPersonalizadoCandidatura
                 })
 
                 newJob
@@ -277,7 +278,8 @@ router.post('/admin', passport.authenticate('jwt', { session: false }), async (r
                     total_period: req.body.total_period,
                     hiring_type: req.body.hiring_type,
                     status: req.body.status,
-                    sumirNomeEmpresa: req.body.sumirNomeEmpresa
+                    sumirNomeEmpresa: req.body.sumirNomeEmpresa,
+                    camposPersonalizadoCandidatura: req.body.camposPersonalizadoCandidatura
                 })
 
                 newJob

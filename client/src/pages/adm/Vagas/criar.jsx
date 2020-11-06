@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container } from "@material-ui/core";
+import { Container, Paper } from "@material-ui/core";
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import Autocomplete from '@material-ui/lab/Autocomplete'
@@ -20,6 +20,8 @@ import cicloCacheJSON from "../../../assets/cicloCache.json";
 import Select from '../../../comps/Select';
 import ApiEmpresa from '../../../api/empresa';
 import ApiVaga from '../../../api/vaga';
+import tiposDeCampo from "../../../assets/tiposDeCampo.json";
+import AddIcon from '@material-ui/icons/Add';
 
 
 const AdmCriarVagaPagina = () => {
@@ -33,6 +35,7 @@ const AdmCriarVagaPagina = () => {
   const [citiesFromStates, setCities] = useState([])
   const stateList = list => list.map(uf => ({ value: uf.id, name: uf.name }))
   const [listaEmpresas, setListaEmpresas] = useState([])
+  const [camposPersonalizadoCandidatura, setCamposPersonalizadoCandidatura] = useState([])
 
 
   useEffect(() => {
@@ -45,6 +48,22 @@ const AdmCriarVagaPagina = () => {
     }
 
   }, [listaEmpresas]);
+
+  const addCampoPersonalizado = () => {
+    camposPersonalizadoCandidatura.push({ tipo: "", nome: "", info: "" });
+    setCamposPersonalizadoCandidatura([...camposPersonalizadoCandidatura]);
+  }
+
+  const changeCampoPersonalizado = (nameInput, posicaoArray, value = null) => {
+    if ((nameInput == "tipo") && (value != null)) {
+      camposPersonalizadoCandidatura[posicaoArray][nameInput] = value.value;
+    } else {
+      let valorCampo = document.getElementById(nameInput + '-' + posicaoArray).value;
+      camposPersonalizadoCandidatura[posicaoArray][nameInput] = valorCampo;
+    }
+    setCamposPersonalizadoCandidatura([...camposPersonalizadoCandidatura]);
+    console.log(camposPersonalizadoCandidatura);
+  }
 
   const handleDateChange = (date) => {
     setSelectedDate({ ...selectedDate, ...date });
@@ -59,14 +78,13 @@ const AdmCriarVagaPagina = () => {
     setCarregando(true);
     try {
       const period = `${parseDate(selectedDate.start)}-${parseDate(selectedDate.end)}`
-
       for (let s in states) {
         if (states[s].id === Number(data.state)) data.stateName = states[s].name
       }
-
       try {
         data.enterprise_id = (data.enterprise_id.split(" - "))[1];
       } catch (error) { }
+      data.camposPersonalizadoCandidatura = camposPersonalizadoCandidatura;
 
       const formatted = {
         ...data,
@@ -75,10 +93,10 @@ const AdmCriarVagaPagina = () => {
         status: 'Atraindo candidatos'
       }
 
-      ApiVaga.prototype.postAdmin(formatted).then((response)=>{
+      ApiVaga.prototype.postAdmin(formatted).then((response) => {
         console.log(response);
-        if(response){
-          window.location.href = "/vaga/"+response._id;
+        if (response) {
+          window.location.href = "/vaga/" + response._id;
         }
       });
     } catch (error) {
@@ -282,6 +300,75 @@ const AdmCriarVagaPagina = () => {
                         />
                       </Grid>
                     </Grid>
+
+                    <br /><br />
+
+                    <Titulo>Candidatura personalizada (opcional)</Titulo>
+
+                    {
+                      camposPersonalizadoCandidatura.map((campo, index) => (
+                        <>
+
+                          <Paper className="paper-candidatura-campos-personalizados">
+                            <form onSubmit={handleSubmit(onSubmit)}>
+                              <Grid container spacing={3}>
+                                <Grid item xs={4}>
+                                  <Autocomplete
+                                    fullWidth
+                                    options={tiposDeCampo}
+                                    renderOption={option => <>{option.label}</>}
+                                    getOptionLabel={option => option.label + " - " + option.value}
+                                    onChange={(event, value) => { changeCampoPersonalizado("tipo", index, value) }}
+                                    renderInput={params => (
+                                      <TextField
+                                        {...params}
+                                        name="tipo"
+                                        id={"tipo-" + index}
+                                        color="secondary"
+                                        label="Tipo do campo"
+                                        variant="filled"
+                                        placeholder="Selecione o tipo do campo"
+                                      />
+                                    )}
+                                  />
+                                </Grid>
+                                <Grid item xs={8}>
+                                  <TextField
+                                    required
+                                    id={"nome-" + index}
+                                    name="nome"
+                                    fullWidth
+                                    label="Nome do campo"
+                                    variant="filled"
+                                    onChange={() => { changeCampoPersonalizado("nome", index) }}
+                                  />
+                                </Grid>
+                                <Grid item xs={12}>
+                                  <TextField
+                                    id={"info-" + index}
+                                    name="info"
+                                    fullWidth
+                                    multiline
+                                    rows="2"
+                                    label="Descrição do campo (aparece ao clicar no icone de ponto de interrogação)"
+                                    variant="filled"
+                                    onChange={() => { changeCampoPersonalizado("info", index) }}
+                                  />
+                                </Grid>
+                              </Grid>
+                            </form>
+                          </Paper>
+                          <br />
+                        </>
+                      ))
+                    }
+
+                    <center>
+                      <br />
+                      <Button onClick={addCampoPersonalizado} variant="contained"><AddIcon /> Adicionar um campo </Button>
+                      <br /><br /><br />
+                    </center>
+
                     <Success msg={status} />
                     <Error msg={registerError} />
 

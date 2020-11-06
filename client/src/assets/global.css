@@ -37,6 +37,10 @@ a{
 .card-candidaturas-vaga p{
     color: #ba3b29;
 }
+.paper-candidatura-campos-personalizados{
+    background: #7c271b!important;
+    padding: 10px;
+}
 .dashboard-paper{
     color: #ba3b29!important;
     background: #e79a3f!important;
@@ -123,9 +127,14 @@ a{
 }
 .MuiInputBase-inputMultiline,
 .MuiFormLabel-root,
+.MuiInputBase-root,
+.MuiFormHelperText-root,
 .fycPlG .MuiFormLabel-root,
 .fycPlG .MuiIconButton-colorPrimary{
     color: #F7CC94!important;
+}
+.MuiInput-underline:before{
+    border-bottom: 1px solid rgb(255 255 255 / 42%)!important;
 }
 input[type="date"]::-webkit-inner-spin-button {
     opacity: 0

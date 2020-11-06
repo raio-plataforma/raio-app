@@ -73,6 +73,9 @@ const JobSchema = new Schema(
     sumirNomeEmpresa: {
       type: Boolean,
       default: false
+    },
+    camposPersonalizadoCandidatura: {
+      type: Array
     }
   },
   {

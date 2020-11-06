@@ -2,13 +2,16 @@ import React, { Component } from "react"
 import ApiVaga from "../../api/vaga"
 import Carregando from "../../components/loading/carregando"
 import Erro from "../../components/erro"
-import { Button, Container, Grid, Paper, Typography } from "@material-ui/core"
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Paper, TextField, Typography } from "@material-ui/core"
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import { formatMoney } from "../../utils/formatter"
 import htmlParser from "html-react-parser"
 import ApiProfissional from "../../api/profissional"
 import ApiUser from "../../api/user"
 import config from "../../config"
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import ListAltIcon from '@material-ui/icons/ListAlt';
+import PlaylistAddCheckIcon from '@material-ui/icons/PlaylistAddCheck';
 
 export default class PaginaVaga extends Component {
   constructor(props) {
@@ -42,6 +45,13 @@ export default class PaginaVaga extends Component {
     });
   }
 
+
+  async setModalCandidaturaStatus(modalCandidaturaStatus) {
+    this.setState({
+      modalCandidaturaStatus
+    })
+  }
+
   render() {
 
     if (this.state.erro !== null) {
@@ -70,7 +80,7 @@ export default class PaginaVaga extends Component {
                         </div>
                       ) : (
                           <div>
-                            <img src={config.pastaLogotipo+"SemLogo.png"} width="100%" className="foto-perfil" />
+                            <img src={config.pastaLogotipo + "SemLogo.png"} width="100%" className="foto-perfil" />
                           </div>
                         )
                     }
@@ -105,9 +115,19 @@ export default class PaginaVaga extends Component {
                         <>
                           {
                             this.state.vaga.btnCandidateSe == "true" ? (
-                              <Button variant="contained" color="secondary" onClick={() => { ApiProfissional.prototype.applyJob({ id: this.state.vaga._id, user_id: this.state.user.id }, '') }}>
-                                Candidate-se
-                              </Button>
+                              <>
+                                {
+                                  this.state.vaga.camposPersonalizadoCandidatura == "" ? (
+                                    <Button variant="contained" color="secondary" onClick={() => { ApiProfissional.prototype.applyJob({ id: this.state.vaga._id, user_id: this.state.user.id }, '') }}>
+                                      <PlaylistAddCheckIcon /> Candidatura simplificada
+                                    </Button>
+                                  ) : (
+                                      <Button variant="contained" color="secondary" onClick={() => this.setModalCandidaturaStatus(true)}>
+                                        <ListAltIcon /> Candidatar-se
+                                      </Button>
+                                    )
+                                }
+                              </>
                             ) : (
                                 <div>
                                   <p>Você já está participando do processo seletivo dessa vaga!</p>
@@ -120,7 +140,7 @@ export default class PaginaVaga extends Component {
                             <p>Para se candidatar a essa vaga você deve ter uma <b>conta de profissional</b> na plataforma da RAIO, crie sua conta grátis agora mesmo.</p>
                             <a href="/entrar?cadastro=true">
                               <Button variant="contained" color="secondary">
-                                Cadastre-se no site
+                                <PersonAddIcon /> Cadastre-se no site
                               </Button>
                             </a>
                           </div>
@@ -130,6 +150,35 @@ export default class PaginaVaga extends Component {
                 </Paper>
               </Grid>
             </Grid>
+
+
+
+            <Dialog
+              fullWidth
+              open={this.state.modalCandidaturaStatus}
+              onClose={() => this.setModalCandidaturaStatus(false)}
+              aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">Formulario de candidatura</DialogTitle>
+              <DialogContent>
+                {
+                  this.state.vaga.camposPersonalizadoCandidatura.map((campo) => (
+                    <TextField
+                      fullWidth
+                      margin="dense"
+                      type={campo.tipo}
+                      id={campo.nome}
+                      name={campo.nome}
+                      label={campo.nome}
+                      helperText={campo.info}
+                    />
+                  ))
+                }
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => this.setModalCandidaturaStatus(false)} color="primary"> Cancelar </Button>
+                <Button onClick={() => { }} type="submit" color="primary"> Confirmar </Button>
+              </DialogActions>
+            </Dialog>
 
             <br /><br /><br /><br />
           </Container>

@@ -1,0 +1,46 @@
+[
+  {
+    "label": "Texto",
+    "value": "text"
+  },
+  {
+    "label": "Url (Link)",
+    "value": "url"
+  },
+  {
+    "label": "Telefone",
+    "value": "tel"
+  },
+  {
+    "label": "Data",
+    "value": "date"
+  },
+  {
+    "label": "Data e hora",
+    "value": "datetime-local"
+  },
+  {
+    "label": "E-mail",
+    "value": "email"
+  },
+  {
+    "label": "Data (mês e ano)",
+    "value": "month"
+  },
+  {
+    "label": "Numero",
+    "value": "number"
+  },
+  {
+    "label": "Senha",
+    "value": "password"
+  },
+  {
+    "label": "Data (semana)",
+    "value": "week"
+  },
+  {
+    "label": "Cor",
+    "value": "color"
+  }
+]
