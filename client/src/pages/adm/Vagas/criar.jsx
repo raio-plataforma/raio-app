@@ -55,8 +55,12 @@ const AdmCriarVagaPagina = () => {
   }
 
   const changeCampoPersonalizado = (nameInput, posicaoArray, value = null) => {
-    if ((nameInput == "tipo") && (value != null)) {
-      camposPersonalizadoCandidatura[posicaoArray][nameInput] = value.value;
+    if (nameInput == "tipo") {
+      try {
+        camposPersonalizadoCandidatura[posicaoArray][nameInput] = value.value;
+      } catch (error) {
+        camposPersonalizadoCandidatura[posicaoArray][nameInput] = "";
+      }
     } else {
       let valorCampo = document.getElementById(nameInput + '-' + posicaoArray).value;
       camposPersonalizadoCandidatura[posicaoArray][nameInput] = valorCampo;

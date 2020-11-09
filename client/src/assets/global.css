@@ -337,6 +337,10 @@ img.item-galeria:hover{
 .react-trello-board ::-webkit-scrollbar-track {
     background: rgba(33, 12, 34, 0.5);
 }
+.MuiInputBase-input[type="color"]{
+    padding: 0px;
+    height: 30px;
+}
 
 /* Tela de Mobile */
 

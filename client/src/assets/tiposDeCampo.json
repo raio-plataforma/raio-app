@@ -20,12 +20,16 @@
     "value": "datetime-local"
   },
   {
-    "label": "E-mail",
-    "value": "email"
-  },
-  {
     "label": "Data (mês e ano)",
     "value": "month"
+  },
+  {
+    "label": "Data (semana)",
+    "value": "week"
+  },
+  {
+    "label": "E-mail",
+    "value": "email"
   },
   {
     "label": "Numero",
@@ -34,10 +38,6 @@
   {
     "label": "Senha",
     "value": "password"
-  },
-  {
-    "label": "Data (semana)",
-    "value": "week"
   },
   {
     "label": "Cor",

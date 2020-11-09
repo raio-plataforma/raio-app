@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import Carregando from "../../../components/loading/carregando"
 import Erro from "../../../components/erro"
-import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, TextField } from "@material-ui/core"
+import { Button, Container, Dialog, DialogActions, DialogContent, DialogTitle, Snackbar, TextField, Typography } from "@material-ui/core"
 import ApiUser from "../../../api/user"
 import Titulo from "../../../components/Titulo"
 import Alert from "@material-ui/lab/Alert"
@@ -87,7 +87,8 @@ export default class admVagasProcessoSeletivoPagina extends Component {
           description: candidato.userProf.city + " - " + candidato.userProf.stateName,
           label: candidato.createdAt,
           metadata: {
-            user_id: candidato.userProf.user_id
+            user_id: candidato.userProf.user_id,
+            candidato
           }
         });
       }
@@ -122,14 +123,21 @@ export default class admVagasProcessoSeletivoPagina extends Component {
     }
   }
 
-  onCardClick(cardId, metadata, laneId) {
-    window.open("/perfil/profissional/" + metadata.user_id, "_blank");
-  }
-
   async setEventBus(shelf, eventBus) {
     shelf.setState({
       eventBus
     })
+  }
+
+  async setModalPerfil(modalPerfil) {
+    await this.setState({
+      modalPerfil
+    })
+    if ((this.state.modalPerfil != false) && (!Array.isArray(this.state.modalPerfil?.dadosCamposPersonalizado))) {
+      let user_id = this.state.modalPerfil?.userProf?.user_id;
+      await this.setModalPerfil(false);
+      window.open("/perfil/profissional/" + user_id, "_blank");
+    }
   }
 
   async setModalSucessoStatus(modalSucessoMsg) {
@@ -185,7 +193,7 @@ export default class admVagasProcessoSeletivoPagina extends Component {
             <Container center="true" maxWidth="xlg">
               <Board
                 data={this.state.boardData}
-                onCardClick={this.onCardClick}
+                onCardClick={(cardId, metadata, laneId) => { this.setModalPerfil(metadata.candidato) }}
                 eventBusHandle={(eventBus) => { this.setEventBus(this, eventBus) }}
                 onCardMoveAcrossLanes={(fromLaneId, toLaneId, cardId, index) => { this.onCardMoveAcrossLanes(this, fromLaneId, toLaneId, cardId, index) }}
               />
@@ -198,6 +206,25 @@ export default class admVagasProcessoSeletivoPagina extends Component {
                 </Alert>
               </Snackbar>
             </Container>
+
+            <Dialog
+              fullWidth
+              open={this.state.modalPerfil}
+              onClose={() => this.setModalPerfil(false)}
+              aria-labelledby="form-dialog-title">
+              <DialogTitle id="form-dialog-title">Dados preenchidos pelo candidato {this.state.modalPerfil?._user?.name}</DialogTitle>
+              <DialogContent>
+                {
+                  this.state.modalPerfil?.dadosCamposPersonalizado?.map((campos) => (
+                    <Typography>{campos.nome}: {campos.valor}</Typography>
+                  ))
+                }
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => this.setModalPerfil(false)} color="primary"> Cancelar </Button>
+                <Button onClick={() => { window.open("/perfil/profissional/" + this.state.modalPerfil?.userProf?.user_id, "_blank"); }} type="submit" variant="contained" color="primary"> Ver perfil completo </Button>
+              </DialogActions>
+            </Dialog>
 
 
             <Dialog
@@ -219,8 +246,8 @@ export default class admVagasProcessoSeletivoPagina extends Component {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={() => this.setModalTopStatus(false)} color="primary"> Cancelar </Button>
-                <Button onClick={() => { this.onClickButtonConfirmarComentario(this) }} type="submit" color="primary"> Confirmar </Button>
+                <Button onClick={() => this.setModalTopStatus(false)} color="primary"> Fechar </Button>
+                <Button onClick={() => { this.onClickButtonConfirmarComentario(this) }} type="submit" color="primary"> Ver perfil completo </Button>
               </DialogActions>
             </Dialog>
 

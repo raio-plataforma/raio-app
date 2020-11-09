@@ -314,10 +314,7 @@ router.post('/apply', passport.authenticate('jwt', { session: false }), async (r
         User.findOne({ _id: req.body.user_id }).then(user => {
             // console.log(user)
 
-            const jobProf = new JobProfessional({
-                _job: req.body.id,
-                _user: req.body.user_id
-            })
+            const jobProf = new JobProfessional(req.body)
 
             jobProf
                 .save()

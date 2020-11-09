@@ -1,3 +1,4 @@
+const { json } = require('body-parser')
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
@@ -20,6 +21,9 @@ const JobProfesssionalSchema = new Schema(
       default: 'Inscrito',
       enum: ['Inscrito', 'Triagem de perfil', 'Validação  tech', 'Validade de disponibilidade', 'Top', 'Contratado']
     },
+    dadosCamposPersonalizado: {
+      type: Object
+    }
   },
   {
     timestamps: true,

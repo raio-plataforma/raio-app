@@ -45,6 +45,27 @@ export default class PaginaVaga extends Component {
     });
   }
 
+  async submitForm(e, shelf) {
+    e.preventDefault();
+    let dadosCamposPersonalizado = [];
+    let dadosInputsForm = new FormData(e.target);
+    dadosInputsForm.forEach((valor, chave) => {
+      if (valor != "") {
+        dadosCamposPersonalizado.push({
+          nome: chave,
+          valor
+        })
+      }
+    });
+
+    await shelf.setState({ isLoaded: true, erro: null });
+
+    ApiProfissional.prototype.applyJob({
+      _job: shelf.state.vaga._id,
+      _user: shelf.state.user.id,
+      dadosCamposPersonalizado
+    }, '');
+  }
 
   async setModalCandidaturaStatus(modalCandidaturaStatus) {
     this.setState({
@@ -118,7 +139,7 @@ export default class PaginaVaga extends Component {
                               <>
                                 {
                                   this.state.vaga.camposPersonalizadoCandidatura == "" ? (
-                                    <Button variant="contained" color="secondary" onClick={() => { ApiProfissional.prototype.applyJob({ id: this.state.vaga._id, user_id: this.state.user.id }, '') }}>
+                                    <Button variant="contained" color="secondary" onClick={() => { ApiProfissional.prototype.applyJob({ _job: this.state.vaga._id, _user: this.state.user.id }, '') }}>
                                       <PlaylistAddCheckIcon /> Candidatura simplificada
                                     </Button>
                                   ) : (
@@ -159,25 +180,28 @@ export default class PaginaVaga extends Component {
               onClose={() => this.setModalCandidaturaStatus(false)}
               aria-labelledby="form-dialog-title">
               <DialogTitle id="form-dialog-title">Formulario de candidatura</DialogTitle>
-              <DialogContent>
-                {
-                  this.state.vaga.camposPersonalizadoCandidatura.map((campo) => (
-                    <TextField
-                      fullWidth
-                      margin="dense"
-                      type={campo.tipo}
-                      id={campo.nome}
-                      name={campo.nome}
-                      label={campo.nome}
-                      helperText={campo.info}
-                    />
-                  ))
-                }
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={() => this.setModalCandidaturaStatus(false)} color="primary"> Cancelar </Button>
-                <Button onClick={() => { }} type="submit" color="primary"> Confirmar </Button>
-              </DialogActions>
+              <form onSubmit={(e)=>{this.submitForm(e, this)}}>
+                <DialogContent>
+                  {
+                    this.state.vaga.camposPersonalizadoCandidatura.map((campo) => (
+                      <TextField
+                        required
+                        fullWidth
+                        margin="dense"
+                        type={campo.tipo}
+                        id={campo.nome}
+                        name={campo.nome}
+                        label={campo.nome}
+                        helperText={campo.info}
+                      />
+                    ))
+                  }
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={() => this.setModalCandidaturaStatus(false)} color="primary"> Cancelar </Button>
+                  <Button type="submit" color="primary"> Confirmar </Button>
+                </DialogActions>
+              </form>
             </Dialog>
 
             <br /><br /><br /><br />
