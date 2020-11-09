@@ -34,7 +34,7 @@ export default class PaginaVagaEmpresa extends Component {
 
     // Fazendo conta do valor a ser pago
     var porcentagemDeLucro = 30;
-    var valorCalculoDesconto = parseFloat(listaVagas.cache * ( (100-porcentagemDeLucro) / 100));
+    var valorCalculoDesconto = parseFloat(listaVagas.cache * ((100 - porcentagemDeLucro) / 100));
     listaVagas.valorDevedor = parseFloat(parseFloat(listaVagas.cache) - parseFloat(valorCalculoDesconto));
 
     // Gerando link de pagamento para colocar no botoão
@@ -80,7 +80,7 @@ export default class PaginaVagaEmpresa extends Component {
 
                     <Grid item xs={12} md={8}>
                       <h1>Aguardando pagamento</h1>
-                      <Typography variant="body1" color="initial">Essa vaga ainda não está vinculada em nosso site pois, está aguardando ser paga, só apos o pagamento ser aprovado que a vaga estará visivel no site para os candidatos.</Typography>
+                      <Typography variant="body1" color="initial">Essa vaga ainda não está vinculada em nosso site.  Estamos aguardando a identificação do pagamento. Com a identificação do pagamento, a vaga estará visível no site para receber candidaturas.</Typography>
                       <br />
                       <b><h2 style={{ margin: "0px 0px 10px" }}>R$ {this.state.listaVagas.valorDevedor}</h2></b>
                       <Button variant="contained" onClick={() => { window.open(this.state.linkChekoutPagamento, '_blank') }}>
@@ -104,8 +104,8 @@ export default class PaginaVagaEmpresa extends Component {
                     </Grid>
 
                     <Grid item xs={12} md={8}>
-                      <h1>Pagamento negado :(</h1>
-                      <Typography variant="body1" color="initial">Parece que o pagamento foi negado pela operadora de cartão ou pelo mercado pago, você precisa entrar em contato com seu banco para resolver essa pendencia, apos fazer isso tente fazer o pagamento novamente usando o botão a baixo.</Typography>
+                      <h1>Pagamento negado</h1>
+                      <Typography variant="body1" color="initial">Parece que o pagamento foi negado pela operadora de cartão ou pelo mercado pago. Solicitamos a gentileza de contatar seu banco ou operadora de crédito para resolver essa pendência. Depois de resolvido tente fazer o pagamento novamente usando o botão a baixo. </Typography>
                       <br />
                       <b><h2 style={{ margin: "0px 0px 10px" }}>R$ {this.state.listaVagas.valorDevedor}</h2></b>
                       <Button variant="contained" onClick={() => { window.open(this.state.linkChekoutPagamento, '_blank') }}>
@@ -131,11 +131,11 @@ export default class PaginaVagaEmpresa extends Component {
                       <br /><br />
                       <h1>Sua vaga está em processo de atração de candidatos!</h1>
                       <Typography variant="body1" color="initial">
-                        Quando sua vaga está nesse processo significa a vaga está visivel ao publico em nosso site, agora é o momento de esperar as candidaturas acontecerem isso pode demorar algumas semanas.
+                        Quando sua vaga está nessa etapa, significa que a vaga está visível ao público em nosso site. Agora é o momento de esperar o cadastro das candidaturas. Isso pode levar alguns dias.
                       </Typography>
                       <br />
                       <Typography variant="body1" color="initial">
-                        Apos chegar a 10 candidaturas sua vaga entrará em processo de Seleção, esse processo é quando a equipe RAIO começa a trabalhar na seleção dos 3 melhores taletons para sua vaga.
+                        Após chegar a 10 candidaturas ou atingirmos 7 dias de publicação, sua vaga entrará migrará para etapa de Seleção, esse momento do processo é quando a equipe RAIO começa a trabalhar na seleção dos melhores talentos para sua vaga.
                       </Typography>
                     </Grid>
                   </Grid>
@@ -156,11 +156,11 @@ export default class PaginaVagaEmpresa extends Component {
                     <Grid item xs={12} md={8}>
                       <h1>Sua vaga está em processo de seleção dos talentos!</h1>
                       <Typography variant="body1" color="initial">
-                        A equipe RAIO está trabalhando para selecionar os 3 melhores talentos para tí, apartir das pessoas que se inscreveram na sua vaga.
+                        A equipe RAIO está trabalhando para selecionar os melhores talentos para você, a partir das pessoas que se inscreveram na sua vaga.
                       </Typography>
                       <br />
                       <Typography variant="body1" color="initial">
-                        Esse processo pode demorar até 1 semana, apos ele você poderá ver o nome, foto, telefone e muito mais sobre os 3 candidatos mais talentosos do seu processo.
+                        Esse processo pode levar até 10 dias. Em seguida você poderá acessar as informações das candidaturas mais talentosas para ocupar sua vaga.
                       </Typography>
                     </Grid>
                   </Grid>
@@ -181,11 +181,11 @@ export default class PaginaVagaEmpresa extends Component {
                     <Grid item xs={12} md={8}>
                       <h1>Candidatos selecionados!</h1>
                       <Typography variant="body1" color="initial">
-                        E chegamos ao ultimo processo da sua vaga, selecionamentos os 3 melhores talentos que participaração do processo seletivo.
+                        E chegamos a última etapa para o preenchimento da sua vaga, selecionamos os melhores talentos que participaram do processo seletivo.
                       </Typography>
                       <br />
                       <Typography variant="body1" color="initial">
-                        Logo a baixo irá encontrar dados sobre os 3 melhores talentos e tambem comentarios da equipe RAIO justificando por que esse candidato foi a escolha.
+                        Logo a baixo encontrará informações sobre cada um dos talentos, bem como comentários da equipe RAIO, com intuito de apoiar sua decisão.
                       </Typography>
                     </Grid>
 
@@ -209,7 +209,7 @@ export default class PaginaVagaEmpresa extends Component {
                       </Typography>
                         <br />
                         <Typography variant="body1" color="initial">
-                          Para mais detalhes do por que entre em contato com a equipe.
+                          Para mais detalhes entre em contato: comercial@raio.agency
                       </Typography>
                       </center>
                     </Grid>
@@ -233,7 +233,7 @@ export default class PaginaVagaEmpresa extends Component {
                       </Typography>
                         <br />
                         <Typography variant="body1" color="initial">
-                          Para mais detalhes do por que entre em contato com a equipe.
+                          Para mais detalhes contate: comercial@raio.agency
                       </Typography>
                       </center>
                     </Grid>
