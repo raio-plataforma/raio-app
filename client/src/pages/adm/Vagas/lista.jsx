@@ -58,7 +58,9 @@ export default class admVagasListaPagina extends Component {
       isLoaded: false,
     })
 
-    let vagasList = await ApiVaga.prototype.getTodas("", "Aguardando seleção");
+    let list1 = await ApiVaga.prototype.getTodas("", "Atraindo candidatos");
+    let list2 = await ApiVaga.prototype.getTodas("", "Aguardando seleção");
+    let vagasList = list1.concat(list2);
 
     await this.setState({
       isLoaded: true,
