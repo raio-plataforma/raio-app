@@ -4,7 +4,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default function SwitchLabels({ value, name, label, register, onChange, error }) {
+export default function SwitchLabels({ required, value, name, label, register, onChange, error }) {
   const hasValue = value || false
   const [state, setState] = React.useState(hasValue);
 
@@ -18,6 +18,7 @@ export default function SwitchLabels({ value, name, label, register, onChange, e
       <FormControlLabel
         control={
           <Checkbox
+            required={required}
             inputRef={register}
             name={name}
             checked={state}

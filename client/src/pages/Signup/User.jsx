@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useStoreActions, useStoreState } from 'easy-peasy'
-import uuid from 'uuid'
-
-import Typography from '@material-ui/core/Typography'
+import SwitchLabels from "../../comps/Switch";
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid'
 import Button from '../../comps/Button'
@@ -57,7 +55,7 @@ const Users = () => {
     } else {
       setCarregando(false);
       setTimeout(() => {
-        Inputmask({mask: ["+99 (99) 9999-9999", "+99 (99) 9 9999-9999", "+99 (999) 9 9999-9999"]}).mask("#phone");
+        Inputmask({ mask: ["+99 (99) 9999-9999", "+99 (99) 9 9999-9999", "+99 (999) 9 9999-9999"] }).mask("#phone");
       }, 500);
     }
 
@@ -192,6 +190,20 @@ const Users = () => {
                           options={color}
                           register={register}
                           label="Auto Declaração"
+                        />
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <SwitchLabels
+                          required
+                          label={<>Você concorda com a <a href="https://raio.agency/politica-de-diversidade/" target="_blank" style={{textDecoration:"underline"}}>Política de Diversidade</a> do nosso site?</>}
+                        />
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <SwitchLabels
+                          required
+                          label={<>Você concorda com os <a href="https://raio.agency/termos-de-uso/" target="_blank" style={{textDecoration:"underline"}}>Termos de uso</a> do nosso site?</>}
                         />
                       </Grid>
                     </Grid>
