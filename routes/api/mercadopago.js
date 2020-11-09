@@ -13,7 +13,7 @@ router.get('/ipn', async (req, res) => {
     async function ativarCompra(id) {
         const job = await Job.findById(id).populate('company');
         if (job._id) {
-            const jobEdit = await Job.findOneAndUpdate({_id: id}, { status: "Visivel" });
+            const jobEdit = await Job.findOneAndUpdate({_id: id}, { status: "Atraindo candidatos" });
             await jobEdit.save();
             enviarEmail({
                 from: 'RAIO <contato@raio.agency>',
