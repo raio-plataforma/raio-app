@@ -46,7 +46,6 @@ const EnterpriseSchema = new Schema(
     },
     identity_content: {
       type: Boolean,
-      required: true,
     },
     identity_segments: {
       type: Array,
@@ -65,8 +64,7 @@ const EnterpriseSchema = new Schema(
       required: true
     },
     apan_associate: {
-      type: Boolean,
-      required: true
+      type: Boolean
     },
     other_states: {
       type: Array,

@@ -97,30 +97,20 @@ router.post('/register', passport.authenticate('jwt', { session: false }),
 
     if (req.user) {
       // Create new company
-      const newEnterprise = new Enterprise({
+      let dataUser = {
         user_id: req.user.id,
-        user_email: req.user.email,
-        name: req.body.name,
-        enterprise_name: req.body.enterprise_name,
-        foundation_date: req.body.foundation_date,
-        presentation: req.body.presentation,
-        links: req.body.links,
-        diversity_functions: req.body.diversity_functions,
-        identity_content: req.body.identity_content,
-        cnpj_type: req.body.cnpjType,
-        identity_segments: req.body.identity_segments,
-        business_segments: req.body.business_segments,
-        business_fields: req.body.business_fields,
-        other_states: req.body.other_states,
-        city: req.body.city,
-        state: req.body.state,
-        apan_associate: req.body.apan_associate
-      })
+        user_email: req.user.email
+      }
+      let data = Object.assign(dataUser,req.body);
+      const newEnterprise = new Enterprise(data)
 
       newEnterprise
         .save()
         .then(enterprise => res.json(enterprise))
-        .catch(err => console.log(err))
+        .catch(err => {
+          console.log(err)
+          res.status(400).json(err)
+        })
 
     } else {
       errors.user = 'Usuário não encontrado para a criação da empresa'

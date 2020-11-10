@@ -45,6 +45,9 @@ const ProfessionalSchema = new Schema(
     formation_institution: {
       type: String,
     },
+    ano_formacao: {
+      type: String,
+    },
     cnpj: {
       type: Boolean,
     },

@@ -33,7 +33,7 @@ const EditProfessional = ({ match }) => {
   const [erro, setErro] = useState(null)
 
   const { register, handleSubmit, errors } = useForm()
-  const [numCols, setCols] = useState(3)
+  const [numCols, setCols] = useState(4)
   const [hasIdentity, toggleIdentity] = useState(false)
   const getProfessionalById = useStoreActions(actions => actions.professional.getProfessionalById)
   const editProfessional = useStoreActions(actions => actions.professional.editProfessional)
@@ -57,7 +57,7 @@ const EditProfessional = ({ match }) => {
 
     if ((String(userPhotos) !== 'undefined') && (String(professional) !== 'undefined')) {
       setCarregando(false);
-      
+
       if (professional.cnpj == true) {
         setCnpjState(true);
       }
@@ -70,7 +70,6 @@ const EditProfessional = ({ match }) => {
       });
     }
 
-    professional && professional.cnpj ? setCols(3) : setCols(4)
     professional && professional.identity_content ? toggleIdentity(true) : toggleIdentity(false)
   }, [user, userType, getUser, professional, getProfessionalById, setCarregando, setErro]);
 
@@ -197,7 +196,7 @@ const EditProfessional = ({ match }) => {
                       </Grid>
                     </Grid>
                     <Grid container spacing={2}>
-                      <Grid item xs={6}>
+                      <Grid item md={4} xs={6}>
                         <Select
                           name="education"
                           value={professional.education}
@@ -211,7 +210,7 @@ const EditProfessional = ({ match }) => {
                           label="Nível de escolaridade"
                         />
                       </Grid>
-                      <Grid item xs={6}>
+                      <Grid item md={4} xs={6}>
                         <TextField
                           name="formation_institution"
                           fullWidth
@@ -221,6 +220,22 @@ const EditProfessional = ({ match }) => {
                           inputRef={register}
                           label="Instituição ou processo de formação"
                           variant="filled"
+                        />
+                      </Grid>
+                      <Grid item md={4} xs={6}>
+                        <TextField
+                          required
+                          name="ano_formacao"
+                          fullWidth
+                          defaultValue={professional.ano_formacao}
+                          error={errors.ano_formacao && errors.ano_formacao.message}
+                          helperText={errors.ano_formacao && errors.ano_formacao.message}
+                          inputRef={register}
+                          label="Ano de formação"
+                          variant="filled"
+                          type="number"
+                          min="1800"
+                          max="2200"
                         />
                       </Grid>
                     </Grid>
@@ -360,7 +375,7 @@ const EditProfessional = ({ match }) => {
                     <br /><br /><br />
                     <Grid container spacing={1}>
                       {
-                        userPhotos.resposta.map((foto) => (
+                        userPhotos?.resposta?.map((foto) => (
                           <Grid item xs={12} md={3}>
                             <Card className="card">
                               <CardHeader

@@ -145,7 +145,7 @@ const Professionals = () => {
                     </Grid>
                 </Grid>
                 <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                    <Grid item md={4} xs={12}>
                         <Select
                             name="education"
                             error={errors.education && errors.education.message}
@@ -156,7 +156,7 @@ const Professionals = () => {
                             label="Nível de escolaridade"
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item md={4} xs={6}>
                         <TextField
                             required
                             name="formation_institution"
@@ -166,6 +166,21 @@ const Professionals = () => {
                             inputRef={register}
                             label="Instituição ou processo de formação"
                             variant="filled"
+                        />
+                    </Grid>
+                    <Grid item md={4} xs={6}>
+                        <TextField
+                            required
+                            name="ano_formacao"
+                            fullWidth
+                            error={errors.ano_formacao && errors.ano_formacao.message}
+                            helperText={errors.ano_formacao && errors.ano_formacao.message}
+                            inputRef={register}
+                            label="Ano de formação"
+                            variant="filled"
+                            type="number"
+                            min="1800"
+                            max="2200"
                         />
                     </Grid>
                 </Grid>

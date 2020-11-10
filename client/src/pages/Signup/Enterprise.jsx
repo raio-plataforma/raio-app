@@ -235,6 +235,7 @@ const Enterprise = () => {
         <Switch
           label="Sua empresa é vocacionada para conteúdo identitário?"
           name="identityContent"
+          id="identityContent"
           error={errors.identityContent && errors.identityContent.message}
           onChange={e => handleRadio('identityContent', e.target.value)}
         />
