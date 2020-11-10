@@ -5,7 +5,7 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import CloseButton from './CloseButton'
-
+import LanguageIcon from '@material-ui/icons/Language';
 import Modal from '../../comps/Modal'
 import SignupPopup from '../../components/popups/Signup'
 import Button from '../Button'
@@ -111,6 +111,7 @@ const Header = () => {
 
         <StyledAside className={menuOpened && 'opened'} >
           <div className="buttons">
+                <LinkButtonNav href='https://raio.agency/' > <LanguageIcon /> Site </LinkButtonNav>
             {auth && auth.isAuthenticated ? (
               <div className="navbarUserLogado">
                 <LinkButtonNav to={`/dashboard/${type}`}> <HomeIcon /> Início </LinkButtonNav>
