@@ -21,7 +21,7 @@ const VacancyList = () => {
   const [carregando, setCarregando] = useState(true)
   const [erro, setErro] = useState(null)
 
-  const vacancies = useStoreState(state => state.vacancy.vacancies)
+  const vacancies = []
   const getAllVacancies = useStoreActions(actions => actions.vacancy.getAllVacancies)
   const user = useStoreState(state => state.user.user)
   const userType = useStoreState(state => state.auth.auth.user)
@@ -37,7 +37,7 @@ const VacancyList = () => {
       getAllVacancies(user.enterprise_id);
     }
 
-    if (String(vacancies) !== '') {
+    if ((String(vacancies) !== '') || (String(vacancies) !== [])) {
       setCarregando(false);
     }
   });
