@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "client-install": "yarn --cwd client",
     "client-build": "cd client; yarn run build",
-    "start": "yarn; yarn run client-install; yarn run client-build; node -r dotenv/config server.js",
+    "start": "node -r dotenv/config server.js",
     "server": "nodemon -r dotenv/config server.js",
     "client": "yarn --cwd client start",
     "dev-local-api": "secretOrKey='secret' siteURL='http://localhost:5000/' SMTP_HOST='mail.raio.agency' SMTP_PORT=465 SMTP_PWD='Raio123!@#' SMTP_USER='admin@raio.agency' mongoURI='mongodb://localhost:27017/rio?authSource=admin' NODE_ENV=development concurrently \"yarn run server\"",
