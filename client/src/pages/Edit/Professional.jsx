@@ -288,7 +288,7 @@ const EditProfessional = ({ match }) => {
                           professional.links.toLowerCase().split(',') :
                           professional.links
                         }
-                        label="Links para site e redes sociais da empresa"
+                        label="Link para sites, portfólios e redes sociais"
                         error={errors.links && errors.links.message}
                         register={register({
                           required: 'Esse campo é obrigatório',

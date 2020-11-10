@@ -121,7 +121,7 @@ const Enterprise = () => {
         <br />
         <ChipOptions
           name="links"
-          label="Links para site e redes sociais da empresa"
+          label="Link para sites, portfólios e redes sociais"
           autocomplete="false"
           error={errors.links && errors.links.message}
           register={register({
