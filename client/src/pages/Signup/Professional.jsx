@@ -174,7 +174,7 @@ const Professionals = () => {
                     <Grid item xs={numCols}>
                         <Switch
                             name="pcd"
-                            label="PcD"
+                            label="PcD (Pessoas com deficiência)"
                             register={register}
                         />
                     </Grid>
@@ -188,7 +188,7 @@ const Professionals = () => {
                     <Grid item xs={numCols}>
                         <Switch
                             name="cnpj"
-                            label="Possui CNPJ"
+                            label="Tem CNPJ"
                             error={errors.cnpj_type && errors.cnpj_type.message}
                             onChange={(e) => hideOptionCNPJ(e.target.checked)}
                             register={register}
@@ -224,7 +224,7 @@ const Professionals = () => {
                 <Grid item xs={12}>
                     <ChipOptions
                         name="links"
-                        label="Links para site e redes sociais da empresa"
+                        label="Link para sites, portfólios e redes sociais"
                         error={errors.links && errors.links.message}
                         register={register({
                             required: 'Esse campo é obrigatório',

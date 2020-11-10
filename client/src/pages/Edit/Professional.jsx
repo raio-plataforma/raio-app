@@ -229,7 +229,7 @@ const EditProfessional = ({ match }) => {
                       <Grid item xs={numCols}>
                         <Switch
                           name="pcd"
-                          label="PcD"
+                          label="PcD (Pessoas com deficiência)"
                           value={professional.pcd}
                           register={register}
                         />
@@ -245,7 +245,7 @@ const EditProfessional = ({ match }) => {
                       <Grid item xs={numCols}>
                         <Switch
                           name="cnpj"
-                          label="Possui CNPJ"
+                          label="Tem CNPJ"
                           error={errors.cnpj_type && errors.cnpj_type.message}
                           onChange={(e) => hideOptionCNPJ(e.target.checked)}
                           value={professional.cnpj}
