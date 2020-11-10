@@ -50,14 +50,20 @@ export default class admListaPagina extends Component {
   }
 
   async onClickDeletarUser(id, shelf) {
-    let deletarUser = await ApiUser.prototype.deleteById(id);
+    try {
+      let deletarUser = await ApiUser.prototype.deleteById(id);
 
-    if (deletarUser.message == "Excluído") {
-      shelf.setModalSucessoStatus("Usuario excluído com sucesso!");
-      shelf.carregarDadosTabela();
-    } else {
-      shelf.setState({
-        erro: String(deletarUser)
+      if (deletarUser.message == "Excluído") {
+        shelf.setModalSucessoStatus("Usuario excluído com sucesso!");
+        shelf.carregarDadosTabela();
+      } else {
+        await shelf.setState({
+          erro: String(deletarUser),
+        })
+      }
+    } catch (error) {
+      await shelf.setState({
+        erro: "Não é possivel remover um administrador de nível alto criado pelo sistema.",
       })
     }
   }
@@ -101,7 +107,7 @@ export default class admListaPagina extends Component {
                 headCells={this.state.tablesHeads}
                 list={this.state.usersAdmsList}
                 btnAddLink="/painel/admin/cadastro/administrador"
-                btnAddLabel={(<span><AddIcon style={{marginLeft:"0px"}}/> Criar novo</span>)}
+                btnAddLabel={(<span><AddIcon style={{ marginLeft: "0px" }} /> Criar novo</span>)}
                 actions={[
                   {
                     actionCampo: "_id",
