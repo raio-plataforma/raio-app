@@ -60,7 +60,6 @@ export default class admProfissionaisListaPagina extends Component {
     })
 
     let profissionalLista = await ApiProfissional.prototype.getTodos();
-    console.log(profissionalLista);
 
     await this.setState({
       isLoaded: true,
