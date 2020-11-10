@@ -14,7 +14,7 @@ router.post('/editar/status/candidatura/:_id', async (req, res) => {
     const body = req.body;
     const params = req.params;
     try {
-        const response = await JobProfessional.findOne({ _id: params._id }).update({status: body.status, comentario: body.comentario});
+        const response = await JobProfessional.findOne({ _id: params._id }).update({ status: body.status, comentario: body.comentario });
         res.status(200).json({ resposta: response });
     } catch (error) {
         console.error(error);
@@ -27,16 +27,16 @@ router.get('/all/count', (req, res) => {
     let finQuery = {};
     let enterprise_id = req.query.enterprise_id;
     let status = req.query.status;
-    if(status != ""){
+    if (status != "") {
         finQuery.status = status;
-    }else
-    if(enterprise_id != ""){
-        finQuery.enterprise_id = enterprise_id;
-    }
+    } else
+        if (enterprise_id != "") {
+            finQuery.enterprise_id = enterprise_id;
+        }
 
     Job.countDocuments(finQuery).then(count => {
-            res.json({count})
-        })
+        res.json({ count })
+    })
         .catch((err) => {
             console.error(err);
             res.status(404).json({
@@ -48,8 +48,8 @@ router.get('/all/count', (req, res) => {
 
 router.get('/myJobs/all/count', (req, res) => {
     JobProfessional.countDocuments({ _user: req.query.userId }).then(count => {
-            res.json({count})
-        })
+        res.json({ count })
+    })
         .catch((err) => {
             console.error(err);
             res.status(404).json({
@@ -303,27 +303,16 @@ router.post('/admin', passport.authenticate('jwt', { session: false }), async (r
 // @desc    Create new job
 // @access  Private
 router.post('/apply', passport.authenticate('jwt', { session: false }), async (req, res) => {
-    // console.log(req.body.id)
-
-    const existing = await JobProfessional.findOne({ _job: req.body.id, _user: req.body.user_id }).populate('_user').populate('_job');
-    if (existing) return res.status(200).json(existing)
-
     Job.findOne({ _id: req.body.id }).then(job => {
-        // console.log(job)
-
         User.findOne({ _id: req.body.user_id }).then(user => {
-            // console.log(user)
-
             const jobProf = new JobProfessional(req.body)
 
             jobProf
                 .save()
                 .then(jobProfessional => {
-                    // console.log(jobProf)
                     JobProfessional.findOne({ _id: jobProf._id }).populate('_user').populate('_job').then(jp => {
                         sendEmailNewJobApply(jp);
-
-                        return res.status(200).json(jp)
+                        return res.status(200).json(jp);
                     })
                 })
                 .catch(err => {
