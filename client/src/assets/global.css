@@ -298,7 +298,8 @@ img.item-galeria:hover{
     transition: 1s;
 }
 .react-trello-board{
-    background: transparent;
+    background: transparent!important;
+    background-color: transparent!important;
     height: 57vh;
 }
 .react-trello-board .react-trello-lane{
