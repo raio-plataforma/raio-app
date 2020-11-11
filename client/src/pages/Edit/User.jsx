@@ -88,7 +88,7 @@ const EditUser = ({ match }) => {
                       <label htmlFor="arquivo">
                         <Button variant="contained" component="label" className="btn-transparente">
                           <CloudUploadIcon /> Mudar foto
-                          <input type="file" name="arquivo" id="arquivo" accept="image/*" onChange={() => { document.getElementById('uploadForm').submit(); }} style={{ display: "none" }} />
+                          <input type="file" name="arquivo" id="arquivo" accept="image/x-png,image/gif,image/jpeg" onChange={() => { document.getElementById('uploadForm').submit(); }} style={{ display: "none" }} />
                         </Button>
                       </label>
                     </form>

@@ -368,7 +368,7 @@ const EditProfessional = ({ match }) => {
                       <label htmlFor="arquivo">
                         <Button variant="contained" component="label" className="btn-transparente">
                           <CloudUploadIcon /> Subir nova foto de trabalho
-                          <input type="file" name="arquivo" id="arquivo" accept="image/*" onChange={() => { document.getElementById('uploadForm').submit(); }} style={{ display: "none" }} />
+                          <input type="file" name="arquivo" id="arquivo" accept="image/x-png,image/gif,image/jpeg" onChange={() => { document.getElementById('uploadForm').submit(); }} style={{ display: "none" }} />
                         </Button>
                       </label>
                     </form>
